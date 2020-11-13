@@ -32,7 +32,6 @@
         android:layout_height="54dp"
         android:background="@color/light_gray_f0"
         app:labelVisibilityMode="labeled"
-        app:itemIconTint="@color/primary_black"
         app:itemTextColor="@color/primary_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
