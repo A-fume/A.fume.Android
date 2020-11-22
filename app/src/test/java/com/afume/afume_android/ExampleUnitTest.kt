@@ -1,4 +1,4 @@
-package com.example.afume_android
+package com.afume.afume_android
 
 import org.junit.Test
 

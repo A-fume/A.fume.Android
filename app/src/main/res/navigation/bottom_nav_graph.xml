@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.afume_android.home.HomeFragment"
+        android:name="com.afume.afume_android.home.HomeFragment"
         android:label="home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.afume_android.search.SearchFragment"
+        android:name="com.afume.afume_android.search.SearchFragment"
         android:label="SearchFragment" >
         <action
             android:id="@+id/action_searchFragment_to_myPageFragment"
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/myPageFragment"
-        android:name="com.example.afume_android.my.MyPageFragment"
+        android:name="com.afume.afume_android.my.MyPageFragment"
         android:label="fragment_mypage"
         tools:layout="@layout/fragment_mypage" />
 </navigation>
