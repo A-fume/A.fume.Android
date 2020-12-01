@@ -12,6 +12,7 @@
     <color name="dark_gray_7d">#7d7d7d</color>
     <color name="gray_cd">#cdcdcd</color>
     <color name ="light_gray_f0">#f0f0f0</color>
+    <color name="light_gray_border">#f3f2ee</color>
 
     <color name="primary_black">#282725</color>
 

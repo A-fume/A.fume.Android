@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="vmperfume"
+            type="com.afume.afume_android.search.DefaultRecyclerViewPerfumeViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/img_perfume"
+            android:layout_width="156dp"
+            android:layout_height="156dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:background="@drawable/border_light_gray_line_5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_mypage_selected" />
+
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_perfume"
+            app:layout_constraintEnd_toEndOf="@+id/img_perfume"
+            app:srcCompat="@drawable/selector_heart_rv_perfume_favorite" />
+
+        <TextView
+            android:id="@+id/rv_item_txt_perfume_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:includeFontPadding="false"
+            android:text="@{vmperfume.brand}"
+            app:layout_constraintStart_toStartOf="@+id/img_perfume"
+            app:layout_constraintTop_toBottomOf="@+id/img_perfume" />
+
+        <TextView
+            android:id="@+id/rv_item_txt_perfume_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="16dp"
+            android:includeFontPadding="false"
+            android:text="@{vmperfume.name}"
+            android:textColor="@color/primary_black"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rv_item_txt_perfume_brand"
+            app:layout_constraintTop_toBottomOf="@+id/rv_item_txt_perfume_brand" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
