@@ -41,9 +41,9 @@ class SearchFragment : Fragment() {
         rvFilterAdapter.notifyDataSetChanged()
     }
     private fun goToSelectFilters(ctx:Context){
-        val intent=Intent(ctx,
-            FilterActivity::class.java)
+        val intent=Intent(ctx, FilterActivity::class.java)
         startActivity(intent)
+
     }
 
 

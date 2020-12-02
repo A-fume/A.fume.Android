@@ -15,8 +15,7 @@ class FilterActivity : AppCompatActivity() {
 
         initViewPager()
         setUpTabWithViewPager()
-
-
+        overridePendingTransition(R.anim.slide_down,R.anim.slide_up)
 
 
     }
@@ -36,10 +35,16 @@ class FilterActivity : AppCompatActivity() {
     private fun setUpTabWithViewPager(){
         binding.tabFilter.setupWithViewPager(binding.vpFilter)
         binding.tabFilter.apply {
-            getTabAt(0)?.text="계열"
+            val tab1 = getTabAt(0)
+            tab1?.text="계열"
+
+            val badge1 = tab1?.orCreateBadge
+            badge1?.number=4
+
             getTabAt(1)?.text="브랜드"
             getTabAt(2)?.text="키워드"
         }
     }
-    
+
+
 }
