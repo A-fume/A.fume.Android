@@ -7,14 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.afume.afume_android.data.vo.HomePerfumeListData
 import com.afume.afume_android.data.vo.RecommendPerfumeListData
 import com.afume.afume_android.databinding.FragmentHomeBinding
+import com.afume.afume_android.home.adapter.PopularListAdapter
 import com.afume.afume_android.home.adapter.RecommendListAdapter
 
 
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     lateinit var recommendAdapter : RecommendListAdapter
+    lateinit var popularAdapter : PopularListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -28,6 +31,7 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         initRecommendList()
+        initPopularList()
     }
 
     private fun initRecommendList(){
@@ -66,6 +70,40 @@ class HomeFragment : Fragment() {
         snapHelper.attachToRecyclerView(binding.rvHomeRecommend)
 
         binding.indicatorHome.attachTo(binding.rvHomeRecommend)
+    }
+
+    private fun initPopularList(){
+        popularAdapter = PopularListAdapter(requireContext())
+        binding.rvHomePopular.adapter = popularAdapter
+
+        popularAdapter.data = mutableListOf(
+            HomePerfumeListData(
+                image = null,
+                brand = "1번 브랜드",
+                name = "1번향수",
+                like = 0
+            ),
+            HomePerfumeListData(
+                image = null,
+                brand = "2번 브랜드",
+                name = "2번향수",
+                like = 1
+            ),
+            HomePerfumeListData(
+                image = null,
+                brand = "3번 브랜드",
+                name = "3번향수",
+                like = 1
+            ),
+            HomePerfumeListData(
+                image = null,
+                brand = "4번 브랜드",
+                name = "4번향수",
+                like = 0
+            )
+        )
+        popularAdapter.notifyDataSetChanged()
+
     }
 
 }

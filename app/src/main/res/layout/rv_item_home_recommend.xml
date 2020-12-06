@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.afume.afume_android.data.vo.RecommendPerfumeListData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_home_recommend"
+            android:layout_width="172dp"
+            android:layout_height="172dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginRight="45dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/dummy_perfume_image" />
+
+        <TextView
+            android:id="@+id/txt_home_recommend_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@{item.brand}"
+            android:textColor="@color/gray_cd"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_home_recommend" />
+
+        <TextView
+            android:id="@+id/txt_home_recommend_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/notosans_bold"
+            android:includeFontPadding="false"
+            android:text="@{item.name}"
+            android:textColor="@color/black_1d"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/txt_home_recommend_brand"
+            app:layout_constraintTop_toBottomOf="@+id/txt_home_recommend_brand" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_home_hash_tag"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="18dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txt_home_recommend_name"
+            app:layout_constraintTop_toBottomOf="@+id/txt_home_recommend_name"
+            tools:listitem="@layout/rv_item_home_hash_tag" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
