@@ -106,6 +106,25 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView3"
                     tools:listitem="@layout/rv_item_home_recommend" />
 
+                <com.chahinem.pageindicator.PageIndicator
+                    android:id="@+id/indicator_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView2"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                    app:piDefaultColor="@color/light_gray_f0"
+                    app:piDotSpacing="6dp"
+                    app:piSelectedColor="@color/point_beige"
+                    app:piInitialPadding="0dp"
+                    app:piDotBound="70dp"
+                    app:piSize1="6dp"
+                    app:piSize2="6dp"
+                    app:piSize3="6dp"
+                    app:piSize4="6dp"
+                    app:piSize5="6dp"
+                    app:piSize6="6dp" />
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

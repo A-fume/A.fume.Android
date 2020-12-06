@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -38,8 +39,6 @@ android {
 }
 
 dependencies {
-
-
     def navigation_ktx_version = '2.2.2'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -74,4 +73,8 @@ dependencies {
     //Okhttp
     implementation 'com.squareup.okhttp3:okhttp:3.14.9'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+
+    //CircleIndicator
+    implementation 'com.github.chahine:pageindicator:0.2.8'
+
 }

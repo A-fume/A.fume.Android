@@ -64,6 +64,8 @@ class HomeFragment : Fragment() {
 
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.rvHomeRecommend)
+
+        binding.indicatorHome.attachTo(binding.rvHomeRecommend)
     }
 
 }
