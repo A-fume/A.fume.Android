@@ -53,7 +53,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/txt_home_name_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -76,8 +76,8 @@
                     android:text="어퓸을 사용할수록\n더 잘 맞는 향수를 보여드려요"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    app:layout_constraintStart_toStartOf="@+id/txt_home_name_title"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_home_name_title" />
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -151,7 +151,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/txt_home_name_subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -175,7 +175,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_home_name_subtitle"
                     tools:listitem="@layout/rv_item_home_popular"/>
 
                 <ImageView
@@ -273,6 +273,47 @@
                     tools:listitem="@layout/rv_item_home_new" >
 
                 </androidx.recyclerview.widget.RecyclerView>
+
+                <ImageView
+                    android:id="@+id/btn_home_more"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginBottom="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_home_new"
+                    app:srcCompat="@drawable/border_gray_cd_line_square" />
+
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_home_more"
+                    app:layout_constraintStart_toEndOf="@+id/textView15"
+                    app:layout_constraintTop_toTopOf="@+id/btn_home_more"
+                    app:srcCompat="@drawable/btn_more"
+                    android:layout_marginStart="6dp" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_medium"
+                    android:includeFontPadding="false"
+                    android:text="더 보기"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="15sp"
+                    android:layout_marginRight="9dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_home_more"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_home_more"
+                    app:layout_constraintStart_toStartOf="@+id/btn_home_more"
+                    app:layout_constraintTop_toTopOf="@+id/btn_home_more"
+                    android:layout_marginEnd="9dp" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
