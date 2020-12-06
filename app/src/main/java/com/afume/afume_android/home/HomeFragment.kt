@@ -11,6 +11,7 @@ import com.afume.afume_android.data.vo.HomePerfumeListData
 import com.afume.afume_android.data.vo.RecommendPerfumeListData
 import com.afume.afume_android.databinding.FragmentHomeBinding
 import com.afume.afume_android.home.adapter.PopularListAdapter
+import com.afume.afume_android.home.adapter.RecentListAdapter
 import com.afume.afume_android.home.adapter.RecommendListAdapter
 
 
@@ -18,6 +19,7 @@ class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     lateinit var recommendAdapter : RecommendListAdapter
     lateinit var popularAdapter : PopularListAdapter
+    lateinit var recentAdapter : RecentListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,6 +34,7 @@ class HomeFragment : Fragment() {
 
         initRecommendList()
         initPopularList()
+        initRecentList()
     }
 
     private fun initRecommendList(){
@@ -103,6 +106,40 @@ class HomeFragment : Fragment() {
             )
         )
         popularAdapter.notifyDataSetChanged()
+
+    }
+
+    private fun initRecentList(){
+        recentAdapter = RecentListAdapter(requireContext())
+        binding.rvHomeRecent.adapter = recentAdapter
+
+        recentAdapter.data = mutableListOf(
+            HomePerfumeListData(
+                image = null,
+                brand = "1번 브랜드",
+                name = "1번향수",
+                like = 0
+            ),
+            HomePerfumeListData(
+                image = null,
+                brand = "2번 브랜드",
+                name = "2번향수",
+                like = 1
+            ),
+            HomePerfumeListData(
+                image = null,
+                brand = "3번 브랜드",
+                name = "3번향수",
+                like = 1
+            ),
+            HomePerfumeListData(
+                image = null,
+                brand = "4번 브랜드",
+                name = "4번향수",
+                like = 0
+            )
+        )
+        recentAdapter.notifyDataSetChanged()
 
     }
 

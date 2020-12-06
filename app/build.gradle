@@ -77,4 +77,7 @@ dependencies {
     //CircleIndicator
     implementation 'com.github.chahine:pageindicator:0.2.8'
 
+    //CircleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }
