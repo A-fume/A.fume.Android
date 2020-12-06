@@ -219,6 +219,61 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView8"
                     tools:listitem="@layout/rv_item_home_recent" />
 
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="18dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="42dp"
+                    android:background="@color/primary_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/nanummyeongjo_extrabold"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="6dp"
+                    android:text="새로\n등록된 향수"
+                    android:textColor="@color/primary_black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView5"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="기대하세요.  새로운 향수가 업데이트 됩니다."
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/textView11"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_home_new"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="12dp"
+                    android:orientation="vertical"
+                    app:spanCount="2"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView12"
+                    tools:listitem="@layout/rv_item_home_new" >
+
+                </androidx.recyclerview.widget.RecyclerView>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
