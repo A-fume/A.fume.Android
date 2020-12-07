@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="vm"
-            type="com.afume.afume_android.home.HomeViewModel" />
+            name="fm"
+            type="com.afume.afume_android.home.HomeFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -288,33 +288,32 @@
                     app:layout_constraintTop_toBottomOf="@+id/rv_home_new"
                     app:srcCompat="@drawable/border_gray_cd_line_square" />
 
-                <ImageView
-                    android:id="@+id/imageView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/btn_home_more"
-                    app:layout_constraintStart_toEndOf="@+id/textView15"
-                    app:layout_constraintTop_toTopOf="@+id/btn_home_more"
-                    app:srcCompat="@drawable/btn_more"
-                    android:layout_marginStart="6dp" />
-
                 <TextView
                     android:id="@+id/textView15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="9dp"
+                    android:layout_marginRight="9dp"
                     android:fontFamily="@font/notosans_medium"
                     android:includeFontPadding="false"
                     android:text="더 보기"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="15sp"
-                    android:layout_marginRight="9dp"
                     app:layout_constraintBottom_toBottomOf="@+id/btn_home_more"
                     app:layout_constraintEnd_toEndOf="@+id/btn_home_more"
                     app:layout_constraintStart_toStartOf="@+id/btn_home_more"
-                    app:layout_constraintTop_toTopOf="@+id/btn_home_more"
-                    android:layout_marginEnd="9dp" />
+                    app:layout_constraintTop_toTopOf="@+id/btn_home_more" />
 
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginLeft="6dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_home_more"
+                    app:layout_constraintStart_toEndOf="@+id/textView15"
+                    app:layout_constraintTop_toTopOf="@+id/btn_home_more"
+                    app:srcCompat="@drawable/btn_more" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

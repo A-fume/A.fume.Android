@@ -1,11 +1,14 @@
 package com.afume.afume_android.home
 
 import android.R
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.afume.afume_android.data.vo.HomePerfumeListData
 import com.afume.afume_android.data.vo.RecommendPerfumeListData
@@ -22,6 +25,7 @@ class HomeFragment : Fragment() {
     lateinit var popularAdapter : PopularListAdapter
     lateinit var recentAdapter : RecentListAdapter
     lateinit var newAdapter : NewListAdapter
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -176,8 +180,21 @@ class HomeFragment : Fragment() {
                 like = 0
             )
         )
-        recentAdapter.notifyDataSetChanged()
+        newAdapter.notifyDataSetChanged()
+
+        binding.btnHomeMore.setOnClickListener {
+            val moreIntent = Intent(context,MoreNewPerfumeActivity::class.java)
+
+            startActivity(moreIntent)
+        }
 
     }
+
+//    fun moreNewPerfume(view: View){
+//        Log.d("명","되나")
+//        val moreIntent = Intent(context,MoreNewPerfumeActivity::class.java)
+//
+//        startActivity(moreIntent)
+//    }
 
 }
