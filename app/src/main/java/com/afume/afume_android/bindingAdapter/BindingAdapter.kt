@@ -23,8 +23,5 @@ object BindingAdapter {
         Glide.with(view.context)
             .load(res)
             .into(view)
-    }
-
-
-
+      
 }

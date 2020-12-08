@@ -14,7 +14,9 @@
         android:theme="@style/Theme.AfumeAndroid"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".detail.PerfumeDetailActivity">
+        <activity android:name=".detail.PerfumeDetailActivity"/>
+        <activity android:name=".home.MoreNewPerfumeActivity"/>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
