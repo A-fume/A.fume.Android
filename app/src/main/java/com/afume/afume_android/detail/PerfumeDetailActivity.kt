@@ -14,6 +14,7 @@ import com.afume.afume_android.detail.note.DetailNoteFragment
 class PerfumeDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityPerfumeDetailBinding
     lateinit var detailImageAdapter: DetailImageAdapter
+    lateinit var viewPagerAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,8 @@ class PerfumeDetailActivity : AppCompatActivity() {
         binding.lifecycleOwner=this
 
         initInfo()
+        initViewPager()
+        initTab()
     }
 
     private fun initInfo(){
@@ -46,5 +49,21 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
     }
 
+    private fun initViewPager(){
+        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        viewPagerAdapter.fragments = listOf(
+            DetailInfoFragment(),
+            DetailNoteFragment()
+        )
 
+        binding.vpPerfumeDetail.adapter = viewPagerAdapter
+    }
+
+    private fun initTab(){
+        binding.tabPerfumeDetail.setupWithViewPager(binding.vpPerfumeDetail)
+        binding.tabPerfumeDetail.apply {
+            getTabAt(0)?.text = "향수 정보"
+            getTabAt(1)?.text = "시향 노트"
+        }
+    }
 }
