@@ -6,13 +6,13 @@
     <data>
         <variable
             name="fm"
-            type="com.afume.afume_android.detail.info.DetailInfoFragment" />
+            type="com.afume.afume_android.ui.detail.info.DetailInfoFragment" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".detail.info.DetailInfoFragment">
+        tools:context=".ui.detail.info.DetailInfoFragment">
 
         <!-- TODO: Update blank fragment layout -->
         <TextView

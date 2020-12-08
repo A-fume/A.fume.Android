@@ -6,7 +6,7 @@
     <data>
         <variable
             name="fm"
-            type="com.afume.afume_android.home.HomeFragment" />
+            type="com.afume.afume_android.ui.home.HomeFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

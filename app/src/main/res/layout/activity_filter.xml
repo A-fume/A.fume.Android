@@ -5,12 +5,12 @@
     <data>
         <variable
             name="filterVm"
-            type="com.afume.afume_android.filter.FilterViewModel" />
+            type="com.afume.afume_android.ui.filter.FilterViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".filter.FilterActivity">
+    tools:context=".ui.filter.FilterActivity">
 
     <include
         android:id="@+id/toolbar_filter"

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="vmperfume"
-            type="com.afume.afume_android.search.DefaultRecyclerViewPerfumeViewModel"/>
+            type="com.afume.afume_android.ui.search.DefaultRecyclerViewPerfumeViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

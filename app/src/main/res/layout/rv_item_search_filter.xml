@@ -5,7 +5,7 @@
     <data>
         <variable
             name="selectedfiletervm"
-            type="com.afume.afume_android.search.SelectedFilterViewModel"/>
+            type="com.afume.afume_android.ui.search.SelectedFilterViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"

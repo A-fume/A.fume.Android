@@ -7,7 +7,7 @@
     <data>
         <variable
             name="fg"
-            type="com.afume.afume_android.detail.note.DetailNoteFragment" />
+            type="com.afume.afume_android.ui.detail.note.DetailNoteFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
