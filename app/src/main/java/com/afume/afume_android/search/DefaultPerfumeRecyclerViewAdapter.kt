@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.databinding.RvItemDefaultPerfumeBinding
 
 
-class DefaultPerfumeRecyclerViewAdapter(private val context:Context):RecyclerView.Adapter<DefaultPerfumeRecyclerViewHolder>(){
+class DefaultPerfumeRecyclerViewAdapter(private val context:Context?):RecyclerView.Adapter<DefaultPerfumeRecyclerViewHolder>(){
     var data = listOf<DefaultRecyclerViewPerfumeViewModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DefaultPerfumeRecyclerViewHolder {
         val binding=RvItemDefaultPerfumeBinding.inflate(LayoutInflater.from(context),parent,false)

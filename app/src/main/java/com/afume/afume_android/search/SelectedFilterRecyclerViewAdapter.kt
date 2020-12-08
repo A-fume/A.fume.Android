@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.databinding.RvItemSearchFilterBinding
 
-class SelectedFilterRecyclerViewAdapter(private val context: Context) :
+class SelectedFilterRecyclerViewAdapter(private val context: Context?) :
     RecyclerView.Adapter<SelectedFilterRecyclerViewHolder>() {
     var data = listOf<SelectedFilterViewModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedFilterRecyclerViewHolder {

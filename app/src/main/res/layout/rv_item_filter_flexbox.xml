@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="seriesViewModel"
-            type="com.afume.afume_android.filter.IncenseSeriesViewModel" />
+            name="rvData"
+            type="com.afume.afume_android.filter.RvFlexboxData" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/rv_item_txt_incense_series"
+            android:id="@+id/rv_item_txt_flexbox"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:layout_marginStart="16dp"
@@ -24,7 +24,7 @@
             android:paddingTop="10dp"
             android:paddingRight="18dp"
             android:paddingBottom="10dp"
-            android:text="@{seriesViewModel.incenseSeries}"
+            android:text="@{rvData.flexboxTxt}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
