@@ -1,4 +1,4 @@
-package com.afume.afume_android.filter
+package com.afume.afume_android.my
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,13 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import com.afume.afume_android.R
 
-class FilterBrandFragment : Fragment() {
+
+class WishListFragment : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_filter_brand, container, false)
+        return inflater.inflate(R.layout.fragment_wish_list, container, false)
     }
+
+
 }
