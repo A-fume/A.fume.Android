@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentMypageBinding
 import com.afume.afume_android.ui.filter.AfumeViewPagerAdapter
+import com.afume.afume_android.ui.my.myperfume.MyPerfumeFragment
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
@@ -55,7 +56,6 @@ class MyPageFragment : Fragment() {
             getTabAt(1)?.text="위시 리스트"
         }
     }
-
 
 
 
