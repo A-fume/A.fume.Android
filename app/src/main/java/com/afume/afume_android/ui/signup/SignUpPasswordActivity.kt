@@ -1,5 +1,6 @@
 package com.afume.afume_android.ui.signup
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -22,6 +23,8 @@ class SignUpPasswordActivity : AppCompatActivity() {
 
         checkPasswordInput()
         checkAgainInput()
+
+        binding.edtSignUpPassword.requestFocus()
     }
 
     private fun checkPasswordInput(){
@@ -56,12 +59,10 @@ class SignUpPasswordActivity : AppCompatActivity() {
     }
 
     private fun checkAgainForm(){
-        if(binding.edtSignUpAgain.text.toString() == binding.edtSignUpPassword.text.toString() &&
-            binding.edtSignUpAgain.text.isNotEmpty()
-        ){
+        if(binding.edtSignUpAgain.text.toString() == binding.edtSignUpPassword.text.toString()){
             binding.txtSignUpCheckAgain.visibility = View.INVISIBLE
             binding.imgSignUpCheckAgain.visibility = View.VISIBLE
-        }else{
+        }else if(binding.edtSignUpAgain.text.isNotEmpty()){
             binding.txtSignUpCheckAgain.visibility = View.VISIBLE
             binding.imgSignUpCheckAgain.visibility = View.INVISIBLE
         }
@@ -92,9 +93,12 @@ class SignUpPasswordActivity : AppCompatActivity() {
     }
 
     fun onClickNextBtn(view: View){
-        binding.clSignUpPasswordNext.setOnClickListener {
-            Toast.makeText(this, "다음", Toast.LENGTH_SHORT).show()
-        }
+        val genderIntent = Intent(this,SignUpGenderActivity::class.java)
+
+        startActivity(genderIntent)
     }
 
+    fun onClickBackBtn(view: View){
+        finish()
+    }
 }

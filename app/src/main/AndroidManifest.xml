@@ -18,14 +18,16 @@
 
         </activity>
         <activity android:name=".ui.signup.SignUpGenderActivity">
+
+        </activity>
+        <activity android:name=".ui.signup.SignUpPasswordActivity"></activity>
+        <activity android:name=".ui.signup.SignUpEmailActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.signup.SignUpPasswordActivity"></activity>
-        <activity android:name=".ui.signup.SignUpEmailActivity" />
         <activity android:name=".ui.filter.FilterActivity" />
         <activity android:name=".ui.detail.PerfumeDetailActivity" />
         <activity android:name=".ui.home.MoreNewPerfumeActivity" />

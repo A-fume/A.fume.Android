@@ -1,5 +1,6 @@
 package com.afume.afume_android.ui.signup
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -59,8 +60,12 @@ class SignUpGenderActivity : AppCompatActivity() {
     }
 
     fun onClickNextBtn(view: View){
-        binding.clSignUpGender.setOnClickListener {
-            Toast.makeText(this, "다음", Toast.LENGTH_SHORT).show()
-        }
+        val ageIntent = Intent(this,SignUpAgeActivity::class.java)
+
+        startActivity(ageIntent)
+    }
+
+    fun onClickBackBtn(view: View){
+        finish()
     }
 }

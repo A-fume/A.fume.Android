@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.NumberPicker
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpAgeBinding
@@ -118,4 +119,11 @@ class SignUpAgeActivity : AppCompatActivity() {
         }
     }
 
+    fun onClickCompleteBtn(view: View){
+        Toast.makeText(this, "서베이 연결", Toast.LENGTH_SHORT).show()
+    }
+
+    fun onClickBackBtn(view: View){
+        finish()
+    }
 }
