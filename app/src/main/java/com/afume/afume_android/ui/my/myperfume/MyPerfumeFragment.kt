@@ -14,6 +14,7 @@ import com.afume.afume_android.databinding.FragmentMypageBinding
 class MyPerfumeFragment : Fragment() {
     private lateinit var binding : FragmentMyPerfumeBinding
     private lateinit var myPerfumeAdapter:MyPerfumeRecyclerViewAdapter
+    private lateinit var perfumeDataList:List<RvMyPerfumeData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +34,7 @@ class MyPerfumeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRvMyPerfume()
         dummyDataMyPerfume()
+        initShelf()
     }
 
     private fun setInvisible(){
@@ -44,10 +46,11 @@ class MyPerfumeFragment : Fragment() {
     private fun initRvMyPerfume(){
         myPerfumeAdapter=MyPerfumeRecyclerViewAdapter()
         binding.rvMyPerfume.adapter=myPerfumeAdapter
+        //binding.rvMyPerfume.setNestedScrollingEnabled(false)
         myPerfumeAdapter.notifyDataSetChanged()
     }
     private fun dummyDataMyPerfume(){
-        myPerfumeAdapter.data= listOf(
+        perfumeDataList = listOf(
             RvMyPerfumeData(
                 R.drawable.dummy_img_chanel,
                 "CHANEL",
@@ -88,10 +91,16 @@ class MyPerfumeFragment : Fragment() {
             4.5f
             )
         )
+        myPerfumeAdapter.data=perfumeDataList
 
         if(myPerfumeAdapter.data.isNotEmpty()) setInvisible()
         binding.myPerfume="기록된 향수 ${myPerfumeAdapter.data.size}개"
 
+    }
+    private fun initShelf(){
+        val shelfRecyclerViewAdapter=ShelfRecyclerViewAdapter(perfumeDataList.size)
+        binding.rvMyPerfumeShelf.adapter=shelfRecyclerViewAdapter
+        shelfRecyclerViewAdapter.notifyDataSetChanged()
     }
 
 

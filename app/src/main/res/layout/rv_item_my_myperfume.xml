@@ -11,39 +11,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
-    <ImageView
-        android:id="@+id/rv_item_bg_shelf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_item_img_my_perfume"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/bg_shelf" />
-
     <ImageView
         android:id="@+id/rv_item_img_my_perfume"
+        bindingDrawable="@{rvMyPerfume.img}"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="33dp"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_bg_shelf"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        bindingDrawable="@{rvMyPerfume.img}"
         app:srcCompat="@drawable/dummy_perfume_image" />
 
     <TextView
         android:id="@+id/rv_item_txt_my_perfume_brand"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="13dp"
         android:gravity="center"
         android:text="@{rvMyPerfume.brandName}"
         android:textColor="@color/dark_gray_7d"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/rv_item_img_my_perfume"
         app:layout_constraintStart_toStartOf="@+id/rv_item_img_my_perfume"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_bg_shelf" />
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_img_my_perfume" />
 
     <TextView
         android:id="@+id/rv_item_txt_my_perfume_name"
