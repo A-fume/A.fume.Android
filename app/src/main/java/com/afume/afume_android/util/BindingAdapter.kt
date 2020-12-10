@@ -25,4 +25,24 @@ object BindingAdapter {
             .into(view)
 
     }
+
+    @JvmStatic
+    @BindingAdapter("setManIcon")
+    fun ImageView.setManIcon(status: Int) {
+        if (status == 0) {
+            setImageResource(R.drawable.btn_man_inactive)
+        } else {
+            setImageResource(R.drawable.btn_man_active)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setWomanIcon")
+    fun ImageView.setWomanIcon(status: Int) {
+        if (status == 0) {
+            setImageResource(R.drawable.btn_woman_inactive)
+        } else {
+            setImageResource(R.drawable.btn_woman_active)
+        }
+    }
 }

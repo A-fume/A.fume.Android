@@ -15,14 +15,14 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity android:name=".ui.signup.SignUpAgeActivity">
+
+        </activity>
+        <activity android:name=".ui.signup.SignUpGenderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.signup.SignUpGenderActivity">
-
         </activity>
         <activity android:name=".ui.signup.SignUpPasswordActivity"></activity>
         <activity android:name=".ui.signup.SignUpEmailActivity" />
