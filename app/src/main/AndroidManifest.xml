@@ -14,19 +14,20 @@
         android:theme="@style/Theme.AfumeAndroid"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".ui.signin.SignInActivity">
+        <activity android:name=".ui.signin.SignHomeActivity">
             <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.signin.SignInActivity">
+
+        </activity>
         <activity android:name=".ui.filter.FilterActivity" />
         <activity android:name=".ui.detail.PerfumeDetailActivity" />
         <activity android:name=".ui.home.MoreNewPerfumeActivity" />
-        <activity android:name=".ui.MainActivity">
-
-        </activity>
+        <activity android:name=".ui.MainActivity"></activity>
     </application>
 
 </manifest>
