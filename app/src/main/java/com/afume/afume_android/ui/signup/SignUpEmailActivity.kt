@@ -30,11 +30,11 @@ class SignUpEmailActivity : AppCompatActivity() {
         binding.imgSignUpCheckEmail.visibility = View.INVISIBLE
 
         binding.edtSignUpEmail.addTextChangedListener(CheckTextWatcher{
-            Handler().postDelayed({ checkEmail() }, 1500L)
+            Handler().postDelayed({ checkEmailForm() }, 1500L)
         })
     }
 
-    private fun checkEmail() {
+    private fun checkEmailForm() {
         if (android.util.Patterns.EMAIL_ADDRESS.matcher(binding.edtSignUpEmail.text).matches()) {
             binding.txtSignUpCheckEmail.visibility = View.INVISIBLE
             binding.imgSignUpCheckEmail.visibility = View.VISIBLE
@@ -52,10 +52,10 @@ class SignUpEmailActivity : AppCompatActivity() {
     private fun checkNicknameInput(){
         binding.imgSignUpCheckNick.visibility = View.INVISIBLE
 
-        binding.edtSignUpNick.addTextChangedListener(CheckTextWatcher{checkNickname()})
+        binding.edtSignUpNick.addTextChangedListener(CheckTextWatcher{checkNicknameForm()})
     }
 
-    private fun checkNickname() {
+    private fun checkNicknameForm() {
 //        android.util.Patterns.matches("^[a-zA-Z0-9가-힣]*$",binding.edtSignUpNick
 
         if (binding.edtSignUpNick.text.isNotEmpty()) {
