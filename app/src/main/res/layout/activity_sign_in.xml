@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="activity"
+            type="com.afume.afume_android.ui.signin.SignInActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.signin.SignInActivity">
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:onClick="onClickBackBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/btn_back" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="로그인"
+            android:fontFamily="@font/nanummyeongjo_extrabold"
+            android:textSize="18sp"
+            android:includeFontPadding="false"
+            android:textColor="@color/primary_black"
+            app:layout_constraintStart_toEndOf="@+id/imageView15"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="49dp"
+            android:text="이메일 주소를 입력해주세요."
+            android:fontFamily="@font/notosans_regular"
+            android:textSize="14sp"
+            android:includeFontPadding="false"
+            android:textColor="@color/dark_gray_7d"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <EditText
+            android:id="@+id/edt_sign_in_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@null"
+            android:ems="10"
+            android:fontFamily="@font/nanummyeongjo_extrabold"
+            android:hint="Afume@kakao.com"
+            android:includeFontPadding="false"
+            android:inputType="textWebEmailAddress|textEmailAddress"
+            android:nextFocusDown="@id/edt_sing_in_password"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:singleLine="true"
+            android:textColor="@color/dark"
+            android:textColorHint="@color/gray_cd"
+            android:textCursorDrawable="@drawable/cursor_sign"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/textView17"
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_sign_in_email"
+            app:srcCompat="@color/primary_black" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="비밀번호를 입력해주세요."
+            android:fontFamily="@font/notosans_regular"
+            android:textSize="14sp"
+            android:includeFontPadding="false"
+            android:textColor="@color/dark_gray_7d"
+            app:layout_constraintStart_toStartOf="@+id/imageView16"
+            app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+
+        <EditText
+            android:id="@+id/edt_sing_in_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@null"
+            android:ems="15"
+            android:fontFamily="@font/nanummyeongjo_extrabold"
+            android:hint="최소 4자리 이상 입력해주세요."
+            android:includeFontPadding="false"
+            android:inputType="textWebPassword"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:singleLine="true"
+            android:textColor="@color/dark"
+            android:textColorHint="@color/gray_cd"
+            android:textCursorDrawable="@drawable/cursor_sign"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/textView18"
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_sing_in_password"
+            app:srcCompat="@drawable/border_black_fill_2" />
+
+        <Button
+            android:id="@+id/btn_sign_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="18dp"
+            android:text="로그인 하기"
+            android:onClick="onClickSignInBtn"
+            android:enabled="false"
+            android:fontFamily="@font/notosans_bold"
+            android:textSize="15sp"
+            android:includeFontPadding="false"
+            android:textColor="@color/white"
+            android:background="@drawable/selector_sign_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView17" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="혹시 계정이 없으신가요?"
+            android:fontFamily="@font/notosans_regular"
+            android:textSize="14sp"
+            android:includeFontPadding="false"
+            android:textColor="@color/primary_black"
+            app:layout_constraintStart_toStartOf="@+id/btn_sign_in"
+            app:layout_constraintTop_toBottomOf="@+id/btn_sign_in" />
+
+        <TextView
+            android:id="@+id/btn_sign_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="회원가입하기"
+            android:onClick="onClickSignUpBtn"
+            android:fontFamily="@font/notosans_bold"
+            android:textSize="14sp"
+            android:includeFontPadding="false"
+            android:textColor="@color/primary_black"
+            app:layout_constraintEnd_toEndOf="@+id/btn_sign_in"
+            app:layout_constraintTop_toBottomOf="@+id/btn_sign_in" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
