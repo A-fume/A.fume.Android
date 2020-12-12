@@ -7,6 +7,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignHomeBinding
+import com.afume.afume_android.ui.signup.SignUpEmailActivity
 
 class SignHomeActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignHomeBinding
@@ -24,8 +25,8 @@ class SignHomeActivity : AppCompatActivity() {
     }
 
     fun onClickSignUpBtn(view : View){
-//        val signUpIntent = Intent(this,SignUpActivity::class.java)
-//
-//        startActivity(signUpIntent)
+        val signUpIntent = Intent(this,SignUpEmailActivity::class.java)
+
+        startActivity(signUpIntent)
     }
 }

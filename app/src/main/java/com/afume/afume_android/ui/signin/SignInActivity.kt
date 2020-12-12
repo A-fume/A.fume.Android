@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignInBinding
 import com.afume.afume_android.ui.MainActivity
+import com.afume.afume_android.ui.signup.SignUpEmailActivity
 import com.afume.afume_android.util.CheckTextWatcher
 
 class SignInActivity : AppCompatActivity() {
@@ -39,9 +40,9 @@ class SignInActivity : AppCompatActivity() {
     }
 
     fun onClickSignUpBtn(view: View){
-        //val signUpIntent = Intent(this,SignUpActivity::class.java)
+        val signUpIntent = Intent(this,SignUpEmailActivity::class.java)
 
-        //startActivity(signUpIntent)
+        startActivity(signUpIntent)
     }
 
     fun onClickBackBtn(view: View){

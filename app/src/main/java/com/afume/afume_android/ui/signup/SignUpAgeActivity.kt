@@ -3,6 +3,7 @@ package com.afume.afume_android.ui.signup
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
@@ -19,6 +20,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpAgeBinding
+import com.afume.afume_android.ui.survey.SurveyActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class SignUpAgeActivity : AppCompatActivity() {
@@ -120,7 +122,9 @@ class SignUpAgeActivity : AppCompatActivity() {
     }
 
     fun onClickCompleteBtn(view: View){
-        Toast.makeText(this, "서베이 연결", Toast.LENGTH_SHORT).show()
+        val surveyIntent = Intent(this,SurveyActivity::class.java)
+
+        startActivity(surveyIntent)
     }
 
     fun onClickBackBtn(view: View){
