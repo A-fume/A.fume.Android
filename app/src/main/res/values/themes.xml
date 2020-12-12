@@ -15,6 +15,12 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <style name="AppTheme.NumberPicker" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">25dp</item>
+        <item name="android:fontFamily">@font/nanummyeongjo_bold</item>
+        <item name="colorControlNormal">@color/point_beige</item>
+    </style>
+
     <style name="Theme.AfumeAndroid.Tabtext" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:fontFamily">@font/notosans_regular</item>
         <item name="android:textSize">14dp</item>
