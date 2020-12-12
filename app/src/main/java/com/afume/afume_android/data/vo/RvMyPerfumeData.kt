@@ -4,5 +4,5 @@ data class RvMyPerfumeData(
     val img:Int,
     val brandName: String,
     val perfumeName:String,
-    val starCount:Float
+    val starCount:Float=0f
 )

@@ -9,6 +9,7 @@ import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentMypageBinding
 import com.afume.afume_android.ui.filter.AfumeViewPagerAdapter
 import com.afume.afume_android.ui.my.myperfume.MyPerfumeFragment
+import com.afume.afume_android.ui.my.wishlist.WishListFragment
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
