@@ -1,33 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.my.MyPerfumeFragment">
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="myPerfume"
+            type="String" />
+    </data>
 
-    <ImageView
-        android:id="@+id/img_mypurfume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:src="@drawable/img_empty_myperfume"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_gray_f9"
+        tools:context=".ui.my.myperfume.MyPerfumeFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="164dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="100dp"
-        android:gravity="center"
-        android:text="아직 시향 노트가 비어 있어요. 그동안 사용했던 향수 혹은 시향해봤던 향수를 기록해보세요."
-        android:textColor="@color/gray_cd"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_mypurfume" />
+        <ImageView
+            android:id="@+id/img_mypurfume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="152dp"
+            android:src="@drawable/img_empty_myperfume"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:clipToPadding="true"
+            android:fillViewport="true"
+            android:fitsSystemWindows="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txt_count_my_perfume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="17dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@{myPerfume}"
+                    android:textColor="@color/gray_cd"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toEndOf="@+id/layout"
+                    app:layout_constraintTop_toTopOf="@+id/layout" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_my_perfume_shelf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="@+id/layout"
+                    app:layout_constraintEnd_toEndOf="@+id/layout"
+                    app:layout_constraintStart_toStartOf="@+id/layout"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_count_my_perfume"
+                    tools:listitem="@layout/rv_item_my_perfuem_bg_shelf" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_my_perfume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="visible"
+                    app:layoutManager="GridLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="@+id/layout"
+                    app:layout_constraintEnd_toEndOf="@+id/layout"
+                    app:layout_constraintStart_toStartOf="@+id/layout"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_count_my_perfume"
+                    app:spanCount="3"
+                    tools:listitem="@layout/rv_item_my_myperfume" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="164dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="100dp"
+            android:gravity="center"
+            android:text="아직 시향 노트가 비어 있어요. 그동안 사용했던 향수 혹은 시향해봤던 향수를 기록해보세요."
+            android:textColor="@color/gray_cd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_mypurfume" />
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
