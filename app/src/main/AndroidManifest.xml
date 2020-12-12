@@ -14,11 +14,10 @@
         android:theme="@style/Theme.AfumeAndroid"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-  
-        <activity android:name=".ui.filter.FilterActivity"></activity>
-        <activity android:name=".ui.detail.PerfumeDetailActivity"/>
-        <activity android:name=".ui.home.MoreNewPerfumeActivity"/>
-
+        <activity android:name=".ui.survey.SurveyActivity"></activity>
+        <activity android:name=".ui.filter.FilterActivity" />
+        <activity android:name=".ui.detail.PerfumeDetailActivity" />
+        <activity android:name=".ui.home.MoreNewPerfumeActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

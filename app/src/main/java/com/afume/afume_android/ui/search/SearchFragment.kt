@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentSearchBinding
 import com.afume.afume_android.ui.filter.FilterActivity
+import com.afume.afume_android.ui.survey.SurveyActivity
 
 
 class SearchFragment : Fragment() {

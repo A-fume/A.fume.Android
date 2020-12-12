@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="rvCircle"
+            type="com.afume.afume_android.data.vo.RvCircleData" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/rv_item_img_survey_circle"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/border_white_circle_fill"
+        android:src="@drawable/img_le_labo_13_sample"
+        bindingDrawable="@{rvCircle.img}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rv_item_survey_click"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_item_img_survey_circle"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_img_survey_circle"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_img_survey_circle"
+        app:layout_constraintTop_toTopOf="@+id/rv_item_img_survey_circle">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/rv_item_survey_click_bg"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@color/point_beige_90"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_white_heart" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/rv_item_txt_survey_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/notosans_regular"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="@{rvCircle.name}"
+        android:textColor="@color/dark_gray_7d"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_img_survey_circle"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_survey_click"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_img_survey_circle" />
+
+    <TextView
+        android:id="@+id/rv_item_txt_survey_details"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/notosans_regular"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="2"
+        android:text="@{rvCircle.details}"
+        android:textColor="@color/primary_black"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_img_survey_circle"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_img_survey_circle"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_txt_survey_name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
