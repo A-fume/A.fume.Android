@@ -35,7 +35,7 @@
             android:includeFontPadding="false"
             android:text="회원가입"
             android:textColor="@color/primary_black"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintStart_toEndOf="@+id/imageView15"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,7 +49,7 @@
             android:includeFontPadding="false"
             android:text="이메일 주소를 입력해주세요."
             android:textColor="@color/dark_gray_7d"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -69,7 +69,7 @@
             android:textColor="@color/dark"
             android:textColorHint="@color/gray_cd"
             android:textCursorDrawable="@drawable/cursor_sign_up"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:singleLine="true"
             android:nextFocusDown="@id/edt_sign_up_nick"
             app:layout_constraintStart_toStartOf="@+id/textView17"
@@ -97,7 +97,7 @@
             android:includeFontPadding="false"
             android:text="이메일 형식이 맞지 않습니다."
             android:textColor="@color/brick"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/imageView16"
             app:layout_constraintTop_toBottomOf="@+id/imageView16" />
@@ -131,7 +131,7 @@
                 android:includeFontPadding="false"
                 android:text="사용하실 닉네임을 입력해주세요."
                 android:textColor="@color/dark_gray_7d"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -152,7 +152,7 @@
                 android:textColor="@color/dark"
                 android:textColorHint="@color/gray_cd"
                 android:textCursorDrawable="@drawable/cursor_sign_up"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:singleLine="true"
                 app:layout_constraintStart_toStartOf="@+id/textView19"
                 app:layout_constraintTop_toBottomOf="@+id/textView19" />
@@ -211,7 +211,7 @@
                 android:includeFontPadding="false"
                 android:text="다음"
                 android:textColor="@color/white_85"
-                android:textSize="15sp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView21"
                 app:layout_constraintTop_toTopOf="parent" />
