@@ -5,18 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.my.wishlist.WishListFragment">
+    tools:context=".ui.survey.SurveyPerfumeFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_wishlist"
+        android:id="@+id/rv_item_survey_perfume"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
+        app:layoutManager="GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/rv_item_my_wishlist" />
+        android:background="@color/light_gray_f9"
+        app:spanCount="3"
+        tools:listitem="@layout/rv_item_survey_circle" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

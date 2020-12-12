@@ -15,6 +15,12 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity android:name=".ui.signin.SignHomeActivity">
+        <activity android:name=".ui.note.NoteActivity">
+        <activity android:name=".ui.survey.SurveyActivity"></activity>
+        <activity android:name=".ui.filter.FilterActivity" />
+        <activity android:name=".ui.detail.PerfumeDetailActivity" />
+        <activity android:name=".ui.home.MoreNewPerfumeActivity" />
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
@@ -24,10 +30,6 @@
         <activity android:name=".ui.signin.SignInActivity">
 
         </activity>
-        <activity android:name=".ui.filter.FilterActivity" />
-        <activity android:name=".ui.detail.PerfumeDetailActivity" />
-        <activity android:name=".ui.home.MoreNewPerfumeActivity" />
-        <activity android:name=".ui.MainActivity"></activity>
     </application>
 
 </manifest>
