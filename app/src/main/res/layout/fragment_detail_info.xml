@@ -13,7 +13,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:background="@color/white">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -312,14 +313,16 @@
                 app:layout_constraintStart_toStartOf="@+id/txt_details_info_story"
                 app:layout_constraintTop_toBottomOf="@+id/chart_bar_details_info_lasting_power" />
 
-            <com.github.mikephil.charting.charts.BarChart
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chart_bar_details_info_lasting_power"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                app:layoutManager="LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_season"
                 app:layout_constraintStart_toStartOf="@+id/txt_lasting"
-                app:layout_constraintTop_toBottomOf="@+id/txt_lasting" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_lasting"
+                tools:listitem="@layout/rv_item_details_info_horizontal_bar_chart" />
 
             <TextView
                 android:id="@+id/txt_sillage"
@@ -335,14 +338,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_bar_lasting" />
 
-            <com.github.mikephil.charting.charts.BarChart
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chart_bar_details_info_sillage"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                app:layoutManager="LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_lasting"
                 app:layout_constraintStart_toStartOf="@+id/txt_sillage"
-                app:layout_constraintTop_toBottomOf="@+id/txt_sillage" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_sillage"
+                tools:listitem="@layout/rv_item_details_info_horizontal_bar_chart" />
 
             <ImageView
                 android:id="@+id/img_bar_sillage"

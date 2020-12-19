@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.HomePerfumeListData
 import com.afume.afume_android.databinding.FragmentDetailInfoBinding
-import com.afume.afume_android.databinding.FragmentDetailNoteBinding
 import com.afume.afume_android.ui.filter.FlexboxRecyclerViewAdapter
 import com.afume.afume_android.ui.filter.RvFlexboxData
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
@@ -24,6 +23,7 @@ class DetailInfoFragment : Fragment() {
     lateinit var binding: FragmentDetailInfoBinding
     lateinit var rvKeywordAdapter: FlexboxRecyclerViewAdapter
     lateinit var rvSimilarAdapter: PopularListAdapter
+    lateinit var chartLastingPowerAdapter: HorizontalBarChartAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,11 @@ class DetailInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initRvKeyword(context)
-        initRvSimilar(context!!)
+        initRvSimilar(requireContext())
+        initLastingPowerBarChart()
+        chartLastingPowerAdapter.notifyDataSetChanged()
+        initsillageBarChart()
+
     }
 
     private fun initRvKeyword(ctx:Context?) {
@@ -97,4 +101,19 @@ class DetailInfoFragment : Fragment() {
         )
         rvSimilarAdapter.notifyDataSetChanged()
     }
+
+    private fun initLastingPowerBarChart(){
+        chartLastingPowerAdapter=HorizontalBarChartAdapter(0,context)
+        binding.chartBarDetailsInfoLastingPower.adapter=chartLastingPowerAdapter
+        chartLastingPowerAdapter.chartData= listOf(50f,30f,10f,5f,5f)
+        chartLastingPowerAdapter.notifyDataSetChanged()
+    }
+
+    private fun initsillageBarChart(){
+        val sillageAdapter=HorizontalBarChartAdapter(1,context)
+        binding.chartBarDetailsInfoSillage.adapter=sillageAdapter
+        sillageAdapter.chartData= listOf(60f,30f,10f)
+        sillageAdapter.notifyDataSetChanged()
+    }
+
 }
