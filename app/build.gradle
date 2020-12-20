@@ -102,5 +102,6 @@ dependencies {
     //CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-
+    //StickyScrollView
+    implementation 'com.github.amarjain07:StickyScrollView:1.0.2'
 }
