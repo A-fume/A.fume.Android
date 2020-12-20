@@ -17,19 +17,18 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_detail_note"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginLeft="18dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="18dp"
-            android:layout_marginRight="18dp"
             android:layout_marginBottom="24dp"
             android:clipToPadding="false"
+            android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/rv_item_detail_note"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/rv_item_detail_note" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
