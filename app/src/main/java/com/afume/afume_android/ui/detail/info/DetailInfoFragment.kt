@@ -15,9 +15,7 @@ import com.afume.afume_android.ui.filter.FlexboxRecyclerViewAdapter
 import com.afume.afume_android.ui.filter.RvFlexboxData
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
 import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.data.*
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -47,6 +45,7 @@ class DetailInfoFragment : Fragment() {
         initRvSimilar(requireContext())
 
         drawGenderPieChart(dummyPieDataGender())
+        drawBubbleChartSeason(dummyBubbleDataSeason())
 
     }
 
@@ -185,5 +184,73 @@ class DetailInfoFragment : Fragment() {
 
         return PieDataSet(pieListData,"")
     }
+
+    private fun drawBubbleChartSeason(dataSet: List<BubbleDataSet>){
+
+        val yR=binding.chartBubbleDetailsInfoSeason.axisRight
+        yR.apply {
+            setDrawZeroLine(false)
+            setDrawAxisLine(false)
+            setDrawGridLines(false)
+        }
+        val yL=binding.chartBubbleDetailsInfoSeason.axisLeft
+        yL.apply {
+            setDrawZeroLine(false)
+            setDrawAxisLine(false)
+            setDrawGridLines(false)
+            setDrawLabels(false)
+            axisMaximum = 65f
+            axisMinimum = 15f
+        }
+        val xl = binding.chartBubbleDetailsInfoSeason.xAxis
+        xl.apply {
+            setDrawAxisLine(false)
+            setDrawGridLines(false)
+            setDrawLabels(false)
+            granularity=1f
+            axisMaximum = 4.5f
+            axisMinimum = 0.5f
+        }
+
+        val bubbleData = BubbleData(dataSet)
+        bubbleData.apply {
+            setValueTextColor(ContextCompat.getColor(requireContext(),R.color.white))
+            setValueTextSize(15f)
+        }
+
+        binding.chartBubbleDetailsInfoSeason.apply {
+            description.isEnabled=false
+            legend.isEnabled=false
+            setDrawGridBackground(false)
+            setTouchEnabled(false)
+            setScaleEnabled(false)
+            isDragXEnabled=false
+            isDragYEnabled=false
+            axisRight.isEnabled=false
+            data=bubbleData
+            invalidate()
+        }
+
+    }
+
+    private fun dummyBubbleDataSeason():List<BubbleDataSet>{
+        val primarySeasonDataSet=BubbleDataSet(listOf(BubbleEntry(1f,50f,50f)),"primary")
+        primarySeasonDataSet.color = ContextCompat.getColor(requireContext(),R.color.point_beige_accent)
+
+        val seasonDataEntryList= listOf<BubbleEntry>(
+            BubbleEntry(2f,30f,30f),
+            BubbleEntry(3f,25f,25f),
+            BubbleEntry(4f,25f,25f)
+        )
+        val seasonDataSet=BubbleDataSet(seasonDataEntryList,"normal")
+        seasonDataSet.color = ContextCompat.getColor(requireContext(),R.color.point_beige)
+
+        return listOf<BubbleDataSet>(
+            primarySeasonDataSet,
+            seasonDataSet
+        )
+
+    }
+
 
 }
