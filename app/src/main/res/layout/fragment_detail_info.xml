@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -9,6 +8,11 @@
             name="fm"
             type="com.afume.afume_android.ui.detail.info.DetailInfoFragment" />
     </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -70,6 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 android:layout_marginEnd="18dp"
+                android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txt_story"
                 app:layout_constraintTop_toBottomOf="@+id/txt_story"
@@ -312,6 +317,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 app:layoutManager="LinearLayoutManager"
+                android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_season"
                 app:layout_constraintStart_toStartOf="@+id/txt_lasting"
                 app:layout_constraintTop_toBottomOf="@+id/txt_lasting"
@@ -337,6 +343,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 app:layoutManager="LinearLayoutManager"
+                android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_lasting"
                 app:layout_constraintStart_toStartOf="@+id/txt_sillage"
                 app:layout_constraintTop_toBottomOf="@+id/txt_sillage"
@@ -370,11 +377,11 @@
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/chart_pie_details_info_gender"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_sillage"
-                app:layout_constraintStart_toStartOf="@+id/txt_gender"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_gender"
                 app:layout_constraintVertical_bias="0.0" />
 
@@ -411,6 +418,7 @@
                 android:layout_marginBottom="32dp"
                 android:orientation="horizontal"
                 app:layoutManager="LinearLayoutManager"
+                android:overScrollMode="never"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_gender"
                 app:layout_constraintStart_toStartOf="@+id/txt_similar"
@@ -418,5 +426,6 @@
                 tools:listitem="@layout/rv_item_home_popular" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>
