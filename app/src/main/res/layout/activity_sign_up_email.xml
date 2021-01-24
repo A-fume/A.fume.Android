@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="activity"
             type="com.afume.afume_android.ui.signup.SignUpEmailActivity" />
@@ -216,5 +217,24 @@
                 app:layout_constraintEnd_toStartOf="@+id/imageView21"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginBottom="6dp"
+            android:backgroundTint="@color/primary_black"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="6dp"
+            android:text="중복 확인"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            app:cornerRadius="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView16"
+            app:layout_constraintEnd_toEndOf="@+id/imageView16" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
