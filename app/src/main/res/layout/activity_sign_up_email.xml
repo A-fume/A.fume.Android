@@ -180,6 +180,25 @@
                 app:layout_constraintBottom_toBottomOf="@+id/imageView18"
                 app:layout_constraintEnd_toEndOf="@+id/imageView18"
                 app:srcCompat="@drawable/ic_check" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginBottom="6dp"
+                android:backgroundTint="@color/primary_black"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="중복 확인"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                app:cornerRadius="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imageView18" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
