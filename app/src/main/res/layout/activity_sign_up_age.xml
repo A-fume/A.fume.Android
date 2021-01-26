@@ -53,7 +53,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_sign_up_year_picker"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -66,13 +66,15 @@
             android:textSize="20dp"
             android:includeFontPadding="false"
             android:textColor="@color/white"
+            android:backgroundTint="@color/point_beige"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="2dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView29"
-            android:background="@drawable/border_point_beige_fill_2"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView29"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_sign_up_complete"
             android:layout_width="0dp"
             android:layout_height="52dp"
@@ -82,7 +84,9 @@
             android:onClick="onClickCompleteBtn"
             android:includeFontPadding="false"
             android:textColor="@color/white_85"
-            android:background="@color/primary_black"
+            android:backgroundTint="@color/primary_black"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

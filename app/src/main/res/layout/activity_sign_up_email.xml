@@ -181,7 +181,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/imageView18"
                 app:srcCompat="@drawable/ic_check" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/button4"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
