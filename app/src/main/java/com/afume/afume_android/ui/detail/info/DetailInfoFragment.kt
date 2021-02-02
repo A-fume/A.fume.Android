@@ -2,17 +2,20 @@ package com.afume.afume_android.ui.detail.info
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.HomePerfumeListData
 import com.afume.afume_android.databinding.FragmentDetailInfoBinding
 import com.afume.afume_android.ui.filter.FlexboxRecyclerViewAdapter
 import com.afume.afume_android.ui.filter.RvFlexboxData
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.data.*
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -22,7 +25,7 @@ class DetailInfoFragment : Fragment() {
 
     lateinit var binding: FragmentDetailInfoBinding
     lateinit var rvKeywordAdapter: FlexboxRecyclerViewAdapter
-    lateinit var rvSimilarAdapter: PopularListAdapter
+    private lateinit var rvSimilarAdapter: PopularListAdapter
     lateinit var chartLastingPowerAdapter: HorizontalBarChartAdapter
 
     override fun onCreateView(
@@ -37,10 +40,12 @@ class DetailInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initRvKeyword(context)
-        initRvSimilar(requireContext())
         initLastingPowerBarChart()
-        chartLastingPowerAdapter.notifyDataSetChanged()
         initsillageBarChart()
+        initRvSimilar(requireContext())
+
+        drawGenderPieChart(dummyPieDataGender())
+        drawBubbleChartSeason(dummyBubbleDataSeason())
 
     }
 
@@ -115,5 +120,137 @@ class DetailInfoFragment : Fragment() {
         sillageAdapter.chartData= listOf(60f,30f,10f)
         sillageAdapter.notifyDataSetChanged()
     }
+
+    private fun drawGenderPieChart(pieDataSet: PieDataSet){
+        val pieDataColors= listOf<Int>(
+            ContextCompat.getColor(requireContext(),R.color.point_beige_accent),
+            ContextCompat.getColor(requireContext(),R.color.point_beige),
+            ContextCompat.getColor(requireContext(),R.color.light_beige)
+        )
+        val pieValuesTextColors= listOf<Int>(
+            ContextCompat.getColor(requireContext(),R.color.white),
+            ContextCompat.getColor(requireContext(),R.color.white),
+            ContextCompat.getColor(requireContext(),R.color.dark_gray_7d),
+        )
+        pieDataSet.apply {
+            colors=pieDataColors
+            valueTextSize=14f
+            setDrawValues(true)
+            sliceSpace=1f
+            setValueTextColors(pieValuesTextColors)
+        }
+
+        val pieData=PieData(pieDataSet)
+
+        binding.chartPieDetailsInfoGender.apply {
+//            setEntryLabelColor(ContextCompat.getColor(requireContext(),R.color.dark_gray_7d))
+            setDrawEntryLabels(false)
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//                setLeftTopRightBottom(0,5,10,5)
+//            }
+            setUsePercentValues(false)
+            offsetLeftAndRight(1)
+            minOffset=0f
+            isDrawHoleEnabled=false
+            data = pieData
+            highlightValue(0f,0)
+            description.isEnabled = false
+            invalidate()
+        }
+
+        val pieLegend = binding.chartPieDetailsInfoGender.legend
+        pieLegend.apply {
+//            yOffset=10f
+//            xOffset=20f
+//            xEntrySpace=20f
+
+            form=Legend.LegendForm.SQUARE
+            formSize=15f
+            direction=Legend.LegendDirection.LEFT_TO_RIGHT
+            verticalAlignment=Legend.LegendVerticalAlignment.CENTER
+            horizontalAlignment=Legend.LegendHorizontalAlignment.RIGHT
+            orientation=Legend.LegendOrientation.VERTICAL
+//            maxSizePercent=0.8f
+            textSize=16f
+            textColor=ContextCompat.getColor(requireContext(),R.color.primary_black)
+        }
+    }
+    private fun dummyPieDataGender():PieDataSet{
+        val pieListData = listOf<PieEntry>(
+            PieEntry(60f,"여성   60%"),
+            PieEntry(40f,"남성   40%"),
+            PieEntry(20f,"중성   20%"),
+        )
+
+        return PieDataSet(pieListData,"")
+    }
+
+    private fun drawBubbleChartSeason(dataSet: List<BubbleDataSet>){
+
+        val yR=binding.chartBubbleDetailsInfoSeason.axisRight
+        yR.apply {
+            setDrawZeroLine(false)
+            setDrawAxisLine(false)
+            setDrawGridLines(false)
+        }
+        val yL=binding.chartBubbleDetailsInfoSeason.axisLeft
+        yL.apply {
+            setDrawZeroLine(false)
+            setDrawAxisLine(false)
+            setDrawGridLines(false)
+            setDrawLabels(false)
+            axisMaximum = 65f
+            axisMinimum = 15f
+        }
+        val xl = binding.chartBubbleDetailsInfoSeason.xAxis
+        xl.apply {
+            setDrawAxisLine(false)
+            setDrawGridLines(false)
+            setDrawLabels(false)
+            granularity=1f
+            axisMaximum = 4.5f
+            axisMinimum = 0.5f
+        }
+
+        val bubbleData = BubbleData(dataSet)
+        bubbleData.apply {
+            setValueTextColor(ContextCompat.getColor(requireContext(),R.color.white))
+            setValueTextSize(15f)
+        }
+
+        binding.chartBubbleDetailsInfoSeason.apply {
+            description.isEnabled=false
+            legend.isEnabled=false
+            setDrawGridBackground(false)
+            setTouchEnabled(false)
+            setScaleEnabled(false)
+            isDragXEnabled=false
+            isDragYEnabled=false
+            axisRight.isEnabled=false
+            data=bubbleData
+            invalidate()
+        }
+
+    }
+
+    private fun dummyBubbleDataSeason():List<BubbleDataSet>{
+        val primarySeasonDataSet=BubbleDataSet(listOf(BubbleEntry(1f,50f,50f)),"primary")
+        primarySeasonDataSet.color = ContextCompat.getColor(requireContext(),R.color.point_beige_accent)
+
+        val seasonDataEntryList= listOf<BubbleEntry>(
+            BubbleEntry(2f,30f,30f),
+            BubbleEntry(3f,25f,25f),
+            BubbleEntry(4f,25f,25f)
+        )
+        val seasonDataSet=BubbleDataSet(seasonDataEntryList,"normal")
+        seasonDataSet.color = ContextCompat.getColor(requireContext(),R.color.point_beige)
+
+        return listOf<BubbleDataSet>(
+            primarySeasonDataSet,
+            seasonDataSet
+        )
+
+    }
+
 
 }
