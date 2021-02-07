@@ -14,18 +14,34 @@
         android:theme="@style/Theme.AfumeAndroid"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".ui.survey.SurveyActivity">
+
+        <activity android:name=".ui.signin.SignHomeActivity"/>
+        <activity android:name=".ui.signin.SignInActivity"/>
+
+        <activity android:name=".ui.signup.SignUpEmailActivity" />
+        <activity android:name=".ui.signup.SignUpPasswordActivity"/>
+        <activity android:name=".ui.signup.SignUpGenderActivity"/>
+        <activity android:name=".ui.signup.SignUpAgeActivity"/>
+
+        <activity android:name=".ui.survey.SurveyActivity"/>
+
+        <activity android:name=".ui.note.NoteActivity"/>
+        <activity android:name=".ui.filter.FilterActivity"/>
+        <activity android:name=".ui.detail.PerfumeDetailActivity" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.filter.FilterActivity" />
-        <activity android:name=".ui.detail.PerfumeDetailActivity" />
+
         <activity android:name=".ui.home.MoreNewPerfumeActivity" />
+
         <activity android:name=".ui.MainActivity">
+
         </activity>
+
     </application>
 
 </manifest>

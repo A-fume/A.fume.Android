@@ -12,10 +12,8 @@ import com.afume.afume_android.R
 import com.afume.afume_android.databinding.RvItemFilterFlexboxBinding
 import java.lang.Exception
 
-class FlexboxRecyclerViewAdapter :
-    ListAdapter<RvFlexboxData, FlexboxRecyclerViewAdapter.FlexboxRecyclerViewHolder>(
-        incenseSeriesDiffCallback
-    ) {
+class FlexboxRecyclerViewAdapter(val type: Int=1) :
+    ListAdapter<RvFlexboxData, FlexboxRecyclerViewAdapter.FlexboxRecyclerViewHolder>(incenseSeriesDiffCallback) {
     init {
         setHasStableIds(true)
     }
@@ -29,7 +27,7 @@ class FlexboxRecyclerViewAdapter :
     ): FlexboxRecyclerViewHolder {
         val binding =
             RvItemFilterFlexboxBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FlexboxRecyclerViewHolder(binding)
+        return FlexboxRecyclerViewHolder(binding, type)
     }
 
     override fun getItemCount(): Int = data.size
@@ -50,50 +48,65 @@ class FlexboxRecyclerViewAdapter :
     }
 
 
-    inner class FlexboxRecyclerViewHolder(val binding: RvItemFilterFlexboxBinding) :
+    inner class FlexboxRecyclerViewHolder(val binding: RvItemFilterFlexboxBinding, val type: Int) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: RvFlexboxData, itemPosition: Int) {
             binding.rvData = data
-            binding.root.setOnClickListener {
-                selectionTracker.select(itemPosition.toLong())
-            }
-            if (selectionTracker.isSelected(itemPosition.toLong())) {
-                binding.rvItemTxtFlexbox.apply {
-                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
-                    setTextColor(ContextCompat.getColor(this.context, R.color.white))
-                }
-            }
-            if (!selectionTracker.isSelected(itemPosition.toLong())) {
-                binding.rvItemTxtFlexbox.apply {
-                    background = ContextCompat.getDrawable(
-                        this.context,
-                        R.drawable.border_gray_cd_line_square
-                    )
-                    setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
-                }
-
-
-            }
-        }
-
-        fun getItemDetails(viewHolder: RecyclerView.ViewHolder?): ItemDetailsLookup.ItemDetails<Long> {
-            return object : ItemDetailsLookup.ItemDetails<Long>() {
-                override fun getSelectionKey(): Long? {
-                    return itemId
-                }
-
-                override fun getPosition(): Int {
-                    if (viewHolder == null) {
-                        return RecyclerView.NO_POSITION
+            when (type) {
+                1 -> {
+                    binding.root.setOnClickListener {
+                        selectionTracker.select(itemPosition.toLong())
                     }
-                    return viewHolder.adapterPosition
+                    if (selectionTracker.isSelected(itemPosition.toLong())) {
+                        binding.rvItemTxtFlexbox.apply {
+                            setBackgroundColor(
+                                ContextCompat.getColor(
+                                    this.context,
+                                    R.color.point_beige
+                                )
+                            )
+                            setTextColor(ContextCompat.getColor(this.context, R.color.white))
+                        }
+                    }
+                    if (!selectionTracker.isSelected(itemPosition.toLong())) {
+                        binding.rvItemTxtFlexbox.apply {
+                            background = ContextCompat.getDrawable(
+                                this.context,
+                                R.drawable.border_gray_cd_line_square
+                            )
+                            setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+                        }
+                    }
                 }
-
+                2 -> {
+                    binding.rvItemTxtFlexbox.apply {
+                        background = ContextCompat.getDrawable(
+                            this.context,
+                            R.drawable.border_point_beige_fill_16
+                        )
+                        setTextColor(ContextCompat.getColor(this.context, R.color.white))
+                    }
+                }
             }
         }
+            fun getItemDetails(viewHolder: RecyclerView.ViewHolder?): ItemDetailsLookup.ItemDetails<Long> {
+                return object : ItemDetailsLookup.ItemDetails<Long>() {
+                    override fun getSelectionKey(): Long? {
+                        return itemId
+                    }
+
+                    override fun getPosition(): Int {
+                        if (viewHolder == null) {
+                            return RecyclerView.NO_POSITION
+                        }
+                        return viewHolder.adapterPosition
+                    }
+
+                }
+            }
+
     }
 }
-
 val incenseSeriesDiffCallback = object : DiffUtil.ItemCallback<RvFlexboxData>() {
     override fun areItemsTheSame(oldItem: RvFlexboxData, newItem: RvFlexboxData): Boolean {
         return oldItem == newItem

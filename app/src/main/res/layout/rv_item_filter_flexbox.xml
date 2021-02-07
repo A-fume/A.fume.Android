@@ -18,6 +18,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/border_gray_cd_line_square"
+            android:fontFamily="@font/notosans_regular"
             android:gravity="center"
             android:includeFontPadding="false"
             android:paddingLeft="18dp"
@@ -26,6 +27,8 @@
             android:paddingBottom="10dp"
             android:text="@{rvData.flexboxTxt}"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/gray_cd"
+            android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
