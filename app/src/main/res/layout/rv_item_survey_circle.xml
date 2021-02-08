@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="rvCircle"
-            type="com.afume.afume_android.data.vo.RvCircleData" />
+            name="perfume"
+            type="com.afume.afume_android.data.vo.response.PerfumeInfo" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/rv_item_img_survey_circle"
-        bindingDrawable="@{rvCircle.img}"
+        bindingDrawable="@{perfume.imageUrl}"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginStart="9dp"
@@ -63,7 +63,7 @@
         android:fontFamily="@font/notosans_regular"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:text="@{rvCircle.name}"
+        android:text="@{perfume.brandName}"
         android:textColor="@color/dark_gray_7d"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/rv_item_img_survey_circle"
@@ -80,7 +80,7 @@
         android:gravity="center"
         android:includeFontPadding="false"
         android:maxLines="2"
-        android:text="@{rvCircle.details}"
+        android:text="@{perfume.name}"
         android:textColor="@color/primary_black"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
