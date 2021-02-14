@@ -1,11 +1,12 @@
 package com.afume.afume_android.ui.survey
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySurveyBinding
 import com.afume.afume_android.ui.filter.AfumeViewPagerAdapter
+import com.afume.afume_android.util.TabSelectedListener
 
 class SurveyActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySurveyBinding
@@ -39,6 +40,8 @@ class SurveyActivity : AppCompatActivity() {
             getTabAt(1)?.text="키워드"
             getTabAt(2)?.text="계열"
         }
+        val tabListener = TabSelectedListener(binding.tabSurvey)
+        binding.tabSurvey.addOnTabSelectedListener(tabListener)
 
     }
 }

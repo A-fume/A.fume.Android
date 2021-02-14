@@ -13,11 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="GridLayoutManager"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingLeft="9dp"
+        android:paddingTop="24dp"
+        android:paddingRight="9dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/light_gray_f9"
         app:spanCount="3"
         tools:listitem="@layout/rv_item_survey_circle" />
 </androidx.constraintlayout.widget.ConstraintLayout>
