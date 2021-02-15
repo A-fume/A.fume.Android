@@ -5,7 +5,7 @@
     <data>
         <variable
             name="rvData"
-            type="com.afume.afume_android.ui.filter.RvFlexboxData" />
+            type="com.afume.afume_android.data.vo.response.ResponseKeyword" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
             android:paddingTop="10dp"
             android:paddingRight="18dp"
             android:paddingBottom="10dp"
-            android:text="@{rvData.flexboxTxt}"
+            android:text="@{rvData.keyword}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

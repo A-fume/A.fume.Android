@@ -1,6 +1,7 @@
 package com.afume.afume_android.ui.survey
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.afume.afume_android.databinding.RvItemSurveyCircleBinding
 
 class CircleRecyclerViewAdapter(val type:String?, val add:(Int)->Unit, val remove:(Int)->Unit):RecyclerView.Adapter<CircleRecyclerViewAdapter.CircleRecyclerViewHolder>(){
-    var data = listOf<PerfumeInfo>()
+    var data = mutableListOf<PerfumeInfo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CircleRecyclerViewHolder {
         val binding=RvItemSurveyCircleBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -24,12 +25,18 @@ class CircleRecyclerViewAdapter(val type:String?, val add:(Int)->Unit, val remov
         holder.bind(data[position])
     }
 
+    internal fun setData(data: MutableList<PerfumeInfo>?){
+        if(data!=null) this.data=data
+        notifyDataSetChanged()
+    }
+
     inner class CircleRecyclerViewHolder(val binding:RvItemSurveyCircleBinding,val type:String?,val ctx:Context):RecyclerView.ViewHolder(binding.root){
         fun bind(data:PerfumeInfo){
             if(type=="incense") binding.rvItemTxtSurveyName.setTextColor(ContextCompat.getColor(ctx,R.color.primary_black))
 
             binding.perfume=data
             binding.root.setOnClickListener {
+                Log.e("adapter",data.isLiked.toString())
                 if(!data.isLiked) {
                     binding.rvItemSurveyClick.visibility=View.VISIBLE
                     data.isLiked=true

@@ -9,18 +9,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.R
+import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.databinding.RvItemFilterFlexboxBinding
-import java.lang.Exception
 
-class FlexboxRecyclerViewAdapter :
-    ListAdapter<RvFlexboxData, FlexboxRecyclerViewAdapter.FlexboxRecyclerViewHolder>(
+class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
+    ListAdapter<ResponseKeyword, FlexboxRecyclerViewAdapter.FlexboxRecyclerViewHolder>(
         incenseSeriesDiffCallback
     ) {
     init {
         setHasStableIds(true)
     }
 
-    var data = listOf<RvFlexboxData>()
+    var data = listOf<ResponseKeyword>()
     private lateinit var selectionTracker: SelectionTracker<Long>
 
     override fun onCreateViewHolder(
@@ -52,7 +52,7 @@ class FlexboxRecyclerViewAdapter :
 
     inner class FlexboxRecyclerViewHolder(val binding: RvItemFilterFlexboxBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: RvFlexboxData, itemPosition: Int) {
+        fun bind(data: ResponseKeyword, itemPosition: Int) {
             binding.rvData = data
             binding.root.setOnClickListener {
                 selectionTracker.select(itemPosition.toLong())
@@ -61,6 +61,7 @@ class FlexboxRecyclerViewAdapter :
                 binding.rvItemTxtFlexbox.apply {
                     setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
                     setTextColor(ContextCompat.getColor(this.context, R.color.white))
+                    add(itemPosition)
                 }
             }
             if (!selectionTracker.isSelected(itemPosition.toLong())) {
@@ -70,6 +71,7 @@ class FlexboxRecyclerViewAdapter :
                         R.drawable.border_gray_cd_line_square
                     )
                     setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+                    remove(itemPosition)
                 }
 
 
@@ -94,13 +96,13 @@ class FlexboxRecyclerViewAdapter :
     }
 }
 
-val incenseSeriesDiffCallback = object : DiffUtil.ItemCallback<RvFlexboxData>() {
-    override fun areItemsTheSame(oldItem: RvFlexboxData, newItem: RvFlexboxData): Boolean {
+val incenseSeriesDiffCallback = object : DiffUtil.ItemCallback<ResponseKeyword>() {
+    override fun areItemsTheSame(oldItem: ResponseKeyword, newItem: ResponseKeyword): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: RvFlexboxData, newItem: RvFlexboxData): Boolean {
-        return oldItem.flexboxTxt == newItem.flexboxTxt
+    override fun areContentsTheSame(oldItem: ResponseKeyword, newItem: ResponseKeyword): Boolean {
+        return oldItem.keyword == newItem.keyword
     }
 
 }

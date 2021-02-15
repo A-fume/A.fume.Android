@@ -33,7 +33,7 @@ class SurveyIncenseFragment : Fragment() {
         incenseAdapter = CircleRecyclerViewAdapter(type = "incense",
             add = { index->viewModel.addSeriesList(index)},remove = {index:Int->viewModel.removeSeriesList(index)})
         binding.rvSurveyIncense.adapter = incenseAdapter
-        incenseAdapter.data = listOf(
+        incenseAdapter.data = mutableListOf(
             PerfumeInfo(
                 brandName = "LE LABO",
                 name = "아너다 13",
@@ -79,7 +79,7 @@ class SurveyIncenseFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        incenseAdapter.notifyDataSetChanged()
+        incenseAdapter.setData(viewModel.perfumeList.value)
     }
 
 }

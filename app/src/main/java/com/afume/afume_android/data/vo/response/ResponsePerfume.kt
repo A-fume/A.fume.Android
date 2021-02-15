@@ -2,7 +2,7 @@ package com.afume.afume_android.data.vo.response
 
 data class ResponsePerfume(
     val count: Int,
-    val rows: List<PerfumeInfo>
+    val rows: MutableList<PerfumeInfo>
 )
 data class PerfumeInfo(
     val name: String,

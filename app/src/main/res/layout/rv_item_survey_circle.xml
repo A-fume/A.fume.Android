@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="perfume"
             type="com.afume.afume_android.data.vo.response.PerfumeInfo" />
@@ -29,7 +30,7 @@
         android:id="@+id/rv_item_survey_click"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:visibility="invisible"
+        android:visibility="@{perfume.isLiked? View.VISIBLE : View.INVISIBLE}"
         app:layout_constraintBottom_toBottomOf="@+id/rv_item_img_survey_circle"
         app:layout_constraintEnd_toEndOf="@+id/rv_item_img_survey_circle"
         app:layout_constraintStart_toStartOf="@+id/rv_item_img_survey_circle"
