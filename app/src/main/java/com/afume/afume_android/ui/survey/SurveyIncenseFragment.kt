@@ -27,6 +27,7 @@ class SurveyIncenseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRvIncense()
+        viewModel.getSeriesList()
     }
 
     private fun initRvIncense() {

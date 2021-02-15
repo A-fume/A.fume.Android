@@ -23,17 +23,18 @@
         <activity android:name=".ui.signup.SignUpGenderActivity"/>
         <activity android:name=".ui.signup.SignUpAgeActivity"/>
 
-        <activity android:name=".ui.survey.SurveyActivity"/>
-
-        <activity android:name=".ui.note.NoteActivity"/>
-        <activity android:name=".ui.filter.FilterActivity"/>
-        <activity android:name=".ui.detail.PerfumeDetailActivity" >
+        <activity android:name=".ui.survey.SurveyActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.note.NoteActivity"/>
+        <activity android:name=".ui.filter.FilterActivity"/>
+        <activity android:name=".ui.detail.PerfumeDetailActivity" >
         </activity>
 
         <activity android:name=".ui.home.MoreNewPerfumeActivity" />
