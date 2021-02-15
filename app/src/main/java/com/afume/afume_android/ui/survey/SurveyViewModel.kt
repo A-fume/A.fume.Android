@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.afume.afume_android.data.repository.SurveyRepository
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 
 class SurveyViewModel: ViewModel(){
-
-
+    private val surveyRepository = SurveyRepository()
 
     private val selectedPerfumeListLiveData: MutableLiveData<ArrayList<Int>> = MutableLiveData()
     private var selectedPerfumeList = ArrayList<Int>()
@@ -80,7 +80,9 @@ class SurveyViewModel: ViewModel(){
         Log.e("index",index.toString())
         Log.e("remove series", seriesListLiveData.value.toString())
     }
-
+     fun getSeriesList(){
+         surveyRepository.getSeries()
+     }
 
 
 }

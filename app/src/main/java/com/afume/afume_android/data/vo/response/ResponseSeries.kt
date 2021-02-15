@@ -9,5 +9,6 @@ data class SeriesInfo(
     val name: String,
     val englishName: String,
     val description: String,
-    val seriesIdx: Int
+    val seriesIdx: Int,
+    val imageUrl: String
 )
