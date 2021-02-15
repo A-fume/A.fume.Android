@@ -9,16 +9,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.R
+import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.databinding.RvItemFilterFlexboxBinding
-import java.lang.Exception
 
-class FlexboxRecyclerViewAdapter(val type: Int=1) :
-    ListAdapter<RvFlexboxData, FlexboxRecyclerViewAdapter.FlexboxRecyclerViewHolder>(incenseSeriesDiffCallback) {
+class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
+    ListAdapter<ResponseKeyword, FlexboxRecyclerViewAdapter.FlexboxRecyclerViewHolder>(
+        incenseSeriesDiffCallback
+    ) {
     init {
         setHasStableIds(true)
     }
 
-    var data = listOf<RvFlexboxData>()
+    var data = listOf<ResponseKeyword>()
     private lateinit var selectionTracker: SelectionTracker<Long>
 
     override fun onCreateViewHolder(
@@ -27,7 +29,7 @@ class FlexboxRecyclerViewAdapter(val type: Int=1) :
     ): FlexboxRecyclerViewHolder {
         val binding =
             RvItemFilterFlexboxBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FlexboxRecyclerViewHolder(binding, type)
+        return FlexboxRecyclerViewHolder(binding)
     }
 
     override fun getItemCount(): Int = data.size
@@ -48,72 +50,59 @@ class FlexboxRecyclerViewAdapter(val type: Int=1) :
     }
 
 
-    inner class FlexboxRecyclerViewHolder(val binding: RvItemFilterFlexboxBinding, val type: Int) :
+    inner class FlexboxRecyclerViewHolder(val binding: RvItemFilterFlexboxBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: RvFlexboxData, itemPosition: Int) {
+        fun bind(data: ResponseKeyword, itemPosition: Int) {
             binding.rvData = data
-            when (type) {
-                1 -> {
-                    binding.root.setOnClickListener {
-                        selectionTracker.select(itemPosition.toLong())
-                    }
-                    if (selectionTracker.isSelected(itemPosition.toLong())) {
-                        binding.rvItemTxtFlexbox.apply {
-                            setBackgroundColor(
-                                ContextCompat.getColor(
-                                    this.context,
-                                    R.color.point_beige
-                                )
-                            )
-                            setTextColor(ContextCompat.getColor(this.context, R.color.white))
-                        }
-                    }
-                    if (!selectionTracker.isSelected(itemPosition.toLong())) {
-                        binding.rvItemTxtFlexbox.apply {
-                            background = ContextCompat.getDrawable(
-                                this.context,
-                                R.drawable.border_gray_cd_line_square
-                            )
-                            setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
-                        }
-                    }
+            binding.root.setOnClickListener {
+                selectionTracker.select(itemPosition.toLong())
+            }
+            if (selectionTracker.isSelected(itemPosition.toLong())) {
+                binding.rvItemTxtFlexbox.apply {
+                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
+                    setTextColor(ContextCompat.getColor(this.context, R.color.white))
+                    add(itemPosition)
                 }
-                2 -> {
-                    binding.rvItemTxtFlexbox.apply {
-                        background = ContextCompat.getDrawable(
-                            this.context,
-                            R.drawable.border_point_beige_fill_16
-                        )
-                        setTextColor(ContextCompat.getColor(this.context, R.color.white))
-                    }
+            }
+            if (!selectionTracker.isSelected(itemPosition.toLong())) {
+                binding.rvItemTxtFlexbox.apply {
+                    background = ContextCompat.getDrawable(
+                        this.context,
+                        R.drawable.border_gray_cd_line_square
+                    )
+                    setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+                    remove(itemPosition)
                 }
+
+
             }
         }
-            fun getItemDetails(viewHolder: RecyclerView.ViewHolder?): ItemDetailsLookup.ItemDetails<Long> {
-                return object : ItemDetailsLookup.ItemDetails<Long>() {
-                    override fun getSelectionKey(): Long? {
-                        return itemId
-                    }
 
-                    override fun getPosition(): Int {
-                        if (viewHolder == null) {
-                            return RecyclerView.NO_POSITION
-                        }
-                        return viewHolder.adapterPosition
-                    }
-
+        fun getItemDetails(viewHolder: RecyclerView.ViewHolder?): ItemDetailsLookup.ItemDetails<Long> {
+            return object : ItemDetailsLookup.ItemDetails<Long>() {
+                override fun getSelectionKey(): Long? {
+                    return itemId
                 }
-            }
 
+                override fun getPosition(): Int {
+                    if (viewHolder == null) {
+                        return RecyclerView.NO_POSITION
+                    }
+                    return viewHolder.adapterPosition
+                }
+
+            }
+        }
     }
 }
-val incenseSeriesDiffCallback = object : DiffUtil.ItemCallback<RvFlexboxData>() {
-    override fun areItemsTheSame(oldItem: RvFlexboxData, newItem: RvFlexboxData): Boolean {
+
+val incenseSeriesDiffCallback = object : DiffUtil.ItemCallback<ResponseKeyword>() {
+    override fun areItemsTheSame(oldItem: ResponseKeyword, newItem: ResponseKeyword): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: RvFlexboxData, newItem: RvFlexboxData): Boolean {
-        return oldItem.flexboxTxt == newItem.flexboxTxt
+    override fun areContentsTheSame(oldItem: ResponseKeyword, newItem: ResponseKeyword): Boolean {
+        return oldItem.keyword == newItem.keyword
     }
 
 }

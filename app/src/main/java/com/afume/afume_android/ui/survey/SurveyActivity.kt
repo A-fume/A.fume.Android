@@ -1,6 +1,7 @@
 package com.afume.afume_android.ui.survey
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
@@ -10,6 +11,7 @@ import com.afume.afume_android.util.TabSelectedListener
 
 class SurveyActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySurveyBinding
+    private val viewModel: SurveyViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBinding()
@@ -26,6 +28,7 @@ class SurveyActivity : AppCompatActivity() {
         binding.lifecycleOwner=this
         binding.toolbarSurvey.toolbar=R.drawable.icon_btn_cancel
     }
+
     private fun initTabWithVp(){
         val surveyViewPagerAdapter=AfumeViewPagerAdapter(supportFragmentManager)
         surveyViewPagerAdapter.fragments= listOf(
