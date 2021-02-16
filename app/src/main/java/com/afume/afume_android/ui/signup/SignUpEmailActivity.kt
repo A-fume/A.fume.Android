@@ -13,7 +13,7 @@ import com.afume.afume_android.databinding.ActivitySignUpEmailBinding
 
 class SignUpEmailActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpEmailBinding
-    private val signUpViewModel : SignUpViewModel by viewModels()
+    private val signUpViewModel : SignUpEmailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +23,11 @@ class SignUpEmailActivity : AppCompatActivity() {
 
         binding.edtSignUpEmail.requestFocus()
 
-        startAnimation()
+        nickAnimation()
         checkNextButton()
     }
 
-    private fun startAnimation(){
+    private fun nickAnimation(){
         signUpViewModel.nick.observe(this, Observer { isValidNick->
             isValidNick?.let {
                 if(isValidNick){
@@ -41,16 +41,16 @@ class SignUpEmailActivity : AppCompatActivity() {
     }
 
     private fun checkNextButton(){
-        signUpViewModel.isValidEmailImage.observe(this, {isValidEmailImage->
+        signUpViewModel.isValidEmailImage.observe(this, Observer{isValidEmailImage->
             isValidEmailImage?.let {
-                if(isValidEmailImage){
+                if(!isValidEmailImage){
                     signUpViewModel.checkNextBtn()
                 }
             }
         })
-        signUpViewModel.isValidNickImage.observe(this, {isValidNickImage->
+        signUpViewModel.isValidNickImage.observe(this, Observer{isValidNickImage->
             isValidNickImage?.let {
-                if(isValidNickImage){
+                if(!isValidNickImage){
                     signUpViewModel.checkNextBtn()
                 }
             }
