@@ -32,10 +32,10 @@ class SurveyPerfumeFragment : Fragment() {
     }
 
     private fun initRv() {
-        surveyPerfumeAdapter = CircleRecyclerViewAdapter("perfume", add = { index->viewModel.addPerfumeList(index)},remove = {index:Int->viewModel.removePerfumeList(index)})
+        surveyPerfumeAdapter = CircleRecyclerViewAdapter(0, add = { index->viewModel.addPerfumeList(index)},remove = {index:Int->viewModel.removePerfumeList(index)})
         binding.rvItemSurveyPerfume.adapter = surveyPerfumeAdapter
 
-        surveyPerfumeAdapter.data = mutableListOf(
+        surveyPerfumeAdapter.perfumeData = mutableListOf(
             PerfumeInfo(
                 brandName = "LE LABO",
                 name = "아너다 13",

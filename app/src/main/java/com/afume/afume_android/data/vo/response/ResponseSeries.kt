@@ -8,7 +8,8 @@ data class ResponseSeries(
 data class SeriesInfo(
     val name: String,
     val englishName: String,
-    val description: String,
+    val description: String="",
     val seriesIdx: Int,
-    val imageUrl: String
+    val imageUrl: Int,
+    var isLiked: Boolean=false
 )

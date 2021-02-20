@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.afume.afume_android.data.repository.SurveyRepository
 import com.afume.afume_android.data.vo.response.PerfumeInfo
+import com.afume.afume_android.data.vo.response.SeriesInfo
 
 class SurveyViewModel: ViewModel(){
     private val surveyRepository = SurveyRepository()
@@ -24,8 +25,8 @@ class SurveyViewModel: ViewModel(){
     private  val _perfumeList: MutableLiveData<MutableList<PerfumeInfo>> = MutableLiveData()
     val perfumeList: LiveData<MutableList<PerfumeInfo>> get() = _perfumeList
 
-    private  val _seriesList: MutableLiveData<MutableList<PerfumeInfo>> = MutableLiveData()
-    val seriesList: LiveData<MutableList<PerfumeInfo>> get() = _seriesList
+    private  val _seriesList: MutableLiveData<MutableList<SeriesInfo>> = MutableLiveData()
+    val seriesList: LiveData<MutableList<SeriesInfo>> get() = _seriesList
 
     fun addPerfumeList(index:Int){
 //        if(selectedPerfumeListLiveData.value==null) temp.clear()
