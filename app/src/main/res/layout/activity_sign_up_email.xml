@@ -91,7 +91,7 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="6dp"
             android:text="중복 확인"
-            android:visibility="@{viewModel.isValidEmail? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{viewModel.isValidEmailBtn? View.VISIBLE : View.INVISIBLE}"
             android:onClick="@{() -> viewModel.doubleCheckEmail()}"
             android:textColor="@color/white"
             android:textSize="14dp"
@@ -131,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:visibility="@{viewModel.isValidEmailImage? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{viewModel.isValidEmailImg? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/imageView16"
             app:layout_constraintEnd_toEndOf="@+id/imageView16"
             app:srcCompat="@drawable/ic_check" />
@@ -141,7 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:visibility="@{viewModel.nick? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{viewModel.nickForm? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView16">
@@ -212,7 +212,7 @@
                 android:textColor="@color/white"
                 android:textSize="14dp"
                 android:onClick="@{() -> viewModel.doubleCheckNick()}"
-                android:visibility="@{viewModel.isValidNick? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{viewModel.isValidNickBtn? View.VISIBLE : View.INVISIBLE}"
                 app:cornerRadius="2dp"
                 app:layout_constraintBottom_toTopOf="@+id/imageView18"
                 app:layout_constraintEnd_toEndOf="@+id/imageView18" />
@@ -222,7 +222,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:visibility="@{viewModel.isValidNickImage? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{viewModel.isValidNickImg? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView18"
                 app:layout_constraintEnd_toEndOf="@+id/imageView18"
                 app:srcCompat="@drawable/ic_check" />

@@ -22,14 +22,14 @@ class SignUpEmailViewModel : ViewModel() {
         get() = _isValidEmailNotice
 
     // 이메일 형식 검사 - 우측 이미지
-    private val _isValidEmailImage = MutableLiveData<Boolean>(false)
-    val isValidEmailImage : LiveData<Boolean>
-        get() = _isValidEmailImage
+    private val _isValidEmailImg = MutableLiveData<Boolean>(false)
+    val isValidEmailImg : LiveData<Boolean>
+        get() = _isValidEmailImg
 
     // 이메일 중복확인
-    private val _isValidEmail = MutableLiveData<Boolean>(true)
-    val isValidEmail : LiveData<Boolean>
-        get() = _isValidEmail
+    private val _isValidEmailBtn = MutableLiveData<Boolean>(true)
+    val isValidEmailBtn : LiveData<Boolean>
+        get() = _isValidEmailBtn
 
     // 닉네임 형식 검사 - 하단 안내문
     private val _isValidNickNotice = MutableLiveData<Boolean>(false)
@@ -37,19 +37,19 @@ class SignUpEmailViewModel : ViewModel() {
         get() = _isValidNickNotice
 
     // 닉네임 형식 검사 - 우측 이미지
-    private val _isValidNickImage = MutableLiveData<Boolean>(false)
-    val isValidNickImage : LiveData<Boolean>
-        get() = _isValidNickImage
+    private val _isValidNickImg = MutableLiveData<Boolean>(false)
+    val isValidNickImg : LiveData<Boolean>
+        get() = _isValidNickImg
 
     // 닉네임 중복확인
-    private val _isValidNick = MutableLiveData<Boolean>(true)
-    val isValidNick : LiveData<Boolean>
-        get() = _isValidNick
+    private val _isValidNickBtn = MutableLiveData<Boolean>(true)
+    val isValidNickBtn : LiveData<Boolean>
+        get() = _isValidNickBtn
 
     // 닉네임 입력란 노출
-    private val _nick = MutableLiveData<Boolean>(false)
-    val nick : LiveData<Boolean>
-        get() = _nick
+    private val _nickForm = MutableLiveData<Boolean>(false)
+    val nickForm : LiveData<Boolean>
+        get() = _nickForm
 
     // 다음 버튼 노출
     private val _nextBtn = MutableLiveData<Boolean>(false)
@@ -59,6 +59,11 @@ class SignUpEmailViewModel : ViewModel() {
     // 이메일 입력 실시간 확인
     fun checkEmailInput(s: CharSequence?, start: Int, before: Int, count: Int) {
         Handler().postDelayed({ checkEmailForm() }, 1500L)
+
+        if(_isValidEmailImg.value!!){
+            _isValidEmailBtn.value = true
+            _isValidEmailImg.value = false
+        }
     }
 
     // 이메일 형식 확인
@@ -72,19 +77,24 @@ class SignUpEmailViewModel : ViewModel() {
         if(emailText.value == "afume@naver.com"){
             emailNotice.value = "이미 사용 중인 이메일입니다."
             _isValidEmailNotice.value = true
-            _isValidEmailImage.value = false
+            _isValidEmailImg.value = false
         }else{
-            _isValidEmail.value = false
+            _isValidEmailBtn.value = false
             _isValidEmailNotice.value = false
-            _isValidEmailImage.value = true
+            _isValidEmailImg.value = true
 
-            _nick.value = true
+            if(!_nickForm.value!!) _nickForm.value = true
         }
     }
 
     // 닉네임 입력 실시간 확인
     fun checkNickInput(s: CharSequence?, start: Int, before: Int, count: Int) {
         Handler().postDelayed({ checkNickForm()},0L)
+
+        if(_isValidNickImg.value!!){
+            _isValidNickBtn.value = true
+            _isValidNickImg.value = false
+        }
     }
 
     // 닉네임 형식 확인
@@ -100,17 +110,17 @@ class SignUpEmailViewModel : ViewModel() {
         if(nickText.value == "아"){
             nickNotice.value = "이미 등록된 닉네임입니다."
             _isValidNickNotice.value = true
-            _isValidNickImage.value = false
+            _isValidNickImg.value = false
         }else{
-            _isValidNick.value = false
+            _isValidNickBtn.value = false
             _isValidNickNotice.value = false
-            _isValidNickImage.value = true
+            _isValidNickImg.value = true
         }
     }
 
     // 다음 버튼 노출 여부 검사
     fun checkNextBtn(){
-        _nextBtn.value = _isValidEmailImage.value == true && _isValidNickImage.value == true
+        _nextBtn.value = _isValidEmailImg.value == true && _isValidNickImg.value == true
     }
 
 }

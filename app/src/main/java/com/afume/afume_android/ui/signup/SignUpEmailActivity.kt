@@ -28,7 +28,7 @@ class SignUpEmailActivity : AppCompatActivity() {
     }
 
     private fun nickAnimation(){
-        signUpViewModel.nick.observe(this, Observer { isValidNick->
+        signUpViewModel.nickForm.observe(this, Observer { isValidNick->
             isValidNick?.let {
                 if(isValidNick){
                     val animation = AnimationUtils.loadAnimation(this, R.anim.alpha_up)
@@ -41,19 +41,11 @@ class SignUpEmailActivity : AppCompatActivity() {
     }
 
     private fun checkNextButton(){
-        signUpViewModel.isValidEmailImage.observe(this, Observer{isValidEmailImage->
-            isValidEmailImage?.let {
-                if(!isValidEmailImage){
-                    signUpViewModel.checkNextBtn()
-                }
-            }
+        signUpViewModel.isValidEmailImg.observe(this, Observer {
+            signUpViewModel.checkNextBtn()
         })
-        signUpViewModel.isValidNickImage.observe(this, Observer{isValidNickImage->
-            isValidNickImage?.let {
-                if(!isValidNickImage){
-                    signUpViewModel.checkNextBtn()
-                }
-            }
+        signUpViewModel.isValidNickImg.observe(this, Observer{
+            signUpViewModel.checkNextBtn()
         })
     }
 

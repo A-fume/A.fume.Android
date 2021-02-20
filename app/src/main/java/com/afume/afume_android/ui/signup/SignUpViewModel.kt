@@ -16,9 +16,9 @@ class SignUpViewModel  : ViewModel() {
         get() = _isValidPasswordNotice
 
     // 비밀번호 형식 검사 - 우측 이미지
-    private val _isValidPasswordImage = MutableLiveData<Boolean>(false)
-    val isValidPasswordImage : LiveData<Boolean>
-        get() = _isValidPasswordImage
+    private val _isValidPasswordImg = MutableLiveData<Boolean>(false)
+    val isValidPasswordImg : LiveData<Boolean>
+        get() = _isValidPasswordImg
 
     // 비밀번호 일치 검사 - 하단 안내문
     private val _isValidAgainNotice = MutableLiveData<Boolean>(false)
@@ -26,14 +26,14 @@ class SignUpViewModel  : ViewModel() {
         get() = _isValidAgainNotice
 
     // 비밀번호 일치 검사 - 우측 이미지
-    private val _isValidAgainImage = MutableLiveData<Boolean>(false)
-    val isValidAgainImage : LiveData<Boolean>
-        get() = _isValidAgainImage
+    private val _isValidAgainImg = MutableLiveData<Boolean>(false)
+    val isValidAgainImg : LiveData<Boolean>
+        get() = _isValidAgainImg
 
     // 비밀번호 확인란 노출
-    private val _againPassword = MutableLiveData<Boolean>(false)
-    val againPassword : LiveData<Boolean>
-        get() = _againPassword
+    private val _againPasswordForm = MutableLiveData<Boolean>(false)
+    val againPasswordForm : LiveData<Boolean>
+        get() = _againPasswordForm
 
     // 다음 버튼 노출
     private val _nextBtn = MutableLiveData<Boolean>(false)
@@ -49,12 +49,12 @@ class SignUpViewModel  : ViewModel() {
     private fun checkEmailForm() {
         if(passwordText.value.toString().length<4){
             _isValidPasswordNotice.value = true
-            _isValidPasswordImage.value = false
+            _isValidPasswordImg.value = false
         }else{
             _isValidPasswordNotice.value = false
-            _isValidPasswordImage.value = true
+            _isValidPasswordImg.value = true
 
-            _againPassword.value = true
+            if(!_againPasswordForm.value!!) _againPasswordForm.value = true
         }
     }
 
@@ -67,18 +67,18 @@ class SignUpViewModel  : ViewModel() {
     private fun checkAgainForm(){
         if(againPasswordText.value.toString() == passwordText.value.toString()){
             _isValidAgainNotice.value = false
-            _isValidAgainImage.value = true
+            _isValidAgainImg.value = true
 
             _nextBtn.value = true
         }else{
             _isValidAgainNotice.value = true
-            _isValidAgainImage.value = false
+            _isValidAgainImg.value = false
         }
     }
 
     // 다음 버튼 노출 여부 검사
     fun checkNextBtn(){
-        _nextBtn.value = _isValidPasswordImage.value == true && _isValidAgainImage.value == true
+        _nextBtn.value = _isValidPasswordImg.value == true && _isValidAgainImg.value == true
     }
 
 }
