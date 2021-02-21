@@ -30,12 +30,11 @@ class SignUpEmailActivity : AppCompatActivity() {
 
         binding.textView16.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("title","login")
+            bundle.putString("title","delete")
             val dialog: CommonDialog = CommonDialog().getInstance()
             dialog.arguments = bundle
             dialog.show(this.supportFragmentManager, dialog.tag)
         }
-
     }
 
     private fun checkEmailInput(){

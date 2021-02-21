@@ -13,7 +13,6 @@ import com.afume.afume_android.databinding.DialogCommonBinding
 
 class CommonDialog : DialogFragment(), View.OnClickListener {
     lateinit var binding : DialogCommonBinding
-    val size = Point()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +34,12 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
 
-        context?.dialogFragmentResize(this, 0.9f)
+        val width = resources.getDimensionPixelSize(R.dimen.dialog_width)
+        val height = resources.getDimensionPixelSize(R.dimen.dialog_height)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.common_dialog_back)
+        dialog?.window?.setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT)
+
+//        context?.dialogFragmentResize(this, 0.9f)
 
     }
 

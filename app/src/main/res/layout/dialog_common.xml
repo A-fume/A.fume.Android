@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:background="@drawable/common_dialog_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -41,6 +39,7 @@
             android:textColor="@color/white"
             android:textSize="15dp"
             app:cornerRadius="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_common_dialog_yes"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_common_dialog_title" />
@@ -58,6 +57,7 @@
             android:textColor="@color/white"
             android:textSize="15dp"
             app:cornerRadius="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_common_dialog_no"
             app:layout_constraintTop_toTopOf="@+id/btn_common_dialog_no" />
