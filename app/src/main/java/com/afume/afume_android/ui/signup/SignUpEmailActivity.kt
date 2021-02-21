@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpEmailBinding
 import com.afume.afume_android.util.CheckTextWatcher
+import com.afume.afume_android.util.CommonDialog
 
 class SignUpEmailActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpEmailBinding
@@ -25,6 +27,14 @@ class SignUpEmailActivity : AppCompatActivity() {
         checkNicknameInput()
 
         binding.edtSignUpEmail.requestFocus()
+
+        binding.textView16.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("title","login")
+            val dialog: CommonDialog = CommonDialog().getInstance()
+            dialog.arguments = bundle
+            dialog.show(this.supportFragmentManager, dialog.tag)
+        }
 
     }
 
