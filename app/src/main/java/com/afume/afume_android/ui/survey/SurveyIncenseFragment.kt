@@ -26,7 +26,7 @@ class SurveyIncenseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRvIncense()
-//        viewModel.getSeriesList()
+
         incenseAdapter.notifyDataSetChanged()
     }
 
@@ -34,29 +34,6 @@ class SurveyIncenseFragment : Fragment() {
         incenseAdapter = CircleRecyclerViewAdapter(1,
             add = { index->viewModel.addSeriesList(index)},remove = {index:Int->viewModel.removeSeriesList(index)})
         binding.rvSurveyIncense.adapter = incenseAdapter
-//        incenseAdapter.seriesData= mutableListOf(
-//            SeriesInfo(
-//                "구르망",
-//                englishName = "gu",
-//                seriesIdx = 1,
-//                imageUrl = R.drawable.dummy_example_1
-//            ),SeriesInfo(
-//                "그린",
-//                englishName = "gu",
-//                seriesIdx = 2,
-//                imageUrl = R.drawable.dummy_example_2
-//            ),SeriesInfo(
-//                "머스키",
-//                englishName = "gu",
-//                seriesIdx = 3,
-//                imageUrl = R.drawable.dummy_example_3
-//            ),SeriesInfo(
-//                "구르망",
-//                englishName = "gu",
-//                seriesIdx = 4,
-//                imageUrl = R.drawable.dummy_example_1
-//            )
-//        )
         incenseAdapter.notifyDataSetChanged()
 
 

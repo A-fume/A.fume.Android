@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.data.repository.SurveyRepository
 import com.afume.afume_android.data.vo.response.PerfumeInfo
+import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.data.vo.response.SeriesInfo
 import kotlinx.coroutines.launch
 
@@ -30,9 +31,15 @@ class SurveyViewModel : ViewModel() {
     private val _seriesList: MutableLiveData<MutableList<SeriesInfo>> = MutableLiveData()
     val seriesList: LiveData<MutableList<SeriesInfo>> get() = _seriesList
 
+    private val _keywordList: MutableLiveData<MutableList<ResponseKeyword>> = MutableLiveData()
+    val keywordList: LiveData<MutableList<ResponseKeyword>> get() = _keywordList
+
     init {
         viewModelScope.launch {
             _seriesList.value=surveyRepository.getSeries()
+            _perfumeList.value=surveyRepository.getSurveyPerfume()
+            _keywordList.value=surveyRepository.getKeyword()
+            Log.e("perfume value", _perfumeList.value.toString())
         }
     }
 
@@ -93,19 +100,6 @@ class SurveyViewModel : ViewModel() {
         Log.e("index", index.toString())
         Log.e("remove series", seriesListLiveData.value.toString())
     }
-
-//    fun getSeriesList() {
-//
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val series=surveyRepository.getSeries()
-//            _seriesList.postValue(series)
-//            Log.e("viewmodel", _seriesList.value.toString())
-//        }
-////         _seriesList.value= surveyRepository.getSeries()
-////         surveyRepository.log()
-////         Log.e("viewmodel",surveyRepository.getSeries().toString())
-//
-//    }
 
 
 }
