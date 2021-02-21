@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
-import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.databinding.FragmentFilterIncenseSeriesBinding
 import com.afume.afume_android.ui.filter.FlexboxRecyclerViewAdapter
 import com.afume.afume_android.ui.filter.ItemDetailsLookUp
@@ -54,17 +53,17 @@ class FilterIncenseSeriesFragment : Fragment() {
             adapter=incenseAdapter
         }
 
-        incenseAdapter?.data= listOf(
-            ResponseKeyword("시트러스"),
-            ResponseKeyword("머스크"),
-            ResponseKeyword("알데히드"),
-            ResponseKeyword("스파이시"),
-            ResponseKeyword("우디"),
-            ResponseKeyword("플로럴"),
-            ResponseKeyword("바닐라"),
-            ResponseKeyword("민트"),
-            ResponseKeyword("애니멀"),
-            )
+//        incenseAdapter?.data= listOf(
+//            ResponseKeyword("시트러스"),
+//            ResponseKeyword("머스크"),
+//            ResponseKeyword("알데히드"),
+//            ResponseKeyword("스파이시"),
+//            ResponseKeyword("우디"),
+//            ResponseKeyword("플로럴"),
+//            ResponseKeyword("바닐라"),
+//            ResponseKeyword("민트"),
+//            ResponseKeyword("애니멀"),
+//            )
 
         val incenseSelectionTracker= SelectionTracker.Builder<Long>(
             "incense",
