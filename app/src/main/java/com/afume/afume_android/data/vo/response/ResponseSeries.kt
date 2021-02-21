@@ -2,7 +2,7 @@ package com.afume.afume_android.data.vo.response
 
 data class ResponseSeries(
     val count:Int,
-    val rows: List<SeriesInfo>
+    val rows: MutableList<SeriesInfo>
 )
 
 data class SeriesInfo(
@@ -10,6 +10,6 @@ data class SeriesInfo(
     val englishName: String,
     val description: String="",
     val seriesIdx: Int,
-    val imageUrl: Int,
+    val imageUrl: String,
     var isLiked: Boolean=false
 )

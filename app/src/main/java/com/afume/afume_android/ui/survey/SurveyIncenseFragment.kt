@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.afume.afume_android.R
-import com.afume.afume_android.data.vo.response.SeriesInfo
 import com.afume.afume_android.databinding.FragmentSurveyIncenseBinding
 
 class SurveyIncenseFragment : Fragment() {
@@ -21,42 +19,44 @@ class SurveyIncenseFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentSurveyIncenseBinding.inflate(layoutInflater, container, false)
+        binding.vm=viewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRvIncense()
-        viewModel.getSeriesList()
+//        viewModel.getSeriesList()
+        incenseAdapter.notifyDataSetChanged()
     }
 
     private fun initRvIncense() {
         incenseAdapter = CircleRecyclerViewAdapter(1,
             add = { index->viewModel.addSeriesList(index)},remove = {index:Int->viewModel.removeSeriesList(index)})
         binding.rvSurveyIncense.adapter = incenseAdapter
-        incenseAdapter.seriesData= mutableListOf(
-            SeriesInfo(
-                "구르망",
-                englishName = "gu",
-                seriesIdx = 1,
-                imageUrl = R.drawable.dummy_example_1
-            ),SeriesInfo(
-                "그린",
-                englishName = "gu",
-                seriesIdx = 2,
-                imageUrl = R.drawable.dummy_example_2
-            ),SeriesInfo(
-                "머스키",
-                englishName = "gu",
-                seriesIdx = 3,
-                imageUrl = R.drawable.dummy_example_3
-            ),SeriesInfo(
-                "구르망",
-                englishName = "gu",
-                seriesIdx = 4,
-                imageUrl = R.drawable.dummy_example_1
-            )
-        )
+//        incenseAdapter.seriesData= mutableListOf(
+//            SeriesInfo(
+//                "구르망",
+//                englishName = "gu",
+//                seriesIdx = 1,
+//                imageUrl = R.drawable.dummy_example_1
+//            ),SeriesInfo(
+//                "그린",
+//                englishName = "gu",
+//                seriesIdx = 2,
+//                imageUrl = R.drawable.dummy_example_2
+//            ),SeriesInfo(
+//                "머스키",
+//                englishName = "gu",
+//                seriesIdx = 3,
+//                imageUrl = R.drawable.dummy_example_3
+//            ),SeriesInfo(
+//                "구르망",
+//                englishName = "gu",
+//                seriesIdx = 4,
+//                imageUrl = R.drawable.dummy_example_1
+//            )
+//        )
         incenseAdapter.notifyDataSetChanged()
 
 
@@ -64,7 +64,8 @@ class SurveyIncenseFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        incenseAdapter.setPerfumeData(viewModel.perfumeList.value)
+//        incenseAdapter.setPerfumeData(viewModel.perfumeList.value)
+        incenseAdapter.setSeriesData(viewModel.seriesList.value)
     }
 
 }
