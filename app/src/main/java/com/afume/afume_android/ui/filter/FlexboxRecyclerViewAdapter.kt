@@ -20,7 +20,7 @@ class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
         setHasStableIds(true)
     }
 
-    var data = listOf<ResponseKeyword>()
+    var data = mutableListOf<ResponseKeyword>()
     private lateinit var selectionTracker: SelectionTracker<Long>
 
     override fun onCreateViewHolder(
@@ -47,6 +47,13 @@ class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
 
     fun setSelectionTracker(selectionTracker: SelectionTracker<Long>) {
         this.selectionTracker = selectionTracker
+    }
+
+    internal fun setData(data: MutableList<ResponseKeyword>?){
+        if(data!=null) this.data=data
+        submitList(data)
+        notifyDataSetChanged()
+
     }
 
 
@@ -102,7 +109,7 @@ val incenseSeriesDiffCallback = object : DiffUtil.ItemCallback<ResponseKeyword>(
     }
 
     override fun areContentsTheSame(oldItem: ResponseKeyword, newItem: ResponseKeyword): Boolean {
-        return oldItem.keyword == newItem.keyword
+        return oldItem.name == newItem.name
     }
 
 }

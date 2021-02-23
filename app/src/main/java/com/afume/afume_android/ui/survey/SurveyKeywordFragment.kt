@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
-import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.databinding.FragmentSurveyKeywordBinding
 import com.afume.afume_android.ui.filter.FlexboxRecyclerViewAdapter
 import com.afume.afume_android.ui.filter.ItemDetailsLookUp
@@ -26,6 +25,8 @@ class SurveyKeywordFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding= FragmentSurveyKeywordBinding.inflate(layoutInflater,container,false)
+        binding.vm = viewModel
+        binding.lifecycleOwner=this
         return binding.root
     }
 
@@ -48,24 +49,6 @@ class SurveyKeywordFragment : Fragment() {
             layoutManager=flexboxLayoutManager
             adapter=keywordAdapter
         }
-
-        keywordAdapter?.data= listOf(
-            ResponseKeyword("#산뜻한"),
-            ResponseKeyword("#자연의"),
-            ResponseKeyword("#여성스러운"),
-            ResponseKeyword("#비누향"),
-            ResponseKeyword("#남성적인"),
-            ResponseKeyword("#몽환적인"),
-            ResponseKeyword("#소녀스러운"),
-            ResponseKeyword("#달달한"),
-            ResponseKeyword("#매운"),
-            ResponseKeyword("#상쾌한"),
-            ResponseKeyword("#도시적인"),
-            ResponseKeyword("#톡 쏘는"),
-            ResponseKeyword("#자연의"),
-            ResponseKeyword("#여성스러운"),
-            ResponseKeyword("#비누향")
-        )
 
         val keywordSelectionTracker= SelectionTracker.Builder<Long>(
             "survey_keyword",
