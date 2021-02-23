@@ -6,4 +6,8 @@
     <string name="survey_question">회원가입을 축하합니다!\n어떤 향을 좋아하세요?</string>
     <string name="survey_desc">취향을 선택하고 나에게 맞는 향수를\n추천 받아보세요!</string>
     <string name="percentage">%s</string>
+
+    <string name="dialog_login">로그인 후 사용 가능합니다.\n로그인을 해주세요.</string>
+    <string name="dialog_note_delete">정말로 삭제하실건가요?</string>
+    <string name="dialog_note_save">수정된 내용이 있습니다.\n저장하시겠습니까?</string>
 </resources>
