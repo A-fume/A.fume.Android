@@ -3,6 +3,7 @@ package com.afume.afume_android.data.remote
 import android.util.Log
 import com.afume.afume_android.data.remote.network.AfumeServiceImpl
 import com.afume.afume_android.data.vo.NewPerfumeListData
+import com.afume.afume_android.data.vo.request.RequestSurvey
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.data.vo.response.SeriesInfo
@@ -31,6 +32,10 @@ class RemoteDataSourceImpl : RemoteDataSource{
     override suspend fun getKeyword(): MutableList<ResponseKeyword> {
         Log.e("keyword",api.getKeyword().data.toString())
         return api.getKeyword().data
+    }
+
+    override suspend fun postSurvey(token: String, body: RequestSurvey): String{
+        return  api.postSurvey(token, body).message
     }
 
 

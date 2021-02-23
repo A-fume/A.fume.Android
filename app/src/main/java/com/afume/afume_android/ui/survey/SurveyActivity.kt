@@ -1,6 +1,7 @@
 package com.afume.afume_android.ui.survey
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -21,6 +22,7 @@ class SurveyActivity : AppCompatActivity() {
         binding.toolbarSurvey.toolbarBtn.setOnClickListener {
             finish()
         }
+        clickBtnComplete()
     }
 
     private fun initBinding(){
@@ -46,5 +48,14 @@ class SurveyActivity : AppCompatActivity() {
         val tabListener = TabSelectedListener(binding.tabSurvey)
         binding.tabSurvey.addOnTabSelectedListener(tabListener)
 
+    }
+
+    private fun clickBtnComplete(){
+        binding.btnSurveyApply.setOnClickListener {
+            Log.e("버튼 눌리나","버튼 눌린다")
+            viewModel.postSurvey(
+                ""
+            )
+        }
     }
 }
