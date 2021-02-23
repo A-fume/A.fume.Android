@@ -1,11 +1,14 @@
 package com.afume.afume_android.data.remote.network
 
+import com.afume.afume_android.data.vo.request.RequestSurvey
 import com.afume.afume_android.data.vo.response.ResponseBase
 import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.data.vo.response.ResponsePerfume
 import com.afume.afume_android.data.vo.response.ResponseSeries
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.POST
 
 interface AfumeService {
 
@@ -30,4 +33,9 @@ interface AfumeService {
     suspend fun getKeyword(
     ):ResponseBase<MutableList<ResponseKeyword>>
 
+    @POST(" user/survey")
+    suspend fun postSurvey(
+        @Header("x-access-token") token : String,
+        @Body body: RequestSurvey
+    ):ResponseBase<Int>
 }
