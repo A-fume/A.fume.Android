@@ -5,20 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentMypageBinding
 import com.afume.afume_android.ui.filter.AfumeViewPagerAdapter
 import com.afume.afume_android.ui.my.myperfume.MyPerfumeFragment
 import com.afume.afume_android.ui.my.wishlist.WishListFragment
 
-class MyPageFragment : Fragment() {
+class MyFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
     private lateinit var myPagePagerAdapter: AfumeViewPagerAdapter
-
+    private val myViewModel: MyViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMypageBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner=this
         return binding.root
     }
 

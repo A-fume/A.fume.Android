@@ -5,10 +5,7 @@ import com.afume.afume_android.data.vo.response.ResponseBase
 import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.data.vo.response.ResponsePerfume
 import com.afume.afume_android.data.vo.response.ResponseSeries
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface AfumeService {
 
@@ -33,9 +30,15 @@ interface AfumeService {
     suspend fun getKeyword(
     ):ResponseBase<MutableList<ResponseKeyword>>
 
-    @POST(" user/survey")
+    @POST("user/survey")
     suspend fun postSurvey(
         @Header("x-access-token") token : String,
         @Body body: RequestSurvey
     ):ResponseBase<Int>
+
+    @GET("user/{userIdx}/perfume/liked")
+    suspend fun getLikedPerfume(
+        @Header("x-access-token") token : String,
+        @Path("userIdx") userIdx : Int
+    ):ResponseBase<ResponsePerfume>
 }

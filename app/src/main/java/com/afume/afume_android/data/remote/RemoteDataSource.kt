@@ -13,4 +13,5 @@ interface RemoteDataSource {
     suspend fun getSurveyPerfume(token: String): MutableList<PerfumeInfo>
     suspend fun getKeyword(): MutableList<ResponseKeyword>
     suspend fun postSurvey(token: String, body: RequestSurvey): String
+    suspend fun getLikedPerfume(token : String, userIdx : Int): MutableList<PerfumeInfo>
 }
