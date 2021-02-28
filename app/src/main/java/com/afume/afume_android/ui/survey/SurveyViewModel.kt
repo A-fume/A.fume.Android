@@ -16,16 +16,14 @@ import kotlinx.coroutines.launch
 class SurveyViewModel : ViewModel() {
     private val surveyRepository = SurveyRepository()
 
-    private val selectedPerfumeListLiveData: MutableLiveData<MutableList<Int>> = MutableLiveData()
-    private var selectedPerfumeList = mutableListOf<Int>()
+    private val selectedPerfumeList: MutableLiveData<MutableList<Int>> = MutableLiveData()
+    private var tempSelectedPerfumeList = mutableListOf<Int>()
 
-    private val _keywordListLiveData: MutableLiveData<MutableList<Int>> = MutableLiveData()
-    val keywordListLiveData: LiveData<MutableList<Int>> get() = _keywordListLiveData
-    private var selectedKeywordList = mutableListOf<Int>()
+    val selectedKeywordList: MutableLiveData<MutableList<Int>> = MutableLiveData()
+    private var tempSelectedKeywordList = mutableListOf<Int>()
 
-    private val _seriesListLiveData: MutableLiveData<MutableList<Int>> = MutableLiveData()
-    val seriesListLiveData: LiveData<MutableList<Int>> get() = _seriesListLiveData
-    private var selectedSeriesList = mutableListOf<Int>()
+    val selectedSeriesList: MutableLiveData<MutableList<Int>> = MutableLiveData()
+    private var tempSelectedSeriesList = mutableListOf<Int>()
 
     private val _perfumeList: MutableLiveData<MutableList<PerfumeInfo>> = MutableLiveData()
     val perfumeList: LiveData<MutableList<PerfumeInfo>> get() = _perfumeList
@@ -38,30 +36,33 @@ class SurveyViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _seriesList.value=surveyRepository.getSeries()
-            _perfumeList.value=surveyRepository.getSurveyPerfume()
-            _keywordList.value=surveyRepository.getKeyword()
+            _seriesList.value = surveyRepository.getSeries()
+            _perfumeList.value = surveyRepository.getSurveyPerfume()
+            _keywordList.value = surveyRepository.getKeyword()
             Log.e("perfume value", _perfumeList.value.toString())
+            Log.e("mutavle", tempSelectedPerfumeList.toString())
+            selectedPerfumeList.value = tempSelectedPerfumeList
+            selectedKeywordList.value = tempSelectedKeywordList
+            selectedSeriesList.value = tempSelectedSeriesList
         }
     }
 
     fun addPerfumeList(index: Int) {
-//        if(selectedPerfumeListLiveData.value==null) temp.clear()
-//        else temp =selectedPerfumeListLiveData.value!!
-        if (selectedPerfumeListLiveData.value != null) selectedPerfumeList =
-            selectedPerfumeListLiveData.value!!
-        if (!selectedPerfumeList.contains(index)) selectedPerfumeList.add(index)
-        selectedPerfumeListLiveData.value = selectedPerfumeList
+        if (selectedPerfumeList.value != null) tempSelectedPerfumeList =
+            selectedPerfumeList.value!!
+
+        if (!tempSelectedKeywordList.contains(index)) tempSelectedPerfumeList.add(index)
+        selectedPerfumeList.value = tempSelectedPerfumeList
 
 
         Log.e("index", index.toString())
-        Log.e("add perfume", selectedPerfumeListLiveData.value.toString())
+        Log.e("add perfume", selectedPerfumeList.value.toString())
     }
 
     fun removePerfumeList(index: Int) {
-        selectedPerfumeListLiveData.value?.remove(index)
+        selectedPerfumeList.value?.remove(index)
         Log.e("index", index.toString())
-        Log.e("remove perfume", selectedPerfumeListLiveData.value.toString())
+        Log.e("remove perfume", selectedPerfumeList.value.toString())
     }
 
     fun setPerfumeList(list: MutableList<PerfumeInfo>) {
@@ -71,49 +72,51 @@ class SurveyViewModel : ViewModel() {
     }
 
     fun addKeywordList(index: Int) {
-        if (keywordListLiveData.value == null) selectedKeywordList.clear()
-        else selectedKeywordList = keywordListLiveData.value!!
-        if (!selectedKeywordList.contains(index)) selectedKeywordList.add(index)
-        _keywordListLiveData.value = selectedKeywordList
+        if (selectedKeywordList.value != null) tempSelectedKeywordList = selectedKeywordList.value!!
+
+        if (!tempSelectedKeywordList.contains(index)) tempSelectedKeywordList.add(index)
+        selectedKeywordList.value = tempSelectedKeywordList
 
         Log.e("index", index.toString())
-        Log.e("add keyword", _keywordListLiveData.value.toString())
+        Log.e("add keyword", selectedKeywordList.value.toString())
     }
 
     fun removeKeywordList(index: Int) {
-        _keywordListLiveData.value?.remove(index)
+        selectedKeywordList.value?.remove(index)
 
         Log.e("index", index.toString())
-        Log.e("remove keyword", _keywordListLiveData.value.toString())
+        Log.e("remove keyword", selectedKeywordList.value.toString())
     }
 
     fun addSeriesList(index: Int) {
-        if (seriesListLiveData.value == null) selectedSeriesList.clear()
-        else selectedSeriesList = seriesListLiveData.value!!
-        if (!selectedSeriesList.contains(index)) selectedSeriesList.add(index)
-        _seriesListLiveData.value = selectedSeriesList
+        if (selectedSeriesList.value != null) tempSelectedSeriesList = selectedSeriesList.value!!
+
+        if (!tempSelectedSeriesList.contains(index)) tempSelectedSeriesList.add(index)
+        selectedSeriesList.value = tempSelectedSeriesList
 
         Log.e("index", index.toString())
-        Log.e("add series", _seriesListLiveData.value.toString())
+        Log.e("add series", selectedSeriesList.value.toString())
     }
 
     fun removeSeriesList(index: Int) {
-        _seriesListLiveData.value?.remove(index)
+        selectedSeriesList.value?.remove(index)
         Log.e("index", index.toString())
-        Log.e("remove series", seriesListLiveData.value.toString())
+        Log.e("remove series", selectedSeriesList.value.toString())
     }
 
-    fun postSurvey(token: String){
+    fun postSurvey(token: String) {
         viewModelScope.launch(Dispatchers.IO) {
-                val message = surveyRepository.postSurvey(
-                    token,
-                    RequestSurvey(
-                        keywordListLiveData.value,
-                        seriesListLiveData.value,
-                        selectedPerfumeListLiveData.value
-                    )
-                )
-                Log.e("survey post",message)
+            val request = RequestSurvey(
+                selectedKeywordList.value,
+                selectedSeriesList.value,
+                selectedPerfumeList.value
+            )
+            val message = surveyRepository.postSurvey(
+                token,
+                request
+            )
+            Log.e("request",request.toString())
+            Log.e("survey post", message)
         }
     }
 
