@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/myPageFragment"
-        android:name="com.afume.afume_android.ui.my.MyPageFragment"
+        android:name="com.afume.afume_android.ui.my.MyFragment"
         android:label="fragment_mypage"
         tools:layout="@layout/fragment_mypage" />
 </navigation>

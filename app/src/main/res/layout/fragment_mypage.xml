@@ -17,7 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                tools:context=".ui.my.MyPageFragment">
+                tools:context=".ui.my.MyFragment">
 
                 <include
                     android:id="@+id/toolbar_mypage"
