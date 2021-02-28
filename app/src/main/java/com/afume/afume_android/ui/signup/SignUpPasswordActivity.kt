@@ -14,7 +14,6 @@ import com.afume.afume_android.databinding.ActivitySignUpPasswordBinding
 class SignUpPasswordActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpPasswordBinding
     private val signUpViewModel : SignUpViewModel by viewModels()
-    var checkAni = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,10 +42,10 @@ class SignUpPasswordActivity : AppCompatActivity() {
 
     private fun checkNextButton(){
         signUpViewModel.isValidPasswordImg.observe(this, Observer{
-            signUpViewModel.checkNextBtn()
+            signUpViewModel.checkPasswordNextBtn()
         })
         signUpViewModel.isValidAgainImg.observe(this, Observer{
-            signUpViewModel.checkNextBtn()
+            signUpViewModel.checkPasswordNextBtn()
         })
     }
 
