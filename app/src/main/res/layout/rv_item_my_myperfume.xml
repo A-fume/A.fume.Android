@@ -13,7 +13,7 @@
 
     <ImageView
         android:id="@+id/rv_item_img_my_perfume"
-        bindingDrawable="@{rvMyPerfume.img}"
+        setImage="@{rvMyPerfume.img}"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"

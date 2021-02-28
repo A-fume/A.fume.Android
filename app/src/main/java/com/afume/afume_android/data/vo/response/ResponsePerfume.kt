@@ -2,18 +2,18 @@ package com.afume.afume_android.data.vo.response
 
 data class ResponsePerfume(
     val count: Int,
-    val rows: List<PerfumeInfo>
+    val rows: MutableList<PerfumeInfo>
 )
 data class PerfumeInfo(
     val name: String,
-    val englishName: String,
-    val mainSeriesIdx: Int,
-    val brandIdx: Int,
+    val englishName: String?=null,
+    val mainSeriesIdx: Int?=null,
+    val brandIdx: Int?=null,
     val imageUrl: String,
-    val releaseDate: String,
+    val releaseDate: String?=null,
     val perfumeIdx: Int,
-    val likeCnt: Int,
-    val isLiked: Boolean,
+    val likeCnt: Int?=null,
+    var isLiked: Boolean,
     val brandName: String,
-    val mainSeriesName: String
+    val mainSeriesName: String?=null
 )

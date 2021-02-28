@@ -1,14 +1,13 @@
 package com.afume.afume_android.ui.my.myperfume
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.RvMyPerfumeData
 import com.afume.afume_android.databinding.FragmentMyPerfumeBinding
-import com.afume.afume_android.databinding.FragmentMypageBinding
 
 
 class MyPerfumeFragment : Fragment() {

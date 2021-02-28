@@ -4,21 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentMypageBinding
 import com.afume.afume_android.ui.filter.AfumeViewPagerAdapter
 import com.afume.afume_android.ui.my.myperfume.MyPerfumeFragment
 import com.afume.afume_android.ui.my.wishlist.WishListFragment
 
-class MyPageFragment : Fragment() {
+class MyFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
     private lateinit var myPagePagerAdapter: AfumeViewPagerAdapter
-
+    private val myViewModel: MyViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMypageBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner=this
         return binding.root
     }
 
@@ -27,7 +30,7 @@ class MyPageFragment : Fragment() {
         initBind()
         initVp()
         setUpTabWithViewPager()
-
+        setNavigation()
     }
     private fun initBind(){
         
@@ -55,6 +58,20 @@ class MyPageFragment : Fragment() {
         binding.tabMypage.apply {
             getTabAt(0)?.text="마이"
             getTabAt(1)?.text="위시 리스트"
+        }
+    }
+    private fun setNavigation(){
+        binding.toolbarMypage.toolbarBtn.setOnClickListener {
+            binding.drawerLayout.openDrawer(binding.myNavigationDrawer)
+        }
+        binding.myNavigationDrawer.setNavigationItemSelectedListener {menuItem->
+            menuItem.isChecked=true
+            binding.drawerLayout.closeDrawer(binding.drawerLayout)
+            true
+        }
+
+        binding.myNavigationDrawer.getHeaderView(0).findViewById<ImageView>(R.id.btn_cancle).setOnClickListener {
+            binding.drawerLayout.closeDrawers()
         }
     }
 

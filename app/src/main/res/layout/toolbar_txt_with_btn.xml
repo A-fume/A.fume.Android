@@ -33,7 +33,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/toolbar_txt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar_txt"
-        bindingDrawable="@{toolbar}" />
+        setImage="@{toolbar}" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
