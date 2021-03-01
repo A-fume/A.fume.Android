@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <NumberPicker
-        android:id="@+id/np_year_picker"
-        android:layout_width="0dp"
+    <data>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="97dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="97dp"
-        android:selectionDividerHeight="1dp"
-        android:theme="@style/AppTheme.NumberPicker"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/white">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_year_picker_confirm"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/notosans_bold"
-        android:includeFontPadding="false"
-        android:text="완료"
-        android:textColor="@color/white"
-        android:textSize="12dp"
-        android:backgroundTint="@color/black_1d"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        app:cornerRadius="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/np_year_picker" />
+        <NumberPicker
+            android:id="@+id/np_year_picker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="97dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="97dp"
+            android:selectionDividerHeight="1dp"
+            android:theme="@style/AppTheme.NumberPicker"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_year_picker_confirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/notosans_bold"
+            android:includeFontPadding="false"
+            android:text="완료"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:backgroundTint="@color/black_1d"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/np_year_picker" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

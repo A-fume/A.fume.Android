@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="activity"
-            type="com.afume.afume_android.ui.signup.SignUpAgeActivity" />
+            name="viewModel"
+            type="com.afume.afume_android.ui.signup.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
