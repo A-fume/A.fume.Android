@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/sign_bg" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button2"
             android:layout_width="0dp"
             android:layout_height="52dp"
@@ -36,7 +36,10 @@
             android:textSize="15dp"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:background="@drawable/border_black_fill_2"
+            android:backgroundTint="@color/primary_black"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="2dp"
             app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintEnd_toEndOf="@+id/button"
             app:layout_constraintStart_toStartOf="@+id/button" />
@@ -54,7 +57,10 @@
             android:textSize="15dp"
             android:includeFontPadding="false"
             android:textColor="@color/primary_black"
-            android:background="@drawable/border_white_fill_2"
+            android:backgroundTint="@color/white"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

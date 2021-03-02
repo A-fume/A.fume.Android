@@ -4,9 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
-            name="activity"
-            type="com.afume.afume_android.ui.signup.SignUpEmailActivity" />
+            name="viewModel"
+            type="com.afume.afume_android.ui.signup.SignUpEmailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,6 +61,8 @@
             android:layout_marginTop="14dp"
             android:background="@null"
             android:ems="10"
+            android:text="@={viewModel.emailText}"
+            android:onTextChanged="@{viewModel::checkEmailInput}"
             android:fontFamily="@font/nanummyeongjo_extrabold"
             android:hint="afume@email.com"
             android:includeFontPadding="false"
@@ -74,6 +77,27 @@
             android:nextFocusDown="@id/edt_sign_up_nick"
             app:layout_constraintStart_toStartOf="@+id/textView17"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginBottom="6dp"
+            android:backgroundTint="@color/primary_black"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="6dp"
+            android:text="중복 확인"
+            android:visibility="@{viewModel.isValidEmailBtn? View.VISIBLE : View.INVISIBLE}"
+            android:onClick="@{() -> viewModel.doubleCheckEmail()}"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            app:cornerRadius="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView16"
+            app:layout_constraintEnd_toEndOf="@+id/imageView16" />
 
         <ImageView
             android:id="@+id/imageView16"
@@ -95,10 +119,10 @@
             android:layout_marginTop="12dp"
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
-            android:text="이메일 형식이 맞지 않습니다."
+            android:text="@{viewModel.emailNotice}"
+            android:visibility="@{viewModel.isValidEmailNotice? View.VISIBLE : View.INVISIBLE}"
             android:textColor="@color/brick"
             android:textSize="12dp"
-            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/imageView16"
             app:layout_constraintTop_toBottomOf="@+id/imageView16" />
 
@@ -107,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:visibility="invisible"
+            android:visibility="@{viewModel.isValidEmailImg? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/imageView16"
             app:layout_constraintEnd_toEndOf="@+id/imageView16"
             app:srcCompat="@drawable/ic_check" />
@@ -117,7 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:visibility="invisible"
+            android:visibility="@{viewModel.nickForm? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView16">
@@ -149,11 +173,13 @@
                 android:maxLength="30"
                 android:paddingLeft="0dp"
                 android:paddingTop="0dp"
+                android:singleLine="true"
+                android:onTextChanged="@{viewModel::checkNickInput}"
+                android:text="@={viewModel.nickText}"
                 android:textColor="@color/dark"
                 android:textColorHint="@color/gray_cd"
                 android:textCursorDrawable="@drawable/cursor_sign_up"
                 android:textSize="18dp"
-                android:singleLine="true"
                 app:layout_constraintStart_toStartOf="@+id/textView19"
                 app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
@@ -170,15 +196,51 @@
                 app:layout_constraintTop_toBottomOf="@+id/edt_sign_up_nick"
                 app:srcCompat="@color/primary_black" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginBottom="6dp"
+                android:backgroundTint="@color/primary_black"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="중복 확인"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:onClick="@{() -> viewModel.doubleCheckNick()}"
+                android:visibility="@{viewModel.isValidNickBtn? View.VISIBLE : View.INVISIBLE}"
+                app:cornerRadius="2dp"
+                app:layout_constraintBottom_toTopOf="@+id/imageView18"
+                app:layout_constraintEnd_toEndOf="@+id/imageView18" />
+
             <ImageView
                 android:id="@+id/img_sign_up_check_nick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:visibility="invisible"
+                android:layout_marginBottom="15dp"
+                android:visibility="@{viewModel.isValidNickImg? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView18"
                 app:layout_constraintEnd_toEndOf="@+id/imageView18"
                 app:srcCompat="@drawable/ic_check" />
+
+            <TextView
+                android:id="@+id/textView47"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@{viewModel.nickNotice}"
+                android:visibility="@{viewModel.isValidNickNotice? View.VISIBLE : View.INVISIBLE}"
+                android:textColor="@color/brick"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView18"
+                app:layout_constraintTop_toBottomOf="@+id/imageView18" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -187,7 +249,7 @@
             android:layout_height="52dp"
             android:background="@color/primary_black"
             android:onClick="onClickNextBtn"
-            android:visibility="invisible"
+            android:visibility="@{viewModel.nextBtn? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -216,5 +278,6 @@
                 app:layout_constraintEnd_toStartOf="@+id/imageView21"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,59 +4,43 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpGenderBinding
+import com.afume.afume_android.util.setSelectedGenderTxt
 
 class SignUpGenderActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpGenderBinding
+    private val signUpViewModel : SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_sign_up_gender)
         binding.lifecycleOwner = this
+        binding.viewModel = signUpViewModel
 
+        setSelectedFont()
     }
 
-    fun onClickManBtn(view: View){
-        binding.imgSignUpGenderMan.isChecked = true
-        binding.imgSignUpGenderWoman.isChecked = false
-
-        setStyle(true)
-
-        checkNextButton()
-    }
-
-    fun onClickWomanBtn(view: View){
-        binding.imgSignUpGenderMan.isChecked = false
-        binding.imgSignUpGenderWoman.isChecked = true
-
-        setStyle(false)
-
-        checkNextButton()
-    }
-
-    private fun setStyle(boolean: Boolean){
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            if (boolean) {
-                binding.txtSignUpGenderMan.setTextColor(this.resources.getColor(R.color.primary_black))
-                binding.txtSignUpGenderMan.typeface = this.resources.getFont(R.font.nanummyeongjo_extrabold)
-
-                binding.txtSignUpGenderWoman.setTextColor(this.resources.getColor(R.color.gray_cd))
-                binding.txtSignUpGenderWoman.typeface = this.resources.getFont(R.font.nanummyeongjo)
-            } else {
-                binding.txtSignUpGenderMan.setTextColor(this.resources.getColor(R.color.gray_cd))
-                binding.txtSignUpGenderMan.typeface = this.resources.getFont(R.font.nanummyeongjo)
-
-                binding.txtSignUpGenderWoman.setTextColor(this.resources.getColor(R.color.primary_black))
-                binding.txtSignUpGenderWoman.typeface = this.resources.getFont(R.font.nanummyeongjo_extrabold)
+    private fun setSelectedFont(){
+        signUpViewModel.isCheckMan.observe(this, Observer { isCheckMan ->
+            isCheckMan?.let{
+                if(isCheckMan){
+                    binding.txtSignUpGenderMan.setSelectedGenderTxt(true)
+                    binding.txtSignUpGenderWoman.setSelectedGenderTxt(false)
+                }
             }
-        }
-    }
-
-    private fun checkNextButton(){
-        binding.clSignUpGender.visibility = View.VISIBLE
+        })
+        signUpViewModel.isCheckWoman.observe(this, Observer { isCheckWoman ->
+            isCheckWoman?.let{
+                if(isCheckWoman){
+                    binding.txtSignUpGenderMan.setSelectedGenderTxt(false)
+                    binding.txtSignUpGenderWoman.setSelectedGenderTxt(true)
+                }
+            }
+        })
     }
 
     fun onClickNextBtn(view: View){
