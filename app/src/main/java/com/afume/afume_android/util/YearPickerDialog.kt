@@ -4,9 +4,77 @@ import android.content.res.Resources
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.NumberPicker
+import androidx.fragment.app.DialogFragment
+import com.afume.afume_android.R
+import com.afume.afume_android.databinding.ActivitySignUpAgeBinding
+import com.afume.afume_android.databinding.DialogYearPickerBinding
+import java.util.*
+
+class YearPickerDialog(age: ActivitySignUpAgeBinding) : DialogFragment(), View.OnClickListener {
+    lateinit var binding: DialogYearPickerBinding
+    var ageBinding = age
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DialogYearPickerBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        this.setDrawable()
+        setPicker(binding)
+
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        this.setHeight()
+    }
+
+    private fun setPicker(binding: DialogYearPickerBinding) {
+
+        val npYear : NumberPicker = binding.npYearPicker
+
+        npYear.minValue = 1900
+        npYear.maxValue = setMaxYear()
+        npYear.value = ageBinding.btnSignUpYearPicker.text.toString().toInt()
+
+        npYear.wrapSelectorWheel = false
+        npYear.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+
+        npYear.setNumberPickerTextColor(R.color.dark_gray_4a)
+        npYear.setNumberPickerDividerColor(R.color.point_beige)
+
+        binding.btnYearPickerConfirm.setOnClickListener {
+            ageBinding.btnSignUpYearPicker.text = npYear.value.toString()
+
+            dismiss()
+        }
+    }
+
+    private fun setMaxYear(): Int{
+        val instance = Calendar.getInstance()
+        return instance.get(Calendar.YEAR)
+    }
+
+    fun getInstance(binding: ActivitySignUpAgeBinding): YearPickerDialog {
+        return YearPickerDialog(binding)
+    }
+
+    override fun onClick(p0: View?) {
+        dismiss()
+    }
+}
 
 fun NumberPicker.setNumberPickerTextColor(color: Int){
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
