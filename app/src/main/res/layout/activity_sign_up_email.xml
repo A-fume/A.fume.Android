@@ -211,7 +211,7 @@
                 android:text="중복 확인"
                 android:textColor="@color/white"
                 android:textSize="14dp"
-                android:onClick="@{() -> viewModel.doubleCheckNick()}"
+                android:onClick="@{() -> viewModel.getValidateNickname()}"
                 android:visibility="@{viewModel.isValidNickBtn? View.VISIBLE : View.INVISIBLE}"
                 app:cornerRadius="2dp"
                 app:layout_constraintBottom_toTopOf="@+id/imageView18"

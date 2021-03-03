@@ -52,10 +52,15 @@ class SignUpEmailViewModel : ViewModel() {
     val isValidNickImg : LiveData<Boolean>
         get() = _isValidNickImg
 
-    // 닉네임 중복확인
+    // 닉네임 중복확인 버튼 노출 여부
     private val _isValidNickBtn = MutableLiveData<Boolean>(true)
     val isValidNickBtn : LiveData<Boolean>
         get() = _isValidNickBtn
+
+    // 닉네임 중복확인
+    private val _isValidNickname = MutableLiveData<Boolean>(false)
+    val isValidNickname : LiveData<Boolean>
+        get() = _isValidNickname
 
     // 닉네임 입력란 노출
     private val _nickForm = MutableLiveData<Boolean>(false)
@@ -123,15 +128,21 @@ class SignUpEmailViewModel : ViewModel() {
     }
 
     // 닉네임 중복확인
-    fun doubleCheckNick(){
-        if(nickText.value == "아"){
-            nickNotice.value = "이미 등록된 닉네임입니다."
-            _isValidNickNotice.value = true
-            _isValidNickImg.value = false
-        }else{
-            _isValidNickBtn.value = false
-            _isValidNickNotice.value = false
-            _isValidNickImg.value = true
+    fun getValidateNickname(){
+        viewModelScope.launch {
+            try{
+                _isValidNickname.value = signRepository.getValidateNickname(nickText.value.toString())
+
+                if(_isValidNickname.value == true){
+                    _isValidNickBtn.value = false
+                    _isValidNickNotice.value = false
+                    _isValidNickImg.value = true
+                }
+            }catch (e : HttpException){
+                nickNotice.value = "이미 등록된 닉네임입니다."
+                _isValidNickNotice.value = true
+                _isValidNickImg.value = false
+            }
         }
     }
 

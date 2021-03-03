@@ -7,4 +7,5 @@ class SignRepository {
     val remoteDataSource: RemoteDataSource = RemoteDataSourceImpl()
 
     suspend fun getValidateEmail(email : String) = remoteDataSource.getValidateEmail(email)
+    suspend fun getValidateNickname(nickname : String) = remoteDataSource.getValidateNickname(nickname)
 }

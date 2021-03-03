@@ -14,6 +14,10 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return api.getValidateEmail(email).data
     }
 
+    override suspend fun getValidateNickname(nickname: String): Boolean{
+        return api.getValidateNickname(nickname).data
+    }
+
     override suspend fun getSeries(): MutableList<SeriesInfo>{
         var data = mutableListOf<SeriesInfo>()
         data=api.getSeries().data.rows

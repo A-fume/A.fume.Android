@@ -7,6 +7,7 @@ import com.afume.afume_android.data.vo.response.SeriesInfo
 
 interface RemoteDataSource {
     suspend fun getValidateEmail(email : String): Boolean
+    suspend fun getValidateNickname(nickname : String): Boolean
     suspend fun getSeries(): MutableList<SeriesInfo>
     suspend fun getSurveyPerfume(token: String): MutableList<PerfumeInfo>
     suspend fun getKeyword(): MutableList<ResponseKeyword>

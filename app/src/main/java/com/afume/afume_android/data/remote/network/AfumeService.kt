@@ -14,6 +14,12 @@ interface AfumeService {
         @Query("email") email : String
     ): ResponseBase<Boolean>
 
+    //Sign - validate nickname
+    @GET("user/validate/name")
+    suspend fun getValidateNickname(
+        @Query("nickname") nickname : String
+    ): ResponseBase<Boolean>
+
     //Survey - series
     @GET("series")
     suspend fun getSeries(
