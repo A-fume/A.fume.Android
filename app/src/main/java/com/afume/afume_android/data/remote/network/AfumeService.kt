@@ -8,11 +8,11 @@ import com.afume.afume_android.data.vo.response.ResponseSeries
 import retrofit2.http.*
 
 interface AfumeService {
-
-//    @GET("/")
-//    fun getNewPerfumeList(
-//        @Body body : RequestData
-//    ): Observable<ResponseData>
+    //Sign - validate email
+    @GET("user/validate/email")
+    suspend fun getValidateEmail(
+        @Query("email") email : String
+    ): ResponseBase<Boolean>
 
     //Survey - series
     @GET("series")

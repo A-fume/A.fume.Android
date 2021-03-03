@@ -92,7 +92,7 @@
             android:paddingVertical="6dp"
             android:text="중복 확인"
             android:visibility="@{viewModel.isValidEmailBtn? View.VISIBLE : View.INVISIBLE}"
-            android:onClick="@{() -> viewModel.doubleCheckEmail()}"
+            android:onClick="@{() -> viewModel.getValidateEmail()}"
             android:textColor="@color/white"
             android:textSize="14dp"
             app:cornerRadius="2dp"

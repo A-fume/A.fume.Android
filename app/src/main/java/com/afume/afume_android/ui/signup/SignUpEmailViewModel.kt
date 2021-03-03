@@ -4,9 +4,15 @@ import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.afume.afume_android.data.repository.SignRepository
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.util.regex.Pattern
 
 class SignUpEmailViewModel : ViewModel() {
+    private val signRepository = SignRepository()
+
     // 입력 내용
     val emailText = MutableLiveData<String>("")
     val nickText = MutableLiveData<String>("")
@@ -26,10 +32,15 @@ class SignUpEmailViewModel : ViewModel() {
     val isValidEmailImg : LiveData<Boolean>
         get() = _isValidEmailImg
 
-    // 이메일 중복확인
+    // 이메일 중복확인 버튼 노출 여부
     private val _isValidEmailBtn = MutableLiveData<Boolean>(true)
     val isValidEmailBtn : LiveData<Boolean>
         get() = _isValidEmailBtn
+
+    // 이메일 중복확인
+    private val _isValidEmail = MutableLiveData<Boolean>(false)
+    val isValidEmail : LiveData<Boolean>
+        get() = _isValidEmail
 
     // 닉네임 형식 검사 - 하단 안내문
     private val _isValidNickNotice = MutableLiveData<Boolean>(false)
@@ -73,17 +84,23 @@ class SignUpEmailViewModel : ViewModel() {
     }
 
     // 이메일 중복확인
-    fun doubleCheckEmail(){
-        if(emailText.value == "afume@naver.com"){
-            emailNotice.value = "이미 사용 중인 이메일입니다."
-            _isValidEmailNotice.value = true
-            _isValidEmailImg.value = false
-        }else{
-            _isValidEmailBtn.value = false
-            _isValidEmailNotice.value = false
-            _isValidEmailImg.value = true
+    fun getValidateEmail(){
+        viewModelScope.launch{
+            try{
+                _isValidEmail.value = signRepository.getValidateEmail(emailText.value.toString())
 
-            if(!_nickForm.value!!) _nickForm.value = true
+                if(_isValidEmail.value == true){
+                    _isValidEmailBtn.value = false
+                    _isValidEmailNotice.value = false
+                    _isValidEmailImg.value = true
+
+                    if(!_nickForm.value!!) _nickForm.value = true
+                }
+            } catch (e : HttpException){
+                emailNotice.value = "이미 사용 중인 이메일입니다."
+                _isValidEmailNotice.value = true
+                _isValidEmailImg.value = false
+            }
         }
     }
 

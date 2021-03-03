@@ -2,18 +2,16 @@ package com.afume.afume_android.data.remote
 
 import android.util.Log
 import com.afume.afume_android.data.remote.network.AfumeServiceImpl
-import com.afume.afume_android.data.vo.NewPerfumeListData
 import com.afume.afume_android.data.vo.request.RequestSurvey
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.data.vo.response.SeriesInfo
-import io.reactivex.Observable
 
 class RemoteDataSourceImpl : RemoteDataSource{
     val api = AfumeServiceImpl.service
 
-    override fun getNewPerfumeList(): Observable<NewPerfumeListData> {
-        TODO("Not yet implemented")
+    override suspend fun getValidateEmail(email: String): Boolean{
+        return api.getValidateEmail(email).data
     }
 
     override suspend fun getSeries(): MutableList<SeriesInfo>{
