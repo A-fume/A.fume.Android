@@ -41,10 +41,10 @@ class SignUpPasswordActivity : AppCompatActivity() {
     }
 
     private fun checkNextButton(){
-        signUpViewModel.isValidPasswordImg.observe(this, Observer{
+        signUpViewModel.isValidPassword.observe(this, Observer{
             signUpViewModel.checkPasswordNextBtn()
         })
-        signUpViewModel.isValidAgainImg.observe(this, Observer{
+        signUpViewModel.isValidAgain.observe(this, Observer{
             signUpViewModel.checkPasswordNextBtn()
         })
     }

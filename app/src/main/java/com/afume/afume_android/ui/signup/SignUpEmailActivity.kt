@@ -1,11 +1,11 @@
 package com.afume.afume_android.ui.signup
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
@@ -13,7 +13,7 @@ import com.afume.afume_android.databinding.ActivitySignUpEmailBinding
 
 class SignUpEmailActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpEmailBinding
-    private val signUpViewModel : SignUpEmailViewModel by viewModels()
+    private val signUpViewModel : SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +41,10 @@ class SignUpEmailActivity : AppCompatActivity() {
     }
 
     private fun checkNextButton(){
-        signUpViewModel.isValidEmailImg.observe(this, Observer {
+        signUpViewModel.isValidEmail.observe(this, Observer {
             signUpViewModel.checkNextBtn()
         })
-        signUpViewModel.isValidNickImg.observe(this, Observer{
+        signUpViewModel.isValidNick.observe(this, Observer{
             signUpViewModel.checkNextBtn()
         })
     }

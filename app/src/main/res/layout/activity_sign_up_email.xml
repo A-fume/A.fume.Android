@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.afume.afume_android.ui.signup.SignUpEmailViewModel" />
+            type="com.afume.afume_android.ui.signup.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,8 +61,8 @@
             android:layout_marginTop="14dp"
             android:background="@null"
             android:ems="10"
-            android:text="@={viewModel.emailText}"
-            android:onTextChanged="@{viewModel::checkEmailInput}"
+            android:text="@={viewModel.emailTxt}"
+            android:onTextChanged="@{viewModel::inputEmail}"
             android:fontFamily="@font/nanummyeongjo_extrabold"
             android:hint="afume@email.com"
             android:includeFontPadding="false"
@@ -131,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:visibility="@{viewModel.isValidEmailImg? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{viewModel.isValidEmail? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/imageView16"
             app:layout_constraintEnd_toEndOf="@+id/imageView16"
             app:srcCompat="@drawable/ic_check" />
@@ -174,8 +174,8 @@
                 android:paddingLeft="0dp"
                 android:paddingTop="0dp"
                 android:singleLine="true"
-                android:onTextChanged="@{viewModel::checkNickInput}"
-                android:text="@={viewModel.nickText}"
+                android:onTextChanged="@{viewModel::inputNick}"
+                android:text="@={viewModel.nickTxt}"
                 android:textColor="@color/dark"
                 android:textColorHint="@color/gray_cd"
                 android:textCursorDrawable="@drawable/cursor_sign_up"
@@ -222,7 +222,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:visibility="@{viewModel.isValidNickImg? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{viewModel.isValidNick? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView18"
                 app:layout_constraintEnd_toEndOf="@+id/imageView18"
                 app:srcCompat="@drawable/ic_check" />
@@ -249,7 +249,7 @@
             android:layout_height="52dp"
             android:background="@color/primary_black"
             android:onClick="onClickNextBtn"
-            android:visibility="@{viewModel.nextBtn? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{viewModel.emailNextBtn? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
