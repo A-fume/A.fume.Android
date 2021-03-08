@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.data.vo.response.SeriesInfo
-import com.afume.afume_android.ui.filter.FlexboxRecyclerViewAdapter
+import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
 
 object SurveyBinding {
     @JvmStatic

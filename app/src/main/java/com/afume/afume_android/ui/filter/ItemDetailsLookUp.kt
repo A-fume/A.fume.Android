@@ -5,6 +5,7 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.widget.RecyclerView
+import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
 
 class ItemDetailsLookUp(private val recyclerView: RecyclerView,val type:String) : ItemDetailsLookup<Long>(){
     @Nullable

@@ -1,4 +1,4 @@
-package com.afume.afume_android.ui.filter
+package com.afume.afume_android.util
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -40,7 +40,7 @@ class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
 
     override fun onBindViewHolder(holder: FlexboxRecyclerViewHolder, position: Int) {
         when (holder) {
-            is FlexboxRecyclerViewHolder -> holder.bind(data[position], position)
+            is FlexboxRecyclerViewHolder -> holder.bind(data[position])
             else -> throw Exception("You Should not attach her")
         }
     }
@@ -59,27 +59,45 @@ class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
 
     inner class FlexboxRecyclerViewHolder(val binding: RvItemFilterFlexboxBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: ResponseKeyword, itemPosition: Int) {
+        fun bind(data: ResponseKeyword) {
             binding.rvData = data
             binding.root.setOnClickListener {
-                selectionTracker.select(itemPosition.toLong())
-            }
-            if (selectionTracker.isSelected(itemPosition.toLong())) {
-                binding.rvItemTxtFlexbox.apply {
-                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
-                    setTextColor(ContextCompat.getColor(this.context, R.color.white))
-                    add(itemPosition)
+                if (!data.checked) {
+                    binding.rvItemTxtFlexbox.apply {
+                        setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
+                        setTextColor(ContextCompat.getColor(this.context, R.color.white))
+                        add(data.keywordIdx)
+                        data.checked=true
+
+                    }
                 }
+                else {
+                    binding.rvItemTxtFlexbox.apply {
+                        background = ContextCompat.getDrawable(this.context, R.drawable.border_gray_cd_line_square)
+                        setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+                        remove(data.keywordIdx)
+                        data.checked=false
+                    }
+
+//                selectionTracker.select(data.keywordIdx.toLong())
             }
-            if (!selectionTracker.isSelected(itemPosition.toLong())) {
-                binding.rvItemTxtFlexbox.apply {
-                    background = ContextCompat.getDrawable(
-                        this.context,
-                        R.drawable.border_gray_cd_line_square
-                    )
-                    setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
-                    remove(itemPosition)
-                }
+
+//            if (selectionTracker.isSelected(data.keywordIdx.toLong())) {
+//                binding.rvItemTxtFlexbox.apply {
+//                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
+//                    setTextColor(ContextCompat.getColor(this.context, R.color.white))
+//                    add(data.keywordIdx)
+//                }
+//            }
+//            if (!selectionTracker.isSelected(data.keywordIdx.toLong())) {
+//                binding.rvItemTxtFlexbox.apply {
+//                    background = ContextCompat.getDrawable(
+//                        this.context,
+//                        R.drawable.border_gray_cd_line_square
+//                    )
+//                    setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+//                    remove(data.keywordIdx)
+//                }
 
 
             }

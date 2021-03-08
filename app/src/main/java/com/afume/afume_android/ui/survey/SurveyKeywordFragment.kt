@@ -11,9 +11,9 @@ import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import com.afume.afume_android.databinding.FragmentSurveyKeywordBinding
-import com.afume.afume_android.ui.filter.FlexboxRecyclerViewAdapter
 import com.afume.afume_android.ui.filter.ItemDetailsLookUp
 import com.afume.afume_android.ui.filter.ItemKeyProvider
+import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -41,10 +41,11 @@ class SurveyKeywordFragment : Fragment() {
             flexWrap= FlexWrap.WRAP
             alignItems = AlignItems.STRETCH
         }
-        val keywordAdapter = FlexboxRecyclerViewAdapter(
-            {index->viewModel.addKeywordList(index)},
-            {index->viewModel.removeKeywordList(index)}
-        )
+        val keywordAdapter =
+            FlexboxRecyclerViewAdapter(
+                { index -> viewModel.addKeywordList(index) },
+                { index -> viewModel.removeKeywordList(index) }
+            )
         binding.rvSurveyKeyword.apply {
             layoutManager=flexboxLayoutManager
             adapter=keywordAdapter

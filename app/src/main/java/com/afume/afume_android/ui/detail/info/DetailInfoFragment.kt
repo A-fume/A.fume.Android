@@ -15,10 +15,10 @@ import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.HomePerfumeListData
 import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.databinding.FragmentDetailInfoBinding
-import com.afume.afume_android.ui.filter.FlexboxRecyclerViewAdapter
 import com.afume.afume_android.ui.filter.ItemDetailsLookUp
 import com.afume.afume_android.ui.filter.ItemKeyProvider
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
+import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.*
 import com.google.android.flexbox.AlignItems
@@ -61,10 +61,11 @@ class DetailInfoFragment : Fragment() {
             alignItems = AlignItems.STRETCH
         }
 
-        rvKeywordAdapter = FlexboxRecyclerViewAdapter(
-            {index-> print(index)},
-            {index-> print(index)}
-        )
+        rvKeywordAdapter =
+            FlexboxRecyclerViewAdapter(
+                { index -> print(index) },
+                { index -> print(index) }
+            )
         binding.rvDetailsInfoKeyword.apply {
             adapter = rvKeywordAdapter
             layoutManager = flexboxLayoutManager

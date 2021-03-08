@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="com.afume.afume_android.ui.filter.FilterViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,10 +28,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_keyword"
+            setKeywordList="@{vm.keywordList}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
+            android:clipToPadding="false"
+            android:paddingTop="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
