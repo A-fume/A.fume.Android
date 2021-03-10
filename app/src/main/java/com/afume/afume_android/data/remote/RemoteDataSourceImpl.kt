@@ -2,9 +2,11 @@ package com.afume.afume_android.data.remote
 
 import android.util.Log
 import com.afume.afume_android.data.remote.network.AfumeServiceImpl
+import com.afume.afume_android.data.vo.request.RequestLogin
 import com.afume.afume_android.data.vo.request.RequestSurvey
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.afume.afume_android.data.vo.response.ResponseKeyword
+import com.afume.afume_android.data.vo.response.ResponseLogin
 import com.afume.afume_android.data.vo.response.SeriesInfo
 
 class RemoteDataSourceImpl : RemoteDataSource{
@@ -16,6 +18,10 @@ class RemoteDataSourceImpl : RemoteDataSource{
 
     override suspend fun getValidateNickname(nickname: String): Boolean{
         return api.getValidateNickname(nickname).data
+    }
+
+    override suspend fun postLoginInfo(body: RequestLogin): ResponseLogin {
+        return api.postLoginInfo(body).data
     }
 
     override suspend fun getSeries(): MutableList<SeriesInfo>{
