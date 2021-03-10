@@ -2,69 +2,72 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <variable
             name="rvMyPerfume"
-            type="com.afume.afume_android.data.vo.RvMyPerfumeData" />
+            type="com.afume.afume_android.data.vo.response.ResponseMyPerfume" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/rv_item_img_my_perfume"
-        setImage="@{rvMyPerfume.img}"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="33dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/dummy_perfume_image" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/rv_item_txt_my_perfume_brand"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:gravity="center"
-        android:text="@{rvMyPerfume.brandName}"
-        android:textColor="@color/dark_gray_7d"
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_img_my_perfume"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_img_my_perfume"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_img_my_perfume" />
+        <ImageView
+            android:id="@+id/rv_item_img_my_perfume"
+            bindingDrawable="@{rvMyPerfume.imageUrl}"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/dummy_perfume_image" />
 
-    <TextView
-        android:id="@+id/rv_item_txt_my_perfume_name"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/notosans_medium"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:text="@{rvMyPerfume.perfumeName}"
-        android:textColor="@color/black_1d"
-        android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_txt_my_perfume_brand"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_txt_my_perfume_brand"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_txt_my_perfume_brand" />
-    <com.hedgehog.ratingbar.RatingBar
-        android:id="@+id/rv_item_rb_my_perfume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:halfstart="true"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item_txt_my_perfume_name"
-        app:layout_constraintStart_toStartOf="@+id/rv_item_txt_my_perfume_name"
-        app:layout_constraintTop_toBottomOf="@+id/rv_item_txt_my_perfume_name"
-        app:starCount="5"
-        app:starEmpty="@drawable/star_inactive"
-        app:starFill="@drawable/star_active"
-        app:starHalf="@drawable/star_half"
-        app:starImageHeight="12dp"
-        app:starImagePadding="2dp"
-        app:starImageWidth="12dp"/>
+        <TextView
+            android:id="@+id/rv_item_txt_my_perfume_brand"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:gravity="center"
+            android:text="@{rvMyPerfume.brandName}"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="@+id/rv_item_img_my_perfume"
+            app:layout_constraintStart_toStartOf="@+id/rv_item_img_my_perfume"
+            app:layout_constraintTop_toBottomOf="@+id/rv_item_img_my_perfume" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/rv_item_txt_my_perfume_name"
+            android:layout_width="100dp"
+            android:layout_height="22dp"
+            android:fontFamily="@font/notosans_medium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@{rvMyPerfume.perfumeName}"
+            android:textColor="@color/black_1d"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/rv_item_txt_my_perfume_brand"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/rv_item_txt_my_perfume_brand"
+            app:layout_constraintTop_toBottomOf="@+id/rv_item_txt_my_perfume_brand" />
+
+        <com.hedgehog.ratingbar.RatingBar
+            android:id="@+id/rv_item_rb_my_perfume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            app:halfstart="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/rv_item_txt_my_perfume_name"
+            app:layout_constraintStart_toStartOf="@+id/rv_item_txt_my_perfume_name"
+            app:layout_constraintTop_toBottomOf="@+id/rv_item_txt_my_perfume_name"
+            app:starCount="5"
+            app:starEmpty="@drawable/star_inactive"
+            app:starFill="@drawable/star_active"
+            app:starHalf="@drawable/star_half"
+            app:starImageHeight="12dp"
+            app:starImagePadding="2dp"
+            app:starImageWidth="12dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

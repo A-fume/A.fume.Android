@@ -35,6 +35,10 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/toolbar_mypage"
                     app:tabGravity="fill"
+                    android:background="@drawable/bottom_line_gray_cd"
+                    android:paddingBottom="2dp"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabIndicatorGravity="bottom"
                     app:tabIndicatorColor="@color/primary_black"
                     app:tabSelectedTextColor="@color/primary_black"
                     app:tabTextAppearance="@style/Theme.AfumeAndroid.Tabtext">

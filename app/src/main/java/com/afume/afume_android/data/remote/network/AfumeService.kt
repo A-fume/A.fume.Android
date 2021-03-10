@@ -1,10 +1,7 @@
 package com.afume.afume_android.data.remote.network
 
 import com.afume.afume_android.data.vo.request.RequestSurvey
-import com.afume.afume_android.data.vo.response.ResponseBase
-import com.afume.afume_android.data.vo.response.ResponseKeyword
-import com.afume.afume_android.data.vo.response.ResponsePerfume
-import com.afume.afume_android.data.vo.response.ResponseSeries
+import com.afume.afume_android.data.vo.response.*
 import retrofit2.http.*
 
 interface AfumeService {
@@ -36,9 +33,16 @@ interface AfumeService {
         @Body body: RequestSurvey
     ):ResponseBase<Int>
 
+    //My
     @GET("user/{userIdx}/perfume/liked")
     suspend fun getLikedPerfume(
         @Header("x-access-token") token : String,
         @Path("userIdx") userIdx : Int
     ):ResponseBase<ResponsePerfume>
+
+    @GET("user/{userIdx}/review")
+    suspend fun getMyPerfume(
+        @Header("x-access-token") token : String,
+        @Path("userIdx") userIdx : Int
+    ):ResponseBase<MutableList<ResponseMyPerfume>>
 }
