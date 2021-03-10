@@ -6,4 +6,5 @@ import com.afume.afume_android.data.remote.RemoteDataSourceImpl
 class MyRepository {
     val remoteDataSource: RemoteDataSource = RemoteDataSourceImpl()
     suspend fun getLikedPerfume(token: String, userIdx: Int) = remoteDataSource.getLikedPerfume(token, userIdx)
+    suspend fun getMyPerfume(token: String, userIdx: Int) = remoteDataSource.getMyPerfume(token, userIdx)
 }

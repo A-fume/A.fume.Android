@@ -4,10 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.R
-import com.afume.afume_android.data.vo.RvMyPerfumeData
 import com.afume.afume_android.databinding.RvItemMyPerfuemBgShelfBinding
 
-class ShelfRecyclerViewAdapter(val count: Int) : RecyclerView.Adapter<ShelfRecyclerViewHolder>() {
+class ShelfRecyclerViewAdapter(val count: Int?) : RecyclerView.Adapter<ShelfRecyclerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShelfRecyclerViewHolder {
         val binding = RvItemMyPerfuemBgShelfBinding.inflate(
@@ -20,8 +19,11 @@ class ShelfRecyclerViewAdapter(val count: Int) : RecyclerView.Adapter<ShelfRecyc
     }
 
     override fun getItemCount(): Int {
-        return if (count % 3 == 0) count / 3
-        else count/3+1
+        return when {
+            count ==null -> 0
+            count % 3 == 0 -> count / 3
+            else -> count/3+1
+        }
     }
 
     override fun onBindViewHolder(holder: ShelfRecyclerViewHolder, position: Int) {
