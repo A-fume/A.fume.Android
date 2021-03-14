@@ -1,6 +1,7 @@
 package com.afume.afume_android.data.remote.network
 
 import com.afume.afume_android.data.vo.request.RequestLogin
+import com.afume.afume_android.data.vo.request.RequestRegister
 import com.afume.afume_android.data.vo.request.RequestSurvey
 import com.afume.afume_android.data.vo.response.*
 import retrofit2.http.*
@@ -16,6 +17,12 @@ interface AfumeService {
     @GET("user/validate/name")
     suspend fun getValidateNickname(
         @Query("nickname") nickname : String
+    ): ResponseBase<Boolean>
+
+    //Sign - sign up
+    @POST("user/register")
+    suspend fun postRegisterInfo(
+        @Body body: RequestRegister
     ): ResponseBase<Boolean>
 
     //Sign - sign in

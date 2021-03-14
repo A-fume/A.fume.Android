@@ -3,6 +3,7 @@ package com.afume.afume_android.data.remote
 import android.util.Log
 import com.afume.afume_android.data.remote.network.AfumeServiceImpl
 import com.afume.afume_android.data.vo.request.RequestLogin
+import com.afume.afume_android.data.vo.request.RequestRegister
 import com.afume.afume_android.data.vo.request.RequestSurvey
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.afume.afume_android.data.vo.response.ResponseKeyword
@@ -18,6 +19,10 @@ class RemoteDataSourceImpl : RemoteDataSource{
 
     override suspend fun getValidateNickname(nickname: String): Boolean{
         return api.getValidateNickname(nickname).data
+    }
+
+    override suspend fun postRegisterInfo(body: RequestRegister): String {
+        return api.postRegisterInfo(body).message
     }
 
     override suspend fun postLoginInfo(body: RequestLogin): ResponseLogin {
