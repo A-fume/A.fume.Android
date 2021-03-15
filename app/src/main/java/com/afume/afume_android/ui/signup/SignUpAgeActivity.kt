@@ -1,6 +1,5 @@
 package com.afume.afume_android.ui.signup
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -11,6 +10,7 @@ import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpAgeBinding
 import com.afume.afume_android.ui.survey.SurveyActivity
 import com.afume.afume_android.util.YearPickerDialog
+import com.afume.afume_android.util.startActivity
 
 class SignUpAgeActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpAgeBinding
@@ -30,9 +30,7 @@ class SignUpAgeActivity : AppCompatActivity() {
     }
 
     fun onClickCompleteBtn(view: View){
-        val surveyIntent = Intent(this,SurveyActivity::class.java)
-
-        startActivity(surveyIntent)
+        this.startActivity(SurveyActivity::class.java)
     }
 
     fun onClickBackBtn(view: View){

@@ -1,15 +1,15 @@
 package com.afume.afume_android.ui.signup
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpPasswordBinding
+import com.afume.afume_android.util.startActivity
 
 class SignUpPasswordActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpPasswordBinding
@@ -50,9 +50,7 @@ class SignUpPasswordActivity : AppCompatActivity() {
     }
 
     fun onClickNextBtn(view: View){
-        val genderIntent = Intent(this,SignUpGenderActivity::class.java)
-
-        startActivity(genderIntent)
+        this.startActivity(SignUpGenderActivity::class.java)
     }
 
     fun onClickBackBtn(view: View){
