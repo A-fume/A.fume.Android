@@ -51,6 +51,8 @@ class SignUpEmailActivity : AppCompatActivity() {
 
     fun onClickNextBtn(view : View){
         this.startActivity(SignUpPasswordActivity::class.java)
+
+        signUpViewModel.addUserInfo("email")
     }
 
     fun onClickBackBtn(view : View){

@@ -1,16 +1,16 @@
 package com.afume.afume_android.ui.signup
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpAgeBinding
-import com.afume.afume_android.ui.survey.SurveyActivity
 import com.afume.afume_android.util.YearPickerDialog
-import com.afume.afume_android.util.startActivity
 
 class SignUpAgeActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpAgeBinding
@@ -30,7 +30,12 @@ class SignUpAgeActivity : AppCompatActivity() {
     }
 
     fun onClickCompleteBtn(view: View){
-        this.startActivity(SurveyActivity::class.java)
+        //this.startActivity(SurveyActivity::class.java)
+
+        signUpViewModel.addUserInfo("age")
+        // 로그인 성공했을때만 intent 넘어가게 처리!!!
+        //signUpViewModel.postRegister()
+        Log.d("명", AfumeApplication.prefManager.userNickname)
     }
 
     fun onClickBackBtn(view: View){

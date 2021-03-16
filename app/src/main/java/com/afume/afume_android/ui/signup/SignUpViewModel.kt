@@ -1,11 +1,14 @@
 package com.afume.afume_android.ui.signup
 
 import android.os.Handler
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.SignRepository
+import com.afume.afume_android.data.vo.request.RequestRegister
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.regex.Pattern
@@ -18,6 +21,7 @@ class SignUpViewModel()  : ViewModel() {
     val nickTxt = MutableLiveData<String>("")
     val passwordTxt = MutableLiveData<String>("")
     val againPasswordTxt = MutableLiveData<String>("")
+    val ageTxt = MutableLiveData<String>("1990")
 
     // 안내문 내용
     val emailNotice = MutableLiveData<String>()
@@ -285,6 +289,49 @@ class SignUpViewModel()  : ViewModel() {
         _isCheckWoman.postValue(true)
 
         _genderNextBtn.postValue(true)
+    }
+
+    // data 저장
+    fun addUserInfo(info : String){
+        when(info){
+            "email" -> {
+                AfumeApplication.prefManager.userEmail = emailTxt.value.toString()
+                AfumeApplication.prefManager.userNickname = nickTxt.value.toString()
+            }
+            "password" -> {
+                AfumeApplication.prefManager.userPassword = passwordTxt.value.toString()
+            }
+            "gender" -> {
+                if(_isCheckMan.value == true){
+                    AfumeApplication.prefManager.userGender = "MAN"
+                }else{
+                    AfumeApplication.prefManager.userGender = "WOMAN"
+                }
+            }
+            "age" -> {
+                AfumeApplication.prefManager.userAge = ageTxt.value.toString()
+            }
+        }
+    }
+
+    // 회원가입
+    fun postRegister(){
+        viewModelScope.launch{
+            try{
+                val registerInfo = RequestRegister(
+                    AfumeApplication.prefManager.userEmail,
+                    AfumeApplication.prefManager.userNickname,
+                    AfumeApplication.prefManager.userPassword,
+                    AfumeApplication.prefManager.userGender,
+                    AfumeApplication.prefManager.userAge.toInt()
+                )
+                signRepository.postRegisterInfo(registerInfo).let {
+                    Log.d("명1",it)
+                }
+            }catch (e : HttpException){
+                Log.d("명",e.message().toString())
+            }
+        }
     }
 
 }

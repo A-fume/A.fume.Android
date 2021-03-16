@@ -45,6 +45,8 @@ class SignUpGenderActivity : AppCompatActivity() {
 
     fun onClickNextBtn(view: View){
         this.startActivity(SignUpAgeActivity::class.java)
+
+        signUpViewModel.addUserInfo("gender")
     }
 
     fun onClickBackBtn(view: View){
