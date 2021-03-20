@@ -87,10 +87,14 @@ class SignUpViewModel()  : ViewModel() {
                     if(!_nickForm.value!!) _nickForm.postValue(true)
                 }
             } catch (e : HttpException){
-                emailNotice.value = "이미 사용 중인 이메일입니다."
-                _isValidEmail.postValue(false)
-                _isValidEmailNotice.postValue(true)
-                _isValidEmailBtn.postValue(true)
+                when(e.response()?.code()){
+                    409 -> { // 사용중인 이메일
+                        emailNotice.value = "이미 사용 중인 이메일입니다."
+                        _isValidEmail.postValue(false)
+                        _isValidEmailNotice.postValue(true)
+                        _isValidEmailBtn.postValue(true)
+                    }
+                }
             }
         }
     }
@@ -160,10 +164,14 @@ class SignUpViewModel()  : ViewModel() {
                     _isValidNickBtn.postValue(false)
                 }
             }catch (e : HttpException){
-                nickNotice.value = "이미 등록된 닉네임입니다."
-                _isValidNick.postValue(false)
-                _isValidNickNotice.postValue(true)
-                _isValidNickBtn.postValue(true)
+                when(e.response()?.code()){
+                    409 -> { // 사용중인 닉네임
+                        nickNotice.value = "이미 등록된 닉네임입니다."
+                        _isValidNick.postValue(false)
+                        _isValidNickNotice.postValue(true)
+                        _isValidNickBtn.postValue(true)
+                    }
+                }
             }
         }
     }
@@ -315,9 +323,9 @@ class SignUpViewModel()  : ViewModel() {
     }
 
     // 회원가입
-    fun postRegister(){
-        viewModelScope.launch{
-            try{
+    fun postRegister() {
+        viewModelScope.launch {
+            try {
                 val registerInfo = RequestRegister(
                     AfumeApplication.prefManager.userEmail,
                     AfumeApplication.prefManager.userNickname,
@@ -326,12 +334,16 @@ class SignUpViewModel()  : ViewModel() {
                     AfumeApplication.prefManager.userAge.toInt()
                 )
                 signRepository.postRegisterInfo(registerInfo).let {
-                    Log.d("명1",it)
+                    Log.d("회원 가입 통신 성공 : ", it)
                 }
-            }catch (e : HttpException){
-                Log.d("명",e.message().toString())
+            } catch (e: HttpException) {
+                when (e.response()?.code()) {
+                    400 -> { // 중복되는 값 존재
+                        Log.d("회원 가입 통신 실패 : ", e.message())
+                    }
+
+                }
             }
         }
     }
-
 }
