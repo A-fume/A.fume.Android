@@ -23,6 +23,7 @@ class SignInActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = signInViewModel
 
+        signInViewModel.checkRegisterInfo()
         checkNextBtn()
     }
 

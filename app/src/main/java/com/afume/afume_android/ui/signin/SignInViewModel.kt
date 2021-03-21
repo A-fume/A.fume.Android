@@ -19,6 +19,14 @@ class SignInViewModel : ViewModel() {
     val emailTxt = MutableLiveData<String>("")
     val passwordTxt = MutableLiveData<String>("")
 
+    // 자동입력
+    fun checkRegisterInfo(){
+        if(AfumeApplication.prefManager.userEmail.isNotEmpty()){
+            emailTxt.postValue(AfumeApplication.prefManager.userEmail)
+            passwordTxt.postValue(AfumeApplication.prefManager.userPassword)
+        }
+    }
+
     // 이메일 입력 확인
     private val _isValidEmail = MutableLiveData<Boolean>(false)
     val isValidEmail : LiveData<Boolean>
