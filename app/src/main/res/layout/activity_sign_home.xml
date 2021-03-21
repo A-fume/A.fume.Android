@@ -4,9 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="activity"
-            type="com.afume.afume_android.ui.signin.SignHomeActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
