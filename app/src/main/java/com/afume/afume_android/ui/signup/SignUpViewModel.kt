@@ -323,6 +323,11 @@ class SignUpViewModel()  : ViewModel() {
     }
 
     // 회원가입
+    private val _isValidRegister = MutableLiveData<Boolean>(false)
+    val isValidRegister : LiveData<Boolean>
+        get() = _isValidRegister
+
+    // 회원가입
     fun postRegister() {
         viewModelScope.launch {
             try {
@@ -335,13 +340,14 @@ class SignUpViewModel()  : ViewModel() {
                 )
                 signRepository.postRegisterInfo(registerInfo).let {
                     Log.d("회원 가입 통신 성공 : ", it)
+                    _isValidRegister.postValue(true)
                 }
             } catch (e: HttpException) {
                 when (e.response()?.code()) {
                     400 -> { // 중복되는 값 존재
                         Log.d("회원 가입 통신 실패 : ", e.message())
+                        _isValidRegister.postValue(false)
                     }
-
                 }
             }
         }
