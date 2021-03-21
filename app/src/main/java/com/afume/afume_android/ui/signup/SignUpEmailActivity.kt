@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpEmailBinding
+import com.afume.afume_android.util.closeKeyboard
 import com.afume.afume_android.util.startActivity
 
 class SignUpEmailActivity : AppCompatActivity() {
@@ -25,6 +26,7 @@ class SignUpEmailActivity : AppCompatActivity() {
 
         nickAnimation()
         checkNextButton()
+        setKeyboard()
     }
 
     private fun nickAnimation(){
@@ -46,6 +48,14 @@ class SignUpEmailActivity : AppCompatActivity() {
         })
         signUpViewModel.isValidNick.observe(this, Observer{
             signUpViewModel.checkNextBtn()
+        })
+    }
+
+    private fun setKeyboard(){
+        signUpViewModel.emailNextBtn.observe(this, Observer { emailNextBtn ->
+            if(emailNextBtn){
+                this.closeKeyboard()
+            }
         })
     }
 

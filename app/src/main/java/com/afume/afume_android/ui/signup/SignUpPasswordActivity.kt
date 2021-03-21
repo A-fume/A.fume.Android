@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpPasswordBinding
+import com.afume.afume_android.util.closeKeyboard
 import com.afume.afume_android.util.startActivity
 
 class SignUpPasswordActivity : AppCompatActivity() {
@@ -21,10 +22,13 @@ class SignUpPasswordActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = signUpViewModel
 
+        binding.edtSignUpPassword.requestFocus()
+
         passwordAnimation()
         checkNextButton()
+        setKeyboard()
 
-        binding.edtSignUpPassword.requestFocus()
+
     }
 
     private fun passwordAnimation(){
@@ -46,6 +50,14 @@ class SignUpPasswordActivity : AppCompatActivity() {
         })
         signUpViewModel.isValidAgain.observe(this, Observer{
             signUpViewModel.checkPasswordNextBtn()
+        })
+    }
+
+    private fun setKeyboard(){
+        signUpViewModel.passwordNextBtn.observe(this, Observer { passwordNextBtn ->
+            if(passwordNextBtn){
+                this.closeKeyboard()
+            }
         })
     }
 

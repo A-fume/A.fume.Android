@@ -183,7 +183,7 @@ class SignUpViewModel()  : ViewModel() {
 
     // 다음 버튼 노출 여부 검사 - 이메일
     fun checkNextBtn(){
-        _emailNextBtn.value = _isValidEmail.value == true && _isValidNick.value == true
+        _emailNextBtn.postValue(isValidEmail.value == true && _isValidNick.value == true)
     }
 
     // 비밀번호 형식 검사 - 하단 안내문
@@ -265,7 +265,7 @@ class SignUpViewModel()  : ViewModel() {
 
     // 다음 버튼 노출 여부 검사 - 비밀번호
     fun checkPasswordNextBtn(){
-        _passwordNextBtn.value = _isValidPassword.value == true && _isValidAgain.value == true
+        _passwordNextBtn.postValue(_isValidPassword.value == true && _isValidAgain.value == true)
     }
 
     // 성별 선택 여부 - 남자
@@ -343,10 +343,13 @@ class SignUpViewModel()  : ViewModel() {
                     _isValidRegister.postValue(true)
                 }
             } catch (e: HttpException) {
+                _isValidRegister.postValue(false)
                 when (e.response()?.code()) {
                     400 -> { // 중복되는 값 존재
                         Log.d("회원 가입 통신 실패 : ", e.message())
-                        _isValidRegister.postValue(false)
+                    }
+                    401 -> { // 잘못된 비밀번호, 아이디 존재 x
+                        Log.d("회원 가입 통신 실패 : ", e.message())
                     }
                 }
             }
