@@ -317,7 +317,7 @@ class SignUpViewModel()  : ViewModel() {
                 }
             }
             "age" -> {
-                AfumeApplication.prefManager.userAge = ageTxt.value.toString()
+                AfumeApplication.prefManager.userAge = ageTxt.value!!.toInt()
             }
         }
     }
@@ -336,7 +336,7 @@ class SignUpViewModel()  : ViewModel() {
                     AfumeApplication.prefManager.userNickname,
                     AfumeApplication.prefManager.userPassword,
                     AfumeApplication.prefManager.userGender,
-                    AfumeApplication.prefManager.userAge.toInt()
+                    AfumeApplication.prefManager.userAge
                 )
                 signRepository.postRegisterInfo(registerInfo).let {
                     Log.d("회원 가입 통신 성공 : ", it)
@@ -344,14 +344,6 @@ class SignUpViewModel()  : ViewModel() {
                 }
             } catch (e: HttpException) {
                 _isValidRegister.postValue(false)
-                when (e.response()?.code()) {
-                    400 -> { // 중복되는 값 존재
-                        Log.d("회원 가입 통신 실패 : ", e.message())
-                    }
-                    401 -> { // 잘못된 비밀번호, 아이디 존재 x
-                        Log.d("회원 가입 통신 실패 : ", e.message())
-                    }
-                }
             }
         }
     }

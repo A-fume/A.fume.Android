@@ -1,6 +1,5 @@
 package com.afume.afume_android.ui.signin
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -11,6 +10,8 @@ import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignInBinding
 import com.afume.afume_android.ui.MainActivity
 import com.afume.afume_android.ui.signup.SignUpEmailActivity
+import com.afume.afume_android.util.startActivity
+import com.afume.afume_android.util.startActivityWithFinish
 
 class SignInActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignInBinding
@@ -35,15 +36,19 @@ class SignInActivity : AppCompatActivity() {
     }
 
     fun onClickSignInBtn(view: View){
-        val homeIntent = Intent(this,MainActivity::class.java)
+        signInViewModel.postLoginInfo()
 
-        startActivity(homeIntent)
+        signInViewModel.isValidLogin.observe(this, Observer { isValidLogin ->
+            isValidLogin?.let {
+                if(isValidLogin){
+                    this.startActivityWithFinish(MainActivity::class.java)
+                }
+            }
+        })
     }
 
     fun onClickSignUpBtn(view: View){
-        val signUpIntent = Intent(this,SignUpEmailActivity::class.java)
-
-        startActivity(signUpIntent)
+        this.startActivity(SignUpEmailActivity::class.java)
     }
 
     fun onClickBackBtn(view: View){

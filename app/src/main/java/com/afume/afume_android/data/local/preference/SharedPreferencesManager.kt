@@ -3,9 +3,14 @@ package com.afume.afume_android.data.local.preference
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.annotation.CallSuper
+import androidx.core.content.edit
 
 class SharedPreferencesManager (context: Context){
     private val sharedPreferences : SharedPreferences = context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
+
+    var userIdx : Int
+        get() = sharedPreferences.getInt(USER_IDX, 0)
+        set(value) = sharedPreferences.edit { putInt(USER_IDX, value) }
 
     var userEmail: String
         get() = sharedPreferences.getString(USER_EMAIL)
@@ -23,9 +28,9 @@ class SharedPreferencesManager (context: Context){
         get() = sharedPreferences.getString(USER_GENDER)
         set(value) = sharedPreferences.putString(USER_GENDER, value)
 
-    var userAge: String
-        get() = sharedPreferences.getString(USER_AGE)
-        set(value) = sharedPreferences.putString(USER_AGE, value)
+    var userAge: Int
+        get() = sharedPreferences.getInt(USER_AGE, 0)
+        set(value) = sharedPreferences.edit { putInt(USER_AGE, value) }
 
     var accessToken: String
         get() = sharedPreferences.getString(AUTH_TOKEN)
@@ -45,6 +50,7 @@ class SharedPreferencesManager (context: Context){
 
     companion object {
         const val PREFERENCES_KEY = "preferences"
+        private const val USER_IDX = "user_idx"
         private const val USER_EMAIL = "user_email"
         private const val USER_PASSWORD = "user_password"
         private const val USER_NICKNAME = "user_nickname"

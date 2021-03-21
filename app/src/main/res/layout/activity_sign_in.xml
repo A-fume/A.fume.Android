@@ -164,7 +164,7 @@
             android:enabled="@{viewModel.loginNextBtn}"
             android:fontFamily="@font/notosans_bold"
             android:includeFontPadding="false"
-            android:onClick="@{() -> viewModel.postLoginInfo()}"
+            android:onClick="onClickSignInBtn"
             android:text="로그인 하기"
             android:textColor="@color/white"
             android:textSize="15dp"

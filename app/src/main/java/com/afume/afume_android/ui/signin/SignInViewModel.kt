@@ -24,21 +24,6 @@ class SignInViewModel : ViewModel() {
     val isValidEmail : LiveData<Boolean>
         get() = _isValidEmail
 
-    // 비밀번호 입력 확인
-    private val _isValidPassword = MutableLiveData<Boolean>(false)
-    val isValidPassword : LiveData<Boolean>
-        get() = _isValidPassword
-
-    // 하단 안내문
-    private val _isValidLoginNotice = MutableLiveData<Boolean>(false)
-    val isValidLoginNotice : LiveData<Boolean>
-        get() = _isValidLoginNotice
-
-    // 로그인 버튼 활성화
-    private val _loginNextBtn = MutableLiveData<Boolean>(false)
-    val loginNextBtn : LiveData<Boolean>
-        get() = _loginNextBtn
-
     // 이메일 입력 실시간 확인
     fun inputEmail(s: CharSequence?, start: Int, before: Int, count: Int) {
         Handler().postDelayed({ checkEmailForm() }, 0L)
@@ -48,6 +33,11 @@ class SignInViewModel : ViewModel() {
     private fun checkEmailForm() {
         _isValidEmail.postValue(android.util.Patterns.EMAIL_ADDRESS.matcher(emailTxt.value.toString()).matches())
     }
+
+    // 비밀번호 입력 확인
+    private val _isValidPassword = MutableLiveData<Boolean>(false)
+    val isValidPassword : LiveData<Boolean>
+        get() = _isValidPassword
 
     // 비밀번호 입력 실시간 확인
     fun inputPassword(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -66,6 +56,11 @@ class SignInViewModel : ViewModel() {
         }
     }
 
+    // 로그인 버튼 활성화
+    private val _loginNextBtn = MutableLiveData<Boolean>(false)
+    val loginNextBtn : LiveData<Boolean>
+        get() = _loginNextBtn
+
     // 로그인 버튼 활성화 여부
     fun checkLoginNextBtn(){
         if(_isValidEmail.value == true && _isValidPassword.value == true){
@@ -75,22 +70,47 @@ class SignInViewModel : ViewModel() {
         }
     }
 
+    // 로그인 성공 여부
+    private val _isValidLogin = MutableLiveData<Boolean>(false)
+    val isValidLogin : LiveData<Boolean>
+        get() = _isValidLogin
+
+    // 하단 안내문
+    private val _isValidLoginNotice = MutableLiveData<Boolean>(false)
+    val isValidLoginNotice : LiveData<Boolean>
+        get() = _isValidLoginNotice
+
     // 로그인
     fun postLoginInfo(){
         viewModelScope.launch {
             try{
                 val loginInfo = RequestLogin(emailTxt.value.toString(),passwordTxt.value.toString())
                 signRepository.postLoginInfo(loginInfo).let {
-                    AfumeApplication.prefManager.accessToken = it.accessToken
+                    AfumeApplication.prefManager.userIdx = it.userIdx
+                    AfumeApplication.prefManager.userEmail = emailTxt.value.toString()
+                    AfumeApplication.prefManager.userPassword = passwordTxt.value.toString()
+                    AfumeApplication.prefManager.userNickname = it.nickname
+                    AfumeApplication.prefManager.userGender = it.gender
+                    AfumeApplication.prefManager.userAge = it.birth
+                    AfumeApplication.prefManager.accessToken = it.token
                     AfumeApplication.prefManager.refreshToken = it.refreshToken
                 }
 
-                Log.d("명",signRepository.postLoginInfo(loginInfo).toString())
+                _isValidLogin.postValue(true)
+                _isValidLoginNotice.postValue(false)
 
-                _isValidLoginNotice.value = false
-
+                Log.d("로그인 통신 성공", "")
             }catch (e : HttpException){
-                _isValidLoginNotice.value = true
+                _isValidLogin.postValue(false)
+                _isValidLoginNotice.postValue(true)
+                when (e.response()?.code()) {
+                    400 -> { // 중복되는 값 존재
+                        Log.d("로그인 통신 실패 : ", e.message())
+                    }
+                    401 -> { // 잘못된 비밀번호, 아이디 존재 x
+                        Log.d("로그인 통신 실패 : ", e.message())
+                    }
+                }
             }
         }
     }
