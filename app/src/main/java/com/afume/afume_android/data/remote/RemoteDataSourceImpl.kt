@@ -8,6 +8,7 @@ import com.afume.afume_android.data.vo.request.RequestSurvey
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.data.vo.response.ResponseLogin
+import com.afume.afume_android.data.vo.response.ResponseMyPerfume
 import com.afume.afume_android.data.vo.response.SeriesInfo
 
 class RemoteDataSourceImpl : RemoteDataSource{
@@ -54,6 +55,10 @@ class RemoteDataSourceImpl : RemoteDataSource{
     override suspend fun getLikedPerfume(token: String, userIdx: Int): MutableList<PerfumeInfo> {
         Log.e("wishlist",api.getLikedPerfume(token, userIdx).message)
         return api.getLikedPerfume(token, userIdx).data.rows
+    }
+
+    override suspend fun getMyPerfume(token: String, userIdx: Int): MutableList<ResponseMyPerfume> {
+        return api.getMyPerfume(token,userIdx).data
     }
 
 

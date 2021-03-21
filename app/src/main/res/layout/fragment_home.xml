@@ -27,7 +27,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/txt_myperfume_null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -50,7 +50,7 @@
                     android:layout_marginTop="36dp"
                     android:background="@color/primary_black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_myperfume_null" />
 
                 <TextView
                     android:id="@+id/txt_home_name_title"

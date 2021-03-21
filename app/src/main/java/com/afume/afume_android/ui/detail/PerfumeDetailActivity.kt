@@ -28,7 +28,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
     private fun initInfo(){
         val item = PerfumeDetailData(
-            image = listOf(R.drawable.dummy_perfume_image,R.drawable.dummy_perfume_image),
+            image = listOf(R.drawable.dummy_perfume_image,R.drawable.dummy_perfume_image,R.drawable.dummy_perfume_image,R.drawable.dummy_perfume_image),
             brand = "GUCCI",
             name = "뿌르 옴므 오 드 뚜왈렛",
             rate = 2.5f
@@ -38,15 +38,12 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
         detailImageAdapter =
             DetailImageAdapter()
-        binding.rvPerfumeDetailImage.adapter = detailImageAdapter
+        binding.vpPerfumeDetailImage.adapter = detailImageAdapter
 
         detailImageAdapter.data = item.image
         binding.item = item
 
-        val snapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.rvPerfumeDetailImage)
-
-        binding.indicatorPerfumeDetail.attachTo(binding.rvPerfumeDetailImage)
+        binding.indicatorPerfumeDetail.setViewPager(binding.vpPerfumeDetailImage)
 
     }
 

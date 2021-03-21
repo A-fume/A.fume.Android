@@ -53,9 +53,16 @@ interface AfumeService {
         @Body body: RequestSurvey
     ):ResponseBase<Int>
 
+    //My
     @GET("user/{userIdx}/perfume/liked")
     suspend fun getLikedPerfume(
         @Header("x-access-token") token : String,
         @Path("userIdx") userIdx : Int
     ):ResponseBase<ResponsePerfume>
+
+    @GET("user/{userIdx}/review")
+    suspend fun getMyPerfume(
+        @Header("x-access-token") token : String,
+        @Path("userIdx") userIdx : Int
+    ):ResponseBase<MutableList<ResponseMyPerfume>>
 }
