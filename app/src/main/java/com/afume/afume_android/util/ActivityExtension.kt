@@ -11,7 +11,7 @@ fun AppCompatActivity.startActivity(activity: Class<*>) {
 
 fun AppCompatActivity.startActivityWithFinish(activity: Class<*>) {
     startActivity(Intent(this, activity).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-    this.finish()
+    this.finishAffinity()
 }
 
 fun AppCompatActivity.closeKeyboard(){

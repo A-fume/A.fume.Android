@@ -11,7 +11,7 @@ import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpAgeBinding
 import com.afume.afume_android.ui.survey.SurveyActivity
 import com.afume.afume_android.util.YearPickerDialog
-import com.afume.afume_android.util.startActivity
+import com.afume.afume_android.util.startActivityWithFinish
 
 class SignUpAgeActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpAgeBinding
@@ -38,7 +38,7 @@ class SignUpAgeActivity : AppCompatActivity() {
         signUpViewModel.isValidRegister.observe(this, Observer { isVaildRegister ->
             isVaildRegister?.let {
                 if(isVaildRegister){
-                    this.startActivity(SurveyActivity::class.java)
+                    this.startActivityWithFinish(SurveyActivity::class.java)
                 }
             }
         })
