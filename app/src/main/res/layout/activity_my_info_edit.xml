@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.setting.MyInfoEditActivity">
+
+    <ImageView
+        android:id="@+id/imageView46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_btn_back" />
+
+    <TextView
+        android:id="@+id/textView49"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="내 정보 수정"
+        android:fontFamily="@font/nanummyeongjo_extrabold"
+        android:textSize="18dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/primary_black"
+        app:layout_constraintStart_toEndOf="@+id/imageView46"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/border_black_line_square_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView49">
+
+        <TextView
+            android:id="@+id/textView50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="사용하실 닉네임을 입력해주세요."
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView48"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView50"
+            app:srcCompat="@color/primary_black" />
+
+        <EditText
+            android:id="@+id/edt_my_info_edit_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@null"
+            android:ems="10"
+            android:fontFamily="@font/nanummyeongjo_extrabold"
+            android:includeFontPadding="false"
+            android:inputType="textPersonName"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:singleLine="true"
+            android:text="어퓸덕후"
+            android:textColor="@color/dark"
+            android:textColorHint="@color/gray_cd"
+            android:textCursorDrawable="@drawable/cursor_sign_up"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView48"
+            app:layout_constraintTop_toBottomOf="@+id/imageView48" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_my_info_edit_check_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:backgroundTint="@color/primary_black"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="6dp"
+            android:text="중복 확인"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            app:cornerRadius="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/edt_my_info_edit_nick"
+            app:layout_constraintEnd_toEndOf="@+id/imageView48"
+            app:layout_constraintTop_toTopOf="@+id/edt_my_info_edit_nick" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+        <TextView
+            android:id="@+id/textView51"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="성별을 선택해주세요."
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView49"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView51"
+            app:srcCompat="@color/primary_black" />
+
+        <ImageView
+            android:id="@+id/btn_my_info_edit_gender_man"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView49"
+            app:srcCompat="@drawable/btn_man_inactive" />
+
+        <ImageView
+            android:id="@+id/imageView51"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_my_info_edit_gender_woman"
+            app:layout_constraintStart_toEndOf="@+id/btn_my_info_edit_gender_man"
+            app:layout_constraintTop_toBottomOf="@+id/imageView49"
+            app:srcCompat="@color/primary_black" />
+
+        <ImageView
+            android:id="@+id/btn_my_info_edit_gender_woman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView51"
+            app:layout_constraintTop_toBottomOf="@+id/imageView49"
+            app:srcCompat="@drawable/btn_woman_inactive" />
+
+        <TextView
+            android:id="@+id/txt_my_info_edit_gender_man"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="18dp"
+            android:fontFamily="@font/nanummyeongjo"
+            android:includeFontPadding="false"
+            android:text="남자"
+            android:textColor="@color/gray_cd"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_my_info_edit_gender_man" />
+
+        <TextView
+            android:id="@+id/txt_my_info_edit_gender_woman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/nanummyeongjo"
+            android:includeFontPadding="false"
+            android:text="여자"
+            android:textColor="@color/gray_cd"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView51"
+            app:layout_constraintTop_toBottomOf="@+id/btn_my_info_edit_gender_woman" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="출생연도를 선택해주세요."
+        android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/dark_gray_7d"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_my_info_edit_age"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="1990"
+        android:fontFamily="@font/nanummyeongjo_extrabold"
+        android:textSize="20dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/point_beige"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:cornerRadius="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView55" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_my_info_edit_complete"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:text="수정 완료"
+        android:fontFamily="@font/notosans_bold"
+        android:textSize="15dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/primary_black"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

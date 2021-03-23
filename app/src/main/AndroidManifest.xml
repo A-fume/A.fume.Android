@@ -15,6 +15,7 @@
         android:theme="@style/Theme.AfumeAndroid"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
+        <activity android:name=".ui.setting.MyInfoEditActivity"></activity>
         <activity android:name=".ui.ButtonActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
