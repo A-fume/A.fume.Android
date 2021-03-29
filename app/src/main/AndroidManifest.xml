@@ -15,7 +15,7 @@
         android:theme="@style/Theme.AfumeAndroid"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".ui.setting.PasswordEditActivity"></activity>
+        <activity android:name=".ui.setting.PasswordEditActivity"/>
         <activity android:name=".ui.setting.MyInfoEditActivity" />
         <activity android:name=".ui.ButtonActivity">
             <intent-filter>
