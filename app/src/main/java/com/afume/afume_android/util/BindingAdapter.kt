@@ -1,5 +1,6 @@
 package com.afume.afume_android.util
 
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
@@ -53,5 +54,11 @@ object BindingAdapter {
     fun TextView.setGenderFont(status: Boolean){
         typeface = ResourcesCompat.getFont(this.context, if(status) R.font.nanummyeongjo_extrabold else R.font.nanummyeongjo)
         setTextColor(ResourcesCompat.getColor(this.resources, if(status) R.color.primary_black else R.color.gray_cd, null))
+    }
+
+    @JvmStatic
+    @BindingAdapter("setWarningFont")
+    fun EditText.setWarningFont(status: Boolean){
+        setTextColor(ResourcesCompat.getColor(this.resources, if(status) R.color.brick else R.color.primary_black, null))
     }
 }

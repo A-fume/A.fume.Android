@@ -4,10 +4,16 @@ import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.AfumeApplication
+import com.afume.afume_android.data.repository.SignRepository
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.util.regex.Pattern
 
 class EditMyInfoViewModel : ViewModel() {
+    private val signRepository = SignRepository()
+
     // 입력 내용
     val nickTxt = MutableLiveData<String>("")
     val ageTxt = MutableLiveData<String>("")
@@ -99,14 +105,24 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 닉네임 중복확인
     fun getValidateNickname(){
-        if(nickTxt.value == "test4"){
-            _isValidNick.postValue(false)
-            _isValidNickNotice.postValue(true)
-            _isValidNickBtn.postValue(true)
-        }else{
-            _isValidNick.postValue(true)
-            _isValidNickNotice.postValue(false)
-            _isValidNickBtn.postValue(false)
+        viewModelScope.launch {
+            try{
+                _isValidNick.value = signRepository.getValidateNickname(nickTxt.value.toString())
+
+                if(_isValidNick.value == true){
+                    _isValidNickNotice.postValue(false)
+                    _isValidNickBtn.postValue(false)
+                }
+            }catch (e : HttpException){
+                when(e.response()?.code()){
+                    409 -> {
+                        nickNotice.value = "이미 사용 중인 닉네임 입니다. 다시 입력해주세요."
+                        _isValidNick.postValue(false)
+                        _isValidNickNotice.postValue(true)
+                        _isValidNickBtn.postValue(true)
+                    }
+                }
+            }
         }
     }
 

@@ -95,7 +95,7 @@
                 android:singleLine="true"
                 android:text="@={viewModel.nickTxt}"
                 android:onTextChanged="@{viewModel::inputNickname}"
-                android:textColor="@color/dark"
+                setWarningFont="@{viewModel.isValidNickNotice}"
                 android:textColorHint="@color/gray_cd"
                 android:textCursorDrawable="@drawable/cursor_sign_up"
                 android:textSize="18dp"
