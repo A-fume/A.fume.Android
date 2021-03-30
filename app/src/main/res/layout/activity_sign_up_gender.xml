@@ -67,14 +67,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textView25"
             app:srcCompat="@color/primary_black" />
 
-        <CheckedTextView
+        <ImageView
             android:id="@+id/img_sign_up_gender_man"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:onClick="@{() -> viewModel.onClickManBtn()}"
-            android:checked="@{viewModel.isCheckMan}"
-            android:background="@drawable/selector_gender_man"
+            setManIcon="@{viewModel.isCheckMan}"
             app:layout_constraintEnd_toStartOf="@+id/imageView26"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView24" />
@@ -84,10 +83,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:fontFamily="@font/nanummyeongjo"
             android:includeFontPadding="false"
             android:text="남자"
-            android:textColor="@color/gray_cd"
+            setGenderFont="@{viewModel.isCheckMan}"
             android:textSize="15dp"
             app:layout_constraintEnd_toStartOf="@+id/imageView26"
             app:layout_constraintStart_toStartOf="parent"
@@ -103,14 +101,13 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView24"
             app:srcCompat="@color/primary_black" />
 
-        <CheckedTextView
+        <ImageView
             android:id="@+id/img_sign_up_gender_woman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:onClick="@{() -> viewModel.onClickWomanBtn()}"
-            android:checked="@{viewModel.isCheckWoman}"
-            android:background="@drawable/selector_gender_woman"
+            setWomanIcon="@{viewModel.isCheckWoman}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView26"
             app:layout_constraintTop_toBottomOf="@+id/imageView24" />
@@ -121,10 +118,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="여자"
-            android:fontFamily="@font/nanummyeongjo"
             android:textSize="15dp"
             android:includeFontPadding="false"
-            android:textColor="@color/gray_cd"
+            setGenderFont="@{viewModel.isCheckWoman}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView26"
             app:layout_constraintTop_toBottomOf="@+id/img_sign_up_gender_woman" />
