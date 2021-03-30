@@ -1,5 +1,6 @@
 package com.afume.afume_android.data.remote.network
 
+import com.afume.afume_android.data.vo.request.RequestEditMyInfo
 import com.afume.afume_android.data.vo.request.RequestLogin
 import com.afume.afume_android.data.vo.request.RequestRegister
 import com.afume.afume_android.data.vo.request.RequestSurvey
@@ -65,4 +66,12 @@ interface AfumeService {
         @Header("x-access-token") token : String,
         @Path("userIdx") userIdx : Int
     ):ResponseBase<MutableList<ResponseMyPerfume>>
+
+    // Edit - My info
+    @PUT("user/{userIdx}")
+    suspend fun putMyInfo(
+        @Header("x-access-token") token : String,
+        @Path("userIdx") userIdx : Int,
+        @Body body : RequestEditMyInfo
+    ):ResponseBase<ResponseEditMyInfo>
 }

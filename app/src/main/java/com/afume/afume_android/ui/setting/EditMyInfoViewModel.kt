@@ -1,21 +1,26 @@
 package com.afume.afume_android.ui.setting
 
 import android.os.Handler
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.AfumeApplication
+import com.afume.afume_android.data.repository.EditMyInfoRepository
 import com.afume.afume_android.data.repository.SignRepository
+import com.afume.afume_android.data.vo.request.RequestEditMyInfo
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.regex.Pattern
 
 class EditMyInfoViewModel : ViewModel() {
     private val signRepository = SignRepository()
+    private val editRepository = EditMyInfoRepository()
 
     // 입력 내용
     val nickTxt = MutableLiveData<String>("")
+    var genderTxt = ""
     val ageTxt = MutableLiveData<String>("")
     val passwordTxt = MutableLiveData<String>("")
     val newPasswordTxt = MutableLiveData<String>("")
@@ -115,7 +120,7 @@ class EditMyInfoViewModel : ViewModel() {
                 }
             }catch (e : HttpException){
                 when(e.response()?.code()){
-                    409 -> {
+                    409 -> { // 사용중인 닉네임
                         nickNotice.value = "이미 사용 중인 닉네임 입니다. 다시 입력해주세요."
                         _isValidNick.postValue(false)
                         _isValidNickNotice.postValue(true)
@@ -146,6 +151,54 @@ class EditMyInfoViewModel : ViewModel() {
     fun onClickWomanBtn(){
         _isCheckMan.postValue(false)
         _isCheckWoman.postValue(true)
+    }
+
+    // 내 정보 수정
+    private val _isValidEditMyInfo = MutableLiveData<Boolean>(false)
+    val isValidEditMyInfo : LiveData<Boolean>
+        get() = _isValidEditMyInfo
+
+    // 내 정보 수정
+    fun putMyInfo(){
+        genderTxt = if(_isCheckMan.value == true){
+            "MAN"
+        }else{
+            "WOMAN"
+        }
+
+        viewModelScope.launch {
+            try{
+                val myInfo = RequestEditMyInfo(
+                    AfumeApplication.prefManager.userEmail,
+                    nickTxt.value.toString(),
+                    genderTxt,
+                    ageTxt.value!!.toInt()
+                )
+                editRepository.putMyInfo(
+                    AfumeApplication.prefManager.accessToken,
+                    AfumeApplication.prefManager.userIdx,
+                    myInfo
+                ).let{
+                    Log.d("내 정보 수정 성공 : ", it.toString())
+                    AfumeApplication.prefManager.userNickname = nickTxt.value.toString()
+                    AfumeApplication.prefManager.userGender = genderTxt
+                    AfumeApplication.prefManager.userAge = ageTxt.value!!.toInt()
+
+                    _isValidEditMyInfo.postValue(true)
+                }
+            }catch (e : HttpException){
+                _isValidEditMyInfo.postValue(false)
+
+                when(e.response()?.code()){
+                    401 -> { // userIdx 일치 X 또는 토근 유효 X
+                        Log.d("내 정보 수정 실패", e.message())
+                    }
+                    404 -> { // user 없음
+                        Log.d("내 정보 수정 실패 : ", e.message())
+                    }
+                }
+            }
+        }
     }
 
     // 본인확인 검사 - 하단 안내문

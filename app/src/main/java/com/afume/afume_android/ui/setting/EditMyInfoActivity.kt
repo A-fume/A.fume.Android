@@ -5,8 +5,11 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityMyInfoEditBinding
+import com.afume.afume_android.util.YearPickerDialog
 
 class EditMyInfoActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMyInfoEditBinding
@@ -19,6 +22,23 @@ class EditMyInfoActivity : AppCompatActivity() {
         binding.viewModel = editViewModel
 
         editViewModel.checkMyInfo()
+    }
+
+    fun showYearPicker(view : View){
+        val dialog: DialogFragment = YearPickerDialog(binding.btnMyInfoEditYearPicker)
+        dialog.show(this.supportFragmentManager, dialog.tag)
+    }
+
+    fun onClickCompleteBtn(view: View){
+        editViewModel.putMyInfo()
+
+        editViewModel.isValidEditMyInfo.observe(this, Observer { isValidEditMyInfo ->
+            isValidEditMyInfo?.let {
+                if(isValidEditMyInfo){
+                    finish()
+                }
+            }
+        })
     }
 
     fun onClickBackBtn(view : View){
