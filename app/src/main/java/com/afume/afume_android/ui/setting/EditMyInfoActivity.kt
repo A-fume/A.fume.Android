@@ -8,9 +8,9 @@ import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityMyInfoEditBinding
 
-class MyInfoEditActivity : AppCompatActivity() {
+class EditMyInfoActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMyInfoEditBinding
-    private val editViewModel : MyInfoEditViewModel by viewModels()
+    private val editViewModel : EditMyInfoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

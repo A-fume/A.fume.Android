@@ -8,13 +8,13 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.afume.afume_android.ui.setting.MyInfoEditViewModel" />
+            type="com.afume.afume_android.ui.setting.EditMyInfoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.setting.MyInfoEditActivity">
+        tools:context=".ui.setting.EditMyInfoActivity">
 
         <ImageView
             android:id="@+id/imageView46"

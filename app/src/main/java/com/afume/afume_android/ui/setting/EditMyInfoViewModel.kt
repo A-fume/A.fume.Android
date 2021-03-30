@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.afume.afume_android.AfumeApplication
 import java.util.regex.Pattern
 
-class MyInfoEditViewModel : ViewModel() {
+class EditMyInfoViewModel : ViewModel() {
     // 입력 내용
     val nickTxt = MutableLiveData<String>("")
     val ageTxt = MutableLiveData<String>("")

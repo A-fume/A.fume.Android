@@ -11,9 +11,9 @@ import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityPasswordEditBinding
 import com.afume.afume_android.util.closeKeyboard
 
-class PasswordEditActivity : AppCompatActivity() {
+class EditPasswordActivity : AppCompatActivity() {
     lateinit var binding : ActivityPasswordEditBinding
-    private val editViewModel : MyInfoEditViewModel by viewModels()
+    private val editViewModel : EditMyInfoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
