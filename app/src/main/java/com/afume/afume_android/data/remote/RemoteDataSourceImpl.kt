@@ -2,10 +2,7 @@ package com.afume.afume_android.data.remote
 
 import android.util.Log
 import com.afume.afume_android.data.remote.network.AfumeServiceImpl
-import com.afume.afume_android.data.vo.request.RequestEditMyInfo
-import com.afume.afume_android.data.vo.request.RequestLogin
-import com.afume.afume_android.data.vo.request.RequestRegister
-import com.afume.afume_android.data.vo.request.RequestSurvey
+import com.afume.afume_android.data.vo.request.*
 import com.afume.afume_android.data.vo.response.*
 
 class RemoteDataSourceImpl : RemoteDataSource{
@@ -62,4 +59,7 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return api.putMyInfo(token,userIdx,body).data
     }
 
+    override suspend fun putPassword(token: String, body: RequestEditPassword): String {
+        return api.putPassword(token,body)
+    }
 }

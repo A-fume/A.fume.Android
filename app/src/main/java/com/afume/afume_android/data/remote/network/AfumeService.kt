@@ -1,9 +1,6 @@
 package com.afume.afume_android.data.remote.network
 
-import com.afume.afume_android.data.vo.request.RequestEditMyInfo
-import com.afume.afume_android.data.vo.request.RequestLogin
-import com.afume.afume_android.data.vo.request.RequestRegister
-import com.afume.afume_android.data.vo.request.RequestSurvey
+import com.afume.afume_android.data.vo.request.*
 import com.afume.afume_android.data.vo.response.*
 import retrofit2.http.*
 
@@ -74,4 +71,11 @@ interface AfumeService {
         @Path("userIdx") userIdx : Int,
         @Body body : RequestEditMyInfo
     ):ResponseBase<ResponseEditMyInfo>
+
+    // Edit - Password
+    @PUT("user/changePassword")
+    suspend fun putPassword(
+        @Header("x-access-token") token : String,
+        @Body body : RequestEditPassword
+    ):String
 }

@@ -1,9 +1,6 @@
 package com.afume.afume_android.data.remote
 
-import com.afume.afume_android.data.vo.request.RequestEditMyInfo
-import com.afume.afume_android.data.vo.request.RequestLogin
-import com.afume.afume_android.data.vo.request.RequestRegister
-import com.afume.afume_android.data.vo.request.RequestSurvey
+import com.afume.afume_android.data.vo.request.*
 import com.afume.afume_android.data.vo.response.*
 
 interface RemoteDataSource {
@@ -18,4 +15,5 @@ interface RemoteDataSource {
     suspend fun getLikedPerfume(token : String, userIdx : Int): MutableList<PerfumeInfo>
     suspend fun getMyPerfume(token : String, userIdx : Int): MutableList<ResponseMyPerfume>
     suspend fun putMyInfo(token: String, userIdx: Int, body: RequestEditMyInfo) : ResponseEditMyInfo
+    suspend fun putPassword(token: String, body: RequestEditPassword) : String
 }

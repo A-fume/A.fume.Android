@@ -58,6 +58,18 @@ class EditPasswordActivity : AppCompatActivity() {
         })
     }
 
+    fun onClickCompleteBtn(view: View){
+        editViewModel.putPassword()
+
+        editViewModel.isValidEditPassword.observe(this, Observer{ isValidEditPassword ->
+            isValidEditPassword?.let{
+                if(isValidEditPassword){
+                    finish()
+                }
+            }
+        })
+    }
+
     fun onClickBackBtn(view: View){
         finish()
     }

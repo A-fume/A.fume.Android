@@ -10,6 +10,7 @@ import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.EditMyInfoRepository
 import com.afume.afume_android.data.repository.SignRepository
 import com.afume.afume_android.data.vo.request.RequestEditMyInfo
+import com.afume.afume_android.data.vo.request.RequestEditPassword
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.regex.Pattern
@@ -336,5 +337,40 @@ class EditMyInfoViewModel : ViewModel() {
     // 다음 버튼 노출 여부 검사 - 비밀번호
     fun checkPasswordNextBtn(){
         _passwordEditCompleteBtn.postValue(_isValidNewPassword.value == true && _isValidAgainPassword.value == true)
+    }
+
+    // 비밀번호 수정
+    private val _isValidEditPassword = MutableLiveData<Boolean>(false)
+    val isValidEditPassword : LiveData<Boolean>
+        get() = _isValidEditPassword
+
+    // 비밀번호 수정
+    fun putPassword(){
+        viewModelScope.launch {
+            try {
+                val passwordInfo = RequestEditPassword(
+                    passwordTxt.value.toString(),
+                    newPasswordTxt.value.toString()
+                )
+                editRepository.putPassword(
+                    AfumeApplication.prefManager.accessToken,
+                    passwordInfo
+                ).let {
+                    Log.d("비밀번호 수정 성공 : ", it)
+                    _isValidEditPassword.postValue(true)
+                }
+            }catch (e : HttpException){
+                _isValidEditPassword.postValue(false)
+
+                when(e.response()?.code()){
+                    401 -> { // 현재 비밀번호 잘못입력
+                        Log.d("비밀번호 수정 실패 ", e.message())
+                    }
+                    else -> {
+                        Log.d("비밀번호 수정 실패 ", e.response().toString())
+                    }
+                }
+            }
+        }
     }
 }
