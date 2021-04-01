@@ -217,6 +217,10 @@ class EditMyInfoViewModel : ViewModel() {
     val isValidPassword : LiveData<Boolean>
         get() = _isValidPassword
 
+    private val _isWarningUser = MutableLiveData<Boolean>(false)
+    val isWarningUser : LiveData<Boolean>
+        get() = _isWarningUser
+
     // 새비밀번호 입력란 노출
     private val _newPasswordForm = MutableLiveData<Boolean>(false)
     val newPasswordForm : LiveData<Boolean>
@@ -230,6 +234,8 @@ class EditMyInfoViewModel : ViewModel() {
     }
 
     private fun resetValidPassword(){
+        _isWarningUser.postValue(false)
+
         if(_isValidPassword.value!!){
             _isValidPassword.postValue(false)
             _isValidPasswordBtn.postValue(true)
@@ -257,12 +263,14 @@ class EditMyInfoViewModel : ViewModel() {
             _isValidPassword.postValue(true)
             _isValidPasswordBtn.postValue(false)
             _isValidPasswordNotice.postValue(false)
+            _isWarningUser.postValue(false)
 
             if(!_newPasswordForm.value!!) _newPasswordForm.postValue(true)
         }else{
             _isValidPassword.postValue(false)
             _isValidPasswordBtn.postValue(true)
             _isValidPasswordNotice.postValue(true)
+            _isWarningUser.postValue(true)
         }
     }
 
