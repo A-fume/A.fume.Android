@@ -46,7 +46,7 @@ class EditMyInfoViewModel : ViewModel() {
             _isCheckWoman.postValue(false)
         }else{
             _isCheckMan.postValue(false)
-            _isCheckWoman.postValue(false)
+            _isCheckWoman.postValue(true)
         }
     }
 
