@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="fm"
-            type="com.afume.afume_android.ui.home.HomeFragment" />
+            name="viewModel"
+            type="com.afume.afume_android.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,18 +26,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
+                <ImageView
                     android:id="@+id/txt_myperfume_null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="19dp"
-                    android:fontFamily="@font/nanummyeongjo_extrabold"
-                    android:includeFontPadding="false"
-                    android:text="로고"
-                    android:textColor="@color/primary_black"
-                    android:textSize="22sp"
+                    android:background="@drawable/logo_black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,7 +56,7 @@
                     android:fontFamily="@font/nanummyeongjo_extrabold"
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="6sp"
-                    android:text="이신일 님을 위한\n향수 추천"
+                    android:text='@{viewModel.nickTxt + " 님을 위한\n향수 추천"}'
                     android:textColor="@color/primary_black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -144,7 +140,7 @@
                     android:fontFamily="@font/nanummyeongjo_extrabold"
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="6sp"
-                    android:text="20대 여성이\n많이 찾는 향수"
+                    android:text='@{viewModel.ageTxt + "이\n많이 찾는 향수"}'
                     android:textColor="@color/primary_black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/imageView3"
@@ -157,7 +153,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
-                    android:text="신일 님 연령대 분들에게 인기 많은 향수 입니다."
+                    android:text='@{viewModel.nickTxt + " 님 연령대 분들에게 인기 많은 향수 입니다."}'
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/textView4"
