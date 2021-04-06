@@ -60,6 +60,6 @@ class RemoteDataSourceImpl : RemoteDataSource{
     }
 
     override suspend fun putPassword(token: String, body: RequestEditPassword): String {
-        return api.putPassword(token,body)
+        return api.putPassword(token,body).message
     }
 }

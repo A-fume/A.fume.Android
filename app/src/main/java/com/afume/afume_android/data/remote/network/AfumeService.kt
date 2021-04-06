@@ -77,5 +77,5 @@ interface AfumeService {
     suspend fun putPassword(
         @Header("x-access-token") token : String,
         @Body body : RequestEditPassword
-    ):String
+    ):ResponseMessage
 }

@@ -1,13 +1,15 @@
 package com.afume.afume_android.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityButtonBinding
-import com.afume.afume_android.databinding.ActivityPerfumeDetailBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
+import com.afume.afume_android.ui.setting.EditMyInfoActivity
+import com.afume.afume_android.ui.setting.EditPasswordActivity
+import com.afume.afume_android.ui.signin.SignHomeActivity
 
 class ButtonActivity : AppCompatActivity() {
     lateinit var binding: ActivityButtonBinding
@@ -16,6 +18,10 @@ class ButtonActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_button)
         binding.lifecycleOwner=this
+
+        binding.actButtonTvSignIn.setOnClickListener {
+            startActivity(Intent(this, SignHomeActivity::class.java))
+        }
 
         binding.actButtonTvMain.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))

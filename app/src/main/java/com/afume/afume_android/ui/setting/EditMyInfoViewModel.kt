@@ -365,6 +365,8 @@ class EditMyInfoViewModel : ViewModel() {
                     passwordInfo
                 ).let {
                     Log.d("비밀번호 수정 성공 : ", it)
+                    AfumeApplication.prefManager.userPassword = passwordInfo.newPassword
+
                     _isValidEditPassword.postValue(true)
                 }
             }catch (e : HttpException){
@@ -375,7 +377,7 @@ class EditMyInfoViewModel : ViewModel() {
                         Log.d("비밀번호 수정 실패 ", e.message())
                     }
                     else -> {
-                        Log.d("비밀번호 수정 실패 ", e.response().toString())
+                        Log.d("비밀번호 수정 실패 ", e.message())
                     }
                 }
             }
