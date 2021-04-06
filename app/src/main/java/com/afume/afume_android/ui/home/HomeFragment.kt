@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.PagerSnapHelper
 import com.afume.afume_android.data.vo.HomePerfumeListData
 import com.afume.afume_android.data.vo.RecommendPerfumeListData
 import com.afume.afume_android.databinding.FragmentHomeBinding
@@ -51,7 +50,6 @@ class HomeFragment : Fragment() {
             RecommendListAdapter(
                 requireContext()
             )
-        binding.rvHomeRecommend.adapter = recommendAdapter
 
         recommendAdapter.data = mutableListOf(
             RecommendPerfumeListData(
@@ -81,10 +79,9 @@ class HomeFragment : Fragment() {
         )
         recommendAdapter.notifyDataSetChanged()
 
-        val snapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.rvHomeRecommend)
+        binding.vpHomeRecommend.adapter = recommendAdapter
 
-        binding.indicatorHome.attachTo(binding.rvHomeRecommend)
+        binding.indicatorHome.setViewPager(binding.vpHomeRecommend)
     }
 
     private fun initPopularList(){
