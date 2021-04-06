@@ -26,7 +26,7 @@ class SignUpAgeActivity : AppCompatActivity() {
     }
 
      fun showYearPicker(view: View){
-         val dialog: DialogFragment = YearPickerDialog(binding)
+         val dialog: DialogFragment = YearPickerDialog(binding.btnSignUpYearPicker)
          dialog.show(this.supportFragmentManager, dialog.tag)
     }
 
@@ -35,9 +35,9 @@ class SignUpAgeActivity : AppCompatActivity() {
 
         signUpViewModel.postRegister()
 
-        signUpViewModel.isValidRegister.observe(this, Observer { isVaildRegister ->
-            isVaildRegister?.let {
-                if(isVaildRegister){
+        signUpViewModel.isValidRegister.observe(this, Observer { isValidRegister ->
+            isValidRegister?.let {
+                if(isValidRegister){
                     this.startActivityWithFinish(SurveyActivity::class.java)
                 }
             }

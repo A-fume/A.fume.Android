@@ -100,8 +100,8 @@ class SignInViewModel : ViewModel() {
                     AfumeApplication.prefManager.userNickname = it.nickname
                     AfumeApplication.prefManager.userGender = it.gender
                     AfumeApplication.prefManager.userAge = it.birth
-                    AfumeApplication.prefManager.accessToken = it.token
-                    AfumeApplication.prefManager.refreshToken = it.refreshToken
+                    AfumeApplication.prefManager.accessToken = "Bearer "+it.token
+                    AfumeApplication.prefManager.refreshToken = "Bearer "+it.refreshToken
                 }
 
                 _isValidLogin.postValue(true)

@@ -1,13 +1,7 @@
 package com.afume.afume_android.data.remote
 
-import com.afume.afume_android.data.vo.request.RequestLogin
-import com.afume.afume_android.data.vo.request.RequestRegister
-import com.afume.afume_android.data.vo.request.RequestSurvey
-import com.afume.afume_android.data.vo.response.PerfumeInfo
-import com.afume.afume_android.data.vo.response.ResponseKeyword
-import com.afume.afume_android.data.vo.response.ResponseLogin
-import com.afume.afume_android.data.vo.response.ResponseMyPerfume
-import com.afume.afume_android.data.vo.response.SeriesInfo
+import com.afume.afume_android.data.vo.request.*
+import com.afume.afume_android.data.vo.response.*
 
 interface RemoteDataSource {
     suspend fun getValidateEmail(email : String): Boolean
@@ -20,4 +14,6 @@ interface RemoteDataSource {
     suspend fun postSurvey(token: String, body: RequestSurvey): String
     suspend fun getLikedPerfume(token : String, userIdx : Int): MutableList<PerfumeInfo>
     suspend fun getMyPerfume(token : String, userIdx : Int): MutableList<ResponseMyPerfume>
+    suspend fun putMyInfo(token: String, userIdx: Int, body: RequestEditMyInfo) : ResponseEditMyInfo
+    suspend fun putPassword(token: String, body: RequestEditPassword) : String
 }

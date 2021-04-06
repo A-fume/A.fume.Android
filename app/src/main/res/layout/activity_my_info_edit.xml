@@ -95,7 +95,7 @@
                 android:singleLine="true"
                 android:text="@={viewModel.nickTxt}"
                 android:onTextChanged="@{viewModel::inputNickname}"
-                android:textColor="@color/dark"
+                setWarningFont="@{viewModel.isValidNickNotice}"
                 android:textColorHint="@color/gray_cd"
                 android:textCursorDrawable="@drawable/cursor_sign_up"
                 android:textSize="18dp"
@@ -135,6 +135,20 @@
                 app:srcCompat="@drawable/ic_check" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/txt_my_info_edit_nick_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@{viewModel.nickNotice}"
+            android:visibility="@{viewModel.isValidNickNotice? View.VISIBLE : View.INVISIBLE}"
+            android:textColor="@color/brick"
+            android:textSize="12dp"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
@@ -253,7 +267,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_my_info_edit_age"
+            android:id="@+id/btn_my_info_edit_year_picker"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
@@ -268,6 +282,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             app:cornerRadius="2dp"
+            android:onClick="showYearPicker"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView55" />
@@ -277,6 +292,7 @@
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:text="수정 완료"
+            android:onClick="onClickCompleteBtn"
             android:fontFamily="@font/notosans_bold"
             android:textSize="15dp"
             android:includeFontPadding="false"
@@ -288,20 +304,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/txt_my_info_edit_nick_notice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/notosans_regular"
-            android:includeFontPadding="false"
-            android:text="@{viewModel.nickNotice}"
-            android:visibility="@{viewModel.isValidNickNotice? View.VISIBLE : View.INVISIBLE}"
-            android:textColor="@color/brick"
-            android:textSize="12dp"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

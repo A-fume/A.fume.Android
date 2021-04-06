@@ -1,15 +1,27 @@
 package com.afume.afume_android.ui.setting
 
 import android.os.Handler
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.AfumeApplication
+import com.afume.afume_android.data.repository.EditMyInfoRepository
+import com.afume.afume_android.data.repository.SignRepository
+import com.afume.afume_android.data.vo.request.RequestEditMyInfo
+import com.afume.afume_android.data.vo.request.RequestEditPassword
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.util.regex.Pattern
 
 class EditMyInfoViewModel : ViewModel() {
+    private val signRepository = SignRepository()
+    private val editRepository = EditMyInfoRepository()
+
     // 입력 내용
     val nickTxt = MutableLiveData<String>("")
+    var genderTxt = ""
     val ageTxt = MutableLiveData<String>("")
     val passwordTxt = MutableLiveData<String>("")
     val newPasswordTxt = MutableLiveData<String>("")
@@ -34,7 +46,7 @@ class EditMyInfoViewModel : ViewModel() {
             _isCheckWoman.postValue(false)
         }else{
             _isCheckMan.postValue(false)
-            _isCheckWoman.postValue(false)
+            _isCheckWoman.postValue(true)
         }
     }
 
@@ -99,14 +111,24 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 닉네임 중복확인
     fun getValidateNickname(){
-        if(nickTxt.value == "test4"){
-            _isValidNick.postValue(false)
-            _isValidNickNotice.postValue(true)
-            _isValidNickBtn.postValue(true)
-        }else{
-            _isValidNick.postValue(true)
-            _isValidNickNotice.postValue(false)
-            _isValidNickBtn.postValue(false)
+        viewModelScope.launch {
+            try{
+                _isValidNick.value = signRepository.getValidateNickname(nickTxt.value.toString())
+
+                if(_isValidNick.value == true){
+                    _isValidNickNotice.postValue(false)
+                    _isValidNickBtn.postValue(false)
+                }
+            }catch (e : HttpException){
+                when(e.response()?.code()){
+                    409 -> { // 사용중인 닉네임
+                        nickNotice.value = "이미 사용 중인 닉네임 입니다. 다시 입력해주세요."
+                        _isValidNick.postValue(false)
+                        _isValidNickNotice.postValue(true)
+                        _isValidNickBtn.postValue(true)
+                    }
+                }
+            }
         }
     }
 
@@ -132,6 +154,54 @@ class EditMyInfoViewModel : ViewModel() {
         _isCheckWoman.postValue(true)
     }
 
+    // 내 정보 수정
+    private val _isValidEditMyInfo = MutableLiveData<Boolean>(false)
+    val isValidEditMyInfo : LiveData<Boolean>
+        get() = _isValidEditMyInfo
+
+    // 내 정보 수정
+    fun putMyInfo(){
+        genderTxt = if(_isCheckMan.value == true){
+            "MAN"
+        }else{
+            "WOMAN"
+        }
+
+        viewModelScope.launch {
+            try{
+                val myInfo = RequestEditMyInfo(
+                    AfumeApplication.prefManager.userEmail,
+                    nickTxt.value.toString(),
+                    genderTxt,
+                    ageTxt.value!!.toInt()
+                )
+                editRepository.putMyInfo(
+                    AfumeApplication.prefManager.accessToken,
+                    AfumeApplication.prefManager.userIdx,
+                    myInfo
+                ).let{
+                    Log.d("내 정보 수정 성공 : ", it.toString())
+                    AfumeApplication.prefManager.userNickname = nickTxt.value.toString()
+                    AfumeApplication.prefManager.userGender = genderTxt
+                    AfumeApplication.prefManager.userAge = ageTxt.value!!.toInt()
+
+                    _isValidEditMyInfo.postValue(true)
+                }
+            }catch (e : HttpException){
+                _isValidEditMyInfo.postValue(false)
+
+                when(e.response()?.code()){
+                    401 -> { // userIdx 일치 X 또는 토근 유효 X
+                        Log.d("내 정보 수정 실패", e.message())
+                    }
+                    404 -> { // user 없음
+                        Log.d("내 정보 수정 실패 : ", e.message())
+                    }
+                }
+            }
+        }
+    }
+
     // 본인확인 검사 - 하단 안내문
     private val _isValidPasswordNotice = MutableLiveData<Boolean>(false)
     val isValidPasswordNotice : LiveData<Boolean>
@@ -147,6 +217,10 @@ class EditMyInfoViewModel : ViewModel() {
     val isValidPassword : LiveData<Boolean>
         get() = _isValidPassword
 
+    private val _isWarningUser = MutableLiveData<Boolean>(false)
+    val isWarningUser : LiveData<Boolean>
+        get() = _isWarningUser
+
     // 새비밀번호 입력란 노출
     private val _newPasswordForm = MutableLiveData<Boolean>(false)
     val newPasswordForm : LiveData<Boolean>
@@ -160,6 +234,8 @@ class EditMyInfoViewModel : ViewModel() {
     }
 
     private fun resetValidPassword(){
+        _isWarningUser.postValue(false)
+
         if(_isValidPassword.value!!){
             _isValidPassword.postValue(false)
             _isValidPasswordBtn.postValue(true)
@@ -187,12 +263,14 @@ class EditMyInfoViewModel : ViewModel() {
             _isValidPassword.postValue(true)
             _isValidPasswordBtn.postValue(false)
             _isValidPasswordNotice.postValue(false)
+            _isWarningUser.postValue(false)
 
             if(!_newPasswordForm.value!!) _newPasswordForm.postValue(true)
         }else{
             _isValidPassword.postValue(false)
             _isValidPasswordBtn.postValue(true)
             _isValidPasswordNotice.postValue(true)
+            _isWarningUser.postValue(true)
         }
     }
 
@@ -267,5 +345,42 @@ class EditMyInfoViewModel : ViewModel() {
     // 다음 버튼 노출 여부 검사 - 비밀번호
     fun checkPasswordNextBtn(){
         _passwordEditCompleteBtn.postValue(_isValidNewPassword.value == true && _isValidAgainPassword.value == true)
+    }
+
+    // 비밀번호 수정
+    private val _isValidEditPassword = MutableLiveData<Boolean>(false)
+    val isValidEditPassword : LiveData<Boolean>
+        get() = _isValidEditPassword
+
+    // 비밀번호 수정
+    fun putPassword(){
+        viewModelScope.launch {
+            try {
+                val passwordInfo = RequestEditPassword(
+                    passwordTxt.value.toString(),
+                    newPasswordTxt.value.toString()
+                )
+                editRepository.putPassword(
+                    AfumeApplication.prefManager.accessToken,
+                    passwordInfo
+                ).let {
+                    Log.d("비밀번호 수정 성공 : ", it)
+                    AfumeApplication.prefManager.userPassword = passwordInfo.newPassword
+
+                    _isValidEditPassword.postValue(true)
+                }
+            }catch (e : HttpException){
+                _isValidEditPassword.postValue(false)
+
+                when(e.response()?.code()){
+                    401 -> { // 현재 비밀번호 잘못입력
+                        Log.d("비밀번호 수정 실패 ", e.message())
+                    }
+                    else -> {
+                        Log.d("비밀번호 수정 실패 ", e.message())
+                    }
+                }
+            }
+        }
     }
 }

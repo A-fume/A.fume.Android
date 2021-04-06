@@ -2,14 +2,8 @@ package com.afume.afume_android.data.remote
 
 import android.util.Log
 import com.afume.afume_android.data.remote.network.AfumeServiceImpl
-import com.afume.afume_android.data.vo.request.RequestLogin
-import com.afume.afume_android.data.vo.request.RequestRegister
-import com.afume.afume_android.data.vo.request.RequestSurvey
-import com.afume.afume_android.data.vo.response.PerfumeInfo
-import com.afume.afume_android.data.vo.response.ResponseKeyword
-import com.afume.afume_android.data.vo.response.ResponseLogin
-import com.afume.afume_android.data.vo.response.ResponseMyPerfume
-import com.afume.afume_android.data.vo.response.SeriesInfo
+import com.afume.afume_android.data.vo.request.*
+import com.afume.afume_android.data.vo.response.*
 
 class RemoteDataSourceImpl : RemoteDataSource{
     val api = AfumeServiceImpl.service
@@ -61,5 +55,11 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return api.getMyPerfume(token,userIdx).data
     }
 
+    override suspend fun putMyInfo(token: String, userIdx: Int, body: RequestEditMyInfo): ResponseEditMyInfo {
+        return api.putMyInfo(token,userIdx,body).data
+    }
 
+    override suspend fun putPassword(token: String, body: RequestEditPassword): String {
+        return api.putPassword(token,body).message
+    }
 }
