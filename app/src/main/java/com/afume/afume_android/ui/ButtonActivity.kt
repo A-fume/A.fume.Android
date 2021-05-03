@@ -7,8 +7,7 @@ import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityButtonBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
-import com.afume.afume_android.ui.setting.EditMyInfoActivity
-import com.afume.afume_android.ui.setting.EditPasswordActivity
+import com.afume.afume_android.ui.note.NoteActivity
 import com.afume.afume_android.ui.signin.SignHomeActivity
 
 class ButtonActivity : AppCompatActivity() {
@@ -29,6 +28,10 @@ class ButtonActivity : AppCompatActivity() {
 
         binding.actButtonTvDetail.setOnClickListener {
             startActivity(Intent(this, PerfumeDetailActivity::class.java))
+        }
+
+        binding.actButtonTvNote.setOnClickListener {
+            startActivity(Intent(this, NoteActivity::class.java))
         }
     }
 }
