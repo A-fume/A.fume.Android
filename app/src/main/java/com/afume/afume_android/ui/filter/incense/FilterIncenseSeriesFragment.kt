@@ -7,22 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.selection.SelectionPredicates
-import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StorageStrategy
+import com.afume.afume_android.data.vo.response.SeriesInfo
+import com.afume.afume_android.data.vo.response.SeriesIngredients
 import com.afume.afume_android.databinding.FragmentFilterIncenseSeriesBinding
-import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
-import com.afume.afume_android.ui.filter.ItemDetailsLookUp
-import com.afume.afume_android.ui.filter.ItemKeyProvider
 import com.afume.afume_android.ui.survey.SurveyViewModel
-import com.google.android.flexbox.AlignItems
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
 
 class FilterIncenseSeriesFragment : Fragment() {
     private lateinit var binding:FragmentFilterIncenseSeriesBinding
     private val viewModel: SurveyViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,21 +30,30 @@ class FilterIncenseSeriesFragment : Fragment() {
         initIncenseSeriesRv(context)
     }
     private fun initIncenseSeriesRv(ctx: Context?){
-        val flexboxLayoutManager=FlexboxLayoutManager(ctx).apply {
-            flexDirection=FlexDirection.ROW
-            flexWrap=FlexWrap.WRAP
-            alignItems = AlignItems.STRETCH
-        }
+//        val flexboxLayoutManager=FlexboxLayoutManager(ctx).apply {
+//            flexDirection=FlexDirection.ROW
+//            flexWrap=FlexWrap.WRAP
+//            alignItems = AlignItems.STRETCH
+//        }
 
-        val incenseAdapter=
-            FlexboxRecyclerViewAdapter(
-                { index -> viewModel.addKeywordList(index) },
-                { index -> viewModel.removeKeywordList(index) }
+//        val incenseAdapter=
+//            FlexboxRecyclerViewAdapter(
+//                { index -> viewModel.addKeywordList(index) },
+//                { index -> viewModel.removeKeywordList(index) }
+//            )
+        val seriesAdapter=SeriesIngredientsViewAdapter()
+        binding.rvIncenseSeries.adapter=seriesAdapter
+
+        seriesAdapter.data= mutableListOf(
+            SeriesInfo(ingredients = mutableListOf(
+                SeriesIngredients(),SeriesIngredients())
+            ),
+            SeriesInfo(ingredients = mutableListOf(
+                SeriesIngredients(),SeriesIngredients())
             )
-        binding.rvIncenseSeries.apply {
-            layoutManager=flexboxLayoutManager
-            adapter=incenseAdapter
-        }
+        )
+        seriesAdapter.notifyDataSetChanged()
+
 
 //        incenseAdapter?.data= listOf(
 //            ResponseKeyword("시트러스"),
@@ -65,16 +67,16 @@ class FilterIncenseSeriesFragment : Fragment() {
 //            ResponseKeyword("애니멀"),
 //            )
 
-        val incenseSelectionTracker= SelectionTracker.Builder<Long>(
-            "incense",
-            binding.rvIncenseSeries,
-            ItemKeyProvider(binding.rvIncenseSeries),
-            ItemDetailsLookUp(
-                binding.rvIncenseSeries,
-                "flexbox"
-            ),
-            StorageStrategy.createLongStorage()
-        ).withSelectionPredicate(SelectionPredicates.createSelectAnything()).build()
-        incenseAdapter.setSelectionTracker(incenseSelectionTracker)
+//        val incenseSelectionTracker= SelectionTracker.Builder<Long>(
+//            "incense",
+//            binding.rvIncenseSeries,
+//            ItemKeyProvider(binding.rvIncenseSeries),
+//            ItemDetailsLookUp(
+//                binding.rvIncenseSeries,
+//                "flexbox"
+//            ),
+//            StorageStrategy.createLongStorage()
+//        ).withSelectionPredicate(SelectionPredicates.createSelectAnything()).build()
+//        incenseAdapter.setSelectionTracker(incenseSelectionTracker)
       }
 }

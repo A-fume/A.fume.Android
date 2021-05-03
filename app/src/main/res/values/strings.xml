@@ -16,4 +16,6 @@
     <string name="edit_password">비밀번호 변경</string>
     <string name="logout">로그아웃</string>
     <string name="setting">설정</string>
+
+    <string formatted="false" name="ingredientFormat">#%s</string>
 </resources>

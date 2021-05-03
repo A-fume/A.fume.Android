@@ -9,7 +9,7 @@ class SurveyRepository {
 
     suspend fun getSeries() = remoteDataSource.getSeries()
     suspend fun getSurveyPerfume()=remoteDataSource.getSurveyPerfume(
-        //todo add token
+        //todo put token
     ""
     )
     suspend fun getKeyword()=remoteDataSource.getKeyword()

@@ -17,7 +17,8 @@ class MyViewModel : ViewModel() {
     init {
         viewModelScope.launch{
             _wishList.value=myRepository.getLikedPerfume(
-                "  ", 1
+                //todo put token
+                "", 1
             )
         }
     }
