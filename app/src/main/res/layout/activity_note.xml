@@ -191,39 +191,27 @@
                     app:layout_constraintStart_toStartOf="@+id/imageView19"
                     app:layout_constraintTop_toBottomOf="@+id/imageView19" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout"
-                    android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/imageView20"
+                    setNoteContentsText="@={viewModel.contentsTxt}"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="18dp"
                     android:layout_marginEnd="18dp"
-                    android:background="@drawable/border_gray_cd_line"
+                    android:fontFamily="@font/notosans_regular"
+                    android:gravity="top"
+                    android:hint="향을 자유롭게 표현해보세요.\n\n"
+                    android:includeFontPadding="false"
+                    android:maxLines="10"
+                    android:textColorHint="@color/gray_cd"
+                    android:textColor="@color/primary_black"
+                    android:textSize="14dp"
+                    android:paddingVertical="18dp"
+                    android:paddingHorizontal="18dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView22">
-
-                    <EditText
-                        android:id="@+id/imageView20"
-                        android:layout_width="0dp"
-                        android:layout_height="103dp"
-                        android:layout_marginStart="18dp"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginEnd="18dp"
-                        android:layout_marginBottom="18dp"
-                        android:background="@null"
-                        android:fontFamily="@font/notosans_regular"
-                        android:gravity="top"
-                        android:hint="향을 자유롭게 표현해보세요."
-                        android:includeFontPadding="false"
-                        android:textColor="@color/gray_cd"
-                        android:textSize="14dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
                 <ImageView
                     android:id="@+id/imageView21"
@@ -234,7 +222,7 @@
                     android:layout_marginEnd="18dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView20"
                     app:srcCompat="@color/primary_black" />
 
                 <TextView
