@@ -22,11 +22,13 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_filter"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_filter"
         app:tabGravity="fill"
+        app:tabIndicatorHeight="3dp"
+        app:tabTextAppearance="@style/Theme.AfumeAndroid.Tabtext"
         app:tabIndicatorColor="@color/primary_black"
         app:tabSelectedTextColor="@color/primary_black">
 

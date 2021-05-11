@@ -1,4 +1,4 @@
-package com.afume.afume_android.ui.filter
+package com.afume.afume_android.util
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,18 +9,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.R
-import com.afume.afume_android.data.vo.response.ResponseKeyword
+import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.databinding.RvItemFilterFlexboxBinding
 
 class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
-    ListAdapter<ResponseKeyword, FlexboxRecyclerViewAdapter.FlexboxRecyclerViewHolder>(
+    ListAdapter<KeywordInfo, FlexboxRecyclerViewAdapter.FlexboxRecyclerViewHolder>(
         incenseSeriesDiffCallback
     ) {
     init {
         setHasStableIds(true)
     }
 
-    var data = mutableListOf<ResponseKeyword>()
+    var data = mutableListOf<KeywordInfo>()
     private lateinit var selectionTracker: SelectionTracker<Long>
 
     override fun onCreateViewHolder(
@@ -40,7 +40,7 @@ class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
 
     override fun onBindViewHolder(holder: FlexboxRecyclerViewHolder, position: Int) {
         when (holder) {
-            is FlexboxRecyclerViewHolder -> holder.bind(data[position], position)
+            is FlexboxRecyclerViewHolder -> holder.bind(data[position])
             else -> throw Exception("You Should not attach her")
         }
     }
@@ -49,7 +49,7 @@ class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
         this.selectionTracker = selectionTracker
     }
 
-    internal fun setData(data: MutableList<ResponseKeyword>?){
+    internal fun setData(data: MutableList<KeywordInfo>?){
         if(data!=null) this.data=data
         submitList(data)
         notifyDataSetChanged()
@@ -59,27 +59,45 @@ class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
 
     inner class FlexboxRecyclerViewHolder(val binding: RvItemFilterFlexboxBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: ResponseKeyword, itemPosition: Int) {
+        fun bind(data: KeywordInfo) {
             binding.rvData = data
             binding.root.setOnClickListener {
-                selectionTracker.select(itemPosition.toLong())
-            }
-            if (selectionTracker.isSelected(itemPosition.toLong())) {
-                binding.rvItemTxtFlexbox.apply {
-                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
-                    setTextColor(ContextCompat.getColor(this.context, R.color.white))
-                    add(itemPosition)
+                if (!data.checked) {
+                    binding.rvItemTxtFlexbox.apply {
+                        setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
+                        setTextColor(ContextCompat.getColor(this.context, R.color.white))
+                        add(data.keywordIdx)
+                        data.checked=true
+
+                    }
                 }
+                else {
+                    binding.rvItemTxtFlexbox.apply {
+                        background = ContextCompat.getDrawable(this.context, R.drawable.border_gray_cd_line_square)
+                        setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+                        remove(data.keywordIdx)
+                        data.checked=false
+                    }
+
+//                selectionTracker.select(data.keywordIdx.toLong())
             }
-            if (!selectionTracker.isSelected(itemPosition.toLong())) {
-                binding.rvItemTxtFlexbox.apply {
-                    background = ContextCompat.getDrawable(
-                        this.context,
-                        R.drawable.border_gray_cd_line_square
-                    )
-                    setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
-                    remove(itemPosition)
-                }
+
+//            if (selectionTracker.isSelected(data.keywordIdx.toLong())) {
+//                binding.rvItemTxtFlexbox.apply {
+//                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
+//                    setTextColor(ContextCompat.getColor(this.context, R.color.white))
+//                    add(data.keywordIdx)
+//                }
+//            }
+//            if (!selectionTracker.isSelected(data.keywordIdx.toLong())) {
+//                binding.rvItemTxtFlexbox.apply {
+//                    background = ContextCompat.getDrawable(
+//                        this.context,
+//                        R.drawable.border_gray_cd_line_square
+//                    )
+//                    setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+//                    remove(data.keywordIdx)
+//                }
 
 
             }
@@ -103,12 +121,12 @@ class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
     }
 }
 
-val incenseSeriesDiffCallback = object : DiffUtil.ItemCallback<ResponseKeyword>() {
-    override fun areItemsTheSame(oldItem: ResponseKeyword, newItem: ResponseKeyword): Boolean {
+val incenseSeriesDiffCallback = object : DiffUtil.ItemCallback<KeywordInfo>() {
+    override fun areItemsTheSame(oldItem: KeywordInfo, newItem: KeywordInfo): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: ResponseKeyword, newItem: ResponseKeyword): Boolean {
+    override fun areContentsTheSame(oldItem: KeywordInfo, newItem: KeywordInfo): Boolean {
         return oldItem.name == newItem.name
     }
 

@@ -1,8 +1,8 @@
 package com.afume.afume_android.ui.filter
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -11,12 +11,14 @@ import com.afume.afume_android.databinding.ActivityFilterBinding
 import com.afume.afume_android.ui.filter.brand.FilterBrandFragment
 import com.afume.afume_android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.afume.afume_android.ui.filter.keyword.FilterKeywordFragment
+import com.afume.afume_android.util.TabSelectedListener
 import com.google.android.material.badge.BadgeDrawable
 
 class FilterActivity : AppCompatActivity() {
     private lateinit var binding:ActivityFilterBinding
     private lateinit var filterViewPagerAdapter: AfumeViewPagerAdapter
     private  val filterViewModel: FilterViewModel by viewModels()
+
     private lateinit var badge1:BadgeDrawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +60,7 @@ class FilterActivity : AppCompatActivity() {
         )
         binding.vpFilter.adapter=filterViewPagerAdapter
     }
+
     private fun setUpTabWithViewPager(){
         binding.tabFilter.setupWithViewPager(binding.vpFilter)
         binding.tabFilter.apply {
@@ -73,6 +76,7 @@ class FilterActivity : AppCompatActivity() {
             getTabAt(1)?.text="브랜드"
             getTabAt(2)?.text="키워드"
         }
+        binding.tabFilter.addOnTabSelectedListener(TabSelectedListener(binding.tabFilter))
     }
 
     private fun observeViewModel(){

@@ -2,13 +2,11 @@ package com.afume.afume_android.ui.filter.brand
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
@@ -21,23 +19,19 @@ import com.afume.afume_android.ui.filter.RvBrandData
 import com.google.android.material.tabs.TabLayout
 
 class FilterBrandFragment : Fragment() {
-    private val brandViewModel: BrandViewModel by viewModels()
+    private val filterViewModel: FilterViewModel by activityViewModels()
 
     private lateinit var binding : FragmentFilterBrandBinding
     private lateinit var brandAdapter: BrandRecyclerViewAdapter
-    private val activityViewModel: FilterViewModel by lazy {
-        ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return FilterViewModel() as T
-            }
-        }).get(FilterViewModel::class.java)
-    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding= FragmentFilterBrandBinding.inflate(inflater,container,false)
+        binding.lifecycleOwner= this
+
         return binding.root
     }
 
@@ -46,7 +40,6 @@ class FilterBrandFragment : Fragment() {
         initBrandTab()
         setTabClickEvent(context)
         initBrandRvItem(context)
-
 
 
     }
