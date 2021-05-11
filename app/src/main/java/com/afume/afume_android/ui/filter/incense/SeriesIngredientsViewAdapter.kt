@@ -2,6 +2,7 @@ package com.afume.afume_android.ui.filter.incense
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.data.vo.response.SeriesInfo
@@ -36,6 +37,9 @@ class SeriesIngredientsViewHolder(val binding: RvItemFilterSeriesBinding) :
     fun bind(item: SeriesInfo) {
         binding.series = item
         drawIngredients(item.ingredients)
+        binding.btnShowIngredients.setOnClickListener {
+            foldORUnfold(it)
+        }
     }
 
     fun drawIngredients(ingredients: MutableList<SeriesIngredients>) {
@@ -57,6 +61,16 @@ class SeriesIngredientsViewHolder(val binding: RvItemFilterSeriesBinding) :
         Log.d("ingredients", ingredients.toString())
         ingredientAdapter.submitList(ingredients)
 
+    }
+
+    fun foldORUnfold(view : View){
+        if (!view.isSelected) {
+            binding.clSeriesIngredient.visibility = View.GONE
+            view.isSelected = true
+        } else {
+            binding.clSeriesIngredient.visibility = View.VISIBLE
+            view.isSelected = false
+        }
 
     }
 
