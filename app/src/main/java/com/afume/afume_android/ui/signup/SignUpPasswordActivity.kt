@@ -1,15 +1,16 @@
 package com.afume.afume_android.ui.signup
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpPasswordBinding
+import com.afume.afume_android.util.closeKeyboard
+import com.afume.afume_android.util.startActivity
 
 class SignUpPasswordActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpPasswordBinding
@@ -21,10 +22,13 @@ class SignUpPasswordActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = signUpViewModel
 
+        binding.edtSignUpPassword.requestFocus()
+
         passwordAnimation()
         checkNextButton()
+        setKeyboard()
 
-        binding.edtSignUpPassword.requestFocus()
+
     }
 
     private fun passwordAnimation(){
@@ -41,18 +45,26 @@ class SignUpPasswordActivity : AppCompatActivity() {
     }
 
     private fun checkNextButton(){
-        signUpViewModel.isValidPasswordImg.observe(this, Observer{
+        signUpViewModel.isValidPassword.observe(this, Observer{
             signUpViewModel.checkPasswordNextBtn()
         })
-        signUpViewModel.isValidAgainImg.observe(this, Observer{
+        signUpViewModel.isValidAgain.observe(this, Observer{
             signUpViewModel.checkPasswordNextBtn()
         })
     }
 
-    fun onClickNextBtn(view: View){
-        val genderIntent = Intent(this,SignUpGenderActivity::class.java)
+    private fun setKeyboard(){
+        signUpViewModel.passwordNextBtn.observe(this, Observer { passwordNextBtn ->
+            if(passwordNextBtn){
+                this.closeKeyboard()
+            }
+        })
+    }
 
-        startActivity(genderIntent)
+    fun onClickNextBtn(view: View){
+        this.startActivity(SignUpGenderActivity::class.java)
+
+        signUpViewModel.addUserInfo("password")
     }
 
     fun onClickBackBtn(view: View){

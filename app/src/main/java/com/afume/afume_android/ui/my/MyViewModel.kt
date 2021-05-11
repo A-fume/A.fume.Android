@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.data.repository.MyRepository
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.afume.afume_android.util.getToken
+import com.afume.afume_android.data.vo.response.ResponseMyPerfume
 import kotlinx.coroutines.launch
 
 class MyViewModel : ViewModel() {
@@ -15,11 +16,18 @@ class MyViewModel : ViewModel() {
     private val _wishList: MutableLiveData<MutableList<PerfumeInfo>> = MutableLiveData()
     val wishList: LiveData<MutableList<PerfumeInfo>> get() = _wishList
 
+    private val _myPerfumeList: MutableLiveData<MutableList<ResponseMyPerfume>> = MutableLiveData()
+    val myPerfumeList: LiveData<MutableList<ResponseMyPerfume>> get() = _myPerfumeList
+
     init {
-        viewModelScope.launch{
-            _wishList.value=myRepository.getLikedPerfume(
-                getToken(), 1
+        viewModelScope.launch {
+            _wishList.value = myRepository.getLikedPerfume(
+                getToken(), 0
+            )
+            _myPerfumeList.value = myRepository.getMyPerfume(
+                getToken(),0
             )
         }
     }
+
 }

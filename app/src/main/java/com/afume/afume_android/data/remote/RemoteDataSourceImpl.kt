@@ -2,19 +2,26 @@ package com.afume.afume_android.data.remote
 
 import android.util.Log
 import com.afume.afume_android.data.remote.network.AfumeServiceImpl
-import com.afume.afume_android.data.vo.NewPerfumeListData
-import com.afume.afume_android.data.vo.request.RequestSurvey
-import com.afume.afume_android.data.vo.response.KeywordInfo
-import com.afume.afume_android.data.vo.response.PerfumeInfo
-import com.afume.afume_android.data.vo.response.ResponseKeyword
-import com.afume.afume_android.data.vo.response.SeriesInfo
-import io.reactivex.Observable
+import com.afume.afume_android.data.vo.request.*
+import com.afume.afume_android.data.vo.response.*
 
 class RemoteDataSourceImpl : RemoteDataSource{
     val api = AfumeServiceImpl.service
 
-    override fun getNewPerfumeList(): Observable<NewPerfumeListData> {
-        TODO("Not yet implemented")
+    override suspend fun getValidateEmail(email: String): Boolean{
+        return api.getValidateEmail(email).data
+    }
+
+    override suspend fun getValidateNickname(nickname: String): Boolean{
+        return api.getValidateNickname(nickname).data
+    }
+
+    override suspend fun postRegisterInfo(body: RequestRegister): String {
+        return api.postRegisterInfo(body).message
+    }
+
+    override suspend fun postLoginInfo(body: RequestLogin): ResponseLogin {
+        return api.postLoginInfo(body).data
     }
 
     override suspend fun getSeries(): MutableList<SeriesInfo>{
@@ -44,5 +51,15 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return api.getLikedPerfume(token, userIdx).data.rows
     }
 
+    override suspend fun getMyPerfume(token: String, userIdx: Int): MutableList<ResponseMyPerfume> {
+        return api.getMyPerfume(token,userIdx).data
+    }
 
+    override suspend fun putMyInfo(token: String, userIdx: Int, body: RequestEditMyInfo): ResponseEditMyInfo {
+        return api.putMyInfo(token,userIdx,body).data
+    }
+
+    override suspend fun putPassword(token: String, body: RequestEditPassword): String {
+        return api.putPassword(token,body).message
+    }
 }

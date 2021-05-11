@@ -12,11 +12,13 @@ import com.afume.afume_android.databinding.FragmentMypageBinding
 import com.afume.afume_android.ui.filter.AfumeViewPagerAdapter
 import com.afume.afume_android.ui.my.myperfume.MyPerfumeFragment
 import com.afume.afume_android.ui.my.wishlist.WishListFragment
+import com.afume.afume_android.util.TabSelectedListener
 
 class MyFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
     private lateinit var myPagePagerAdapter: AfumeViewPagerAdapter
     private val myViewModel: MyViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -41,10 +43,7 @@ class MyFragment : Fragment() {
     }
 
     private fun initVp(){
-        myPagePagerAdapter=
-            AfumeViewPagerAdapter(
-                childFragmentManager
-            )
+        myPagePagerAdapter= AfumeViewPagerAdapter(childFragmentManager)
         myPagePagerAdapter.fragments= listOf(
             MyPerfumeFragment(),
             WishListFragment()
@@ -59,6 +58,7 @@ class MyFragment : Fragment() {
             getTabAt(0)?.text="마이"
             getTabAt(1)?.text="위시 리스트"
         }
+        binding.tabMypage.addOnTabSelectedListener(TabSelectedListener(binding.tabMypage))
     }
     private fun setNavigation(){
         binding.toolbarMypage.toolbarBtn.setOnClickListener {

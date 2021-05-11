@@ -1,48 +1,55 @@
 package com.afume.afume_android.ui.signin
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignInBinding
 import com.afume.afume_android.ui.MainActivity
 import com.afume.afume_android.ui.signup.SignUpEmailActivity
-import com.afume.afume_android.util.CheckTextWatcher
+import com.afume.afume_android.util.startActivity
+import com.afume.afume_android.util.startActivityWithFinish
 
 class SignInActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignInBinding
+    private val signInViewModel : SignInViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_sign_in)
         binding.lifecycleOwner = this
+        binding.viewModel = signInViewModel
 
-        checkForm()
+        signInViewModel.checkRegisterInfo()
+        checkNextBtn()
     }
 
-    private fun checkForm(){
-        binding.edtSignInEmail.addTextChangedListener(CheckTextWatcher{checkSignInBtn()})
-        binding.edtSingInPassword.addTextChangedListener(CheckTextWatcher{checkSignInBtn()})
-    }
-
-    private fun checkSignInBtn(){
-        binding.btnSignIn.isEnabled =
-            android.util.Patterns.EMAIL_ADDRESS.matcher(binding.edtSignInEmail.text).matches() &&
-                binding.edtSingInPassword.text.length > 3
+    private fun checkNextBtn(){
+        signInViewModel.isValidEmail.observe(this, Observer {
+            signInViewModel.checkLoginNextBtn()
+        })
+        signInViewModel.isValidPassword.observe(this, Observer {
+            signInViewModel.checkLoginNextBtn()
+        })
     }
 
     fun onClickSignInBtn(view: View){
-        val homeIntent = Intent(this,MainActivity::class.java)
+        signInViewModel.postLoginInfo()
 
-        startActivity(homeIntent)
+        signInViewModel.isValidLogin.observe(this, Observer { isValidLogin ->
+            isValidLogin?.let {
+                if(isValidLogin){
+                    this.startActivityWithFinish(MainActivity::class.java)
+                }
+            }
+        })
     }
 
     fun onClickSignUpBtn(view: View){
-        val signUpIntent = Intent(this,SignUpEmailActivity::class.java)
-
-        startActivity(signUpIntent)
+        this.startActivity(SignUpEmailActivity::class.java)
     }
 
     fun onClickBackBtn(view: View){
