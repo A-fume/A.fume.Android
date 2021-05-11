@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="rvData"
-            type="com.afume.afume_android.data.vo.response.KeywordInfo" />
+            name="ingredient"
+            type="com.afume.afume_android.data.vo.response.SeriesIngredients" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/rv_item_txt_flexbox"
+            android:id="@+id/rv_item_ingredient"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:layout_marginStart="16dp"
@@ -25,7 +25,7 @@
             android:paddingTop="10dp"
             android:paddingRight="18dp"
             android:paddingBottom="10dp"
-            android:text="@{rvData.name}"
+            android:text="@{@string/ingredientFormat(ingredient.name)}"
             app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/gray_cd"
             android:textSize="15dp"

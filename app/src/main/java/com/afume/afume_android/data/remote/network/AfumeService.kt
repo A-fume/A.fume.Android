@@ -43,7 +43,7 @@ interface AfumeService {
     //Survey - keyword
     @GET("keyword")
     suspend fun getKeyword(
-    ):ResponseBase<MutableList<ResponseKeyword>>
+    ):ResponseBase<ResponseKeyword>
 
     @POST("user/survey")
     suspend fun postSurvey(
