@@ -13,7 +13,7 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.HomePerfumeListData
-import com.afume.afume_android.data.vo.response.ResponseKeyword
+import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.databinding.FragmentDetailInfoBinding
 import com.afume.afume_android.ui.filter.ItemDetailsLookUp
 import com.afume.afume_android.ui.filter.ItemKeyProvider
@@ -72,21 +72,21 @@ class DetailInfoFragment : Fragment() {
         }
 
         rvKeywordAdapter.data = mutableListOf(
-            ResponseKeyword("#산뜻한"),
-            ResponseKeyword("#자연의"),
-            ResponseKeyword("#여성스러운"),
-            ResponseKeyword("#비누향"),
-            ResponseKeyword("#남성적인"),
-            ResponseKeyword("#몽환적인"),
-            ResponseKeyword("#소녀스러운"),
-            ResponseKeyword("#달달한"),
-            ResponseKeyword("#매운"),
-            ResponseKeyword("#상쾌한"),
-            ResponseKeyword("#도시적인"),
-            ResponseKeyword("#톡 쏘는"),
-            ResponseKeyword("#자연의"),
-            ResponseKeyword("#여성스러운"),
-            ResponseKeyword("#비누향")
+            KeywordInfo("#산뜻한"),
+            KeywordInfo("#자연의"),
+            KeywordInfo("#여성스러운"),
+            KeywordInfo("#비누향"),
+            KeywordInfo("#남성적인"),
+            KeywordInfo("#몽환적인"),
+            KeywordInfo("#소녀스러운"),
+            KeywordInfo("#달달한"),
+            KeywordInfo("#매운"),
+            KeywordInfo("#상쾌한"),
+            KeywordInfo("#도시적인"),
+            KeywordInfo("#톡 쏘는"),
+            KeywordInfo("#자연의"),
+            KeywordInfo("#여성스러운"),
+            KeywordInfo("#비누향")
         )
         rvKeywordAdapter.notifyDataSetChanged()
         val keywordSelectionTracker= SelectionTracker.Builder<Long>(

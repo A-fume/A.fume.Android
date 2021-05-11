@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.data.repository.SearchRepository
-import com.afume.afume_android.data.vo.response.ResponseKeyword
+import com.afume.afume_android.data.vo.response.KeywordInfo
 import kotlinx.coroutines.launch
 
 class FilterViewModel :ViewModel(){
@@ -25,8 +25,8 @@ class FilterViewModel :ViewModel(){
     val selectedKeywordList: MutableLiveData<MutableList<Int>> = MutableLiveData()
     private var tempSelectedKeywordList = mutableListOf<Int>()
 
-    private val _keywordList: MutableLiveData<MutableList<ResponseKeyword>> = MutableLiveData()
-    val keywordList: LiveData<MutableList<ResponseKeyword>> get() = _keywordList
+    private val _keywordList: MutableLiveData<MutableList<KeywordInfo>> = MutableLiveData()
+    val keywordList: LiveData<MutableList<KeywordInfo>> get() = _keywordList
 
     init {
         viewModelScope.launch{

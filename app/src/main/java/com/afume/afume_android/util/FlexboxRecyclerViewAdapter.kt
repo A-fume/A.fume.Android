@@ -9,18 +9,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.R
-import com.afume.afume_android.data.vo.response.ResponseKeyword
+import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.databinding.RvItemFilterFlexboxBinding
 
 class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
-    ListAdapter<ResponseKeyword, FlexboxRecyclerViewAdapter.FlexboxRecyclerViewHolder>(
+    ListAdapter<KeywordInfo, FlexboxRecyclerViewAdapter.FlexboxRecyclerViewHolder>(
         incenseSeriesDiffCallback
     ) {
     init {
         setHasStableIds(true)
     }
 
-    var data = mutableListOf<ResponseKeyword>()
+    var data = mutableListOf<KeywordInfo>()
     private lateinit var selectionTracker: SelectionTracker<Long>
 
     override fun onCreateViewHolder(
@@ -49,7 +49,7 @@ class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
         this.selectionTracker = selectionTracker
     }
 
-    internal fun setData(data: MutableList<ResponseKeyword>?){
+    internal fun setData(data: MutableList<KeywordInfo>?){
         if(data!=null) this.data=data
         submitList(data)
         notifyDataSetChanged()
@@ -59,7 +59,7 @@ class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
 
     inner class FlexboxRecyclerViewHolder(val binding: RvItemFilterFlexboxBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: ResponseKeyword) {
+        fun bind(data: KeywordInfo) {
             binding.rvData = data
             binding.root.setOnClickListener {
                 if (!data.checked) {
@@ -121,12 +121,12 @@ class FlexboxRecyclerViewAdapter(val add:(Int)->Unit, val remove:(Int)->Unit) :
     }
 }
 
-val incenseSeriesDiffCallback = object : DiffUtil.ItemCallback<ResponseKeyword>() {
-    override fun areItemsTheSame(oldItem: ResponseKeyword, newItem: ResponseKeyword): Boolean {
+val incenseSeriesDiffCallback = object : DiffUtil.ItemCallback<KeywordInfo>() {
+    override fun areItemsTheSame(oldItem: KeywordInfo, newItem: KeywordInfo): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: ResponseKeyword, newItem: ResponseKeyword): Boolean {
+    override fun areContentsTheSame(oldItem: KeywordInfo, newItem: KeywordInfo): Boolean {
         return oldItem.name == newItem.name
     }
 

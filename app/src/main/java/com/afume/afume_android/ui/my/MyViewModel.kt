@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.data.repository.MyRepository
 import com.afume.afume_android.data.vo.response.PerfumeInfo
+import com.afume.afume_android.util.getToken
 import kotlinx.coroutines.launch
 
 class MyViewModel : ViewModel() {
@@ -17,8 +18,7 @@ class MyViewModel : ViewModel() {
     init {
         viewModelScope.launch{
             _wishList.value=myRepository.getLikedPerfume(
-                //todo put token
-                "", 1
+                getToken(), 1
             )
         }
     }

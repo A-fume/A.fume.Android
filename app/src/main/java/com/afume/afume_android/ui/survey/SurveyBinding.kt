@@ -3,8 +3,8 @@ package com.afume.afume_android.ui.survey
 import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.data.vo.response.PerfumeInfo
-import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.data.vo.response.SeriesInfo
 import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
 
@@ -28,7 +28,7 @@ object SurveyBinding {
 
     @JvmStatic
     @BindingAdapter("setKeywordList")
-    fun setKeywordList(recyclerView: RecyclerView, list : MutableList<ResponseKeyword>?){
+    fun setKeywordList(recyclerView: RecyclerView, list : MutableList<KeywordInfo>?){
         if(recyclerView.adapter!=null) with(recyclerView.adapter as FlexboxRecyclerViewAdapter){
             list?.let {
                 setData(it)

@@ -9,6 +9,7 @@ import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySurveyBinding
 import com.afume.afume_android.ui.filter.AfumeViewPagerAdapter
 import com.afume.afume_android.util.TabSelectedListener
+import com.afume.afume_android.util.getToken
 
 class SurveyActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySurveyBinding
@@ -54,8 +55,8 @@ class SurveyActivity : AppCompatActivity() {
         binding.btnSurveyApply.setOnClickListener {
             Log.e("버튼 눌리나","버튼 눌린다")
             viewModel.postSurvey(
-                //todo put token
-                ""
+
+                getToken()
             )
         }
     }
