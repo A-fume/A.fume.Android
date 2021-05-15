@@ -23,12 +23,6 @@ fun DialogFragment.setHeight(){
 //        context?.dialogFragmentResize(this, 0.9f)
 }
 
-fun DialogFragment.setBottomHeight(){
-    dialog?.window?.setBackgroundDrawableResource(R.drawable.keyword_dialog_back)
-    dialog?.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
-
-}
-
 //fun Context.dialogFragmentResize(dialogFragment: DialogFragment, width: Float) {
 //    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
 //

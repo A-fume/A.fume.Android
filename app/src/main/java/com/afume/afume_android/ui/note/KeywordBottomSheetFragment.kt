@@ -13,7 +13,6 @@ import com.afume.afume_android.databinding.FragmentKeywordBottomSheetBinding
 import com.afume.afume_android.ui.filter.ItemDetailsLookUp
 import com.afume.afume_android.ui.filter.ItemKeyProvider
 import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
-import com.afume.afume_android.util.setBottomHeight
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -34,12 +33,6 @@ class KeywordBottomSheetFragment : BottomSheetDialogFragment() {
         binding.lifecycleOwner = this
 
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        this.setBottomHeight()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
