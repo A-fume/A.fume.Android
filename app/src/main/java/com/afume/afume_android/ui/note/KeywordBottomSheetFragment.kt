@@ -32,6 +32,10 @@ class KeywordBottomSheetFragment : BottomSheetDialogFragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        binding.btnNoteKeywordCancel.setOnClickListener {
+            dismiss()
+        }
+
         return binding.root
     }
 
