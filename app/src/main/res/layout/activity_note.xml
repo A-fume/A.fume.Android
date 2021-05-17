@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.afume.afume_android.ui.note.NoteViewModel" />
@@ -254,7 +255,6 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_note_keyword_add"
-                    android:onClick="onClickKeywordBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
@@ -265,6 +265,7 @@
                     android:includeFontPadding="false"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
+                    android:onClick="onClickKeywordBtn"
                     android:text="추가"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
@@ -275,6 +276,16 @@
                     app:strokeColor="@color/primary_black"
                     app:strokeWidth="1dp" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_note_keyword_list"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
+                    android:visibility="@{viewModel.keywordList? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_note_keyword_add"
+                    app:layout_constraintStart_toStartOf="@+id/btn_note_keyword_add"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_note_keyword_add" />
+
                 <ImageView
                     android:id="@+id/imageView53"
                     android:layout_width="0dp"
@@ -282,7 +293,7 @@
                     android:layout_marginTop="18dp"
                     app:layout_constraintEnd_toEndOf="@+id/btn_note_keyword_add"
                     app:layout_constraintStart_toStartOf="@+id/btn_note_keyword_add"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_note_keyword_add"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_note_keyword_list"
                     app:srcCompat="@color/primary_black" />
 
                 <TextView

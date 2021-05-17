@@ -31,6 +31,11 @@ class NoteViewModel : ViewModel() {
     val completeBtn : LiveData<Boolean>
         get() = _completeBtn
 
+    // 키워드 리싸이클러뷰 노출 여부
+    private val _rvKeywordList = MutableLiveData<Boolean>(false)
+    val rvKeywordList : LiveData<Boolean>
+        get() = _rvKeywordList
+
     fun addKeywordList(index: Int) {
         if (selectedKeywordList.value != null) tempSelectedKeywordList = selectedKeywordList.value!!
 
