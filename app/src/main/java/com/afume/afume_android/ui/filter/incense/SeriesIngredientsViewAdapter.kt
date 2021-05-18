@@ -29,6 +29,11 @@ class SeriesIngredientsViewAdapter : RecyclerView.Adapter<SeriesIngredientsViewH
         data[position].let { holder.bind(it) }
     }
 
+    internal fun setSeriesData(data: MutableList<SeriesInfo>?){
+        if(data!=null) this.data=data
+        notifyDataSetChanged()
+    }
+
 }
 
 class SeriesIngredientsViewHolder(val binding: RvItemFilterSeriesBinding) :

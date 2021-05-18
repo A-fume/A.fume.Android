@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.data.repository.SearchRepository
 import com.afume.afume_android.data.vo.response.KeywordInfo
+import com.afume.afume_android.data.vo.response.SeriesInfo
+import com.afume.afume_android.data.vo.response.SeriesIngredients
 import kotlinx.coroutines.launch
 
 class FilterViewModel :ViewModel(){
@@ -33,11 +35,23 @@ class FilterViewModel :ViewModel(){
     // selected List - series
     val selectedSeriesList:MutableLiveData<MutableList<Int>> = MutableLiveData()
 
+    private var _seriesList: MutableLiveData<MutableList<SeriesInfo>> = MutableLiveData()
+    val seriesList: LiveData<MutableList<SeriesInfo>> get() = _seriesList
 
     init {
         viewModelScope.launch{
             _keywordList.value = searchRepository.getKeyword()
         }
+
+        _seriesList = MutableLiveData(mutableListOf(
+            SeriesInfo(ingredients = mutableListOf(
+                SeriesIngredients(name = "베르가못",ingredientIdx = 1),SeriesIngredients(name = "오렌지" ,ingredientIdx = 2))
+            ),
+            SeriesInfo(ingredients = mutableListOf(
+                SeriesIngredients(),SeriesIngredients())
+            )
+        )
+        )
     }
 
     fun increaseBadgeCount(index:Int){

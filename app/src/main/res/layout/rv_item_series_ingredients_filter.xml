@@ -25,6 +25,7 @@
             android:paddingTop="10dp"
             android:paddingRight="18dp"
             android:paddingBottom="10dp"
+            isSelectedIngredient="@{ingredient.checked}"
             android:text="@{@string/ingredientFormat(ingredient.name)}"
             app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/gray_cd"

@@ -36,6 +36,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_filter_series">
 
             <androidx.recyclerview.widget.RecyclerView
+                setIngredientList="@{series.ingredients}"
                 android:id="@+id/rv_series_ingredient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

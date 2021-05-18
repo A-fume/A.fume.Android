@@ -3,11 +3,9 @@ package com.afume.afume_android.ui.filter.incense
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.response.SeriesIngredients
 import com.afume.afume_android.databinding.RvItemSeriesIngredientsFilterBinding
 
@@ -41,17 +39,17 @@ class IngredientFlexboxAdapter(
         holder.bind(getItem(position))
     }
 
-//    override fun submitList(list: MutableList<SeriesIngredients>?) {
-//        if (list != null) {
-//            ingredientsDataList=list
-//        }
-//
-//        super.submitList(ingredientsDataList)
-//    }
-//
+    override fun submitList(list: MutableList<SeriesIngredients>?) {
+        super.submitList(list)
+
+
+        Log.e("submit list", list.toString())
+    }
+
 //    fun setList(list: MutableList<SeriesIngredients>){
 //        submitList(list)
 //    }
+
 
 
     inner class IngredientFlexboxHolder(val binding: RvItemSeriesIngredientsFilterBinding) :
@@ -62,9 +60,20 @@ class IngredientFlexboxAdapter(
             Log.d("ingredients data", data.toString())
 
             binding.root.setOnClickListener {
-                data.checked = setActive(data.checked)
+                data.checked = !data.checked
+                binding.ingredient=data
+//                isSelectedIngredients(binding.rvItemIngredient,data.checked)
 
                 if (data.ingredientIdx == -1) {
+                    selectedIngredients.clear()
+                    val onlyEntireActive=currentList
+                    for (i in 1..currentList.lastIndex){
+                        onlyEntireActive[i].checked=false
+                    }
+
+                    submitList(onlyEntireActive)
+                    notifyDataSetChanged()
+
                     //전체 선택을 했을 경우, 모든 인덱스 리스트에 추가
                     ingredientsList.forEach {
                         if (data.checked) {
@@ -73,10 +82,11 @@ class IngredientFlexboxAdapter(
                             add(it)
                         } else {
                             selectedIngredients.remove(it)
-                            Log.e("전체 선택 추가 remove index", it.toString())
+                            Log.e("전체 선택 해제 remove index", it.toString())
                             remove(it)
                         }
                     }
+
 
                     Log.e("현재 선택된 ingredients", selectedIngredients.toString())
                     selectedEntire = true
@@ -91,7 +101,13 @@ class IngredientFlexboxAdapter(
                                 Log.e("전체 선택 해제 index remove", it.toString())
                             }
                             selectedEntire=false
-//                            ingredientsDataList[0].checked=false
+
+                            val ingredientsDataList=currentList
+                            ingredientsDataList[0].checked=false
+
+                            submitList(ingredientsDataList)
+                            notifyDataSetChanged()
+
 //
 //                            setList(ingredientsDataList)
                         }
@@ -106,6 +122,7 @@ class IngredientFlexboxAdapter(
                         selectedIngredients.remove(data.ingredientIdx)
                         Log.e("단일 선택 해제 remove index", data.ingredientIdx.toString())
                     }
+
                     Log.e("현재 선택된 ingredients", selectedIngredients.toString())
                 }
                 //todo 개별 재료 선택 후 전체 선태하면 개별 재료 선택 해제
@@ -114,45 +131,23 @@ class IngredientFlexboxAdapter(
             }
         }
 
-        fun setActive(checked: Boolean): Boolean {
-            if (!checked) {
-                binding.rvItemIngredient.apply {
-                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
-                    setTextColor(ContextCompat.getColor(this.context, R.color.white))
-                    // add(data.keywordIdx)
-                }
-                return true
-            } else {
-                binding.rvItemIngredient.apply {
-                    binding.rvItemIngredient.apply {
-                        background = ContextCompat.getDrawable(
-                            this.context,
-                            R.drawable.border_gray_cd_line_square
-                        )
-                        setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
-                        //remove(data.keywordIdx)
-                    }
-                }
-                return false
-            }
-
         }
 
-}}
+}
 
 val seriesIngredientsDiffCallback = object : DiffUtil.ItemCallback<SeriesIngredients>() {
     override fun areItemsTheSame(
         oldItem: SeriesIngredients,
         newItem: SeriesIngredients
     ): Boolean {
-        return oldItem == newItem
+        return oldItem.ingredientIdx == newItem.ingredientIdx
     }
 
     override fun areContentsTheSame(
         oldItem: SeriesIngredients,
         newItem: SeriesIngredients
     ): Boolean {
-        return oldItem.ingredientIdx == newItem.ingredientIdx
+        return oldItem.checked == newItem.checked
     }
 
 }
