@@ -36,6 +36,9 @@ class SeriesIngredientsViewHolder(val binding: RvItemFilterSeriesBinding) :
 
     fun bind(item: SeriesInfo) {
         binding.series = item
+        val entire = SeriesIngredients(ingredientIdx = -1, name = "전체", seriesIdx = item.seriesIdx)
+
+        item.ingredients.add(0, entire)
         drawIngredients(item.ingredients)
         binding.btnShowIngredients.setOnClickListener {
             foldORUnfold(it)
@@ -44,7 +47,10 @@ class SeriesIngredientsViewHolder(val binding: RvItemFilterSeriesBinding) :
 
     fun drawIngredients(ingredients: MutableList<SeriesIngredients>) {
 
-        val ingredientAdapter = IngredientFlexboxAdapter({}, {})
+        val itsIngredient= mutableListOf<Int>()
+        ingredients.forEach { itsIngredient.add(it.ingredientIdx) }
+
+        val ingredientAdapter = IngredientFlexboxAdapter(itsIngredient,{}, {})
 
         val flexboxLayoutManager = FlexboxLayoutManager(binding.root.context).apply {
             flexDirection = FlexDirection.ROW
@@ -63,7 +69,7 @@ class SeriesIngredientsViewHolder(val binding: RvItemFilterSeriesBinding) :
 
     }
 
-    fun foldORUnfold(view : View){
+    fun foldORUnfold(view: View) {
         if (!view.isSelected) {
             binding.clSeriesIngredient.visibility = View.GONE
             view.isSelected = true

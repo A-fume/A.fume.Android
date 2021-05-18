@@ -46,7 +46,7 @@ class FilterIncenseSeriesFragment : Fragment() {
 
         seriesAdapter.data= mutableListOf(
             SeriesInfo(ingredients = mutableListOf(
-                SeriesIngredients(),SeriesIngredients())
+                SeriesIngredients(name = "베르가못",ingredientIdx = 1),SeriesIngredients(name = "오렌지" ,ingredientIdx = 2))
             ),
             SeriesInfo(ingredients = mutableListOf(
                 SeriesIngredients(),SeriesIngredients())

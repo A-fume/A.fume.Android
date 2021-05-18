@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 class FilterViewModel :ViewModel(){
     private val searchRepository = SearchRepository()
 
+    // badge count
     private val _incenseBadgeCount = MutableLiveData<Int>(0)
     val incenseBadgeCount:LiveData<Int> get()=_incenseBadgeCount
     private val _brandBadgeCount = MutableLiveData<Int>(0)
@@ -22,11 +23,16 @@ class FilterViewModel :ViewModel(){
     private val _applyBtn = MutableLiveData<Int>(0)
     val applyBtn:LiveData<Int> get()=_applyBtn
 
+    // selected List - keyword
     val selectedKeywordList: MutableLiveData<MutableList<Int>> = MutableLiveData()
     private var tempSelectedKeywordList = mutableListOf<Int>()
 
     private val _keywordList: MutableLiveData<MutableList<KeywordInfo>> = MutableLiveData()
     val keywordList: LiveData<MutableList<KeywordInfo>> get() = _keywordList
+
+    // selected List - series
+    val selectedSeriesList:MutableLiveData<MutableList<Int>> = MutableLiveData()
+
 
     init {
         viewModelScope.launch{
