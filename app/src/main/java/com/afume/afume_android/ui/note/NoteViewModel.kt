@@ -1,5 +1,6 @@
 package com.afume.afume_android.ui.note
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -41,10 +42,24 @@ class NoteViewModel : ViewModel() {
 
         if (!tempSelectedKeywordList.contains(index)) tempSelectedKeywordList.add(index)
         selectedKeywordList.value = tempSelectedKeywordList
+
+        checkKeywordList()
+
+        Log.d("명",tempSelectedKeywordList.toString())
     }
 
     fun removeKeywordList(index: Int) {
         selectedKeywordList.value?.remove(index)
+
+        Log.d("명",tempSelectedKeywordList.toString())
+    }
+
+    fun checkKeywordList(){
+        if(tempSelectedKeywordList.size > 0){
+            _rvKeywordList.postValue(true)
+        }else{
+            _rvKeywordList.postValue(false)
+        }
     }
 
 }
