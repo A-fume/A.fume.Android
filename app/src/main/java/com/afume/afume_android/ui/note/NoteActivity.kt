@@ -23,4 +23,8 @@ class NoteActivity : AppCompatActivity() {
     fun onClickKeywordBtn(view : View){
         keywordBottomSheetFragment.show(supportFragmentManager, "noteKeywordDialog")
     }
+
+    fun onClickBackBtn(view : View){
+        finish()
+    }
 }
