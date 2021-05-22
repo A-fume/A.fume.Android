@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityNoteBinding
+import com.afume.afume_android.ui.detail.PerfumeDetailActivity
+import com.afume.afume_android.util.startActivity
 
 class NoteActivity : AppCompatActivity() {
     lateinit var binding: ActivityNoteBinding
@@ -20,11 +22,15 @@ class NoteActivity : AppCompatActivity() {
         binding.viewModel = noteViewModel
     }
 
-    fun onClickKeywordBtn(view : View){
-        keywordBottomSheetFragment.show(supportFragmentManager, "noteKeywordDialog")
-    }
-
     fun onClickBackBtn(view : View){
         finish()
+    }
+
+    fun onClickDetailBtn(view : View){
+        this.startActivity(PerfumeDetailActivity::class.java)
+    }
+
+    fun onClickKeywordBtn(view : View){
+        keywordBottomSheetFragment.show(supportFragmentManager, "noteKeywordDialog")
     }
 }
