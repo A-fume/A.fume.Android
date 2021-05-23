@@ -388,6 +388,18 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView22"
                     app:srcCompat="@drawable/border_white_line_circle" />
 
+                <SeekBar
+                    android:id="@+id/seekBar2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="22dp"
+                    android:max="4"
+                    android:progressBackgroundTint="@color/gray_cd"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView22"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView22"
+                    app:layout_constraintStart_toStartOf="@+id/imageView22"
+                    app:layout_constraintTop_toTopOf="@+id/imageView22" />
+
                 <TextView
                     android:id="@+id/txt_note_consistency_very_weak"
                     android:layout_width="wrap_content"
@@ -527,6 +539,17 @@
                     app:layout_constraintEnd_toEndOf="@+id/imageView27"
                     app:layout_constraintTop_toTopOf="@+id/imageView27"
                     app:srcCompat="@drawable/border_white_line_circle" />
+
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:max="2"
+                    android:progressBackgroundTint="@color/gray_cd"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView27"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView27"
+                    app:layout_constraintStart_toStartOf="@+id/imageView27"
+                    app:layout_constraintTop_toTopOf="@+id/imageView27" />
 
                 <TextView
                     android:id="@+id/textView31"
@@ -816,6 +839,18 @@
                     app:layout_constraintEnd_toEndOf="@+id/imageView40"
                     app:layout_constraintTop_toTopOf="@+id/imageView40"
                     app:srcCompat="@drawable/border_white_line_circle" />
+
+                <SeekBar
+                    android:id="@+id/seekBar3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="21dp"
+                    android:max="2"
+                    android:progressBackgroundTint="@color/gray_cd"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView40"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView40"
+                    app:layout_constraintStart_toStartOf="@+id/imageView40"
+                    app:layout_constraintTop_toTopOf="@+id/imageView40" />
 
                 <TextView
                     android:id="@+id/textView42"
