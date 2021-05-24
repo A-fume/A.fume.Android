@@ -11,7 +11,9 @@ import com.afume.afume_android.databinding.RvItemSeriesIngredientsFilterBinding
 
 class IngredientFlexboxAdapter(
     val ingredientsList: MutableList<Int>,
-    val setSelectedIngredients: (Int, List<Int>) -> Unit) : ListAdapter<SeriesIngredients, IngredientFlexboxAdapter.IngredientFlexboxHolder>(
+    val setSelectedIngredients: (Int, List<Int>) -> Unit,
+    val countBadge: (Int, Boolean) -> Unit
+) : ListAdapter<SeriesIngredients, IngredientFlexboxAdapter.IngredientFlexboxHolder>(
     seriesIngredientsDiffCallback
 ) {
 
@@ -52,58 +54,65 @@ class IngredientFlexboxAdapter(
 
             binding.root.setOnClickListener {
                 data.checked = !data.checked
-                binding.ingredient=data
+                binding.ingredient = data
 //                isSelectedIngredients(binding.rvItemIngredient,data.checked)
 
                 if (data.ingredientIdx == -1) {
+                    //전체를 선택했을 경우
+
+                    for (i in 1..selectedIngredients.size) {
+                        countBadge(0, false)
+                    }
                     selectedIngredients.clear()
-                    val onlyEntireActive=currentList
-                    for (i in 1..currentList.lastIndex){
-                        onlyEntireActive[i].checked=false
+
+                    val onlyEntireActive = currentList
+                    for (i in 1..currentList.lastIndex) {
+                        onlyEntireActive[i].checked = false
                     }
 
                     submitList(onlyEntireActive)
                     notifyDataSetChanged()
 
                     //전체 선택을 했을 경우, 모든 인덱스 리스트에 추가
-                    ingredientsList.forEach {
-                        if (data.checked) {
-                            selectedIngredients.add(it)
-                            Log.e("전체 선택 추가 add index", it.toString())
-                        } else {
-                            selectedIngredients.remove(it)
-                            Log.e("전체 선택 해제 remove index", it.toString())
-                        }
+                    if (data.checked) {
+                        ingredientsList.forEach { selectedIngredients.add(it) }
+                        Log.e("전체 선택 추가 add index", it.toString())
+                        selectedEntire = true
+                        countBadge(0, true)
+                    } else {
+                        selectedEntire = false
+                        countBadge(0, false)
                     }
 
-                    Log.e("현재 선택된 ingredients", selectedIngredients.toString())
-                    selectedEntire = true
-                } else {
+                } else { // 전체가 아닌 하나의 ingredient를 선택했을 때
                     if (data.checked) {
 
-                        // 전체가 선택이 된 경우 , 모든 인덱스를 리스트에서 삭제한 후, 선택한 인덱스 추가
+                        // 전체가 선택이 되어 있는 경우 , 모든 인덱스를 리스트에서 삭제한 후, 선택한 인덱스 추가
                         if (selectedEntire) {
+
                             ingredientsList.forEach {
                                 selectedIngredients.remove(it)
                                 Log.e("전체 선택 해제 index remove", it.toString())
                             }
-                            selectedEntire=false
+                            selectedEntire = false
+                            countBadge(0, false)
 
-                            val ingredientsDataList=currentList
-                            ingredientsDataList[0].checked=false
+                            val ingredientsDataList = currentList
+                            ingredientsDataList[0].checked = false
 
                             submitList(ingredientsDataList)
                             notifyDataSetChanged()
 
                         }
                         selectedIngredients.add(data.ingredientIdx)
+                        countBadge(0, true)
                         Log.e(" 단일 add index", data.ingredientIdx.toString())
 
                         Log.e("현재 선택된 ingredients", selectedIngredients.toString())
 
                     } else {
                         selectedIngredients.remove(data.ingredientIdx)
-
+                        countBadge(0, false)
                         Log.e("단일 선택 해제 remove index", data.ingredientIdx.toString())
                     }
 
@@ -111,12 +120,12 @@ class IngredientFlexboxAdapter(
                 }
 
                 // viewModel로 selectedIngredients 넘기기
-                setSelectedIngredients(data.seriesIdx,selectedIngredients)
+                setSelectedIngredients(data.seriesIdx, selectedIngredients)
 
             }
         }
 
-        }
+    }
 
 }
 

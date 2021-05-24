@@ -11,14 +11,14 @@ import com.afume.afume_android.databinding.FragmentFilterIncenseSeriesBinding
 import com.afume.afume_android.ui.filter.FilterViewModel
 
 class FilterIncenseSeriesFragment : Fragment() {
-    private lateinit var binding:FragmentFilterIncenseSeriesBinding
+    private lateinit var binding: FragmentFilterIncenseSeriesBinding
     private val viewModel: FilterViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=FragmentFilterIncenseSeriesBinding.inflate(inflater, container, false)
+        binding = FragmentFilterIncenseSeriesBinding.inflate(inflater, container, false)
         binding.vm = viewModel
         return binding.root
     }
@@ -28,11 +28,15 @@ class FilterIncenseSeriesFragment : Fragment() {
 
         initIncenseSeriesRv(context)
     }
-    private fun initIncenseSeriesRv(ctx: Context?){
 
-        val seriesAdapter=SeriesIngredientsViewAdapter { idx, list->viewModel.addSeriesIngredientIdx(idx,list)}
-        binding.rvIncenseSeries.adapter=seriesAdapter
+    private fun initIncenseSeriesRv(ctx: Context?) {
+
+        val seriesAdapter = SeriesIngredientsViewAdapter(
+            { idx, list -> viewModel.addSeriesIngredientIdx(idx, list) },
+            { tabNumber, add -> viewModel.countBadges(tabNumber, add) }
+        )
+        binding.rvIncenseSeries.adapter = seriesAdapter
 
 
-      }
+    }
 }

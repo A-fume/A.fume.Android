@@ -13,14 +13,17 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 
-class SeriesIngredientsViewAdapter(val selectIngredients: (Int,List<Int>) -> Unit) : RecyclerView.Adapter<SeriesIngredientsViewHolder>() {
+class SeriesIngredientsViewAdapter(
+    val selectIngredients: (Int, List<Int>) -> Unit,
+    val countBadge: (Int, Boolean) -> Unit
+) : RecyclerView.Adapter<SeriesIngredientsViewHolder>() {
 
     var data = mutableListOf<SeriesInfo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeriesIngredientsViewHolder {
         val binding =
             RvItemFilterSeriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SeriesIngredientsViewHolder(binding,selectIngredients)
+        return SeriesIngredientsViewHolder(binding, selectIngredients, countBadge)
     }
 
     override fun getItemCount(): Int = data.size
@@ -29,14 +32,18 @@ class SeriesIngredientsViewAdapter(val selectIngredients: (Int,List<Int>) -> Uni
         data[position].let { holder.bind(it) }
     }
 
-    internal fun setSeriesData(data: MutableList<SeriesInfo>?){
-        if(data!=null) this.data=data
+    internal fun setSeriesData(data: MutableList<SeriesInfo>?) {
+        if (data != null) this.data = data
         notifyDataSetChanged()
     }
 
 }
 
-class SeriesIngredientsViewHolder(val binding: RvItemFilterSeriesBinding,val selectIngredients: (Int,List<Int>) -> Unit) :
+class SeriesIngredientsViewHolder(
+    val binding: RvItemFilterSeriesBinding,
+    val selectIngredients: (Int, List<Int>) -> Unit,
+    val countBadge: (Int, Boolean) -> Unit
+) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: SeriesInfo) {
@@ -52,10 +59,11 @@ class SeriesIngredientsViewHolder(val binding: RvItemFilterSeriesBinding,val sel
 
     fun drawIngredients(ingredients: MutableList<SeriesIngredients>) {
 
-        val itsIngredient= mutableListOf<Int>()
+        val itsIngredient = mutableListOf<Int>()
         ingredients.forEach { itsIngredient.add(it.ingredientIdx) }
 
-        val ingredientAdapter = IngredientFlexboxAdapter(itsIngredient,selectIngredients)
+        val ingredientAdapter =
+            IngredientFlexboxAdapter(itsIngredient, selectIngredients, countBadge)
 
         val flexboxLayoutManager = FlexboxLayoutManager(binding.root.context).apply {
             flexDirection = FlexDirection.ROW
