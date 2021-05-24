@@ -30,7 +30,7 @@ class FilterIncenseSeriesFragment : Fragment() {
     }
     private fun initIncenseSeriesRv(ctx: Context?){
 
-        val seriesAdapter=SeriesIngredientsViewAdapter()
+        val seriesAdapter=SeriesIngredientsViewAdapter { idx, list->viewModel.addSeriesIngredientIdx(idx,list)}
         binding.rvIncenseSeries.adapter=seriesAdapter
 
 

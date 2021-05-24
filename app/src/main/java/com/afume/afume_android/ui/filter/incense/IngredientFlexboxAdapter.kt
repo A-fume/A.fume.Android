@@ -11,9 +11,7 @@ import com.afume.afume_android.databinding.RvItemSeriesIngredientsFilterBinding
 
 class IngredientFlexboxAdapter(
     val ingredientsList: MutableList<Int>,
-    val add: (Int) -> Unit,
-    val remove: (Int) -> Unit
-) : ListAdapter<SeriesIngredients, IngredientFlexboxAdapter.IngredientFlexboxHolder>(
+    val setSelectedIngredients: (Int, List<Int>) -> Unit) : ListAdapter<SeriesIngredients, IngredientFlexboxAdapter.IngredientFlexboxHolder>(
     seriesIngredientsDiffCallback
 ) {
 
@@ -23,7 +21,6 @@ class IngredientFlexboxAdapter(
 
     //전체 선택 여부
     var selectedEntire = false
-    var ingredientsDataList= mutableListOf<SeriesIngredients>()
     val selectedIngredients = mutableListOf<Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientFlexboxHolder {
@@ -42,14 +39,8 @@ class IngredientFlexboxAdapter(
     override fun submitList(list: MutableList<SeriesIngredients>?) {
         super.submitList(list)
 
-
         Log.e("submit list", list.toString())
     }
-
-//    fun setList(list: MutableList<SeriesIngredients>){
-//        submitList(list)
-//    }
-
 
 
     inner class IngredientFlexboxHolder(val binding: RvItemSeriesIngredientsFilterBinding) :
@@ -79,14 +70,11 @@ class IngredientFlexboxAdapter(
                         if (data.checked) {
                             selectedIngredients.add(it)
                             Log.e("전체 선택 추가 add index", it.toString())
-                            add(it)
                         } else {
                             selectedIngredients.remove(it)
                             Log.e("전체 선택 해제 remove index", it.toString())
-                            remove(it)
                         }
                     }
-
 
                     Log.e("현재 선택된 ingredients", selectedIngredients.toString())
                     selectedEntire = true
@@ -96,7 +84,6 @@ class IngredientFlexboxAdapter(
                         // 전체가 선택이 된 경우 , 모든 인덱스를 리스트에서 삭제한 후, 선택한 인덱스 추가
                         if (selectedEntire) {
                             ingredientsList.forEach {
-                                remove(it)
                                 selectedIngredients.remove(it)
                                 Log.e("전체 선택 해제 index remove", it.toString())
                             }
@@ -108,25 +95,23 @@ class IngredientFlexboxAdapter(
                             submitList(ingredientsDataList)
                             notifyDataSetChanged()
 
-//
-//                            setList(ingredientsDataList)
                         }
-                        add(data.ingredientIdx)
                         selectedIngredients.add(data.ingredientIdx)
                         Log.e(" 단일 add index", data.ingredientIdx.toString())
 
                         Log.e("현재 선택된 ingredients", selectedIngredients.toString())
-                        //todo 전체칸 active 상태가 풀려야 함.
+
                     } else {
-                        remove(data.ingredientIdx)
                         selectedIngredients.remove(data.ingredientIdx)
+
                         Log.e("단일 선택 해제 remove index", data.ingredientIdx.toString())
                     }
 
                     Log.e("현재 선택된 ingredients", selectedIngredients.toString())
                 }
-                //todo 개별 재료 선택 후 전체 선태하면 개별 재료 선택 해제
 
+                // viewModel로 selectedIngredients 넘기기
+                setSelectedIngredients(data.seriesIdx,selectedIngredients)
 
             }
         }
