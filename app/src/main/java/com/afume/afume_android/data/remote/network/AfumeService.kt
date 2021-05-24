@@ -78,4 +78,10 @@ interface AfumeService {
         @Header("x-access-token") token : String,
         @Body body : RequestEditPassword
     ):ResponseMessage
+
+    // Home - New Perfume List
+    @GET("perfume/new")
+    suspend fun getNewPerfumeList(
+
+    ):ResponseBase<ResponseNewPerfumeList>
 }

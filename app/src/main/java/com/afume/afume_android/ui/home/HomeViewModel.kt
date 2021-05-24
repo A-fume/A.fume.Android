@@ -1,9 +1,14 @@
 package com.afume.afume_android.ui.home
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.HomeRepository
+import com.afume.afume_android.data.vo.response.NewPerfumeItem
+import kotlinx.coroutines.launch
 import java.util.*
 
 class HomeViewModel : ViewModel(){
@@ -41,4 +46,21 @@ class HomeViewModel : ViewModel(){
             "여성"
         }
     }
+
+    private val _newPerfumeList : MutableLiveData<MutableList<NewPerfumeItem>> = MutableLiveData()
+    val newPerfumeList : LiveData<MutableList<NewPerfumeItem>>
+        get() = _newPerfumeList
+
+    init {
+        viewModelScope.launch {
+            _newPerfumeList.value = homeRepository.getNewPerfumeList()
+            Log.d("명2",_newPerfumeList.value.toString())
+        }
+    }
+
+//    fun getNewPerfumeList(){
+//        viewModelScope.launch {
+//            _newPerfumeList.value = homeRepository.getNewPerfumeList()
+//        }
+//    }
 }

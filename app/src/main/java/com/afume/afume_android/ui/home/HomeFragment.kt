@@ -33,6 +33,12 @@ class HomeFragment : Fragment() {
 
         homeViewModel.setUserInfo()
 
+        binding.btnHomeMore.setOnClickListener {
+            val moreNewPerfumeIntent = Intent(context,MoreNewPerfumeActivity::class.java)
+
+            startActivity(moreNewPerfumeIntent)
+        }
+
         return binding.root
     }
 
@@ -199,12 +205,5 @@ class HomeFragment : Fragment() {
         }
 
     }
-
-//    fun moreNewPerfume(view: View){
-//        Log.d("명","되나")
-//        val moreIntent = Intent(context,MoreNewPerfumeActivity::class.java)
-//
-//        startActivity(moreIntent)
-//    }
 
 }
