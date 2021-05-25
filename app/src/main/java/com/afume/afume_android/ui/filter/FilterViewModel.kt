@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.data.repository.SearchRepository
+import com.afume.afume_android.data.vo.response.BrandInfo
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.data.vo.response.SeriesInfo
 import com.afume.afume_android.data.vo.response.SeriesIngredients
@@ -13,14 +14,6 @@ import kotlinx.coroutines.launch
 
 class FilterViewModel : ViewModel() {
     private val searchRepository = SearchRepository()
-
-    // badge count
-    private val _incenseBadgeCount = MutableLiveData<Int>(0)
-    val incenseBadgeCount: LiveData<Int> get() = _incenseBadgeCount
-    private val _brandBadgeCount = MutableLiveData<Int>(0)
-    val brandBadgeCount: LiveData<Int> get() = _brandBadgeCount
-    private val _keywordBadgeCount = MutableLiveData<Int>(0)
-    val keywordBadgeCount: LiveData<Int> get() = _keywordBadgeCount
 
     // badge count
     val badgeCount = MutableLiveData<MutableList<Int>>()
@@ -41,6 +34,12 @@ class FilterViewModel : ViewModel() {
 
     // selected List - series
     val selectedSeriesMap: MutableLiveData<MutableMap<Int, List<Int>>> = MutableLiveData()
+
+    //brand List
+    private var _brandMap: MutableLiveData<MutableMap<String,MutableList<BrandInfo>>> = MutableLiveData()
+    val brandMap: LiveData<MutableMap<String,MutableList<BrandInfo>>> get()=_brandMap
+
+    val selectedBrandMap: MutableLiveData<MutableList<Int>> = MutableLiveData()
 
     init {
         viewModelScope.launch {
@@ -68,6 +67,25 @@ class FilterViewModel : ViewModel() {
         )
         badgeCount.value = mutableListOf(0, 0, 0)
 
+        _brandMap= MutableLiveData(
+            mutableMapOf(
+                Pair("ㄱ", mutableListOf<BrandInfo>(
+                    BrandInfo(brandIdx = 1,name="ㄱ1",firstInitial = "ㄱ"),
+                    BrandInfo(brandIdx = 2,name="ㄱ2",firstInitial = "ㄱ"),
+                    BrandInfo(brandIdx = 3,name="ㄱ3",firstInitial = "ㄱ"))
+                ),
+                Pair("ㄴ", mutableListOf<BrandInfo>(
+                    BrandInfo(brandIdx = 21,name="ㄴ1",firstInitial = "ㄴ"),
+                    BrandInfo(brandIdx = 22,name="ㄴ2",firstInitial = "ㄴ"),
+                    BrandInfo(brandIdx = 23,name="ㄴ3",firstInitial = "ㄴ"))
+                )
+            )
+        )
+
+    }
+
+    fun bindBrandTab(initial: String):MutableList<BrandInfo>{
+        return brandMap.value!![initial] ?: mutableListOf()
     }
 
 
@@ -81,14 +99,28 @@ class FilterViewModel : ViewModel() {
                 tempMap.remove(seriesNumber)
             }
         }
-        tempMap.put(seriesNumber, idxList)
+        tempMap[seriesNumber] = idxList
 
         selectedSeriesMap.value = tempMap
         Log.e("선택된 계열은", seriesNumber.toString() + " 선택된 ingredient    " + selectedSeriesMap.value)
     }
 
+    fun setSelectedBrandListIdx(brandIdx:Int,add: Boolean){
+        var tempBrandList = mutableListOf<Int>()
+
+        if(selectedBrandMap.value != null){
+            tempBrandList = selectedBrandMap.value!!
+        }
+
+        if(add) tempBrandList.add(brandIdx)
+        else tempBrandList.remove(brandIdx)
+
+        selectedBrandMap.value=tempBrandList
+        Log.e("선택된 브랜드 리스트는",  selectedBrandMap.value.toString())
+    }
+
     fun countBadges(index: Int, add: Boolean) {
-        var tempBadgeCount = MutableList<Int>(3, { i -> 0 })
+        var tempBadgeCount= mutableListOf<Int>()
 
         if (badgeCount.value != null) {
             tempBadgeCount = badgeCount.value!!

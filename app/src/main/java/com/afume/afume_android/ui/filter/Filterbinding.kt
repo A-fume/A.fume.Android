@@ -6,8 +6,10 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.R
+import com.afume.afume_android.data.vo.response.BrandInfo
 import com.afume.afume_android.data.vo.response.SeriesInfo
 import com.afume.afume_android.data.vo.response.SeriesIngredients
+import com.afume.afume_android.ui.filter.brand.BrandRecyclerViewAdapter
 import com.afume.afume_android.ui.filter.incense.IngredientFlexboxAdapter
 import com.afume.afume_android.ui.filter.incense.SeriesIngredientsViewAdapter
 
@@ -27,6 +29,14 @@ object Filterbinding {
     fun setIngredientList(recyclerView: RecyclerView, list : MutableList<SeriesIngredients>?){
         if(recyclerView.adapter!=null) with(recyclerView.adapter as IngredientFlexboxAdapter){
            this.submitList(list)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setInitialBrandList")
+    fun setInitialBrandList(recyclerView: RecyclerView,map: MutableMap<String,MutableList<BrandInfo>>){
+        if(recyclerView.adapter!=null) with(recyclerView.adapter as BrandRecyclerViewAdapter){
+            this.setData(map)
         }
     }
 
