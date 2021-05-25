@@ -338,63 +338,13 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView23"
                     app:srcCompat="@drawable/border_gray_cd_line_dash" />
 
-                <ImageView
-                    android:id="@+id/btn_note_consistency_very_weak"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="11dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView22"
-                    app:layout_constraintStart_toStartOf="@+id/imageView22"
-                    app:layout_constraintTop_toTopOf="@+id/imageView22"
-                    app:srcCompat="@drawable/border_white_line_circle" />
-
-                <ImageView
-                    android:id="@+id/imageView24"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView22"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView23"
-                    app:layout_constraintStart_toEndOf="@+id/btn_note_consistency_very_weak"
-                    app:layout_constraintTop_toTopOf="@+id/imageView22"
-                    app:srcCompat="@drawable/border_white_line_circle" />
-
-                <ImageView
-                    android:id="@+id/imageView23"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView22"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView26"
-                    app:layout_constraintStart_toEndOf="@+id/btn_note_consistency_very_weak"
-                    app:layout_constraintTop_toTopOf="@+id/imageView22"
-                    app:srcCompat="@drawable/border_white_line_circle" />
-
-                <ImageView
-                    android:id="@+id/imageView25"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView22"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView26"
-                    app:layout_constraintStart_toEndOf="@+id/imageView23"
-                    app:layout_constraintTop_toTopOf="@+id/imageView22"
-                    app:srcCompat="@drawable/border_white_line_circle" />
-
-                <ImageView
-                    android:id="@+id/imageView26"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView22"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView22"
-                    app:layout_constraintTop_toTopOf="@+id/imageView22"
-                    app:srcCompat="@drawable/border_white_line_circle" />
-
                 <SeekBar
                     android:id="@+id/seekBar2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="22dp"
                     android:max="4"
-                    android:progressBackgroundTint="@color/gray_cd"
+                    android:progressDrawable="@color/transparent"
+                    android:tickMark="@drawable/seekbar_note_tick"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView22"
                     app:layout_constraintEnd_toEndOf="@+id/imageView22"
                     app:layout_constraintStart_toStartOf="@+id/imageView22"
@@ -404,14 +354,16 @@
                     android:id="@+id/txt_note_consistency_very_weak"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="매우\n약함"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/btn_note_consistency_very_weak"
-                    app:layout_constraintStart_toStartOf="@+id/btn_note_consistency_very_weak"
+                    app:layout_constraintEnd_toStartOf="@+id/textView25"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="@+id/seekBar2"
                     app:layout_constraintTop_toBottomOf="@+id/imageView22" />
 
                 <TextView
@@ -424,8 +376,8 @@
                     android:text="약함"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView24"
-                    app:layout_constraintStart_toStartOf="@+id/imageView24"
+                    app:layout_constraintEnd_toStartOf="@+id/textView26"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_consistency_very_weak"
                     app:layout_constraintTop_toBottomOf="@+id/imageView22" />
 
                 <TextView
@@ -438,8 +390,8 @@
                     android:text="보통"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView23"
-                    app:layout_constraintStart_toStartOf="@+id/imageView23"
+                    app:layout_constraintEnd_toStartOf="@+id/textView27"
+                    app:layout_constraintStart_toEndOf="@+id/textView25"
                     app:layout_constraintTop_toBottomOf="@+id/imageView22" />
 
                 <TextView
@@ -452,8 +404,8 @@
                     android:text="강함"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView25"
-                    app:layout_constraintStart_toStartOf="@+id/imageView25"
+                    app:layout_constraintEnd_toStartOf="@+id/textView28"
+                    app:layout_constraintStart_toEndOf="@+id/textView26"
                     app:layout_constraintTop_toBottomOf="@+id/imageView22" />
 
                 <TextView
@@ -461,13 +413,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="2dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="매우\n강함"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView26"
-                    app:layout_constraintStart_toStartOf="@+id/imageView26"
+                    app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+                    app:layout_constraintStart_toEndOf="@+id/textView27"
                     app:layout_constraintTop_toBottomOf="@+id/imageView22" />
 
                 <TextView
@@ -510,42 +463,13 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView29"
                     app:srcCompat="@drawable/border_gray_cd_line_dash" />
 
-                <ImageView
-                    android:id="@+id/imageView28"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="11dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView27"
-                    app:layout_constraintStart_toStartOf="@+id/imageView27"
-                    app:layout_constraintTop_toTopOf="@+id/imageView27"
-                    app:srcCompat="@drawable/border_white_line_circle" />
-
-                <ImageView
-                    android:id="@+id/imageView29"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView27"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView30"
-                    app:layout_constraintStart_toEndOf="@+id/imageView28"
-                    app:layout_constraintTop_toTopOf="@+id/imageView27"
-                    app:srcCompat="@drawable/border_white_line_circle" />
-
-                <ImageView
-                    android:id="@+id/imageView30"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView27"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView27"
-                    app:layout_constraintTop_toTopOf="@+id/imageView27"
-                    app:srcCompat="@drawable/border_white_line_circle" />
-
                 <SeekBar
                     android:id="@+id/seekBar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:max="2"
-                    android:progressBackgroundTint="@color/gray_cd"
+                    android:progressDrawable="@color/transparent"
+                    android:tickMark="@drawable/seekbar_note_tick"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView27"
                     app:layout_constraintEnd_toEndOf="@+id/imageView27"
                     app:layout_constraintStart_toStartOf="@+id/imageView27"
@@ -561,8 +485,9 @@
                     android:text="가벼움"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView28"
-                    app:layout_constraintStart_toStartOf="@+id/imageView28"
+                    app:layout_constraintEnd_toStartOf="@+id/textView32"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="@+id/seekBar"
                     app:layout_constraintTop_toBottomOf="@+id/imageView27" />
 
                 <TextView
@@ -575,8 +500,8 @@
                     android:text="보통"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView29"
-                    app:layout_constraintStart_toStartOf="@+id/imageView29"
+                    app:layout_constraintEnd_toStartOf="@+id/textView33"
+                    app:layout_constraintStart_toEndOf="@+id/textView31"
                     app:layout_constraintTop_toBottomOf="@+id/imageView27" />
 
                 <TextView
@@ -589,8 +514,8 @@
                     android:text="무거움"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView30"
-                    app:layout_constraintStart_toStartOf="@+id/imageView30"
+                    app:layout_constraintEnd_toEndOf="@+id/seekBar"
+                    app:layout_constraintStart_toEndOf="@+id/textView32"
                     app:layout_constraintTop_toBottomOf="@+id/imageView27" />
 
                 <ImageView
@@ -810,43 +735,13 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView40"
                     app:srcCompat="@drawable/border_gray_cd_line_dash" />
 
-                <ImageView
-                    android:id="@+id/imageView41"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="11dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView40"
-                    app:layout_constraintStart_toStartOf="@+id/imageView40"
-                    app:layout_constraintTop_toTopOf="@+id/imageView40"
-                    app:srcCompat="@drawable/border_white_line_circle" />
-
-                <ImageView
-                    android:id="@+id/imageView42"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView40"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView43"
-                    app:layout_constraintStart_toEndOf="@+id/imageView41"
-                    app:layout_constraintTop_toTopOf="@+id/imageView40"
-                    app:srcCompat="@drawable/border_white_line_circle" />
-
-                <ImageView
-                    android:id="@+id/imageView43"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginEnd="11dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView40"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView40"
-                    app:layout_constraintTop_toTopOf="@+id/imageView40"
-                    app:srcCompat="@drawable/border_white_line_circle" />
-
                 <SeekBar
                     android:id="@+id/seekBar3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="21dp"
                     android:max="2"
-                    android:progressBackgroundTint="@color/gray_cd"
+                    android:progressDrawable="@color/transparent"
+                    android:tickMark="@drawable/seekbar_note_tick"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView40"
                     app:layout_constraintEnd_toEndOf="@+id/imageView40"
                     app:layout_constraintStart_toStartOf="@+id/imageView40"
@@ -860,11 +755,12 @@
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="남성"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView41"
-                    app:layout_constraintStart_toStartOf="@+id/imageView41"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView41" />
+                    app:layout_constraintEnd_toStartOf="@+id/textView43"
+                    app:layout_constraintStart_toStartOf="@+id/seekBar3"
+                    app:layout_constraintTop_toBottomOf="@+id/seekBar3" />
 
                 <TextView
                     android:id="@+id/textView43"
@@ -876,9 +772,9 @@
                     android:text="중성"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView42"
-                    app:layout_constraintStart_toStartOf="@+id/imageView42"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView42" />
+                    app:layout_constraintEnd_toStartOf="@+id/textView44"
+                    app:layout_constraintStart_toEndOf="@+id/textView42"
+                    app:layout_constraintTop_toBottomOf="@+id/seekBar3" />
 
                 <TextView
                     android:id="@+id/textView44"
@@ -890,9 +786,9 @@
                     android:text="여성"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView43"
-                    app:layout_constraintStart_toStartOf="@+id/imageView43"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView43" />
+                    app:layout_constraintEnd_toEndOf="@+id/seekBar3"
+                    app:layout_constraintStart_toEndOf="@+id/textView43"
+                    app:layout_constraintTop_toBottomOf="@+id/seekBar3" />
 
                 <ImageView
                     android:id="@+id/imageView44"
