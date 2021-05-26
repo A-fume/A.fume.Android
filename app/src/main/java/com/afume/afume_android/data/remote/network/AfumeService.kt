@@ -78,4 +78,14 @@ interface AfumeService {
         @Header("x-access-token") token : String,
         @Body body : RequestEditPassword
     ):ResponseMessage
+
+    //Filter - Brand
+    @GET("filter/brand")
+    suspend fun getFilterBrand(
+    ):ResponseBase<MutableList<InitialBrand>>
+
+    //Filter - Series
+    @GET("filter/series")
+    suspend fun getFilterSeries(
+    ):ResponseBase<ResponseSeries>
 }

@@ -13,7 +13,7 @@ import com.afume.afume_android.ui.filter.brand.BrandRecyclerViewAdapter
 import com.afume.afume_android.ui.filter.incense.IngredientFlexboxAdapter
 import com.afume.afume_android.ui.filter.incense.SeriesIngredientsViewAdapter
 
-object Filterbinding {
+object FilterBinding {
 
     @JvmStatic
     @BindingAdapter("setSeriesIngredientList")
@@ -36,6 +36,7 @@ object Filterbinding {
     @BindingAdapter("setInitialBrandList")
     fun setInitialBrandList(recyclerView: RecyclerView,map: MutableMap<String,MutableList<BrandInfo>>){
         if(recyclerView.adapter!=null) with(recyclerView.adapter as BrandRecyclerViewAdapter){
+            Log.e("set brand map",map.toString())
             this.setData(map)
         }
     }

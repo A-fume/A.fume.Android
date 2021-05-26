@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.afume.afume_android.data.repository.SearchRepository
+import com.afume.afume_android.data.repository.FilterRepository
 import com.afume.afume_android.data.vo.response.BrandInfo
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.data.vo.response.SeriesInfo
@@ -13,7 +13,7 @@ import com.afume.afume_android.data.vo.response.SeriesIngredients
 import kotlinx.coroutines.launch
 
 class FilterViewModel : ViewModel() {
-    private val searchRepository = SearchRepository()
+    private val filterRepository = FilterRepository()
 
     // badge count
     val badgeCount = MutableLiveData<MutableList<Int>>()
@@ -29,65 +29,56 @@ class FilterViewModel : ViewModel() {
     val keywordList: LiveData<MutableList<KeywordInfo>> get() = _keywordList
 
     //series List
-    private var _seriesList: MutableLiveData<MutableList<SeriesInfo>> = MutableLiveData()
+    var _seriesList: MutableLiveData<MutableList<SeriesInfo>> = MutableLiveData()
     val seriesList: LiveData<MutableList<SeriesInfo>> get() = _seriesList
 
     // selected List - series
     val selectedSeriesMap: MutableLiveData<MutableMap<Int, List<Int>>> = MutableLiveData()
 
     //brand List
-    private var _brandMap: MutableLiveData<MutableMap<String,MutableList<BrandInfo>>> = MutableLiveData()
-    val brandMap: LiveData<MutableMap<String,MutableList<BrandInfo>>> get()=_brandMap
-
+    var brandMap: MutableLiveData<MutableMap<String, MutableList<BrandInfo>>> = MutableLiveData(mutableMapOf())
     val selectedBrandMap: MutableLiveData<MutableList<Int>> = MutableLiveData()
 
     init {
         viewModelScope.launch {
-            _keywordList.value = searchRepository.getKeyword()
+            _keywordList.value = filterRepository.getKeyword()
+            getSeries()
+            getBrand()
         }
 
-        _seriesList = MutableLiveData(
-            mutableListOf(
-                SeriesInfo(
-                    seriesIdx = 1,
-                    ingredients = mutableListOf(
-                        SeriesIngredients(name = "베르가못", ingredientIdx = 1, seriesIdx = 1),
-                        SeriesIngredients(name = "오렌지", ingredientIdx = 2, seriesIdx = 1)
-                    )
-                ),
-                SeriesInfo(
-                    seriesIdx = 2,
-                    name = "머스크",
-                    ingredients = mutableListOf(
-                        SeriesIngredients(name = "머스트1", ingredientIdx = 21, seriesIdx = 2),
-                        SeriesIngredients(name = "머스트 2", ingredientIdx = 22, seriesIdx = 2)
-                    )
-                )
-            )
-        )
         badgeCount.value = mutableListOf(0, 0, 0)
 
-        _brandMap= MutableLiveData(
-            mutableMapOf(
-                Pair("ㄱ", mutableListOf<BrandInfo>(
-                    BrandInfo(brandIdx = 1,name="ㄱ1",firstInitial = "ㄱ"),
-                    BrandInfo(brandIdx = 2,name="ㄱ2",firstInitial = "ㄱ"),
-                    BrandInfo(brandIdx = 3,name="ㄱ3",firstInitial = "ㄱ"))
-                ),
-                Pair("ㄴ", mutableListOf<BrandInfo>(
-                    BrandInfo(brandIdx = 21,name="ㄴ1",firstInitial = "ㄴ"),
-                    BrandInfo(brandIdx = 22,name="ㄴ2",firstInitial = "ㄴ"),
-                    BrandInfo(brandIdx = 23,name="ㄴ3",firstInitial = "ㄴ"))
-                )
-            )
-        )
 
     }
 
-    fun bindBrandTab(initial: String):MutableList<BrandInfo>{
+    fun bindBrandTab(initial: String): MutableList<BrandInfo> {
         return brandMap.value!![initial] ?: mutableListOf()
     }
 
+    suspend fun getBrand() {
+        val initialBrand = filterRepository.getBrand()
+        Log.e("getBrand", initialBrand.toString())
+
+        val tempMap = mutableMapOf<String,MutableList<BrandInfo>>()
+        initialBrand.forEach {
+            tempMap.put(it.firstInitial, it.brands)
+        }
+        brandMap.value = tempMap
+    }
+
+    suspend fun getSeries(){
+        val series = filterRepository.getSeries().rows
+        series.forEach {
+            //        binding.series = item
+//        val entire = SeriesIngredients(ingredientIdx = -1, name = "전체", seriesIdx = item.seriesIdx)
+//        item.ingredients.add(0, entire)
+            val entireIngredients=SeriesIngredients(ingredientIdx = -1,name="전체",seriesIdx = it.seriesIdx)
+            it.ingredients.add(0,entireIngredients)
+        }
+        Log.e("series 통신",series.toString())
+        _seriesList.value=series
+        Log.e("series 통신 후 라이브데이터에 전달", _seriesList.value.toString())
+    }
 
     fun addSeriesIngredientIdx(seriesNumber: Int, idxList: List<Int>) {
         var tempMap = mutableMapOf<Int, List<Int>>()
@@ -105,22 +96,22 @@ class FilterViewModel : ViewModel() {
         Log.e("선택된 계열은", seriesNumber.toString() + " 선택된 ingredient    " + selectedSeriesMap.value)
     }
 
-    fun setSelectedBrandListIdx(brandIdx:Int,add: Boolean){
+    fun setSelectedBrandListIdx(brandIdx: Int, add: Boolean) {
         var tempBrandList = mutableListOf<Int>()
 
-        if(selectedBrandMap.value != null){
+        if (selectedBrandMap.value != null) {
             tempBrandList = selectedBrandMap.value!!
         }
 
-        if(add) tempBrandList.add(brandIdx)
+        if (add) tempBrandList.add(brandIdx)
         else tempBrandList.remove(brandIdx)
 
-        selectedBrandMap.value=tempBrandList
-        Log.e("선택된 브랜드 리스트는",  selectedBrandMap.value.toString())
+        selectedBrandMap.value = tempBrandList
+        Log.e("선택된 브랜드 리스트는", selectedBrandMap.value.toString())
     }
 
     fun countBadges(index: Int, add: Boolean) {
-        var tempBadgeCount= mutableListOf<Int>()
+        var tempBadgeCount = mutableListOf<Int>()
 
         if (badgeCount.value != null) {
             tempBadgeCount = badgeCount.value!!
@@ -160,4 +151,5 @@ class FilterViewModel : ViewModel() {
             Log.e("remove keyword", selectedKeywordList.value.toString())
         }
     }
+
 }

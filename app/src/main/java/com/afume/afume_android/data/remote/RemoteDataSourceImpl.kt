@@ -62,4 +62,13 @@ class RemoteDataSourceImpl : RemoteDataSource{
     override suspend fun putPassword(token: String, body: RequestEditPassword): String {
         return api.putPassword(token,body).message
     }
+
+    override suspend fun getFilterSeries(): ResponseSeries {
+        return api.getFilterSeries().data
+    }
+
+    override suspend fun getFilterBrand(): MutableList<InitialBrand> {
+        return  api.getFilterBrand().data
+    }
+
 }

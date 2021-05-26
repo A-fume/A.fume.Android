@@ -50,14 +50,10 @@ class FilterActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.filterVm = filterViewModel
 
-
     }
 
     private fun initViewPager() {
-        filterViewPagerAdapter =
-            AfumeViewPagerAdapter(
-                supportFragmentManager
-            )
+        filterViewPagerAdapter = AfumeViewPagerAdapter(supportFragmentManager)
         filterViewPagerAdapter.fragments = listOf(
             FilterIncenseSeriesFragment(),
             FilterBrandFragment(),

@@ -48,9 +48,6 @@ class SeriesIngredientsViewHolder(
 
     fun bind(item: SeriesInfo) {
         binding.series = item
-        val entire = SeriesIngredients(ingredientIdx = -1, name = "전체", seriesIdx = item.seriesIdx)
-
-        item.ingredients.add(0, entire)
         drawIngredients(item.ingredients)
         binding.btnShowIngredients.setOnClickListener {
             foldORUnfold(it)

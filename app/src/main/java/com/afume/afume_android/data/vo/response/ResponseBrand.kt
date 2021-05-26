@@ -7,15 +7,11 @@ data class ResponseBrand(
 
 data class InitialBrand(
     val firstInitial: String,
-    val brand: BrandInfo
+    val brands: MutableList<BrandInfo>
 )
 
 data class BrandInfo(
     val brandIdx: Int,
     val name: String="",
-    val englishName: String="",
-    val firstInitial: String="",
-    val imageUrl: String="",
-    val description: String="",
     var check: Boolean=false
 )
