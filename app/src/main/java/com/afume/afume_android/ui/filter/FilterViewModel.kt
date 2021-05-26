@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.data.repository.FilterRepository
+import com.afume.afume_android.data.vo.request.RequestSearch
 import com.afume.afume_android.data.vo.response.BrandInfo
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.data.vo.response.SeriesInfo
@@ -48,7 +49,6 @@ class FilterViewModel : ViewModel() {
 
         badgeCount.value = mutableListOf(0, 0, 0)
 
-
     }
 
     fun bindBrandTab(initial: String): MutableList<BrandInfo> {
@@ -69,9 +69,6 @@ class FilterViewModel : ViewModel() {
     suspend fun getSeries(){
         val series = filterRepository.getSeries().rows
         series.forEach {
-            //        binding.series = item
-//        val entire = SeriesIngredients(ingredientIdx = -1, name = "전체", seriesIdx = item.seriesIdx)
-//        item.ingredients.add(0, entire)
             val entireIngredients=SeriesIngredients(ingredientIdx = -1,name="전체",seriesIdx = it.seriesIdx)
             it.ingredients.add(0,entireIngredients)
         }
@@ -150,6 +147,18 @@ class FilterViewModel : ViewModel() {
             Log.e("index", index.toString())
             Log.e("remove keyword", selectedKeywordList.value.toString())
         }
+    }
+
+    fun sendSelectFilter():RequestSearch{
+        val ingredientsIdxList = mutableListOf<Int>()
+        selectedSeriesMap.value?.mapValues { ingredientsIdxList+=it.value }
+        Log.e("ingredientsIdxList",ingredientsIdxList.toString())
+
+        return RequestSearch(
+            keywordList = selectedKeywordList.value,
+            brandList = selectedBrandMap.value,
+            ingredientList = ingredientsIdxList
+        )
     }
 
 }

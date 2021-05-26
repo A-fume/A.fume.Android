@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentSearchBinding
 import com.afume.afume_android.ui.filter.FilterActivity
-import com.afume.afume_android.ui.survey.SurveyActivity
 
 
 class SearchFragment : Fragment() {
@@ -38,8 +37,6 @@ class SearchFragment : Fragment() {
         binding.toolbarSearch.toolbartxt="검색"
         binding.toolbarSearch.toolbar=R.drawable.icon_btn_search
 
-
-
     }
 
     private fun initRvPerfumeList(){
@@ -57,7 +54,6 @@ class SearchFragment : Fragment() {
     private fun goToSelectFilters(ctx:Context){
         val intent=Intent(ctx, FilterActivity::class.java)
         startActivity(intent)
-
     }
 
 

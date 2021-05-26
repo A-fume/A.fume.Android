@@ -1,5 +1,6 @@
 package com.afume.afume_android.ui.filter
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -9,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityFilterBinding
+import com.afume.afume_android.ui.MainActivity
 import com.afume.afume_android.ui.filter.brand.FilterBrandFragment
 import com.afume.afume_android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.afume.afume_android.ui.filter.keyword.FilterKeywordFragment
@@ -37,7 +39,7 @@ class FilterActivity : AppCompatActivity() {
         observeViewModel()
 
         binding.btnFilterApply.setOnClickListener {
-//            filterViewModel.countBadges(0)
+            sendFilter()
         }
 
         binding.toolbarFilter.toolbar = R.drawable.icon_btn_cancel
@@ -106,6 +108,13 @@ class FilterActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun sendFilter(){
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("flag",1)
+        intent.putExtra("filter",filterViewModel.sendSelectFilter())
+        startActivity(intent)
     }
 
 

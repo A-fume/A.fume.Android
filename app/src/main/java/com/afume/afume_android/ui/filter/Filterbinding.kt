@@ -17,45 +17,50 @@ object FilterBinding {
 
     @JvmStatic
     @BindingAdapter("setSeriesIngredientList")
-    fun setSeriesIngredientList(recyclerView: RecyclerView, list : MutableList<SeriesInfo>?){
-        if(recyclerView.adapter!=null) with(recyclerView.adapter as SeriesIngredientsViewAdapter){
-            list?.let { setSeriesData(list)
-                Log.e("setseriesList",list.toString())}
+    fun setSeriesIngredientList(recyclerView: RecyclerView, list: MutableList<SeriesInfo>?) {
+        if (recyclerView.adapter != null) with(recyclerView.adapter as SeriesIngredientsViewAdapter) {
+            list?.let {
+                setSeriesData(list)
+                Log.e("setseriesList", list.toString())
+            }
         }
     }
 
     @JvmStatic
     @BindingAdapter("setIngredientList")
-    fun setIngredientList(recyclerView: RecyclerView, list : MutableList<SeriesIngredients>?){
-        if(recyclerView.adapter!=null) with(recyclerView.adapter as IngredientFlexboxAdapter){
-           this.submitList(list)
+    fun setIngredientList(recyclerView: RecyclerView, list: MutableList<SeriesIngredients>?) {
+        if (recyclerView.adapter != null) with(recyclerView.adapter as IngredientFlexboxAdapter) {
+            this.submitList(list)
         }
     }
 
     @JvmStatic
     @BindingAdapter("setInitialBrandList")
-    fun setInitialBrandList(recyclerView: RecyclerView,map: MutableMap<String,MutableList<BrandInfo>>){
-        if(recyclerView.adapter!=null) with(recyclerView.adapter as BrandRecyclerViewAdapter){
-            Log.e("set brand map",map.toString())
+    fun setInitialBrandList(
+        recyclerView: RecyclerView,
+        map: MutableMap<String, MutableList<BrandInfo>>
+    ) {
+        if (recyclerView.adapter != null) with(recyclerView.adapter as BrandRecyclerViewAdapter) {
+            Log.e("set brand map", map.toString())
             this.setData(map)
         }
     }
 
     @JvmStatic
     @BindingAdapter("isSelectedIngredient")
-    fun isSelectedIngredients(view : TextView, checked: Boolean){
-
-            if (checked) {
-                view.apply {
-                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
-                    setTextColor(ContextCompat.getColor(this.context, R.color.white))
-                }
-            } else {
-                view.apply {
-                    background = ContextCompat.getDrawable(this.context, R.drawable.border_gray_cd_line_square)
-                    setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
-                }
+    fun isSelectedIngredients(view: TextView, checked: Boolean) {
+        if (checked) {
+            view.apply {
+                setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
+                setTextColor(ContextCompat.getColor(this.context, R.color.white))
             }
+        } else {
+            view.apply {
+                background =
+                    ContextCompat.getDrawable(this.context, R.drawable.border_gray_cd_line_square)
+                setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+            }
+        }
     }
 
 }
