@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="com.afume.afume_android.ui.filter.FilterViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,11 +25,7 @@
             app:tabMode="scrollable"
             app:tabIndicatorColor="@color/primary_black"
             app:tabIndicatorHeight="0dp"
-
             app:tabSelectedTextColor="@color/primary_black">
-
-
-
         </com.google.android.material.tabs.TabLayout>
 
         <TextView
@@ -43,6 +44,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_brand"
+            setInitialBrandList="@{vm.brandMap}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="18dp"

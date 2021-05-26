@@ -13,14 +13,17 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 
-class SeriesIngredientsViewAdapter : RecyclerView.Adapter<SeriesIngredientsViewHolder>() {
+class SeriesIngredientsViewAdapter(
+    val selectIngredients: (Int, List<Int>) -> Unit,
+    val countBadge: (Int, Boolean) -> Unit
+) : RecyclerView.Adapter<SeriesIngredientsViewHolder>() {
 
     var data = mutableListOf<SeriesInfo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeriesIngredientsViewHolder {
         val binding =
             RvItemFilterSeriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SeriesIngredientsViewHolder(binding)
+        return SeriesIngredientsViewHolder(binding, selectIngredients, countBadge)
     }
 
     override fun getItemCount(): Int = data.size
@@ -29,13 +32,25 @@ class SeriesIngredientsViewAdapter : RecyclerView.Adapter<SeriesIngredientsViewH
         data[position].let { holder.bind(it) }
     }
 
+    internal fun setSeriesData(data: MutableList<SeriesInfo>?) {
+        if (data != null) this.data = data
+        notifyDataSetChanged()
+    }
+
 }
 
-class SeriesIngredientsViewHolder(val binding: RvItemFilterSeriesBinding) :
+class SeriesIngredientsViewHolder(
+    val binding: RvItemFilterSeriesBinding,
+    val selectIngredients: (Int, List<Int>) -> Unit,
+    val countBadge: (Int, Boolean) -> Unit
+) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: SeriesInfo) {
         binding.series = item
+        val entire = SeriesIngredients(ingredientIdx = -1, name = "전체", seriesIdx = item.seriesIdx)
+
+        item.ingredients.add(0, entire)
         drawIngredients(item.ingredients)
         binding.btnShowIngredients.setOnClickListener {
             foldORUnfold(it)
@@ -44,7 +59,11 @@ class SeriesIngredientsViewHolder(val binding: RvItemFilterSeriesBinding) :
 
     fun drawIngredients(ingredients: MutableList<SeriesIngredients>) {
 
-        val ingredientAdapter = IngredientFlexboxAdapter({}, {})
+        val itsIngredient = mutableListOf<Int>()
+        ingredients.forEach { itsIngredient.add(it.ingredientIdx) }
+
+        val ingredientAdapter =
+            IngredientFlexboxAdapter(itsIngredient, selectIngredients, countBadge)
 
         val flexboxLayoutManager = FlexboxLayoutManager(binding.root.context).apply {
             flexDirection = FlexDirection.ROW
@@ -63,7 +82,7 @@ class SeriesIngredientsViewHolder(val binding: RvItemFilterSeriesBinding) :
 
     }
 
-    fun foldORUnfold(view : View){
+    fun foldORUnfold(view: View) {
         if (!view.isSelected) {
             binding.clSeriesIngredient.visibility = View.GONE
             view.isSelected = true

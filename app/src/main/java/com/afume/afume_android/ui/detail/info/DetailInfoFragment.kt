@@ -63,8 +63,8 @@ class DetailInfoFragment : Fragment() {
 
         rvKeywordAdapter =
             FlexboxRecyclerViewAdapter(
-                { index -> print(index) },
-                { index -> print(index) }
+                { index,b -> print(index) },
+                { index,b -> print(index) }
             )
         binding.rvDetailsInfoKeyword.apply {
             adapter = rvKeywordAdapter

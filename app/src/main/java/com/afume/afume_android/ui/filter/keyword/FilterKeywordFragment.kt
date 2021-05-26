@@ -47,8 +47,8 @@ class FilterKeywordFragment : Fragment() {
         }
 
         val keywordAdapter = FlexboxRecyclerViewAdapter(
-                { index -> viewModel.addKeywordList(index) },
-                { index -> viewModel.removeKeywordList(index) }
+                { index,add -> viewModel.addKeywordList(index,add) },
+                { index,add -> viewModel.countBadges(index,add) }
             )
         binding.rvKeyword.apply {
             layoutManager=flexboxLayoutManager
