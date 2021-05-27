@@ -838,6 +838,7 @@
                     android:layout_marginTop="22dp"
                     android:background="@drawable/selector_sign_btn"
                     android:enabled="@{viewModel.completeBtn}"
+                    android:onClick="onClickCompleteBtn"
                     android:fontFamily="@font/notosans_bold"
                     android:includeFontPadding="false"
                     android:text="기록 완료"
