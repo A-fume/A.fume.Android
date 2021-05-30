@@ -78,7 +78,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txt_story"
                 app:layout_constraintTop_toBottomOf="@+id/txt_story"
-                tools:listitem="@layout/rv_item_filter_flexbox">
+                tools:listitem="@layout/rv_item_detail_keyword">
 
             </androidx.recyclerview.widget.RecyclerView>
 
