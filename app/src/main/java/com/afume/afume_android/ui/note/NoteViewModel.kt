@@ -27,6 +27,11 @@ class NoteViewModel : ViewModel() {
     // 입력 내용
     val contentsTxt = MutableLiveData<String>("")
 
+    // 공유 버튼 활성화
+    private val _shareBtn = MutableLiveData<Boolean>(false)
+    val shareBtn : LiveData<Boolean>
+        get() = _shareBtn
+
     // 완료 버튼 활성화
     private val _completeBtn = MutableLiveData<Boolean>(false)
     val completeBtn : LiveData<Boolean>

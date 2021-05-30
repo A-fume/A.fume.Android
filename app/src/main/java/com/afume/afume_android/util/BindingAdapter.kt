@@ -101,4 +101,14 @@ object BindingAdapter {
     fun getNoteContentsSizeText(view: EditText): String {
         return view.text.toString()
     }
+
+    @JvmStatic
+    @BindingAdapter("setNoteShareBtnBackground")
+    fun ImageView.setNoteShareBtnBackground(status: Boolean) {
+        if(status){
+            setBackgroundColor(resources.getColor(R.color.point_beige))
+        }else{
+            setBackgroundColor(resources.getColor(R.color.light_gray_f0))
+        }
+    }
 }
