@@ -12,7 +12,7 @@ import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.databinding.RvItemFilterFlexboxBinding
 
-class FlexboxRecyclerViewAdapter(internal val select:(Int, Boolean)->Unit, val countBadge:(Int,Boolean)->Unit) :
+class FlexboxRecyclerViewAdapter(internal val select:(KeywordInfo, Boolean)->Unit, val countBadge:(Int,Boolean)->Unit) :
     ListAdapter<KeywordInfo, FlexboxRecyclerViewAdapter.FlexboxRecyclerViewHolder>(
         incenseSeriesDiffCallback
     ) {
@@ -66,7 +66,7 @@ class FlexboxRecyclerViewAdapter(internal val select:(Int, Boolean)->Unit, val c
                     binding.rvItemTxtFlexbox.apply {
                         setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
                         setTextColor(ContextCompat.getColor(this.context, R.color.white))
-                        select(data.keywordIdx,true)
+                        select(data,true)
                         countBadge(2,true)
                         data.checked=true
 
@@ -76,7 +76,7 @@ class FlexboxRecyclerViewAdapter(internal val select:(Int, Boolean)->Unit, val c
                     binding.rvItemTxtFlexbox.apply {
                         background = ContextCompat.getDrawable(this.context, R.drawable.border_gray_cd_line_square)
                         setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
-                        select(data.keywordIdx,false)
+                        select(data,false)
                         countBadge(2,false)
                         data.checked=false
                     }

@@ -6,6 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.data.repository.FilterRepository
+import com.afume.afume_android.data.vo.request.BrandInfoP
+import com.afume.afume_android.data.vo.request.IngredientInfoP
+import com.afume.afume_android.data.vo.request.KeywordInfoP
 import com.afume.afume_android.data.vo.request.RequestSearch
 import com.afume.afume_android.data.vo.response.BrandInfo
 import com.afume.afume_android.data.vo.response.KeywordInfo
@@ -23,8 +26,8 @@ class FilterViewModel : ViewModel() {
 
 
     // selected List - keyword
-    val selectedKeywordList: MutableLiveData<MutableList<Int>> = MutableLiveData()
-    private var tempSelectedKeywordList = mutableListOf<Int>()
+    val selectedKeywordList: MutableLiveData<MutableList<KeywordInfo>> = MutableLiveData()
+    private var tempSelectedKeywordList = mutableListOf<KeywordInfo>()
 
     private val _keywordList: MutableLiveData<MutableList<KeywordInfo>> = MutableLiveData()
     val keywordList: LiveData<MutableList<KeywordInfo>> get() = _keywordList
@@ -34,11 +37,11 @@ class FilterViewModel : ViewModel() {
     val seriesList: LiveData<MutableList<SeriesInfo>> get() = _seriesList
 
     // selected List - series
-    val selectedSeriesMap: MutableLiveData<MutableMap<Int, List<Int>>> = MutableLiveData()
+    val selectedSeriesMap: MutableLiveData<MutableMap<Int, List<SeriesIngredients>>> = MutableLiveData()
 
     //brand List
     var brandMap: MutableLiveData<MutableMap<String, MutableList<BrandInfo>>> = MutableLiveData(mutableMapOf())
-    val selectedBrandMap: MutableLiveData<MutableList<Int>> = MutableLiveData()
+    val selectedBrandMap: MutableLiveData<MutableList<BrandInfo>> = MutableLiveData()
 
     init {
         viewModelScope.launch {
@@ -77,8 +80,8 @@ class FilterViewModel : ViewModel() {
         Log.e("series 통신 후 라이브데이터에 전달", _seriesList.value.toString())
     }
 
-    fun addSeriesIngredientIdx(seriesNumber: Int, idxList: List<Int>) {
-        var tempMap = mutableMapOf<Int, List<Int>>()
+    fun addSeriesIngredientIdx(seriesNumber: Int, idxList: List<SeriesIngredients>) {
+        var tempMap = mutableMapOf<Int, List<SeriesIngredients>>()
 
         if (selectedSeriesMap.value != null) {
             tempMap = selectedSeriesMap.value!!
@@ -93,15 +96,15 @@ class FilterViewModel : ViewModel() {
         Log.e("선택된 계열은", seriesNumber.toString() + " 선택된 ingredient    " + selectedSeriesMap.value)
     }
 
-    fun setSelectedBrandListIdx(brandIdx: Int, add: Boolean) {
-        var tempBrandList = mutableListOf<Int>()
+    fun setSelectedBrandListIdx(brand: BrandInfo, add: Boolean) {
+        var tempBrandList = mutableListOf<BrandInfo>()
 
         if (selectedBrandMap.value != null) {
             tempBrandList = selectedBrandMap.value!!
         }
 
-        if (add) tempBrandList.add(brandIdx)
-        else tempBrandList.remove(brandIdx)
+        if (add) tempBrandList.add(brand)
+        else tempBrandList.remove(brand)
 
         selectedBrandMap.value = tempBrandList
         Log.e("선택된 브랜드 리스트는", selectedBrandMap.value.toString())
@@ -131,32 +134,47 @@ class FilterViewModel : ViewModel() {
     }
 
 
-    fun addKeywordList(index: Int, add: Boolean) {
+    fun addKeywordList(keyword: KeywordInfo, add: Boolean) {
         if (add) {
             if (selectedKeywordList.value != null) tempSelectedKeywordList =
                 selectedKeywordList.value!!
 
-            if (!tempSelectedKeywordList.contains(index)) tempSelectedKeywordList.add(index)
+            if (!tempSelectedKeywordList.contains(keyword)) tempSelectedKeywordList.add(keyword)
             selectedKeywordList.value = tempSelectedKeywordList
 
-            Log.e("index", index.toString())
+            Log.e("index", keyword.toString())
             Log.e("add keyword", selectedKeywordList.value.toString())
         } else {
-            selectedKeywordList.value?.remove(index)
+            selectedKeywordList.value?.remove(keyword)
 
-            Log.e("index", index.toString())
+            Log.e("index", keyword.toString())
             Log.e("remove keyword", selectedKeywordList.value.toString())
         }
     }
 
     fun sendSelectFilter():RequestSearch{
-        val ingredientsIdxList = mutableListOf<Int>()
-        selectedSeriesMap.value?.mapValues { ingredientsIdxList+=it.value }
-        Log.e("ingredientsIdxList",ingredientsIdxList.toString())
+
+        val ingredientsIdxList = mutableListOf<IngredientInfoP>()
+        selectedSeriesMap.value?.mapValues {
+            it.value.forEach { it ->
+                var ingredientInfoP=IngredientInfoP(it.ingredientIdx,it.name)
+                ingredientsIdxList.add(ingredientInfoP)
+            }
+        }
+        val brandInfoPList= mutableListOf<BrandInfoP>()
+        selectedBrandMap.value?.forEach {
+            val brandInfoP=BrandInfoP(it.brandIdx,it.name)
+            brandInfoPList.add(brandInfoP)
+        }
+        val keywordList= mutableListOf<KeywordInfoP>()
+        selectedKeywordList.value?.forEach {
+            val keywordInfoP=KeywordInfoP(it.keywordIdx,it.name)
+            keywordList.add(keywordInfoP)
+        }
 
         return RequestSearch(
-            keywordList = selectedKeywordList.value,
-            brandList = selectedBrandMap.value,
+            keywordList = keywordList,
+            brandList = brandInfoPList,
             ingredientList = ingredientsIdxList
         )
     }

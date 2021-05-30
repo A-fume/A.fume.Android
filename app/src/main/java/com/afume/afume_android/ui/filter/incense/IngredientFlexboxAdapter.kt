@@ -11,7 +11,7 @@ import com.afume.afume_android.databinding.RvItemSeriesIngredientsFilterBinding
 
 class IngredientFlexboxAdapter(
     val ingredientsList: MutableList<Int>,
-    val setSelectedIngredients: (Int, List<Int>) -> Unit,
+    val setSelectedIngredients: (Int, List<SeriesIngredients>) -> Unit,
     val countBadge: (Int, Boolean) -> Unit
 ) : ListAdapter<SeriesIngredients, IngredientFlexboxAdapter.IngredientFlexboxHolder>(
     seriesIngredientsDiffCallback
@@ -23,7 +23,7 @@ class IngredientFlexboxAdapter(
 
     //전체 선택 여부
     var selectedEntire = false
-    val selectedIngredients = mutableListOf<Int>()
+    val selectedIngredients = mutableListOf<SeriesIngredients>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientFlexboxHolder {
         val binding = RvItemSeriesIngredientsFilterBinding.inflate(
@@ -75,7 +75,7 @@ class IngredientFlexboxAdapter(
 
                     //전체 선택을 했을 경우, 모든 인덱스 리스트에 추가
                     if (data.checked) {
-                        ingredientsList.forEach { selectedIngredients.add(it) }
+                        ingredientsList.forEach { selectedIngredients.add(data) }
                         Log.e("전체 선택 추가 add index", it.toString())
                         selectedEntire = true
                         countBadge(0, true)
@@ -91,7 +91,7 @@ class IngredientFlexboxAdapter(
                         if (selectedEntire) {
 
                             ingredientsList.forEach {
-                                selectedIngredients.remove(it)
+                                selectedIngredients.remove(data)
                                 Log.e("전체 선택 해제 index remove", it.toString())
                             }
                             selectedEntire = false
@@ -104,14 +104,14 @@ class IngredientFlexboxAdapter(
                             notifyDataSetChanged()
 
                         }
-                        selectedIngredients.add(data.ingredientIdx)
+                        selectedIngredients.add(data)
                         countBadge(0, true)
                         Log.e(" 단일 add index", data.ingredientIdx.toString())
 
                         Log.e("현재 선택된 ingredients", selectedIngredients.toString())
 
                     } else {
-                        selectedIngredients.remove(data.ingredientIdx)
+                        selectedIngredients.remove(data)
                         countBadge(0, false)
                         Log.e("단일 선택 해제 remove index", data.ingredientIdx.toString())
                     }

@@ -18,8 +18,6 @@ data class SeriesInfo(
 data class SeriesIngredients(
     val ingredientIdx:Int=2,
     val name: String="베르가못",
-    val englishName: String=" ",
-    val description: String=" ",
     val imageUrl: String=" ",
     val seriesIdx: Int=2,
     var checked: Boolean= false
