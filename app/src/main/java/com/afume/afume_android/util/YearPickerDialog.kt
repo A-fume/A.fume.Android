@@ -13,13 +13,12 @@ import android.widget.EditText
 import android.widget.NumberPicker
 import androidx.fragment.app.DialogFragment
 import com.afume.afume_android.R
-import com.afume.afume_android.databinding.ActivitySignUpAgeBinding
 import com.afume.afume_android.databinding.DialogYearPickerBinding
+import com.google.android.material.button.MaterialButton
 import java.util.*
 
-class YearPickerDialog(age: ActivitySignUpAgeBinding) : DialogFragment(), View.OnClickListener {
+class YearPickerDialog(private var ageBtn: MaterialButton) : DialogFragment(), View.OnClickListener {
     lateinit var binding: DialogYearPickerBinding
-    var ageBinding = age
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +46,7 @@ class YearPickerDialog(age: ActivitySignUpAgeBinding) : DialogFragment(), View.O
 
         npYear.minValue = 1900
         npYear.maxValue = setMaxYear()
-        npYear.value = ageBinding.btnSignUpYearPicker.text.toString().toInt()
+        npYear.value = ageBtn.text.toString().toInt()
 
         npYear.wrapSelectorWheel = false
         npYear.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
@@ -56,7 +55,7 @@ class YearPickerDialog(age: ActivitySignUpAgeBinding) : DialogFragment(), View.O
         npYear.setNumberPickerDividerColor(R.color.point_beige)
 
         binding.btnYearPickerConfirm.setOnClickListener {
-            ageBinding.btnSignUpYearPicker.text = npYear.value.toString()
+            ageBtn.text = npYear.value.toString()
 
             dismiss()
         }
@@ -67,9 +66,9 @@ class YearPickerDialog(age: ActivitySignUpAgeBinding) : DialogFragment(), View.O
         return instance.get(Calendar.YEAR)
     }
 
-    fun getInstance(binding: ActivitySignUpAgeBinding): YearPickerDialog {
-        return YearPickerDialog(binding)
-    }
+//    fun getInstance(binding: ActivitySignUpAgeBinding): YearPickerDialog {
+//        return YearPickerDialog(binding)
+//    }
 
     override fun onClick(p0: View?) {
         dismiss()

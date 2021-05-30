@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="fm"
-            type="com.afume.afume_android.ui.home.HomeFragment" />
+            name="viewModel"
+            type="com.afume.afume_android.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,18 +26,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textView"
+                <ImageView
+                    android:id="@+id/txt_myperfume_null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="19dp"
-                    android:fontFamily="@font/nanummyeongjo_extrabold"
-                    android:includeFontPadding="false"
-                    android:text="로고"
-                    android:textColor="@color/primary_black"
-                    android:textSize="22sp"
+                    android:background="@drawable/logo_black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +46,7 @@
                     android:layout_marginTop="36dp"
                     android:background="@color/primary_black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_myperfume_null" />
 
                 <TextView
                     android:id="@+id/txt_home_name_title"
@@ -60,7 +56,7 @@
                     android:fontFamily="@font/nanummyeongjo_extrabold"
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="6sp"
-                    android:text="이신일 님을 위한\n향수 추천"
+                    android:text='@{viewModel.nickTxt + " 님을 위한\n향수 추천"}'
                     android:textColor="@color/primary_black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -87,43 +83,35 @@
                     android:layout_marginLeft="98dp"
                     android:layout_marginTop="86dp"
                     android:src="@drawable/border_light_gray_f9_fill_5"
-                    app:layout_constraintBottom_toBottomOf="@+id/rv_home_recommend"
+                    app:layout_constraintBottom_toBottomOf="@+id/vp_home_recommend"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/rv_home_recommend" />
+                    app:layout_constraintTop_toTopOf="@+id/vp_home_recommend" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_home_recommend"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_home_recommend"
+                    android:layout_width="0dp"
+                    android:layout_height="297dp"
                     android:layout_marginStart="98dp"
-                    android:layout_marginLeft="98dp"
                     android:layout_marginTop="12dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3"
-                    tools:listitem="@layout/rv_item_home_recommend" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-                <com.chahinem.pageindicator.PageIndicator
+                <me.relex.circleindicator.CircleIndicator3
                     android:id="@+id/indicator_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     app:layout_constraintStart_toStartOf="@+id/imageView2"
                     app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                    app:piDefaultColor="@color/light_gray_f0"
-                    app:piDotSpacing="6dp"
-                    app:piSelectedColor="@color/point_beige"
-                    app:piInitialPadding="0dp"
-                    app:piDotBound="70dp"
-                    app:piSize1="6dp"
-                    app:piSize2="6dp"
-                    app:piSize3="6dp"
-                    app:piSize4="6dp"
-                    app:piSize5="6dp"
-                    app:piSize6="6dp" />
+                    app:ci_width="6dp"
+                    app:ci_height="6dp"
+                    app:ci_margin="3dp"
+                    app:ci_animator="@anim/scale_indicator"
+                    app:ci_drawable_unselected="@drawable/indicator_unselected"
+                    app:ci_drawable="@drawable/indicator_selected"
+                    app:ci_gravity="center_vertical"/>
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -134,7 +122,7 @@
                     android:layout_marginTop="42dp"
                     android:background="@color/primary_black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_home_recommend" />
+                    app:layout_constraintTop_toBottomOf="@+id/vp_home_recommend" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -144,7 +132,7 @@
                     android:fontFamily="@font/nanummyeongjo_extrabold"
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="6sp"
-                    android:text="20대 여성이\n많이 찾는 향수"
+                    android:text='@{viewModel.ageTxt + "이\n많이 찾는 향수"}'
                     android:textColor="@color/primary_black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/imageView3"
@@ -157,7 +145,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
-                    android:text="신일 님 연령대 분들에게 인기 많은 향수 입니다."
+                    android:text='@{viewModel.nickTxt + " 님 연령대 분들에게 인기 많은 향수 입니다."}'
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/textView4"

@@ -10,9 +10,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.HomePerfumeListData
-import com.afume.afume_android.data.vo.response.ResponseKeyword
+import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.databinding.FragmentDetailInfoBinding
+<<<<<<< HEAD
+=======
+import com.afume.afume_android.ui.filter.ItemDetailsLookUp
+import com.afume.afume_android.ui.filter.ItemKeyProvider
+>>>>>>> 595186c51230c2737fc8b9cd881bfbf6ff6aeb49
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
+import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
@@ -56,16 +62,26 @@ class DetailInfoFragment : Fragment() {
             alignItems = AlignItems.STRETCH
         }
 
+<<<<<<< HEAD
         rvKeywordAdapter = DetailKeywordAdapter()
             .apply {
                 setHasStableIds(true)
             }
 
         binding.rvDetailsInfoKeyword.run {
+=======
+        rvKeywordAdapter =
+            FlexboxRecyclerViewAdapter(
+                { index,b -> print(index) },
+                { index,b -> print(index) }
+            )
+        binding.rvDetailsInfoKeyword.apply {
+>>>>>>> 595186c51230c2737fc8b9cd881bfbf6ff6aeb49
             adapter = rvKeywordAdapter
             layoutManager = flexboxLayoutManager
         }
 
+<<<<<<< HEAD
         val tempList = arrayListOf(
             ResponseKeyword("#산뜻한"),
             ResponseKeyword("#자연의"),
@@ -82,6 +98,24 @@ class DetailInfoFragment : Fragment() {
             ResponseKeyword("#자연의"),
             ResponseKeyword("#여성스러운"),
             ResponseKeyword("#비누향")
+=======
+        rvKeywordAdapter.data = mutableListOf(
+            KeywordInfo("#산뜻한"),
+            KeywordInfo("#자연의"),
+            KeywordInfo("#여성스러운"),
+            KeywordInfo("#비누향"),
+            KeywordInfo("#남성적인"),
+            KeywordInfo("#몽환적인"),
+            KeywordInfo("#소녀스러운"),
+            KeywordInfo("#달달한"),
+            KeywordInfo("#매운"),
+            KeywordInfo("#상쾌한"),
+            KeywordInfo("#도시적인"),
+            KeywordInfo("#톡 쏘는"),
+            KeywordInfo("#자연의"),
+            KeywordInfo("#여성스러운"),
+            KeywordInfo("#비누향")
+>>>>>>> 595186c51230c2737fc8b9cd881bfbf6ff6aeb49
         )
 
         rvKeywordAdapter.run {

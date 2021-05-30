@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="myPerfume"
-            type="String" />
+            name="vm"
+            type="com.afume.afume_android.ui.my.MyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         tools:context=".ui.my.myperfume.MyPerfumeFragment">
 
         <ImageView
-            android:id="@+id/img_mypurfume"
+            android:id="@+id/img_mypurfume_null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="152dp"
@@ -24,13 +24,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/txt_myperfume_null"
+            android:layout_width="164dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="100dp"
+            android:gravity="center"
+            android:text="@string/txt_my_perfume_null"
+            android:textColor="@color/gray_cd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_mypurfume_null" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="30dp"
-            android:clipToPadding="true"
+            android:clipToPadding="false"
             android:fillViewport="true"
             android:fitsSystemWindows="true"
+            android:overScrollMode="never"
+            android:paddingBottom="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,18 +55,19 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:clipToPadding="false">
 
                 <TextView
                     android:id="@+id/txt_count_my_perfume"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="17dp"
+                    android:layout_marginEnd="18dp"
                     android:fontFamily="@font/notosans_regular"
                     android:gravity="center"
                     android:includeFontPadding="false"
-                    android:text="@{myPerfume}"
+                    android:text="0"
                     android:textColor="@color/gray_cd"
                     android:textSize="12dp"
                     app:layout_constraintEnd_toEndOf="@+id/layout"
@@ -61,6 +77,7 @@
                     android:id="@+id/rv_my_perfume_shelf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="23dp"
                     android:nestedScrollingEnabled="false"
                     app:layoutManager="LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="@+id/layout"
@@ -71,15 +88,21 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_my_perfume"
+                    setMyPerfumeList="@{vm.myPerfumeList}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginEnd="18dp"
                     android:nestedScrollingEnabled="false"
                     android:visibility="visible"
                     app:layoutManager="GridLayoutManager"
                     app:layout_constraintBottom_toBottomOf="@+id/layout"
                     app:layout_constraintEnd_toEndOf="@+id/layout"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/layout"
                     app:layout_constraintTop_toBottomOf="@+id/txt_count_my_perfume"
+                    app:layout_constraintVertical_bias="0.3"
                     app:spanCount="3"
                     tools:listitem="@layout/rv_item_my_myperfume" />
 
@@ -87,24 +110,6 @@
 
 
         </androidx.core.widget.NestedScrollView>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="164dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="100dp"
-            android:gravity="center"
-            android:text="아직 시향 노트가 비어 있어요. 그동안 사용했던 향수 혹은 시향해봤던 향수를 기록해보세요."
-            android:textColor="@color/gray_cd"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_mypurfume" />
-
-
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

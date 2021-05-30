@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.data.repository.SurveyRepository
 import com.afume.afume_android.data.vo.request.RequestSurvey
+import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.data.vo.response.PerfumeInfo
-import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.data.vo.response.SeriesInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,8 +31,8 @@ class SurveyViewModel : ViewModel() {
     private val _seriesList: MutableLiveData<MutableList<SeriesInfo>> = MutableLiveData()
     val seriesList: LiveData<MutableList<SeriesInfo>> get() = _seriesList
 
-    private val _keywordList: MutableLiveData<MutableList<ResponseKeyword>> = MutableLiveData()
-    val keywordList: LiveData<MutableList<ResponseKeyword>> get() = _keywordList
+    private val _keywordList: MutableLiveData<MutableList<KeywordInfo>> = MutableLiveData()
+    val keywordList: LiveData<MutableList<KeywordInfo>> get() = _keywordList
 
     init {
         viewModelScope.launch {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Afume-Android</string>
+    <string name="app_name">A.fume</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="filter_max_5">카테고리 당 최대 5개까지 중복 선택 가능 합니다.</string>
@@ -16,4 +16,11 @@
     <string name="edit_password">비밀번호 변경</string>
     <string name="logout">로그아웃</string>
     <string name="setting">설정</string>
+
+    <!--filter - series-->
+    <string formatted="false" name="ingredientFormat">#%s</string>
+
+    <!--my - my perfume-->
+    <string name="txt_my_perfume_null">아직 시향 노트가 비어 있어요. 그동안 사용했던 향수 혹은 시향해봤던 향수를 기록해보세요.</string>
+
 </resources>

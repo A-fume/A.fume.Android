@@ -1,16 +1,17 @@
 package com.afume.afume_android.ui.signup
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpAgeBinding
 import com.afume.afume_android.ui.survey.SurveyActivity
 import com.afume.afume_android.util.YearPickerDialog
+import com.afume.afume_android.util.startActivityWithFinish
 
 class SignUpAgeActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpAgeBinding
@@ -25,14 +26,22 @@ class SignUpAgeActivity : AppCompatActivity() {
     }
 
      fun showYearPicker(view: View){
-         val dialog: DialogFragment = YearPickerDialog(binding)
+         val dialog: DialogFragment = YearPickerDialog(binding.btnSignUpYearPicker)
          dialog.show(this.supportFragmentManager, dialog.tag)
     }
 
     fun onClickCompleteBtn(view: View){
-        val surveyIntent = Intent(this,SurveyActivity::class.java)
+        signUpViewModel.addUserInfo("age")
 
-        startActivity(surveyIntent)
+        signUpViewModel.postRegister()
+
+        signUpViewModel.isValidRegister.observe(this, Observer { isValidRegister ->
+            isValidRegister?.let {
+                if(isValidRegister){
+                    this.startActivityWithFinish(SurveyActivity::class.java)
+                }
+            }
+        })
     }
 
     fun onClickBackBtn(view: View){
