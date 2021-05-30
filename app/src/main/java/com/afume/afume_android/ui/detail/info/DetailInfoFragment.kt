@@ -8,19 +8,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.selection.SelectionPredicates
-import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StorageStrategy
 import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.HomePerfumeListData
 import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.databinding.FragmentDetailInfoBinding
-import com.afume.afume_android.ui.filter.FlexboxRecyclerViewAdapter
-import com.afume.afume_android.ui.filter.ItemDetailsLookUp
-import com.afume.afume_android.ui.filter.ItemKeyProvider
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -29,7 +24,7 @@ import com.google.android.flexbox.FlexboxLayoutManager
 class DetailInfoFragment : Fragment() {
 
     lateinit var binding: FragmentDetailInfoBinding
-    lateinit var rvKeywordAdapter: FlexboxRecyclerViewAdapter
+    lateinit var rvKeywordAdapter: DetailKeywordAdapter
     private lateinit var rvSimilarAdapter: PopularListAdapter
     lateinit var chartLastingPowerAdapter: HorizontalBarChartAdapter
 
@@ -54,23 +49,24 @@ class DetailInfoFragment : Fragment() {
 
     }
 
-    private fun initRvKeyword(ctx:Context?) {
+    private fun initRvKeyword(ctx: Context?) {
         val flexboxLayoutManager = FlexboxLayoutManager(ctx).apply {
             flexDirection = FlexDirection.ROW
             flexWrap = FlexWrap.WRAP
             alignItems = AlignItems.STRETCH
         }
 
-        rvKeywordAdapter = FlexboxRecyclerViewAdapter(
-            {index-> print(index)},
-            {index-> print(index)}
-        )
-        binding.rvDetailsInfoKeyword.apply {
+        rvKeywordAdapter = DetailKeywordAdapter()
+            .apply {
+                setHasStableIds(true)
+            }
+
+        binding.rvDetailsInfoKeyword.run {
             adapter = rvKeywordAdapter
             layoutManager = flexboxLayoutManager
         }
 
-        rvKeywordAdapter.data = mutableListOf(
+        val tempList = arrayListOf(
             ResponseKeyword("#산뜻한"),
             ResponseKeyword("#자연의"),
             ResponseKeyword("#여성스러운"),
@@ -87,23 +83,29 @@ class DetailInfoFragment : Fragment() {
             ResponseKeyword("#여성스러운"),
             ResponseKeyword("#비누향")
         )
-        rvKeywordAdapter.notifyDataSetChanged()
-        val keywordSelectionTracker= SelectionTracker.Builder<Long>(
-            "survey_keyword",
-            binding.rvDetailsInfoKeyword,
-            ItemKeyProvider(binding.rvDetailsInfoKeyword),
-            ItemDetailsLookUp(
-                binding.rvDetailsInfoKeyword,
-                "flexbox"
-            ),
-            StorageStrategy.createLongStorage()
-        ).withSelectionPredicate(SelectionPredicates.createSelectAnything()).build()
-        rvKeywordAdapter.setSelectionTracker(keywordSelectionTracker)
+
+        rvKeywordAdapter.run {
+            replaceAll(tempList)
+            notifyDataSetChanged()
+        }
+
+//        val keywordSelectionTracker = SelectionTracker.Builder<Long>(
+//            "survey_keyword",
+//            binding.rvDetailsInfoKeyword,
+//            ItemKeyProvider(binding.rvDetailsInfoKeyword),
+//            ItemDetailsLookUp(
+//                binding.rvDetailsInfoKeyword,
+//                "flexbox"
+//            ),
+//            StorageStrategy.createLongStorage()
+//        ).withSelectionPredicate(SelectionPredicates.createSelectAnything()).build()
+//        rvKeywordAdapter.setSelectionTracker(keywordSelectionTracker)
     }
-    private fun initRvSimilar(ctx: Context){
-        rvSimilarAdapter= PopularListAdapter(ctx)
-        binding.rvDetailsInfoSimilar.adapter=rvSimilarAdapter
-        rvSimilarAdapter.data=mutableListOf(
+
+    private fun initRvSimilar(ctx: Context) {
+        rvSimilarAdapter = PopularListAdapter(ctx)
+        binding.rvDetailsInfoSimilar.adapter = rvSimilarAdapter
+        rvSimilarAdapter.data = mutableListOf(
             HomePerfumeListData(
                 image = null,
                 brand = "1번 브랜드",
@@ -132,54 +134,63 @@ class DetailInfoFragment : Fragment() {
         rvSimilarAdapter.notifyDataSetChanged()
     }
 
-    private fun initLastingPowerBarChart(){
-        chartLastingPowerAdapter=HorizontalBarChartAdapter(0,context)
-        binding.chartBarDetailsInfoLastingPower.adapter=chartLastingPowerAdapter
-        chartLastingPowerAdapter.chartData= listOf(50f,30f,10f,5f,5f)
+    private fun initLastingPowerBarChart() {
+        chartLastingPowerAdapter = HorizontalBarChartAdapter(0, context)
+        binding.chartBarDetailsInfoLastingPower.adapter = chartLastingPowerAdapter
+        chartLastingPowerAdapter.chartData = listOf(50f, 30f, 10f, 5f, 5f)
         chartLastingPowerAdapter.notifyDataSetChanged()
     }
 
-    private fun initsillageBarChart(){
-        val sillageAdapter=HorizontalBarChartAdapter(1,context)
-        binding.chartBarDetailsInfoSillage.adapter=sillageAdapter
-        sillageAdapter.chartData= listOf(60f,30f,10f)
+    private fun initsillageBarChart() {
+        val sillageAdapter = HorizontalBarChartAdapter(1, context)
+        binding.chartBarDetailsInfoSillage.adapter = sillageAdapter
+        sillageAdapter.chartData = listOf(60f, 30f, 10f)
         sillageAdapter.notifyDataSetChanged()
     }
 
-    private fun drawGenderPieChart(pieDataSet: PieDataSet){
-        val pieDataColors= listOf<Int>(
-            ContextCompat.getColor(requireContext(),R.color.point_beige_accent),
-            ContextCompat.getColor(requireContext(),R.color.point_beige),
-            ContextCompat.getColor(requireContext(),R.color.light_beige)
+    private fun drawGenderPieChart(pieDataSet: PieDataSet) {
+        val pieDataColors = listOf<Int>(
+            ContextCompat.getColor(requireContext(), R.color.point_beige_accent),
+            ContextCompat.getColor(requireContext(), R.color.point_beige),
+            ContextCompat.getColor(requireContext(), R.color.light_beige)
         )
-        val pieValuesTextColors= listOf<Int>(
-            ContextCompat.getColor(requireContext(),R.color.white),
-            ContextCompat.getColor(requireContext(),R.color.white),
-            ContextCompat.getColor(requireContext(),R.color.dark_gray_7d),
+        val pieValuesTextColors = listOf<Int>(
+            ContextCompat.getColor(requireContext(), R.color.white),
+            ContextCompat.getColor(requireContext(), R.color.white),
+            ContextCompat.getColor(requireContext(), R.color.dark_gray_7d),
         )
         pieDataSet.apply {
-            colors=pieDataColors
-            valueTextSize=14f
+            colors = pieDataColors
+            valueTextSize = 14f
             setDrawValues(true)
-            sliceSpace=1f
+            sliceSpace = 1f
+
             setValueTextColors(pieValuesTextColors)
+//            valueFormatter = object: ValueFormatter(){
+//                override fun getFormattedValue(value: PieEntry): String {
+//                    return value.toInt().toString() + "개"
+//                }
+//            }
         }
 
-        val pieData=PieData(pieDataSet)
+        val pieData = PieData(pieDataSet)
 
         binding.chartPieDetailsInfoGender.apply {
 //            setEntryLabelColor(ContextCompat.getColor(requireContext(),R.color.dark_gray_7d))
-            setDrawEntryLabels(false)
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 //                setLeftTopRightBottom(0,5,10,5)
 //            }
-            setUsePercentValues(false)
-            offsetLeftAndRight(1)
-            minOffset=0f
-            isDrawHoleEnabled=false
+
+            setDrawCenterText(true)
+            setDrawEntryLabels(true)
+//            setDrawMarkers(true)
+            setTouchEnabled(false) // 그래프 터치 (확대, 회전 등)
+            setUsePercentValues(false) // 그래프 안에 텍스트를 퍼센트로 표기할건지 여부
+            description.isEnabled = false // 그래프 설명(이름?)
+            isDrawHoleEnabled = false // 가운데를 뚫을건지 여부
+
+            minOffset = 0f
             data = pieData
-            highlightValue(0f,0)
-            description.isEnabled = false
             invalidate()
         }
 
@@ -189,36 +200,43 @@ class DetailInfoFragment : Fragment() {
 //            xOffset=20f
 //            xEntrySpace=20f
 
-            form=Legend.LegendForm.SQUARE
-            formSize=15f
-            direction=Legend.LegendDirection.LEFT_TO_RIGHT
-            verticalAlignment=Legend.LegendVerticalAlignment.CENTER
-            horizontalAlignment=Legend.LegendHorizontalAlignment.RIGHT
-            orientation=Legend.LegendOrientation.VERTICAL
+            form = Legend.LegendForm.SQUARE
+            formSize = 15f
+            direction = Legend.LegendDirection.LEFT_TO_RIGHT
+            verticalAlignment = Legend.LegendVerticalAlignment.CENTER
+            horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+            orientation = Legend.LegendOrientation.VERTICAL
 //            maxSizePercent=0.8f
-            textSize=16f
-            textColor=ContextCompat.getColor(requireContext(),R.color.primary_black)
+            textSize = 16f
+            textColor = ContextCompat.getColor(requireContext(), R.color.primary_black)
         }
     }
-    private fun dummyPieDataGender():PieDataSet{
+
+    private fun dummyPieDataGender(): PieDataSet {
+//        val pieListData = listOf<PieEntry>(
+//            PieEntry(60f, "여성   60%"),
+//            PieEntry(40f, "남성   40%"),
+//            PieEntry(20f, "중성   20%"),
+//        )
+
         val pieListData = listOf<PieEntry>(
-            PieEntry(60f,"여성   60%"),
-            PieEntry(40f,"남성   40%"),
-            PieEntry(20f,"중성   20%"),
+            PieEntry(60f, "여성"),
+            PieEntry(30f, "남성"),
+            PieEntry(10f, "중성"),
         )
 
-        return PieDataSet(pieListData,"")
+        return PieDataSet(pieListData, "")
     }
 
-    private fun drawBubbleChartSeason(dataSet: List<BubbleDataSet>){
+    private fun drawBubbleChartSeason(dataSet: List<BubbleDataSet>) {
 
-        val yR=binding.chartBubbleDetailsInfoSeason.axisRight
+        val yR = binding.chartBubbleDetailsInfoSeason.axisRight
         yR.apply {
             setDrawZeroLine(false)
             setDrawAxisLine(false)
             setDrawGridLines(false)
         }
-        val yL=binding.chartBubbleDetailsInfoSeason.axisLeft
+        val yL = binding.chartBubbleDetailsInfoSeason.axisLeft
         yL.apply {
             setDrawZeroLine(false)
             setDrawAxisLine(false)
@@ -232,43 +250,44 @@ class DetailInfoFragment : Fragment() {
             setDrawAxisLine(false)
             setDrawGridLines(false)
             setDrawLabels(false)
-            granularity=1f
+            granularity = 1f
             axisMaximum = 4.5f
             axisMinimum = 0.5f
         }
 
         val bubbleData = BubbleData(dataSet)
         bubbleData.apply {
-            setValueTextColor(ContextCompat.getColor(requireContext(),R.color.white))
+            setValueTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             setValueTextSize(15f)
         }
 
         binding.chartBubbleDetailsInfoSeason.apply {
-            description.isEnabled=false
-            legend.isEnabled=false
+            description.isEnabled = false
+            legend.isEnabled = false
             setDrawGridBackground(false)
             setTouchEnabled(false)
             setScaleEnabled(false)
-            isDragXEnabled=false
-            isDragYEnabled=false
-            axisRight.isEnabled=false
-            data=bubbleData
+            isDragXEnabled = false
+            isDragYEnabled = false
+            axisRight.isEnabled = false
+            data = bubbleData
             invalidate()
         }
 
     }
 
-    private fun dummyBubbleDataSeason():List<BubbleDataSet>{
-        val primarySeasonDataSet=BubbleDataSet(listOf(BubbleEntry(1f,50f,50f)),"primary")
-        primarySeasonDataSet.color = ContextCompat.getColor(requireContext(),R.color.point_beige_accent)
+    private fun dummyBubbleDataSeason(): List<BubbleDataSet> {
+        val primarySeasonDataSet = BubbleDataSet(listOf(BubbleEntry(1f, 50f, 50f)), "primary")
+        primarySeasonDataSet.color =
+            ContextCompat.getColor(requireContext(), R.color.point_beige_accent)
 
-        val seasonDataEntryList= listOf<BubbleEntry>(
-            BubbleEntry(2f,30f,30f),
-            BubbleEntry(3f,25f,25f),
-            BubbleEntry(4f,25f,25f)
+        val seasonDataEntryList = listOf<BubbleEntry>(
+            BubbleEntry(2f, 30f, 30f),
+            BubbleEntry(3f, 25f, 25f),
+            BubbleEntry(4f, 25f, 25f)
         )
-        val seasonDataSet=BubbleDataSet(seasonDataEntryList,"normal")
-        seasonDataSet.color = ContextCompat.getColor(requireContext(),R.color.point_beige)
+        val seasonDataSet = BubbleDataSet(seasonDataEntryList, "normal")
+        seasonDataSet.color = ContextCompat.getColor(requireContext(), R.color.point_beige)
 
         return listOf<BubbleDataSet>(
             primarySeasonDataSet,
