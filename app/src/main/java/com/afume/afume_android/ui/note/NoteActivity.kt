@@ -1,7 +1,9 @@
 package com.afume.afume_android.ui.note
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.SeekBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -20,6 +22,22 @@ class NoteActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_note)
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
+
+        binding.sbNoteLongevity.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+//                when(p1){
+//                    1 -> binding.txtNoteLongevityVeryWeak.
+//                }
+                Log.d("명",p1.toString())
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+
+        })
     }
 
     fun onClickBackBtn(view : View){

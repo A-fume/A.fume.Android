@@ -27,6 +27,11 @@ class NoteViewModel : ViewModel() {
     // 입력 내용
     val contentsTxt = MutableLiveData<String>("")
 
+    // seekBar
+    private val _seekBarProgress = MutableLiveData<Int>()
+    val seekBarProgress : LiveData<Int>
+        get() = _seekBarProgress
+
     // 공유 버튼 활성화
     private val _shareBtn = MutableLiveData<Boolean>(false)
     val shareBtn : LiveData<Boolean>
