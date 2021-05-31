@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.data.repository.FilterRepository
 import com.afume.afume_android.data.vo.request.FilterInfoP
-import com.afume.afume_android.data.vo.request.RequestSearch
+import com.afume.afume_android.data.vo.request.SendFilter
 import com.afume.afume_android.data.vo.response.BrandInfo
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.data.vo.response.SeriesInfo
@@ -150,7 +150,7 @@ class FilterViewModel : ViewModel() {
         }
     }
 
-    fun sendSelectFilter():RequestSearch{
+    fun sendSelectFilter():SendFilter{
 
         val filterInfoPList = mutableListOf<FilterInfoP>()
         selectedSeriesMap.value?.mapValues {
@@ -170,7 +170,7 @@ class FilterViewModel : ViewModel() {
             filterInfoPList.add(keywordInfoP)
         }
 
-        return RequestSearch(filterInfoPList)
+        return SendFilter(filterInfoPList)
     }
 
 }

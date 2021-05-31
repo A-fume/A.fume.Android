@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.data.vo.request.FilterInfoP
-import com.afume.afume_android.data.vo.request.RequestSearch
+import com.afume.afume_android.data.vo.request.SendFilter
 import com.afume.afume_android.databinding.RvItemSearchFilterBinding
 
-class SelectedFilterRecyclerViewAdapter() :
+class SelectedFilterRecyclerViewAdapter(val search:()->Unit) :
     RecyclerView.Adapter<SelectedFilterRecyclerViewAdapter.SelectedFilterRecyclerViewHolder>() {
     var filterList = mutableListOf<FilterInfoP>()
-    var sendFilter = RequestSearch(mutableListOf<FilterInfoP>())
+    var sendFilter = SendFilter(mutableListOf<FilterInfoP>())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedFilterRecyclerViewHolder {
         val binding= RvItemSearchFilterBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -54,7 +54,7 @@ class SelectedFilterRecyclerViewAdapter() :
 
                 Log.e("set Filter DATA list",sendFilter.toString())
 
-
+                search()
                 //TODO 업어진 필터 제외 다시 통신
             }
 

@@ -42,20 +42,22 @@ class SearchResultFragment : Fragment() {
         binding.toolbarSearch.toolbartxt = "검색 결과"
         binding.toolbarSearch.toolbar = R.drawable.icon_btn_search
 
+        viewModel.postSearchResultPerfume()
+
     }
 
     private fun initRvPerfumeList() {
-        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(context)
+        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter()
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
-        rvPerfumeAdapter.data = listOf(
-            DefaultRecyclerViewPerfumeViewModel("르라브", "어마더 13"),
-            DefaultRecyclerViewPerfumeViewModel("르라브", "어마더 13")
-        )
+//        rvPerfumeAdapter.data = listOf(
+//            DefaultRecyclerViewPerfumeViewModel("르라브", "어마더 13"),
+//            DefaultRecyclerViewPerfumeViewModel("르라브", "어마더 13")
+//        )
         rvPerfumeAdapter.notifyDataSetChanged()
     }
 
     private fun initRvFilterList() {
-        val rvFilterAdapter = SelectedFilterRecyclerViewAdapter()
+        val rvFilterAdapter = SelectedFilterRecyclerViewAdapter { viewModel.postSearchResultPerfume()}
         binding.rvSearchFilter.adapter = rvFilterAdapter
 //        rvFilterAdapter.filterList =
 //            mutableListOf(FilterInfoP(2, "시트러스", 2), FilterInfoP(3, "비누", 3))

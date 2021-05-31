@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import com.afume.afume_android.R
-import com.afume.afume_android.data.vo.request.RequestSearch
+import com.afume.afume_android.data.vo.request.SendFilter
 import com.afume.afume_android.databinding.ActivityMainBinding
 import com.afume.afume_android.ui.search.SearchViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getFilter() {
         if (intent.getIntExtra("flag", 0) == 1) {
-            val filter = intent?.getParcelableExtra<RequestSearch>("filter")
+            val filter = intent?.getParcelableExtra<SendFilter>("filter")
             Log.e("서치 결과 프래그먼트", filter.toString())
             searchViewModel.filterList.value = filter?.filterInfoPList
             navController.navigate(R.id.searchHomeFragment)

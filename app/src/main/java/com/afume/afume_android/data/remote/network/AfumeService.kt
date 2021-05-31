@@ -58,10 +58,9 @@ interface AfumeService {
         @Path("userIdx") userIdx : Int
     ):ResponseBase<ResponsePerfume>
 
-    @GET("user/{userIdx}/review")
+    @GET("user/review")
     suspend fun getMyPerfume(
         @Header("x-access-token") token : String,
-        @Path("userIdx") userIdx : Int
     ):ResponseBase<MutableList<ResponseMyPerfume>>
 
     // Edit - My info
@@ -88,4 +87,10 @@ interface AfumeService {
     @GET("filter/series")
     suspend fun getFilterSeries(
     ):ResponseBase<ResponseSeries>
+
+    // Search
+    @POST("perfume/search")
+    suspend fun postSearchPerfume(
+        @Body body: RequestSearch
+    ):ResponseBase<ResponsePerfume>
 }
