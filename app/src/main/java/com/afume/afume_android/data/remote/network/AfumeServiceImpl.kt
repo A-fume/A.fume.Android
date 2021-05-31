@@ -1,6 +1,7 @@
 package com.afume.afume_android.data.remote.network
 
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object AfumeServiceImpl {
@@ -14,6 +15,7 @@ object AfumeServiceImpl {
         .Builder()
         .baseUrl(BASE_URL)
 //        .client(okHttpClient)
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

@@ -6,7 +6,7 @@
 
         <variable
             name="rvData"
-            type="com.afume.afume_android.data.vo.response.ResponseKeyword" />
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +26,7 @@
             android:paddingHorizontal="12dp"
             android:paddingTop="3dp"
             android:paddingBottom="5dp"
-            android:text="@{rvData.name}"
+            android:text="@{rvData}"
             android:textColor="@color/white"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="parent"

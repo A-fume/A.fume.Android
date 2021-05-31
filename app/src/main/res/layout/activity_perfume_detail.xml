@@ -7,6 +7,10 @@
         <variable
             name="item"
             type="com.afume.afume_android.data.vo.PerfumeDetailData" />
+
+        <variable
+            name="viewModel"
+            type="com.afume.afume_android.ui.detail.info.PerfumeDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,13 +82,13 @@
                     app:srcCompat="@drawable/border_white_fill_20" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/act_perfume_detail_tv_brand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
                     android:layout_marginLeft="18dp"
                     android:layout_marginTop="35dp"
-                    android:text="@{item.brand}"
+                    android:text="@{viewModel.perfumeDetailData.brandName}"
                     android:fontFamily="@font/nanummyeongjo_bold"
                     android:textSize="16sp"
                     android:includeFontPadding="false"
@@ -97,13 +101,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{item.name}"
+                    android:text="@{viewModel.perfumeDetailData.name}"
                     android:fontFamily="@font/notosans_bold"
                     android:textSize="24sp"
                     android:includeFontPadding="false"
                     android:textColor="@color/black_1d"
-                    app:layout_constraintStart_toStartOf="@+id/textView"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintStart_toStartOf="@+id/act_perfume_detail_tv_brand"
+                    app:layout_constraintTop_toBottomOf="@+id/act_perfume_detail_tv_brand" />
 
                 <com.hedgehog.ratingbar.RatingBar
                     android:id="@+id/rb_perfume_detail"
@@ -113,7 +117,6 @@
                     app:halfstart="true"
                     app:layout_constraintStart_toStartOf="@+id/textView2"
                     app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:starCount="5"
                     app:starEmpty="@drawable/star_inactive"
                     app:starFill="@drawable/star_active"
                     app:starHalf="@drawable/star_half"
@@ -130,10 +133,9 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/nanummyeongjo"
                     android:includeFontPadding="false"
-                    android:text="@{Float.toString(item.rate)}"
+                    android:text="@{Float.toString(viewModel.perfumeDetailData.score)}"
                     android:textColor="@color/primary_black"
                     android:textSize="14sp"
-                    tools:text="2.0"
                     android:paddingBottom="32dp"
                     app:layout_constraintStart_toEndOf="@+id/rb_perfume_detail"
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />

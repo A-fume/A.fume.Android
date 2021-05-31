@@ -10,9 +10,9 @@ import com.afume.afume_android.databinding.RvItemDetailKeywordBinding
 class DetailKeywordAdapter : RecyclerView.Adapter<DetailKeywordAdapter.DetailKeywordViewHolder>() {
 
     var viewType: Int = 0
-    var data = mutableListOf<ResponseKeyword>()
+    var data = mutableListOf<String>()
 
-    fun replaceAll(array: ArrayList<ResponseKeyword>?) {
+    fun replaceAll(array: ArrayList<String>?) {
         array?.let {
             data.run {
                 clear()

@@ -2,6 +2,7 @@ package com.afume.afume_android.data.remote.network
 
 import com.afume.afume_android.data.vo.request.*
 import com.afume.afume_android.data.vo.response.*
+import io.reactivex.Single
 import retrofit2.http.*
 
 interface AfumeService {
@@ -78,4 +79,14 @@ interface AfumeService {
         @Header("x-access-token") token : String,
         @Body body : RequestEditPassword
     ):ResponseMessage
+
+    @GET("perfume/{perfumeIdx}")
+    fun getPerfumeDetail(
+        @Path("perfumeIdx") perfumeIdx : Int
+    ): Single<ResponsePerfumeDetail>
+
+    @GET("perfume/{perfumeIdx}/review")
+    fun getPerfumeDetailWithReview(
+        @Path("perfumeIdx") perfumeIdx : Int
+    ): Single<ResponsePerfumeDetailWithReviews>
 }
