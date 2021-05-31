@@ -56,11 +56,11 @@ class SeriesIngredientsViewHolder(
 
     fun drawIngredients(ingredients: MutableList<SeriesIngredients>) {
 
-        val itsIngredient = mutableListOf<Int>()
-        ingredients.forEach { itsIngredient.add(it.ingredientIdx) }
+//        val itsIngredient = mutableListOf<Int>()
+//        ingredients.forEach { itsIngredient.add(it.ingredientIdx) }
 
         val ingredientAdapter =
-            IngredientFlexboxAdapter(itsIngredient, selectIngredients, countBadge)
+            IngredientFlexboxAdapter(ingredients, selectIngredients, countBadge)
 
         val flexboxLayoutManager = FlexboxLayoutManager(binding.root.context).apply {
             flexDirection = FlexDirection.ROW

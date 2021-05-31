@@ -10,7 +10,7 @@ import com.afume.afume_android.data.vo.response.SeriesIngredients
 import com.afume.afume_android.databinding.RvItemSeriesIngredientsFilterBinding
 
 class IngredientFlexboxAdapter(
-    val ingredientsList: MutableList<Int>,
+    val ingredientsList: MutableList<SeriesIngredients>,
     val setSelectedIngredients: (Int, List<SeriesIngredients>) -> Unit,
     val countBadge: (Int, Boolean) -> Unit
 ) : ListAdapter<SeriesIngredients, IngredientFlexboxAdapter.IngredientFlexboxHolder>(
@@ -18,7 +18,7 @@ class IngredientFlexboxAdapter(
 ) {
 
     init {
-        ingredientsList.removeAt(0)
+//        ingredientsList.removeAt(0)
     }
 
     //전체 선택 여부
@@ -75,7 +75,8 @@ class IngredientFlexboxAdapter(
 
                     //전체 선택을 했을 경우, 모든 인덱스 리스트에 추가
                     if (data.checked) {
-                        ingredientsList.forEach { selectedIngredients.add(data) }
+                        ingredientsList.forEach { selectedIngredients.add(it) }
+                        selectedIngredients.removeAt(0) // 전체 키워드 삭제
                         Log.e("전체 선택 추가 add index", it.toString())
                         selectedEntire = true
                         countBadge(0, true)
@@ -90,10 +91,11 @@ class IngredientFlexboxAdapter(
                         // 전체가 선택이 되어 있는 경우 , 모든 인덱스를 리스트에서 삭제한 후, 선택한 인덱스 추가
                         if (selectedEntire) {
 
-                            ingredientsList.forEach {
-                                selectedIngredients.remove(data)
-                                Log.e("전체 선택 해제 index remove", it.toString())
-                            }
+//                            ingredientsList.forEach {
+//                                selectedIngredients.remove(data)
+//                                Log.e("전체 선택 해제 index remove", it.toString())
+//                            }
+                            selectedIngredients.clear()
                             selectedEntire = false
                             countBadge(0, false)
 

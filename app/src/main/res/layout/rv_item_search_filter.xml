@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="selectedfiletervm"
-            type="com.afume.afume_android.ui.search.SelectedFilterViewModel"/>
+            name="filter"
+            type="com.afume.afume_android.data.vo.request.FilterInfoP"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -29,16 +29,16 @@
                 android:layout_marginStart="12dp"
                 android:gravity="center_horizontal"
                 android:includeFontPadding="false"
-                android:text="@{selectedfiletervm.filter}"
+                android:text="@{filter.name}"
                 android:textColor="@color/white"
                 android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                app:layout_constraintEnd_toStartOf="@+id/imageView"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
+                app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageView" />
+                app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/btn_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"

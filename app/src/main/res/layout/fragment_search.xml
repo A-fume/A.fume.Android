@@ -6,6 +6,9 @@
         <variable
             name="search"
             type="int" />
+        <variable
+            name="viewModel"
+            type="com.afume.afume_android.ui.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +30,7 @@
             android:layout_marginStart="6dp"
             android:background="@color/light_gray_f9"
             android:orientation="horizontal"
+            setFilterData="@{viewModel.filterList}"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

@@ -6,9 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.data.repository.FilterRepository
-import com.afume.afume_android.data.vo.request.BrandInfoP
-import com.afume.afume_android.data.vo.request.IngredientInfoP
-import com.afume.afume_android.data.vo.request.KeywordInfoP
+import com.afume.afume_android.data.vo.request.FilterInfoP
 import com.afume.afume_android.data.vo.request.RequestSearch
 import com.afume.afume_android.data.vo.response.BrandInfo
 import com.afume.afume_android.data.vo.response.KeywordInfo
@@ -154,29 +152,25 @@ class FilterViewModel : ViewModel() {
 
     fun sendSelectFilter():RequestSearch{
 
-        val ingredientsIdxList = mutableListOf<IngredientInfoP>()
+        val filterInfoPList = mutableListOf<FilterInfoP>()
         selectedSeriesMap.value?.mapValues {
             it.value.forEach { it ->
-                var ingredientInfoP=IngredientInfoP(it.ingredientIdx,it.name)
-                ingredientsIdxList.add(ingredientInfoP)
+                var ingredientInfoP=FilterInfoP(it.ingredientIdx,it.name,1)
+                filterInfoPList.add(ingredientInfoP)
             }
         }
-        val brandInfoPList= mutableListOf<BrandInfoP>()
+
         selectedBrandMap.value?.forEach {
-            val brandInfoP=BrandInfoP(it.brandIdx,it.name)
-            brandInfoPList.add(brandInfoP)
-        }
-        val keywordList= mutableListOf<KeywordInfoP>()
-        selectedKeywordList.value?.forEach {
-            val keywordInfoP=KeywordInfoP(it.keywordIdx,it.name)
-            keywordList.add(keywordInfoP)
+            val brandInfoP=FilterInfoP(it.brandIdx,it.name,2)
+            filterInfoPList.add(brandInfoP)
         }
 
-        return RequestSearch(
-            keywordList = keywordList,
-            brandList = brandInfoPList,
-            ingredientList = ingredientsIdxList
-        )
+        selectedKeywordList.value?.forEach {
+            val keywordInfoP=FilterInfoP(it.keywordIdx,it.name,3)
+            filterInfoPList.add(keywordInfoP)
+        }
+
+        return RequestSearch(filterInfoPList)
     }
 
 }
