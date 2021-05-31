@@ -9,23 +9,18 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.afume.afume_android.R
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.afume.afume_android.data.vo.HomePerfumeListData
-import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.databinding.FragmentDetailInfoBinding
-<<<<<<< HEAD
-=======
-import com.afume.afume_android.ui.filter.ItemDetailsLookUp
-import com.afume.afume_android.ui.filter.ItemKeyProvider
->>>>>>> 595186c51230c2737fc8b9cd881bfbf6ff6aeb49
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
-import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import kotlin.collections.toList as toList
 
 class DetailInfoFragment : Fragment() {
 
@@ -33,6 +28,7 @@ class DetailInfoFragment : Fragment() {
     lateinit var rvKeywordAdapter: DetailKeywordAdapter
     private lateinit var rvSimilarAdapter: PopularListAdapter
     lateinit var chartLastingPowerAdapter: HorizontalBarChartAdapter
+    private val viewModel: PerfumeDetailViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,12 +41,15 @@ class DetailInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getPerfumeInfo(1)
+        observe()
+
         initRvKeyword(context)
-        initLastingPowerBarChart()
-        initsillageBarChart()
+        initLastingPowerBarChart(0,0,0,0,0)
+        initsillageBarChart(0,0,0)
         initRvSimilar(requireContext())
 
-        drawGenderPieChart(dummyPieDataGender())
+        drawGenderPieChart(dummyPieDataGender(0f, 0f, 0f))
         drawBubbleChartSeason(dummyBubbleDataSeason())
 
     }
@@ -61,67 +60,22 @@ class DetailInfoFragment : Fragment() {
             flexWrap = FlexWrap.WRAP
             alignItems = AlignItems.STRETCH
         }
-
-<<<<<<< HEAD
         rvKeywordAdapter = DetailKeywordAdapter()
             .apply {
                 setHasStableIds(true)
             }
 
         binding.rvDetailsInfoKeyword.run {
-=======
-        rvKeywordAdapter =
-            FlexboxRecyclerViewAdapter(
-                { index,b -> print(index) },
-                { index,b -> print(index) }
-            )
-        binding.rvDetailsInfoKeyword.apply {
->>>>>>> 595186c51230c2737fc8b9cd881bfbf6ff6aeb49
             adapter = rvKeywordAdapter
             layoutManager = flexboxLayoutManager
         }
 
-<<<<<<< HEAD
-        val tempList = arrayListOf(
-            ResponseKeyword("#산뜻한"),
-            ResponseKeyword("#자연의"),
-            ResponseKeyword("#여성스러운"),
-            ResponseKeyword("#비누향"),
-            ResponseKeyword("#남성적인"),
-            ResponseKeyword("#몽환적인"),
-            ResponseKeyword("#소녀스러운"),
-            ResponseKeyword("#달달한"),
-            ResponseKeyword("#매운"),
-            ResponseKeyword("#상쾌한"),
-            ResponseKeyword("#도시적인"),
-            ResponseKeyword("#톡 쏘는"),
-            ResponseKeyword("#자연의"),
-            ResponseKeyword("#여성스러운"),
-            ResponseKeyword("#비누향")
-=======
-        rvKeywordAdapter.data = mutableListOf(
-            KeywordInfo("#산뜻한"),
-            KeywordInfo("#자연의"),
-            KeywordInfo("#여성스러운"),
-            KeywordInfo("#비누향"),
-            KeywordInfo("#남성적인"),
-            KeywordInfo("#몽환적인"),
-            KeywordInfo("#소녀스러운"),
-            KeywordInfo("#달달한"),
-            KeywordInfo("#매운"),
-            KeywordInfo("#상쾌한"),
-            KeywordInfo("#도시적인"),
-            KeywordInfo("#톡 쏘는"),
-            KeywordInfo("#자연의"),
-            KeywordInfo("#여성스러운"),
-            KeywordInfo("#비누향")
->>>>>>> 595186c51230c2737fc8b9cd881bfbf6ff6aeb49
-        )
-
-        rvKeywordAdapter.run {
-            replaceAll(tempList)
-            notifyDataSetChanged()
-        }
+//        val tempList = arrayListOf(
+//            "#산뜻한","#자연의", "#여성스러운", "#비누향", "#남성적인", "#비누향")
+//        rvKeywordAdapter.run {
+//            replaceAll(tempList)
+//            notifyDataSetChanged()
+//        }
 
 //        val keywordSelectionTracker = SelectionTracker.Builder<Long>(
 //            "survey_keyword",
@@ -168,17 +122,17 @@ class DetailInfoFragment : Fragment() {
         rvSimilarAdapter.notifyDataSetChanged()
     }
 
-    private fun initLastingPowerBarChart() {
+    private fun initLastingPowerBarChart(veryWeak: Int, weak: Int, medium: Int, strong: Int, veryStrong: Int) {
         chartLastingPowerAdapter = HorizontalBarChartAdapter(0, context)
         binding.chartBarDetailsInfoLastingPower.adapter = chartLastingPowerAdapter
-        chartLastingPowerAdapter.chartData = listOf(50f, 30f, 10f, 5f, 5f)
+        chartLastingPowerAdapter.chartData = listOf(veryWeak.toFloat(), weak.toFloat(), medium.toFloat(), strong.toFloat(), veryStrong.toFloat())
         chartLastingPowerAdapter.notifyDataSetChanged()
     }
 
-    private fun initsillageBarChart() {
+    private fun initsillageBarChart(light: Int, medium: Int, heavy: Int) {
         val sillageAdapter = HorizontalBarChartAdapter(1, context)
         binding.chartBarDetailsInfoSillage.adapter = sillageAdapter
-        sillageAdapter.chartData = listOf(60f, 30f, 10f)
+        sillageAdapter.chartData = listOf(light.toFloat(), medium.toFloat(), heavy.toFloat())
         sillageAdapter.notifyDataSetChanged()
     }
 
@@ -246,17 +200,17 @@ class DetailInfoFragment : Fragment() {
         }
     }
 
-    private fun dummyPieDataGender(): PieDataSet {
+    private fun dummyPieDataGender(female: Float, male: Float, middle: Float): PieDataSet {
 //        val pieListData = listOf<PieEntry>(
 //            PieEntry(60f, "여성   60%"),
 //            PieEntry(40f, "남성   40%"),
 //            PieEntry(20f, "중성   20%"),
 //        )
 
-        val pieListData = listOf<PieEntry>(
-            PieEntry(60f, "여성"),
-            PieEntry(30f, "남성"),
-            PieEntry(10f, "중성"),
+        val pieListData = listOf(
+            PieEntry(female, "여성"),
+            PieEntry(male, "남성"),
+            PieEntry(middle, "중성"),
         )
 
         return PieDataSet(pieListData, "")
@@ -327,8 +281,24 @@ class DetailInfoFragment : Fragment() {
             primarySeasonDataSet,
             seasonDataSet
         )
-
     }
 
 
+    private fun observe(){
+        viewModel.perfumeDetailData.observe(requireActivity(), Observer {
+            binding.run {
+                data = it
+                txtDetailsInfoPrice1.text = it.volumeAndPrice[0]
+                txtDetailsInfoPrice2.text = it.volumeAndPrice[1]
+                dummyPieDataGender(it.gender.female.toFloat(), it.gender.male.toFloat(), it.gender.neutral.toFloat())
+                initLastingPowerBarChart(it.longevity.veryWeak, it.longevity.weak, it.longevity.medium, it.longevity.strong, it.longevity.veryStrong)
+                initsillageBarChart(it.sillage.light, it.sillage.medium, it.sillage.heavy)
+            }
+
+            rvKeywordAdapter.run {
+                replaceAll(ArrayList(it.Keywords))
+                notifyDataSetChanged()
+            }
+        })
+    }
 }
