@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.SeekBar
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityNoteBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
+import com.afume.afume_android.util.setSelectedSeekBarTxt
 import com.afume.afume_android.util.startActivity
 
 class NoteActivity : AppCompatActivity() {
@@ -17,27 +20,90 @@ class NoteActivity : AppCompatActivity() {
     private val noteViewModel : NoteViewModel by viewModels()
     private val keywordBottomSheetFragment = KeywordBottomSheetFragment()
 
+    lateinit var txtLongevityList : List<TextView>
+    lateinit var txtReverbList : List<TextView>
+    lateinit var txtGenderList : List<TextView>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_note)
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
 
+        setSeekBarTxt()
+        onSeekBarChangeListener()
+    }
+
+    private fun setSeekBarTxt(){
+        txtLongevityList = listOf(binding.txtNoteLongevityVeryWeak, binding.txtNoteLongevityWeak, binding.txtNoteLongevityUsual, binding.txtNoteLongevityStrong, binding.txtNoteLongevityVeryStrong)
+        txtReverbList = listOf(binding.txtNoteReverbLight, binding.txtNoteReverbUsual, binding.txtNoteReverbHeavy)
+        txtGenderList = listOf(binding.txtNoteGenderMan, binding.txtNoteGenderNeuter, binding.txtNoteGenderWoman)
+    }
+
+    private fun onSeekBarChangeListener(){
         binding.sbNoteLongevity.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
-            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-//                when(p1){
-//                    1 -> binding.txtNoteLongevityVeryWeak.
-//                }
-                Log.d("명",p1.toString())
+            override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
+                setSelectedSeekBarTxtBold(txtLongevityList,progress)
+                Log.d("명",progress.toString())
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
+                binding.sbNoteLongevity.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
+                if(binding.sbNoteLongevity.progress==0){
+                    setSelectedSeekBarTxtBold(txtLongevityList,0)
+                }
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
             }
 
         })
+
+        binding.sbNoteReverb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
+                setSelectedSeekBarTxtBold(txtReverbList,progress)
+                Log.d("명",progress.toString())
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+                binding.sbNoteReverb.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
+                if(binding.sbNoteReverb.progress==0){
+                    setSelectedSeekBarTxtBold(txtReverbList,0)
+                }
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+
+        })
+
+        binding.sbNoteGender.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
+                setSelectedSeekBarTxtBold(txtGenderList,progress)
+                Log.d("명",progress.toString())
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+                binding.sbNoteGender.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
+                if(binding.sbNoteGender.progress==0){
+                    setSelectedSeekBarTxtBold(txtGenderList,0)
+                }
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+
+        })
+    }
+
+    private fun setSelectedSeekBarTxtBold(list: List<TextView>, select: Int){
+        for(i in list.indices){
+           if(i==select){
+               list[i].setSelectedSeekBarTxt(true)
+           }else{
+               list[i].setSelectedSeekBarTxt(false)
+           }
+        }
     }
 
     fun onClickBackBtn(view : View){

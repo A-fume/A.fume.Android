@@ -343,7 +343,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:max="4"
-                    android:progress="@={viewModel.seekBarProgress}"
+                    android:thumb="@color/transparent"
                     android:progressDrawable="@color/transparent"
                     android:tickMark="@drawable/seekbar_note_tick"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView22"
@@ -465,10 +465,11 @@
                     app:srcCompat="@drawable/border_gray_cd_line_dash" />
 
                 <SeekBar
-                    android:id="@+id/seekBar"
+                    android:id="@+id/sb_note_reverb"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:max="2"
+                    android:thumb="@color/transparent"
                     android:progressDrawable="@color/transparent"
                     android:tickMark="@drawable/seekbar_note_tick"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView27"
@@ -477,7 +478,7 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView27" />
 
                 <TextView
-                    android:id="@+id/textView31"
+                    android:id="@+id/txt_note_reverb_light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -486,13 +487,13 @@
                     android:text="가벼움"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toStartOf="@+id/textView32"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_note_reverb_usual"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="@+id/seekBar"
+                    app:layout_constraintStart_toStartOf="@+id/sb_note_reverb"
                     app:layout_constraintTop_toBottomOf="@+id/imageView27" />
 
                 <TextView
-                    android:id="@+id/textView32"
+                    android:id="@+id/txt_note_reverb_usual"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -501,12 +502,12 @@
                     android:text="보통"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toStartOf="@+id/textView33"
-                    app:layout_constraintStart_toEndOf="@+id/textView31"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_note_reverb_heavy"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_reverb_light"
                     app:layout_constraintTop_toBottomOf="@+id/imageView27" />
 
                 <TextView
-                    android:id="@+id/textView33"
+                    android:id="@+id/txt_note_reverb_heavy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -515,8 +516,8 @@
                     android:text="무거움"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/seekBar"
-                    app:layout_constraintStart_toEndOf="@+id/textView32"
+                    app:layout_constraintEnd_toEndOf="@+id/sb_note_reverb"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_reverb_usual"
                     app:layout_constraintTop_toBottomOf="@+id/imageView27" />
 
                 <ImageView
@@ -528,7 +529,7 @@
                     android:layout_marginEnd="18dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView31"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_note_reverb_light"
                     app:srcCompat="@color/primary_black" />
 
                 <TextView
@@ -711,7 +712,7 @@
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/textView34"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView34" />
+                    app:layout_constraintTop_toBottomOf="@+id/btn_note_season_fall" />
 
                 <TextView
                     android:id="@+id/textView41"
@@ -741,10 +742,11 @@
                     app:srcCompat="@drawable/border_gray_cd_line_dash" />
 
                 <SeekBar
-                    android:id="@+id/seekBar3"
+                    android:id="@+id/sb_note_gender"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:max="2"
+                    android:thumb="@color/transparent"
                     android:progressDrawable="@color/transparent"
                     android:tickMark="@drawable/seekbar_note_tick"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView40"
@@ -753,22 +755,23 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView40" />
 
                 <TextView
-                    android:id="@+id/textView42"
+                    android:id="@+id/txt_note_gender_man"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="남성"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toStartOf="@+id/textView43"
-                    app:layout_constraintStart_toStartOf="@+id/seekBar3"
-                    app:layout_constraintTop_toBottomOf="@+id/seekBar3" />
+                    app:layout_constraintEnd_toStartOf="@+id/txt_note_gender_neuter"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="@+id/sb_note_gender"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView40" />
 
                 <TextView
-                    android:id="@+id/textView43"
+                    android:id="@+id/txt_note_gender_neuter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -777,23 +780,24 @@
                     android:text="중성"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toStartOf="@+id/textView44"
-                    app:layout_constraintStart_toEndOf="@+id/textView42"
-                    app:layout_constraintTop_toBottomOf="@+id/seekBar3" />
+                    app:layout_constraintEnd_toStartOf="@+id/txt_note_gender_woman"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_gender_man"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView40" />
 
                 <TextView
-                    android:id="@+id/textView44"
+                    android:id="@+id/txt_note_gender_woman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="4dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="여성"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/seekBar3"
-                    app:layout_constraintStart_toEndOf="@+id/textView43"
-                    app:layout_constraintTop_toBottomOf="@+id/seekBar3" />
+                    app:layout_constraintEnd_toEndOf="@+id/sb_note_gender"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_gender_neuter"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView40" />
 
                 <ImageView
                     android:id="@+id/imageView44"
@@ -804,7 +808,7 @@
                     android:layout_marginEnd="18dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView42"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_note_gender_man"
                     app:srcCompat="@color/primary_black" />
 
                 <TextView

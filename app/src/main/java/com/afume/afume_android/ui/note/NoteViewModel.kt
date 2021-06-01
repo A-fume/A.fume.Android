@@ -28,9 +28,7 @@ class NoteViewModel : ViewModel() {
     val contentsTxt = MutableLiveData<String>("")
 
     // seekBar
-    private val _seekBarProgress = MutableLiveData<Int>()
-    val seekBarProgress : LiveData<Int>
-        get() = _seekBarProgress
+    val seekBarProgress = MutableLiveData<Int>()
 
     // 공유 버튼 활성화
     private val _shareBtn = MutableLiveData<Boolean>(false)
