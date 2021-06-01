@@ -6,10 +6,21 @@ data class ResponseSeries(
 )
 
 data class SeriesInfo(
-    val name: String,
-    val englishName: String,
+    val seriesIdx: Int=1,
+    val name: String="시트러스",
+    val englishName: String="",
+    val imageUrl: String="",
     val description: String="",
-    val seriesIdx: Int,
-    val imageUrl: String,
+    val ingredients: MutableList<SeriesIngredients>,
     var isLiked: Boolean=false
+)
+
+data class SeriesIngredients(
+    val ingredientIdx:Int=2,
+    val name: String="베르가못",
+    val englishName: String=" ",
+    val description: String=" ",
+    val imageUrl: String=" ",
+    val seriesIdx: Int=2,
+    var checked: Boolean= false
 )

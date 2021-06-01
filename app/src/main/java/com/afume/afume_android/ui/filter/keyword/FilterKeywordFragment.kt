@@ -11,10 +11,10 @@ import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import com.afume.afume_android.databinding.FragmentFilterKeywordBinding
-import com.afume.afume_android.ui.filter.FlexboxRecyclerViewAdapter
+import com.afume.afume_android.ui.filter.FilterViewModel
 import com.afume.afume_android.ui.filter.ItemDetailsLookUp
 import com.afume.afume_android.ui.filter.ItemKeyProvider
-import com.afume.afume_android.ui.survey.SurveyViewModel
+import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -22,12 +22,15 @@ import com.google.android.flexbox.FlexboxLayoutManager
 
 class FilterKeywordFragment : Fragment() {
     private lateinit var binding: FragmentFilterKeywordBinding
-    private val viewModel: SurveyViewModel by activityViewModels()
+    private val viewModel: FilterViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFilterKeywordBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
         return binding.root
     }
 
@@ -43,27 +46,14 @@ class FilterKeywordFragment : Fragment() {
             alignItems = AlignItems.STRETCH
         }
 
-        val keywordAdapter =
-            FlexboxRecyclerViewAdapter(
-                {index->viewModel.addKeywordList(index)},
-                {index->viewModel.removeKeywordList(index)}
+        val keywordAdapter = FlexboxRecyclerViewAdapter(
+                { index,add -> viewModel.addKeywordList(index,add) },
+                { index,add -> viewModel.countBadges(index,add) }
             )
         binding.rvKeyword.apply {
             layoutManager=flexboxLayoutManager
             adapter=keywordAdapter
         }
-
-//        keywordAdapter?.data= listOf(
-//            ResponseKeyword("#시트러스"),
-//            ResponseKeyword("#머스크"),
-//            ResponseKeyword("#알데히드"),
-//            ResponseKeyword("#스파이시"),
-//            ResponseKeyword("#우디"),
-//            ResponseKeyword("#플로럴"),
-//            ResponseKeyword("#바닐라"),
-//            ResponseKeyword("#민트"),
-//            ResponseKeyword("#애니멀"),
-//        )
 
         val keywordSelectionTracker= SelectionTracker.Builder<Long>(
             "incense",

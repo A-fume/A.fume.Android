@@ -32,7 +32,10 @@
         <activity android:name=".ui.signup.SignUpAgeActivity" />
         <activity android:name=".ui.survey.SurveyActivity" />
         <activity android:name=".ui.note.NoteActivity" />
-        <activity android:name=".ui.filter.FilterActivity" />
+
+        <activity android:name=".ui.filter.FilterActivity">
+        </activity>
+
         <activity android:name=".ui.detail.PerfumeDetailActivity" />
         <activity android:name=".ui.home.MoreNewPerfumeActivity" />
         <activity android:name=".ui.MainActivity" />
