@@ -206,6 +206,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:overScrollMode="never"
+                    setRecentPerfumeList="@{viewModel.recentPerfumeList}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

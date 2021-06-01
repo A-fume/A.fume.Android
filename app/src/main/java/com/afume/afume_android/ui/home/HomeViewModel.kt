@@ -1,6 +1,5 @@
 package com.afume.afume_android.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.HomeRepository
 import com.afume.afume_android.data.vo.response.NewPerfumeItem
+import com.afume.afume_android.data.vo.response.RecentPerfumeItem
 import com.afume.afume_android.data.vo.response.RecommendPerfumeItem
 import kotlinx.coroutines.launch
 import java.util.*
@@ -55,6 +55,10 @@ class HomeViewModel : ViewModel(){
     val commonPerfumeList : LiveData<MutableList<RecommendPerfumeItem>>
         get() = _commonPerfumeList
 
+    private val _recentPerfumeList : MutableLiveData<MutableList<RecentPerfumeItem>> = MutableLiveData()
+    val recentPerfumeList : LiveData<MutableList<RecentPerfumeItem>>
+        get() = _recentPerfumeList
+
     private val _newPerfumeList : MutableLiveData<MutableList<NewPerfumeItem>> = MutableLiveData()
     val newPerfumeList : LiveData<MutableList<NewPerfumeItem>>
         get() = _newPerfumeList
@@ -63,8 +67,8 @@ class HomeViewModel : ViewModel(){
         viewModelScope.launch {
             _recommendPerfumeList.value = homeRepository.getRecommendPerfumeList(AfumeApplication.prefManager.accessToken)
             _commonPerfumeList.value = homeRepository.getCommonPerfumeList(AfumeApplication.prefManager.accessToken)
+            _recentPerfumeList.value = homeRepository.getRecentPerfumeList(AfumeApplication.prefManager.accessToken)
             _newPerfumeList.value = homeRepository.getNewPerfumeList()
-            Log.d("명2",_commonPerfumeList.value.toString())
         }
     }
 }

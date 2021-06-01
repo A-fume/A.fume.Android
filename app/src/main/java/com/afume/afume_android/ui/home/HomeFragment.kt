@@ -79,32 +79,6 @@ class HomeFragment : Fragment() {
             )
         binding.rvHomeRecent.adapter = recentAdapter
 
-        recentAdapter.data = mutableListOf(
-            HomePerfumeListData(
-                image = null,
-                brand = "1번 브랜드",
-                name = "1번향수",
-                like = 0
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "2번 브랜드",
-                name = "2번향수",
-                like = 1
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "3번 브랜드",
-                name = "3번향수",
-                like = 1
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "4번 브랜드",
-                name = "4번향수",
-                like = 0
-            )
-        )
         recentAdapter.notifyDataSetChanged()
 
     }

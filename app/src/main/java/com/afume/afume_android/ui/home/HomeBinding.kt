@@ -1,13 +1,14 @@
 package com.afume.afume_android.ui.home
 
-import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.afume.afume_android.data.vo.response.NewPerfumeItem
+import com.afume.afume_android.data.vo.response.RecentPerfumeItem
 import com.afume.afume_android.data.vo.response.RecommendPerfumeItem
 import com.afume.afume_android.ui.home.adapter.MoreNewListAdapter
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
+import com.afume.afume_android.ui.home.adapter.RecentListAdapter
 import com.afume.afume_android.ui.home.adapter.RecommendListAdapter
 
 object HomeBinding {
@@ -17,8 +18,7 @@ object HomeBinding {
         if(viewPager2.adapter!=null) with(viewPager2.adapter as RecommendListAdapter){
             list?.let {
                 setRecommendPerfume(list)
-                Log.d("명","되냐")
-                Log.d("setRecommendPerfumeList",data.toString())}
+            }
         }
     }
 
@@ -28,8 +28,17 @@ object HomeBinding {
         if(recyclerView.adapter!=null) with(recyclerView.adapter as PopularListAdapter){
             list?.let {
                 setCommonPerfume(list)
-                Log.d("명","되냐")
-                Log.d("setNewPerfumeList",data.toString())}
+            }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setRecentPerfumeList")
+    fun setRecentPerfumeList(recyclerView: RecyclerView, list : MutableList<RecentPerfumeItem>?){
+        if(recyclerView.adapter!=null) with(recyclerView.adapter as RecentListAdapter){
+            list?.let {
+                setRecentPerfume(list)
+            }
         }
     }
 
@@ -39,8 +48,7 @@ object HomeBinding {
         if(recyclerView.adapter!=null) with(recyclerView.adapter as MoreNewListAdapter){
             list?.let {
                 setNewPerfume(list)
-                Log.d("명","되냐")
-                Log.d("setNewPerfumeList",data.toString())}
+            }
         }
     }
 }

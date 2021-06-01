@@ -8,5 +8,6 @@ class HomeRepository {
 
     suspend fun getRecommendPerfumeList(token : String) = remoteDataSource.getRecommendPerfumeList(token)
     suspend fun getCommonPerfumeList(token : String) = remoteDataSource.getCommonPerfumeList(token)
+    suspend fun getRecentPerfumeList(token : String) = remoteDataSource.getRecentPerfumeList(token)
     suspend fun getNewPerfumeList() = remoteDataSource.getNewPerfumeList()
 }
