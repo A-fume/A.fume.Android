@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.afume.afume_android.data.vo.response.NewPerfumeItem
 import com.afume.afume_android.data.vo.response.RecommendPerfumeItem
 import com.afume.afume_android.ui.home.adapter.MoreNewListAdapter
+import com.afume.afume_android.ui.home.adapter.PopularListAdapter
 import com.afume.afume_android.ui.home.adapter.RecommendListAdapter
 
 object HomeBinding {
@@ -18,6 +19,17 @@ object HomeBinding {
                 setRecommendPerfume(list)
                 Log.d("명","되냐")
                 Log.d("setRecommendPerfumeList",data.toString())}
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setCommonPerfumeList")
+    fun setCommonPerfumeList(recyclerView: RecyclerView, list : MutableList<RecommendPerfumeItem>?){
+        if(recyclerView.adapter!=null) with(recyclerView.adapter as PopularListAdapter){
+            list?.let {
+                setCommonPerfume(list)
+                Log.d("명","되냐")
+                Log.d("setNewPerfumeList",data.toString())}
         }
     }
 

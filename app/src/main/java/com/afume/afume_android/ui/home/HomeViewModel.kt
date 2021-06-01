@@ -51,15 +51,20 @@ class HomeViewModel : ViewModel(){
     val recommendPerfumeList : LiveData<MutableList<RecommendPerfumeItem>>
         get() = _recommendPerfumeList
 
+    private val _commonPerfumeList : MutableLiveData<MutableList<RecommendPerfumeItem>> = MutableLiveData()
+    val commonPerfumeList : LiveData<MutableList<RecommendPerfumeItem>>
+        get() = _commonPerfumeList
+
     private val _newPerfumeList : MutableLiveData<MutableList<NewPerfumeItem>> = MutableLiveData()
     val newPerfumeList : LiveData<MutableList<NewPerfumeItem>>
         get() = _newPerfumeList
 
     init {
         viewModelScope.launch {
-            _recommendPerfumeList.value = homeRepository.getRecommendList(AfumeApplication.prefManager.accessToken)
+            _recommendPerfumeList.value = homeRepository.getRecommendPerfumeList(AfumeApplication.prefManager.accessToken)
+            _commonPerfumeList.value = homeRepository.getCommonPerfumeList(AfumeApplication.prefManager.accessToken)
             _newPerfumeList.value = homeRepository.getNewPerfumeList()
-            Log.d("명2",_recommendPerfumeList.value.toString())
+            Log.d("명2",_commonPerfumeList.value.toString())
         }
     }
 }

@@ -85,6 +85,12 @@ interface AfumeService {
         @Header("x-access-token") token : String,
     ):ResponseBase<ResponseRecommendPerfumeList>
 
+    // Home - common recommend
+    @GET("perfume/recommend/common")
+    suspend fun getCommonPerfumeList(
+        @Header("x-access-token") token : String,
+    ):ResponseBase<ResponseRecommendPerfumeList>
+
     // Home - New Perfume List
     @GET("perfume/new")
     suspend fun getNewPerfumeList(

@@ -74,6 +74,7 @@
             android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="10dp"
+            android:overScrollMode="never"
             setNewPerfumeList="@{viewModel.newPerfumeList}"
             android:foregroundGravity="center_horizontal"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
