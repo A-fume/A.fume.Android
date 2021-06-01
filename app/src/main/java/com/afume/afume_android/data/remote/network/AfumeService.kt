@@ -2,6 +2,7 @@ package com.afume.afume_android.data.remote.network
 
 import com.afume.afume_android.data.vo.request.*
 import com.afume.afume_android.data.vo.response.*
+import io.reactivex.Single
 import retrofit2.http.*
 
 interface AfumeService {
@@ -60,8 +61,7 @@ interface AfumeService {
 
     @GET("user/review")
     suspend fun getMyPerfume(
-        @Header("x-access-token") token : String,
-        @Path("userIdx") userIdx : Int
+        @Header("x-access-token") token : String
     ):ResponseBase<MutableList<ResponseMyPerfume>>
 
     // Edit - My info
