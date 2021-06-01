@@ -80,6 +80,30 @@ interface AfumeService {
         @Body body : RequestEditPassword
     ):ResponseMessage
 
+    // Home - personal recommend
+    @GET("perfume/recommend/personal")
+    suspend fun getRecommendPerfumeList(
+        @Header("x-access-token") token : String,
+    ):ResponseBase<ResponseRecommendPerfumeList>
+
+    // Home - common recommend
+    @GET("perfume/recommend/common")
+    suspend fun getCommonPerfumeList(
+        @Header("x-access-token") token : String,
+    ):ResponseBase<ResponseRecommendPerfumeList>
+
+    // Home - recent perfume
+    @GET("perfume/recent")
+    suspend fun getRecentList(
+        @Header("x-access-token") token : String,
+    ):ResponseBase<ResponseRecentPerfumeList>
+
+    // Home - New Perfume List
+    @GET("perfume/new")
+    suspend fun getNewPerfumeList(
+
+    ):ResponseBase<ResponseNewPerfumeList>
+
     @GET("perfume/{perfumeIdx}")
     fun getPerfumeDetail(
         @Path("perfumeIdx") perfumeIdx : Int
@@ -89,4 +113,5 @@ interface AfumeService {
     fun getPerfumeDetailWithReview(
         @Path("perfumeIdx") perfumeIdx : Int
     ): Single<ResponsePerfumeDetailWithReviews>
+
 }

@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.afume.afume_android.data.vo.HomePerfumeListData
-import com.afume.afume_android.data.vo.RecommendPerfumeListData
 import com.afume.afume_android.databinding.FragmentHomeBinding
 import com.afume.afume_android.ui.home.adapter.NewListAdapter
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
@@ -33,6 +31,12 @@ class HomeFragment : Fragment() {
 
         homeViewModel.setUserInfo()
 
+        binding.btnHomeMore.setOnClickListener {
+            val moreNewPerfumeIntent = Intent(context,MoreNewPerfumeActivity::class.java)
+
+            startActivity(moreNewPerfumeIntent)
+        }
+
         return binding.root
     }
 
@@ -51,34 +55,6 @@ class HomeFragment : Fragment() {
                 requireContext()
             )
 
-        recommendAdapter.data = mutableListOf(
-            RecommendPerfumeListData(
-                image = null,
-                brand = "1번 브랜드",
-                name = "1번향수",
-                tags = listOf("#세련됨")
-            ),
-            RecommendPerfumeListData(
-                image = null,
-                brand = "2번 브랜드",
-                name = "2번향수",
-                tags = listOf("#세련됨", "#시원함")
-            ),
-            RecommendPerfumeListData(
-                image = null,
-                brand = "3번 브랜드",
-                name = "3번향수",
-                tags = listOf("#시원함", "#여성스러운")
-            ),
-            RecommendPerfumeListData(
-                image = null,
-                brand = "4번 브랜드",
-                name = "4번향수",
-                tags = listOf("#세련됨")
-            )
-        )
-        recommendAdapter.notifyDataSetChanged()
-
         binding.vpHomeRecommend.adapter = recommendAdapter
 
         binding.indicatorHome.setViewPager(binding.vpHomeRecommend)
@@ -91,32 +67,6 @@ class HomeFragment : Fragment() {
             )
         binding.rvHomePopular.adapter = popularAdapter
 
-        popularAdapter.data = mutableListOf(
-            HomePerfumeListData(
-                image = null,
-                brand = "1번 브랜드",
-                name = "1번향수",
-                like = 0
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "2번 브랜드",
-                name = "2번향수",
-                like = 1
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "3번 브랜드",
-                name = "3번향수",
-                like = 1
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "4번 브랜드",
-                name = "4번향수",
-                like = 0
-            )
-        )
         popularAdapter.notifyDataSetChanged()
 
     }
@@ -128,32 +78,6 @@ class HomeFragment : Fragment() {
             )
         binding.rvHomeRecent.adapter = recentAdapter
 
-        recentAdapter.data = mutableListOf(
-            HomePerfumeListData(
-                image = null,
-                brand = "1번 브랜드",
-                name = "1번향수",
-                like = 0
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "2번 브랜드",
-                name = "2번향수",
-                like = 1
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "3번 브랜드",
-                name = "3번향수",
-                like = 1
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "4번 브랜드",
-                name = "4번향수",
-                like = 0
-            )
-        )
         recentAdapter.notifyDataSetChanged()
 
     }
@@ -163,48 +87,7 @@ class HomeFragment : Fragment() {
             NewListAdapter(requireContext())
         binding.rvHomeNew.adapter = newAdapter
 
-        newAdapter.data = mutableListOf(
-            HomePerfumeListData(
-                image = null,
-                brand = "1번 브랜드",
-                name = "1번향수",
-                like = 1
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "2번 브랜드",
-                name = "2번향수",
-                like = 1
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "3번 브랜드",
-                name = "3번향수",
-                like = 1
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "4번 브랜드",
-                name = "4번향수",
-                like = 0
-            )
-        )
         newAdapter.notifyDataSetChanged()
-
-        binding.btnHomeMore.setOnClickListener {
-            val moreIntent = Intent(context,
-                MoreNewPerfumeActivity::class.java)
-
-            startActivity(moreIntent)
-        }
-
     }
-
-//    fun moreNewPerfume(view: View){
-//        Log.d("명","되나")
-//        val moreIntent = Intent(context,MoreNewPerfumeActivity::class.java)
-//
-//        startActivity(moreIntent)
-//    }
 
 }
