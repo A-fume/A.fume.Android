@@ -12,6 +12,8 @@ import kotlinx.coroutines.launch
 class NoteViewModel : ViewModel() {
     private val surveyRepository = SurveyRepository()
 
+
+
     private val _keywordList: MutableLiveData<MutableList<KeywordInfo>> = MutableLiveData()
     val keywordList: LiveData<MutableList<KeywordInfo>> get() = _keywordList
 
@@ -29,6 +31,14 @@ class NoteViewModel : ViewModel() {
 
     // seekBar
     val seekBarProgress = MutableLiveData<Int>()
+
+    // 계절 선택
+    val selectedSeasonList: MutableLiveData<MutableList<Int>> = MutableLiveData()
+    private var tempSelectedSeasonList = mutableListOf<Int>()
+
+    fun onClickSeasonBtn(){
+
+    }
 
     // 공유 버튼 활성화
     private val _shareBtn = MutableLiveData<Boolean>(false)
@@ -62,7 +72,7 @@ class NoteViewModel : ViewModel() {
         Log.d("명",tempSelectedKeywordList.toString())
     }
 
-    fun checkKeywordList(){
+    private fun checkKeywordList(){
         if(tempSelectedKeywordList.size > 0){
             _rvKeywordList.postValue(true)
         }else{

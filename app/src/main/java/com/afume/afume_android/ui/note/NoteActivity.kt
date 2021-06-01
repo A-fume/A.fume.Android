@@ -3,6 +3,7 @@ package com.afume.afume_android.ui.note
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.CheckedTextView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -12,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityNoteBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
+import com.afume.afume_android.util.setSelectedSeasonBtn
 import com.afume.afume_android.util.setSelectedSeekBarTxt
 import com.afume.afume_android.util.startActivity
 
@@ -23,6 +25,7 @@ class NoteActivity : AppCompatActivity() {
     lateinit var txtLongevityList : List<TextView>
     lateinit var txtReverbList : List<TextView>
     lateinit var txtGenderList : List<TextView>
+    lateinit var btnSeasonList : List<CheckedTextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +33,17 @@ class NoteActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
 
-        setSeekBarTxt()
+        setComponentList()
         onSeekBarChangeListener()
+        onClickSeasonBtn()
     }
 
-    private fun setSeekBarTxt(){
+    private fun setComponentList(){
         txtLongevityList = listOf(binding.txtNoteLongevityVeryWeak, binding.txtNoteLongevityWeak, binding.txtNoteLongevityUsual, binding.txtNoteLongevityStrong, binding.txtNoteLongevityVeryStrong)
         txtReverbList = listOf(binding.txtNoteReverbLight, binding.txtNoteReverbUsual, binding.txtNoteReverbHeavy)
         txtGenderList = listOf(binding.txtNoteGenderMan, binding.txtNoteGenderNeuter, binding.txtNoteGenderWoman)
+
+        btnSeasonList = listOf(binding.btnNoteSeasonSpring, binding.btnNoteSeasonSummer, binding.btnNoteSeasonFall, binding.btnNoteSeasonWinder)
     }
 
     private fun onSeekBarChangeListener(){
@@ -103,6 +109,28 @@ class NoteActivity : AppCompatActivity() {
            }else{
                list[i].setSelectedSeekBarTxt(false)
            }
+        }
+    }
+
+    private fun onClickSeasonBtn(){
+        btnSeasonList.forEachIndexed { index, checkedTextView ->
+            btnSeasonList[index].setOnClickListener {
+                if(btnSeasonList[index].isChecked) {
+                    checkSeasonBtn(btnSeasonList[index], false)
+                }else{
+                    checkSeasonBtn(btnSeasonList[index], true)
+            }
+        }}
+    }
+
+    private fun checkSeasonBtn(button: CheckedTextView, isChecked: Boolean) {
+        button.setSelectedSeasonBtn(isChecked)
+        if(isChecked){
+            button.isChecked = true
+            //button.checkMarkDrawable = ContextCompat.getDrawable(this, R.drawable.ic_check_white)
+        }else{
+            button.isChecked = false
+            //button.checkMarkDrawable = ContextCompat.getDrawable(this, R.drawable.ic_check_grey)
         }
     }
 

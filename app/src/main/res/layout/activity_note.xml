@@ -560,146 +560,82 @@
                     app:layout_constraintTop_toTopOf="@+id/textView34" />
 
                 <CheckedTextView
-                    android:id="@+id/imageView32"
+                    android:id="@+id/btn_note_season_spring"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="18dp"
                     android:layout_marginEnd="12dp"
                     android:checked="false"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView33"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView34"
-                    android:background="@drawable/selector_note_season" />
-
-                <CheckedTextView
-                    android:id="@+id/imageView33"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_marginEnd="18dp"
-                    android:checked="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView32"
-                    app:layout_constraintTop_toTopOf="@+id/imageView32"
-                    android:background="@drawable/selector_note_season"/>
-
-                <CheckedTextView
-                    android:id="@+id/imageView34"
-                    android:layout_width="0dp"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:checked="false"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView35"
-                    app:layout_constraintStart_toStartOf="@+id/imageView32"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView32"
-                    android:background="@drawable/selector_note_season" />
-
-                <CheckedTextView
-                    android:id="@+id/imageView35"
-                    android:layout_width="0dp"
-                    android:layout_height="52dp"
-                    android:checked="false"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView33"
-                    app:layout_constraintStart_toEndOf="@+id/imageView34"
-                    app:layout_constraintTop_toTopOf="@+id/imageView34"
-                    android:background="@drawable/selector_note_season"/>
-
-                <TextView
-                    android:id="@+id/textView36"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="봄"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView32"
-                    app:layout_constraintStart_toStartOf="@+id/imageView32"
-                    app:layout_constraintTop_toTopOf="@+id/imageView32" />
+                    android:drawableRight="@drawable/ic_check_grey"
+                    android:paddingVertical="18dp"
+                    android:paddingHorizontal="18dp"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_note_season_summer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView34"
+                    android:background="@drawable/selector_note_season" />
 
-                <TextView
-                    android:id="@+id/textView37"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
+                <CheckedTextView
+                    android:id="@+id/btn_note_season_summer"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginEnd="18dp"
+                    android:checked="false"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="여름"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView33"
-                    app:layout_constraintStart_toStartOf="@+id/imageView33"
-                    app:layout_constraintTop_toTopOf="@+id/imageView33" />
+                    android:drawableRight="@drawable/ic_check_grey"
+                    android:paddingVertical="18dp"
+                    android:paddingHorizontal="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btn_note_season_spring"
+                    app:layout_constraintTop_toTopOf="@+id/btn_note_season_spring"
+                    android:background="@drawable/selector_note_season"/>
 
-                <TextView
-                    android:id="@+id/textView38"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
+                <CheckedTextView
+                    android:id="@+id/btn_note_season_fall"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/selector_note_season"
+                    android:checked="false"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
+                    android:drawableRight="@drawable/ic_check_grey"
+                    android:paddingVertical="18dp"
+                    android:paddingHorizontal="18dp"
                     android:text="가을"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView34"
-                    app:layout_constraintStart_toStartOf="@+id/imageView34"
-                    app:layout_constraintTop_toTopOf="@+id/imageView34" />
+                    app:layout_constraintEnd_toStartOf="@+id/btn_note_season_winder"
+                    app:layout_constraintStart_toStartOf="@+id/btn_note_season_spring"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_note_season_spring" />
 
-                <TextView
-                    android:id="@+id/textView39"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
+                <CheckedTextView
+                    android:id="@+id/btn_note_season_winder"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/selector_note_season"
+                    android:checked="false"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
+                    android:drawableRight="@drawable/ic_check_grey"
+                    android:paddingVertical="18dp"
+                    android:paddingHorizontal="18dp"
                     android:text="겨울"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView35"
-                    app:layout_constraintStart_toStartOf="@+id/imageView35"
-                    app:layout_constraintTop_toTopOf="@+id/imageView35" />
-
-                <ImageView
-                    android:id="@+id/imageView36"
-                    android:layout_width="18dp"
-                    android:layout_height="12dp"
-                    android:layout_marginEnd="18dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView32"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView32"
-                    app:layout_constraintTop_toTopOf="@+id/imageView32"
-                    app:srcCompat="@drawable/ic_check_grey" />
-
-                <ImageView
-                    android:id="@+id/imageView37"
-                    android:layout_width="18dp"
-                    android:layout_height="12dp"
-                    android:layout_marginEnd="18dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView33"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView33"
-                    app:layout_constraintTop_toTopOf="@+id/imageView33"
-                    app:srcCompat="@drawable/ic_check_grey" />
-
-                <ImageView
-                    android:id="@+id/imageView38"
-                    android:layout_width="18dp"
-                    android:layout_height="12dp"
-                    android:layout_marginEnd="18dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView34"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView34"
-                    app:layout_constraintTop_toTopOf="@+id/imageView34"
-                    app:srcCompat="@drawable/ic_check_grey" />
-
-                <ImageView
-                    android:id="@+id/imageView39"
-                    android:layout_width="18dp"
-                    android:layout_height="12dp"
-                    android:layout_marginEnd="18dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView35"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView35"
-                    app:layout_constraintTop_toTopOf="@+id/imageView35"
-                    app:srcCompat="@drawable/ic_check_grey" />
+                    app:layout_constraintEnd_toEndOf="@+id/btn_note_season_summer"
+                    app:layout_constraintStart_toEndOf="@+id/btn_note_season_fall"
+                    app:layout_constraintTop_toTopOf="@+id/btn_note_season_fall" />
 
                 <TextView
                     android:id="@+id/textView40"
