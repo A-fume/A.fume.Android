@@ -6,10 +6,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.afume.afume_android.data.vo.response.NewPerfumeItem
 import com.afume.afume_android.data.vo.response.RecentPerfumeItem
 import com.afume.afume_android.data.vo.response.RecommendPerfumeItem
-import com.afume.afume_android.ui.home.adapter.MoreNewListAdapter
-import com.afume.afume_android.ui.home.adapter.PopularListAdapter
-import com.afume.afume_android.ui.home.adapter.RecentListAdapter
-import com.afume.afume_android.ui.home.adapter.RecommendListAdapter
+import com.afume.afume_android.ui.home.adapter.*
 
 object HomeBinding {
     @JvmStatic
@@ -38,6 +35,16 @@ object HomeBinding {
         if(recyclerView.adapter!=null) with(recyclerView.adapter as RecentListAdapter){
             list?.let {
                 setRecentPerfume(list)
+            }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setNewPerfume")
+    fun setNewPerfume(recyclerView: RecyclerView, list : MutableList<NewPerfumeItem>?){
+        if(recyclerView.adapter!=null) with(recyclerView.adapter as NewListAdapter){
+            list?.let {
+                setNewPerfume(list)
             }
         }
     }
