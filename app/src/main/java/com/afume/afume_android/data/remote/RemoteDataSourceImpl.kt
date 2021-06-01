@@ -75,4 +75,20 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return  api.postSearchPerfume(body).data.rows
     }
 
+
+    override suspend fun getRecommendPerfumeList(token: String): MutableList<RecommendPerfumeItem> {
+        return api.getRecommendPerfumeList(token).data.rows
+    }
+
+    override suspend fun getCommonPerfumeList(token: String): MutableList<RecommendPerfumeItem> {
+        return api.getCommonPerfumeList(token).data.rows
+    }
+
+    override suspend fun getRecentPerfumeList(token: String): MutableList<RecentPerfumeItem> {
+        return api.getRecentList(token).data.rows
+    }
+
+    override suspend fun getNewPerfumeList(): MutableList<NewPerfumeItem> {
+        return api.getNewPerfumeList().data.rows
+    }
 }

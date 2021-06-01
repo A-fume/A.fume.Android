@@ -61,6 +61,7 @@ interface AfumeService {
     @GET("user/review")
     suspend fun getMyPerfume(
         @Header("x-access-token") token : String,
+        @Path("userIdx") userIdx : Int
     ):ResponseBase<MutableList<ResponseMyPerfume>>
 
     // Edit - My info
@@ -93,4 +94,39 @@ interface AfumeService {
     suspend fun postSearchPerfume(
         @Body body: RequestSearch
     ):ResponseBase<ResponsePerfume>
+
+    // Home - personal recommend
+    @GET("perfume/recommend/personal")
+    suspend fun getRecommendPerfumeList(
+        @Header("x-access-token") token : String,
+    ):ResponseBase<ResponseRecommendPerfumeList>
+
+    // Home - common recommend
+    @GET("perfume/recommend/common")
+    suspend fun getCommonPerfumeList(
+        @Header("x-access-token") token : String,
+    ):ResponseBase<ResponseRecommendPerfumeList>
+
+    // Home - recent perfume
+    @GET("perfume/recent")
+    suspend fun getRecentList(
+        @Header("x-access-token") token : String,
+    ):ResponseBase<ResponseRecentPerfumeList>
+
+    // Home - New Perfume List
+    @GET("perfume/new")
+    suspend fun getNewPerfumeList(
+
+    ):ResponseBase<ResponseNewPerfumeList>
+
+    @GET("perfume/{perfumeIdx}")
+    fun getPerfumeDetail(
+        @Path("perfumeIdx") perfumeIdx : Int
+    ): Single<ResponsePerfumeDetail>
+
+    @GET("perfume/{perfumeIdx}/review")
+    fun getPerfumeDetailWithReview(
+        @Path("perfumeIdx") perfumeIdx : Int
+    ): Single<ResponsePerfumeDetailWithReviews>
+
 }

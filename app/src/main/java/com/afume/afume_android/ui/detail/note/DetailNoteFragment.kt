@@ -7,14 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.DetailNoteListData
 import com.afume.afume_android.databinding.FragmentDetailNoteBinding
+import com.afume.afume_android.ui.detail.info.PerfumeDetailViewModel
 
 class DetailNoteFragment : Fragment() {
 
     lateinit var binding: FragmentDetailNoteBinding
     lateinit var noteAdapter: DetailNoteAdapter
+    private val viewModel: PerfumeDetailViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +33,11 @@ class DetailNoteFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         initNoteList()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getPerfumeInfoWithReview(1)
     }
 
     private fun initNoteList(){

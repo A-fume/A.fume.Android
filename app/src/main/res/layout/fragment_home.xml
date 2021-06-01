@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.afume.afume_android.ui.home.HomeViewModel" />
@@ -17,6 +18,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -94,6 +96,7 @@
                     android:layout_height="297dp"
                     android:layout_marginStart="98dp"
                     android:layout_marginTop="12dp"
+                    setRecommendPerfumeList="@{viewModel.recommendPerfumeList}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -160,52 +163,57 @@
                     android:orientation="horizontal"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
+                    android:overScrollMode="never"
+                    setCommonPerfumeList="@{viewModel.commonPerfumeList}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_home_name_subtitle"
                     tools:listitem="@layout/rv_item_home_popular"/>
 
-                <ImageView
-                    android:id="@+id/imageView4"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_home_recent"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="42dp"
-                    android:background="@color/light_gray_f9"
-                    app:layout_constraintBottom_toBottomOf="@id/rv_home_recent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_home_popular" />
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/nanummyeongjo_extrabold"
-                    android:includeFontPadding="false"
-                    android:text="최근 찾아본 향수"
-                    android:textColor="@color/primary_black"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageView4" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_home_recent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="18dp"
-                    android:clipToPadding="false"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_marginTop="42dp"
+                    android:visibility="@{viewModel.isValidRecentList? View.VISIBLE : View.GONE}"
+                    android:background="@color/light_gray_f9"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8"
-                    tools:listitem="@layout/rv_item_home_recent" />
+                    app:layout_constraintTop_toBottomOf="@+id/rv_home_popular">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/nanummyeongjo_extrabold"
+                        android:includeFontPadding="false"
+                        android:text="최근 찾아본 향수"
+                        android:textColor="@color/primary_black"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@+id/cl_home_recent"
+                        app:layout_constraintTop_toTopOf="@+id/cl_home_recent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_home_recent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="18dp"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:overScrollMode="never"
+                        setRecentPerfumeList="@{viewModel.recentPerfumeList}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="@+id/cl_home_recent"
+                        app:layout_constraintStart_toStartOf="@+id/cl_home_recent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView8"
+                        tools:listitem="@layout/rv_item_home_recent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -216,7 +224,7 @@
                     android:layout_marginTop="42dp"
                     android:background="@color/primary_black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                    app:layout_constraintTop_toBottomOf="@+id/cl_home_recent" />
 
                 <TextView
                     android:id="@+id/textView11"
@@ -254,6 +262,8 @@
                     android:layout_marginRight="12dp"
                     android:orientation="vertical"
                     app:spanCount="2"
+                    setNewPerfume="@{viewModel.newPerfumeList}"
+                    android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

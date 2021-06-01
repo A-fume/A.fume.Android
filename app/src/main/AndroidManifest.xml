@@ -16,7 +16,6 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity android:name=".ui.search.SearchTextActivity"/>
-
         <activity android:name=".ui.setting.EditMyInfoActivity" />
         <activity android:name=".ui.setting.EditPasswordActivity" />
         <activity android:name=".ui.ButtonActivity">

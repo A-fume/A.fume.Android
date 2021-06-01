@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.R
-import com.afume.afume_android.data.vo.RecommendPerfumeListData
+import com.afume.afume_android.data.vo.response.RecommendPerfumeItem
 import com.afume.afume_android.databinding.RvItemHomeRecommendBinding
 
 class RecommendListAdapter(private val context: Context) : RecyclerView.Adapter<RecommendListViewHolder>() {
-    var data = mutableListOf<RecommendPerfumeListData>()
+    var data = mutableListOf<RecommendPerfumeItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecommendListViewHolder {
         val binding: RvItemHomeRecommendBinding = DataBindingUtil.inflate(
@@ -33,12 +33,16 @@ class RecommendListAdapter(private val context: Context) : RecyclerView.Adapter<
 
     override fun getItemCount(): Int = data.size
 
+    internal fun setRecommendPerfume(data : MutableList<RecommendPerfumeItem>?){
+        if(data!=null) this.data = data
+        notifyDataSetChanged()
+    }
 }
 
 class RecommendListViewHolder(val binding : RvItemHomeRecommendBinding) : RecyclerView.ViewHolder(binding.root){
-    fun bind(item: RecommendPerfumeListData){
+    fun bind(item: RecommendPerfumeItem){
         val adapter = HashTagAdapter()
-        adapter.data = item.tags
+        adapter.data = item.keywordList
         binding.rvHomeHashTag.adapter = adapter
 
         binding.item = item
