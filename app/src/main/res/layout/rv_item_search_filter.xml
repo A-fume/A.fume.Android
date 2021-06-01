@@ -25,17 +25,17 @@
             <TextView
                 android:id="@+id/rv_item_txt_selected_filter"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_marginStart="12dp"
-                android:gravity="center_horizontal"
+                android:gravity="center_vertical"
                 android:includeFontPadding="false"
                 android:text="@{filter.name}"
                 android:textColor="@color/white"
                 android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/btn_cancel"

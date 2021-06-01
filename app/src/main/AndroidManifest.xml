@@ -15,9 +15,16 @@
         android:theme="@style/Theme.AfumeAndroid"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".ui.setting.EditMyInfoActivity"/>
+        <activity android:name=".ui.search.SearchTextActivity"/>
+
+        <activity android:name=".ui.setting.EditMyInfoActivity" />
         <activity android:name=".ui.setting.EditPasswordActivity" />
         <activity android:name=".ui.ButtonActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.signin.SignHomeActivity" />
         <activity android:name=".ui.signin.SignInActivity" />
@@ -27,15 +34,7 @@
         <activity android:name=".ui.signup.SignUpAgeActivity" />
         <activity android:name=".ui.survey.SurveyActivity" />
         <activity android:name=".ui.note.NoteActivity" />
-
-        <activity android:name=".ui.filter.FilterActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+        <activity android:name=".ui.filter.FilterActivity"/>
         <activity android:name=".ui.detail.PerfumeDetailActivity" />
         <activity android:name=".ui.home.MoreNewPerfumeActivity" />
         <activity android:name=".ui.MainActivity" />

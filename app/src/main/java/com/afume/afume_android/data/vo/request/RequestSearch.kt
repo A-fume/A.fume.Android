@@ -6,7 +6,7 @@ import com.afume.afume_android.data.vo.response.SeriesIngredients
 import kotlinx.parcelize.Parcelize
 
 data class RequestSearch(
-    val searchText:String="",
+    var searchText:String="",
     val keywordList:MutableList<Int>?,
     val ingredientList:MutableList<Int>?,
     val brandList:MutableList<Int>?

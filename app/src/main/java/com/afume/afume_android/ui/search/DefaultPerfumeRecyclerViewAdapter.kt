@@ -36,7 +36,7 @@ class DefaultPerfumeRecyclerViewHolder(val binding: RvItemDefaultPerfumeBinding)
         binding.perfume=data
         binding.btnHeart.setOnClickListener {
             // 좋아요 누르면 로그인 하게 유도
-            it.isSelected = ! data.isLiked
+            it.isSelected = ! it.isSelected
 
         }
     }

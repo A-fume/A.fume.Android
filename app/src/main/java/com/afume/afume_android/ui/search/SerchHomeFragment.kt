@@ -7,16 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.afume.afume_android.R
+import androidx.fragment.app.activityViewModels
 import com.afume.afume_android.databinding.FragmentSearchBinding
 import com.afume.afume_android.ui.filter.FilterActivity
 
 
 class SearchHomeFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
-    private val viewModel: SearchViewModel by viewModels()
+    private val viewModel: SearchViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -34,17 +32,18 @@ class SearchHomeFragment : Fragment() {
         removeRvFilterList()
 
         binding.fabFilter.setOnClickListener { context?.let { it1 -> goToSelectFilters(it1) } }
-        binding.search = R.drawable.icon_btn_search
-        binding.toolbarSearch.toolbarBtn.setOnClickListener {
 
-            findNavController().navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
-//            val intent = Intent(context, FilterActivity::class.java)
-//            startActivity(intent)
+        initToolbar()
+
+    }
+
+    fun initToolbar(){
+        binding.toolbarBtnSearch.setOnClickListener {
+            val intent = Intent(context, SearchTextActivity::class.java)
+            startActivity(intent)
         }
-
-        binding.toolbarSearch.toolbartxt = "검색"
-        binding.toolbarSearch.toolbar = R.drawable.icon_btn_search
-
+        binding.toolbarSearchTxt.text = "검색"
+        binding.toolbarBtnBack.visibility=View.GONE
     }
 
     private fun initRvPerfumeList() {
