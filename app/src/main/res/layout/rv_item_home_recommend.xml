@@ -7,7 +7,7 @@
     <data>
         <variable
             name="item"
-            type="com.afume.afume_android.data.vo.RecommendPerfumeListData" />
+            type="com.afume.afume_android.data.vo.response.RecommendPerfumeItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,6 +24,7 @@
             android:layout_marginEnd="45dp"
             android:layout_marginRight="45dp"
             android:scaleType="fitXY"
+            setImage="@{item.imageUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +39,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
-            android:text="@{item.brand}"
+            android:text="@{item.brandName}"
             android:textColor="@color/gray_cd"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"

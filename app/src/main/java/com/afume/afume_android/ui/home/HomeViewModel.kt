@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.HomeRepository
 import com.afume.afume_android.data.vo.response.NewPerfumeItem
+import com.afume.afume_android.data.vo.response.RecommendPerfumeItem
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -46,6 +47,9 @@ class HomeViewModel : ViewModel(){
             "여성"
         }
     }
+    private val _recommendPerfumeList : MutableLiveData<MutableList<RecommendPerfumeItem>> = MutableLiveData()
+    val recommendPerfumeList : LiveData<MutableList<RecommendPerfumeItem>>
+        get() = _recommendPerfumeList
 
     private val _newPerfumeList : MutableLiveData<MutableList<NewPerfumeItem>> = MutableLiveData()
     val newPerfumeList : LiveData<MutableList<NewPerfumeItem>>
@@ -53,14 +57,9 @@ class HomeViewModel : ViewModel(){
 
     init {
         viewModelScope.launch {
+            _recommendPerfumeList.value = homeRepository.getRecommendList(AfumeApplication.prefManager.accessToken)
             _newPerfumeList.value = homeRepository.getNewPerfumeList()
-            Log.d("명2",_newPerfumeList.value.toString())
+            Log.d("명2",_recommendPerfumeList.value.toString())
         }
     }
-
-//    fun getNewPerfumeList(){
-//        viewModelScope.launch {
-//            _newPerfumeList.value = homeRepository.getNewPerfumeList()
-//        }
-//    }
 }

@@ -63,6 +63,10 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return api.putPassword(token,body).message
     }
 
+    override suspend fun getRecommendList(token: String): MutableList<RecommendPerfumeItem> {
+        return api.getRecommendPerfumeList(token).data.rows
+    }
+
     override suspend fun getNewPerfumeList(): MutableList<NewPerfumeItem> {
         return api.getNewPerfumeList().data.rows
     }

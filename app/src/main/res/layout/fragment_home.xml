@@ -94,6 +94,7 @@
                     android:layout_height="297dp"
                     android:layout_marginStart="98dp"
                     android:layout_marginTop="12dp"
+                    setRecommendPerfumeList="@{viewModel.recommendPerfumeList}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
