@@ -50,6 +50,7 @@ class MyPerfumeFragment : Fragment() {
         binding.rvMyPerfume.adapter=myPerfumeAdapter
         //binding.rvMyPerfume.setNestedScrollingEnabled(false)
         myPerfumeAdapter.notifyDataSetChanged()
+        initShelf()
     }
 
     private fun initShelf(){
@@ -62,7 +63,7 @@ class MyPerfumeFragment : Fragment() {
     }
 
     private fun observeMyPerfume(){
-        myViewModel.myPerfumeList.observe(this, Observer { list ->
+        myViewModel.myPerfumeList.observe(viewLifecycleOwner, Observer { list ->
             myPerfumeAdapter.data=list
             initShelf()
         })

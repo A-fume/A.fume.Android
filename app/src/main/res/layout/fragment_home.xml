@@ -40,7 +40,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/btn_cancel"
                     android:layout_width="18dp"
                     android:layout_height="1dp"
                     android:layout_marginStart="18dp"
@@ -61,8 +61,8 @@
                     android:text='@{viewModel.nickTxt + " 님을 위한\n향수 추천"}'
                     android:textColor="@color/primary_black"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/imageView"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                    app:layout_constraintStart_toStartOf="@+id/btn_cancel"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_cancel" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -117,7 +117,7 @@
                     app:ci_gravity="center_vertical"/>
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/btn_heart"
                     android:layout_width="18dp"
                     android:layout_height="1dp"
                     android:layout_marginStart="18dp"
@@ -138,8 +138,8 @@
                     android:text='@{viewModel.ageTxt + "이\n많이 찾는 향수"}'
                     android:textColor="@color/primary_black"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/imageView3"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+                    app:layout_constraintStart_toStartOf="@+id/btn_heart"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_heart" />
 
                 <TextView
                     android:id="@+id/txt_home_name_subtitle"

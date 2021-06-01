@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="vmperfume"
-            type="com.afume.afume_android.ui.search.DefaultRecyclerViewPerfumeViewModel"/>
+            name="perfume"
+            type="com.afume.afume_android.data.vo.response.PerfumeInfo"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,6 +13,7 @@
 
         <ImageView
             android:id="@+id/img_perfume"
+            bindingDrawable="@{perfume.imageUrl}"
             android:layout_width="156dp"
             android:layout_height="156dp"
             android:layout_marginStart="6dp"
@@ -26,12 +27,13 @@
 
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/btn_heart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="13dp"
             android:layout_marginRight="13dp"
             android:layout_marginBottom="4dp"
+            checked="@{perfume.isLiked}"
             app:layout_constraintBottom_toBottomOf="@+id/img_perfume"
             app:layout_constraintEnd_toEndOf="@+id/img_perfume"
             app:srcCompat="@drawable/selector_heart_rv_perfume_favorite" />
@@ -42,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
             android:includeFontPadding="false"
-            android:text="@{vmperfume.brand}"
+            android:text="@{perfume.brandName}"
             app:layout_constraintStart_toStartOf="@+id/img_perfume"
             app:layout_constraintTop_toBottomOf="@+id/img_perfume" />
 
@@ -53,7 +55,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginBottom="16dp"
             android:includeFontPadding="false"
-            android:text="@{vmperfume.name}"
+            android:text="@{perfume.name}"
             android:textColor="@color/primary_black"
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"

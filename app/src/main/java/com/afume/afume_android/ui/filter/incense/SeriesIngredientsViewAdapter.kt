@@ -14,7 +14,7 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 
 class SeriesIngredientsViewAdapter(
-    val selectIngredients: (Int, List<Int>) -> Unit,
+    val selectIngredients: (Int, List<SeriesIngredients>) -> Unit,
     val countBadge: (Int, Boolean) -> Unit
 ) : RecyclerView.Adapter<SeriesIngredientsViewHolder>() {
 
@@ -41,16 +41,13 @@ class SeriesIngredientsViewAdapter(
 
 class SeriesIngredientsViewHolder(
     val binding: RvItemFilterSeriesBinding,
-    val selectIngredients: (Int, List<Int>) -> Unit,
+    val selectIngredients: (Int, List<SeriesIngredients>) -> Unit,
     val countBadge: (Int, Boolean) -> Unit
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: SeriesInfo) {
         binding.series = item
-        val entire = SeriesIngredients(ingredientIdx = -1, name = "전체", seriesIdx = item.seriesIdx)
-
-        item.ingredients.add(0, entire)
         drawIngredients(item.ingredients)
         binding.btnShowIngredients.setOnClickListener {
             foldORUnfold(it)
@@ -59,11 +56,11 @@ class SeriesIngredientsViewHolder(
 
     fun drawIngredients(ingredients: MutableList<SeriesIngredients>) {
 
-        val itsIngredient = mutableListOf<Int>()
-        ingredients.forEach { itsIngredient.add(it.ingredientIdx) }
+//        val itsIngredient = mutableListOf<Int>()
+//        ingredients.forEach { itsIngredient.add(it.ingredientIdx) }
 
         val ingredientAdapter =
-            IngredientFlexboxAdapter(itsIngredient, selectIngredients, countBadge)
+            IngredientFlexboxAdapter(ingredients, selectIngredients, countBadge)
 
         val flexboxLayoutManager = FlexboxLayoutManager(binding.root.context).apply {
             flexDirection = FlexDirection.ROW
