@@ -73,6 +73,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
+            android:paddingHorizontal="16dp"
+            app:itemTextColor="@color/black"
+            app:itemHorizontalPadding="0dp"
+            app:itemTextAppearance="@style/Theme.AfumeAndroid.NavigationDrawerText"
             app:menu="@menu/navigation_drawer"
             app:headerLayout="@layout/header_navigation_drawer"/>
     </androidx.drawerlayout.widget.DrawerLayout>
