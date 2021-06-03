@@ -80,4 +80,8 @@ class NoteViewModel : ViewModel() {
         }
     }
 
+    fun checkShareBtn(){
+        _shareBtn.value = _shareBtn.value != true
+    }
+
 }
