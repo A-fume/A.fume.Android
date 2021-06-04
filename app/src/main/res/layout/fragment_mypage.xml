@@ -77,7 +77,6 @@
             app:itemTextColor="@color/black"
             app:itemHorizontalPadding="0dp"
             app:itemTextAppearance="@style/Theme.AfumeAndroid.NavigationDrawerText"
-            app:menu="@menu/navigation_drawer"
             app:headerLayout="@layout/header_navigation_drawer"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
