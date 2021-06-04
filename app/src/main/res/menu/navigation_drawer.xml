@@ -7,13 +7,30 @@
             android:id="@+id/edit_my_info"
             android:title="@string/edit_my_info"
             android:checked="false"/>
+    </group>
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/edit_password"
             android:title="@string/edit_password"
             android:checked="false"/>
+    </group>
+    <group
+        android:id="@+id/group3"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/logout"
             android:title="@string/logout"
             android:checked="false"/>
     </group>
+    <group
+        android:id="@+id/group4"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/for_divider"
+            android:title=""
+            android:enabled="false" />
+    </group>
+
 </menu>
