@@ -16,8 +16,8 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return api.getValidateNickname(nickname).data
     }
 
-    override suspend fun postRegisterInfo(body: RequestRegister): String {
-        return api.postRegisterInfo(body).message
+    override suspend fun postRegisterInfo(body: RequestRegister): ResponseRegister {
+        return api.postRegisterInfo(body).data
     }
 
     override suspend fun postLoginInfo(body: RequestLogin): ResponseLogin {
