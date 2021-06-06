@@ -128,7 +128,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/vp_home_recommend" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/act_perfume_detail_tv_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -151,8 +151,8 @@
                     android:text='@{viewModel.nickTxt + " 님 연령대 분들에게 인기 많은 향수 입니다."}'
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView4"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    app:layout_constraintStart_toStartOf="@+id/act_perfume_detail_tv_like"
+                    app:layout_constraintTop_toBottomOf="@+id/act_perfume_detail_tv_like" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_home_popular"

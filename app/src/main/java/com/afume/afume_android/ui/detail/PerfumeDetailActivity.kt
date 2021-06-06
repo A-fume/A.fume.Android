@@ -6,10 +6,8 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
-import com.afume.afume_android.data.vo.PerfumeDetailData
 import com.afume.afume_android.databinding.ActivityPerfumeDetailBinding
 import com.afume.afume_android.ui.detail.info.DetailInfoFragment
-import com.afume.afume_android.ui.detail.info.PerfumeDetailViewModel
 import com.afume.afume_android.ui.detail.note.DetailNoteFragment
 
 class PerfumeDetailActivity : AppCompatActivity() {
@@ -17,9 +15,13 @@ class PerfumeDetailActivity : AppCompatActivity() {
     lateinit var detailImageAdapter: DetailImageAdapter
     lateinit var viewPagerAdapter: ViewPagerAdapter
     private val viewModel: PerfumeDetailViewModel by viewModels()
+    private var isLiked : Boolean = false
+    var perfumeIdx: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        perfumeIdx = intent.getIntExtra("perfumeIdx", 1)
+
         binding = DataBindingUtil.setContentView(this,R.layout.activity_perfume_detail)
         binding.lifecycleOwner=this
         binding.viewModel = viewModel
@@ -27,27 +29,28 @@ class PerfumeDetailActivity : AppCompatActivity() {
         initInfo()
         initViewPager()
         initTab()
+        setClick()
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.postPerfumeLike(1)
     }
 
     private fun initInfo(){
-//        val item = PerfumeDetailData(
-//            image = listOf(R.drawable.dummy_perfume_image,R.drawable.dummy_perfume_image,R.drawable.dummy_perfume_image,R.drawable.dummy_perfume_image),
-//            brand = "GUCCI",
-//            name = "뿌르 옴므 오 드 뚜왈렛",
-//            rate = 2.5f
-//        )
-
         detailImageAdapter = DetailImageAdapter(baseContext)
+        binding.vpPerfumeDetailImage.adapter = detailImageAdapter
 
         viewModel.getPerfumeInfo(1)
         viewModel.perfumeDetailData.observe(this, Observer {
+            binding.item = it
             binding.rbPerfumeDetail.setStar(it.score)
             detailImageAdapter.data = it.imageUrls
+            detailImageAdapter.notifyDataSetChanged()
+
+            isLiked = it.isLiked
         })
-
-        binding.vpPerfumeDetailImage.adapter = detailImageAdapter
-
-//        detailImageAdapter.data = item.image
 
         binding.indicatorPerfumeDetail.setViewPager(binding.vpPerfumeDetailImage)
 
@@ -58,8 +61,8 @@ class PerfumeDetailActivity : AppCompatActivity() {
             supportFragmentManager
         )
         viewPagerAdapter.fragments = listOf(
-            DetailInfoFragment(),
-            DetailNoteFragment()
+            DetailInfoFragment(perfumeIdx),
+            DetailNoteFragment(perfumeIdx)
         )
 
         binding.vpPerfumeDetail.adapter = viewPagerAdapter
@@ -70,6 +73,18 @@ class PerfumeDetailActivity : AppCompatActivity() {
         binding.tabPerfumeDetail.apply {
             getTabAt(0)?.text = "향수 정보"
             getTabAt(1)?.text = "시향 노트"
+        }
+    }
+
+    private fun setClick(){
+        binding.actPerfumeDetailClLike.setOnClickListener{
+            if(isLiked) {
+                isLiked = false
+                binding.actPerfumeDetailIvLike.setImageResource(R.drawable.favorite_inactive)
+            }else{
+                isLiked = true
+                binding.actPerfumeDetailIvLike.setImageResource(R.drawable.favorite_active)
+            }
         }
     }
 }

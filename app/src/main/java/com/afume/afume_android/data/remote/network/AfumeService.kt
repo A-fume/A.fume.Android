@@ -129,4 +129,10 @@ interface AfumeService {
         @Path("perfumeIdx") perfumeIdx : Int
     ): Single<ResponsePerfumeDetailWithReviews>
 
+    @POST("perfume/{perfumeIdx}/like")
+    fun postPerfumeLike(
+        @Header("x-access-token") token : String,
+        @Path("perfumeIdx") perfumeIdx : Int
+    ): Single<ResponseBase<Boolean>>
+
 }

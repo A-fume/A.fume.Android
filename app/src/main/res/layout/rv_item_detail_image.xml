@@ -3,9 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="item"
-            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +11,6 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            setImage="@{item}"
             android:layout_width="360dp"
             android:layout_height="360dp"
             app:layout_constraintEnd_toEndOf="parent"

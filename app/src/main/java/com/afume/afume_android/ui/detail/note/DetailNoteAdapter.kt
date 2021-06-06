@@ -7,10 +7,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.DetailNoteListData
+import com.afume.afume_android.data.vo.response.PerfumeDetailWithReviews
 import com.afume.afume_android.databinding.RvItemDetailNoteBinding
 
 class DetailNoteAdapter(private val context: Context) : RecyclerView.Adapter<DetailNoteViewHolder>() {
-    var data = mutableListOf<DetailNoteListData>()
+    var data = mutableListOf<PerfumeDetailWithReviews>()
+
+    fun replaceAll(array: ArrayList<PerfumeDetailWithReviews>?) {
+        array?.let {
+            data.run {
+                clear()
+                addAll(it)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailNoteViewHolder {
         val binding: RvItemDetailNoteBinding = DataBindingUtil.inflate(
@@ -35,7 +45,7 @@ class DetailNoteAdapter(private val context: Context) : RecyclerView.Adapter<Det
 }
 
 class DetailNoteViewHolder(val binding: RvItemDetailNoteBinding):RecyclerView.ViewHolder(binding.root){
-    fun bind(item : DetailNoteListData){
+    fun bind(item : PerfumeDetailWithReviews){
         binding.item = item
     }
 }
