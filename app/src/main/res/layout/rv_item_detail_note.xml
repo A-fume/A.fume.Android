@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.afume.afume_android.data.vo.DetailNoteListData" />
+            type="com.afume.afume_android.data.vo.response.PerfumeDetailWithReviews" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +36,7 @@
             android:layout_marginTop="19dp"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
-            setLikeList="@{item.favorite}"
+            setLikeList="@{0}"
             app:layout_constraintEnd_toStartOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/favorite_inactive" />
@@ -48,7 +48,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="@{Integer.toString(item.like)}"
+            android:text="@{Integer.toString(item.likeCount)}"
             android:fontFamily="@font/notosans_regular"
             android:textSize="12sp"
             android:includeFontPadding="false"
@@ -76,7 +76,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="@{item.contents}"
+            android:text="@{item.content}"
             android:fontFamily="@font/notosans_regular"
             android:textSize="14sp"
             android:includeFontPadding="false"
@@ -113,7 +113,7 @@
             android:layout_marginLeft="6dp"
             android:layout_marginTop="13dp"
             android:layout_weight="1"
-            android:text="@{Float.toString(item.rate)}"
+            android:text="@{Float.toString(item.score)}"
             android:fontFamily="@font/nanummyeongjo"
             android:textSize="12sp"
             android:includeFontPadding="false"
