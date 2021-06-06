@@ -12,13 +12,11 @@ import kotlinx.coroutines.launch
 class NoteViewModel : ViewModel() {
     private val surveyRepository = SurveyRepository()
 
-
-
     private val _keywordList: MutableLiveData<MutableList<KeywordInfo>> = MutableLiveData()
     val keywordList: LiveData<MutableList<KeywordInfo>> get() = _keywordList
 
-    val selectedKeywordList: MutableLiveData<MutableList<Int>> = MutableLiveData()
-    private var tempSelectedKeywordList = mutableListOf<Int>()
+    val selectedKeywordList: MutableLiveData<MutableList<KeywordInfo>> = MutableLiveData()
+    private var tempSelectedKeywordList = mutableListOf<KeywordInfo>()
 
     init {
         viewModelScope.launch {
@@ -55,21 +53,22 @@ class NoteViewModel : ViewModel() {
     val rvKeywordList : LiveData<Boolean>
         get() = _rvKeywordList
 
-    fun addKeywordList(index: Int) {
-        if (selectedKeywordList.value != null) tempSelectedKeywordList = selectedKeywordList.value!!
+    fun addKeywordList(keyword: KeywordInfo, add: Boolean) {
+        if (add) {
+            if (selectedKeywordList.value != null) tempSelectedKeywordList =
+                selectedKeywordList.value!!
 
-        if (!tempSelectedKeywordList.contains(index)) tempSelectedKeywordList.add(index)
-        selectedKeywordList.value = tempSelectedKeywordList
+            if (!tempSelectedKeywordList.contains(keyword)) tempSelectedKeywordList.add(keyword)
+            selectedKeywordList.value = tempSelectedKeywordList
 
-        checkKeywordList()
+            Log.e("index", keyword.toString())
+            Log.e("add keyword", selectedKeywordList.value.toString())
+        } else {
+            selectedKeywordList.value?.remove(keyword)
 
-        Log.d("명",tempSelectedKeywordList.toString())
-    }
-
-    fun removeKeywordList(index: Int) {
-        selectedKeywordList.value?.remove(index)
-
-        Log.d("명",tempSelectedKeywordList.toString())
+            Log.e("index", keyword.toString())
+            Log.e("remove keyword", selectedKeywordList.value.toString())
+        }
     }
 
     private fun checkKeywordList(){

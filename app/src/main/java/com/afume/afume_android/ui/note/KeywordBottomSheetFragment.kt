@@ -12,7 +12,7 @@ import androidx.recyclerview.selection.StorageStrategy
 import com.afume.afume_android.databinding.FragmentKeywordBottomSheetBinding
 import com.afume.afume_android.ui.filter.ItemDetailsLookUp
 import com.afume.afume_android.ui.filter.ItemKeyProvider
-import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
+import com.afume.afume_android.util.NoteKeywordAdapter
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -50,11 +50,10 @@ class KeywordBottomSheetFragment : BottomSheetDialogFragment() {
             flexWrap= FlexWrap.WRAP
             alignItems = AlignItems.STRETCH
         }
+
         val keywordAdapter =
-            FlexboxRecyclerViewAdapter(
-                { index -> viewModel.addKeywordList(index) },
-                { index -> viewModel.removeKeywordList(index) }
-            )
+            NoteKeywordAdapter { index, add -> viewModel.addKeywordList(index, add) }
+
         binding.rvNoteKeyword.apply {
             layoutManager=flexboxLayoutManager
             adapter=keywordAdapter
@@ -66,7 +65,7 @@ class KeywordBottomSheetFragment : BottomSheetDialogFragment() {
             ItemKeyProvider(binding.rvNoteKeyword),
             ItemDetailsLookUp(
                 binding.rvNoteKeyword,
-                "flexbox"
+                "notekeyword"
             ),
             StorageStrategy.createLongStorage()
         ).withSelectionPredicate(SelectionPredicates.createSelectAnything()).build()
