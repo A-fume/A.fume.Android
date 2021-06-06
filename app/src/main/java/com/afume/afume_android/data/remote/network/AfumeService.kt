@@ -22,7 +22,7 @@ interface AfumeService {
     @POST("user/register")
     suspend fun postRegisterInfo(
         @Body body: RequestRegister
-    ): ResponseBase<Boolean>
+    ): ResponseBase<ResponseRegister>
 
     //Sign - sign in
     @POST("user/login")
