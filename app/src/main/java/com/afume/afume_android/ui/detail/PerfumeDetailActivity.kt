@@ -15,6 +15,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
     lateinit var detailImageAdapter: DetailImageAdapter
     lateinit var viewPagerAdapter: ViewPagerAdapter
     private val viewModel: PerfumeDetailViewModel by viewModels()
+    private var isLiked : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,28 +26,28 @@ class PerfumeDetailActivity : AppCompatActivity() {
         initInfo()
         initViewPager()
         initTab()
+        setClick()
 
     }
 
-    private fun initInfo(){
-//        val item = PerfumeDetailData(
-//            image = listOf(R.drawable.dummy_perfume_image,R.drawable.dummy_perfume_image,R.drawable.dummy_perfume_image,R.drawable.dummy_perfume_image),
-//            brand = "GUCCI",
-//            name = "뿌르 옴므 오 드 뚜왈렛",
-//            rate = 2.5f
-//        )
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.postPerfumeLike(1)
+    }
 
+    private fun initInfo(){
         detailImageAdapter = DetailImageAdapter(baseContext)
         binding.vpPerfumeDetailImage.adapter = detailImageAdapter
 
         viewModel.getPerfumeInfo(1)
         viewModel.perfumeDetailData.observe(this, Observer {
+            binding.item = it
             binding.rbPerfumeDetail.setStar(it.score)
             detailImageAdapter.data = it.imageUrls
             detailImageAdapter.notifyDataSetChanged()
-        })
 
-//        detailImageAdapter.data = item.image
+            isLiked = it.isLiked
+        })
 
         binding.indicatorPerfumeDetail.setViewPager(binding.vpPerfumeDetailImage)
 
@@ -69,6 +70,18 @@ class PerfumeDetailActivity : AppCompatActivity() {
         binding.tabPerfumeDetail.apply {
             getTabAt(0)?.text = "향수 정보"
             getTabAt(1)?.text = "시향 노트"
+        }
+    }
+
+    private fun setClick(){
+        binding.actPerfumeDetailClLike.setOnClickListener{
+            if(isLiked) {
+                isLiked = false
+                binding.actPerfumeDetailIvLike.setImageResource(R.drawable.favorite_inactive)
+            }else{
+                isLiked = true
+                binding.actPerfumeDetailIvLike.setImageResource(R.drawable.favorite_active)
+            }
         }
     }
 }

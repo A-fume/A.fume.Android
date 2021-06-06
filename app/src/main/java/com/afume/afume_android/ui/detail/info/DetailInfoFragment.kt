@@ -15,9 +15,11 @@ import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentDetailInfoBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailViewModel
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBubbleDataSet
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
@@ -74,25 +76,6 @@ class DetailInfoFragment : Fragment() {
         }
 
         binding.fragDetailRvPrice.run { adapter = rvPriceAdapter }
-
-//        val tempList = arrayListOf(
-//            "#산뜻한","#자연의", "#여성스러운", "#비누향", "#남성적인", "#비누향")
-//        rvKeywordAdapter.run {
-//            replaceAll(tempList)
-//            notifyDataSetChanged()
-//        }
-
-//        val keywordSelectionTracker = SelectionTracker.Builder<Long>(
-//            "survey_keyword",
-//            binding.rvDetailsInfoKeyword,
-//            ItemKeyProvider(binding.rvDetailsInfoKeyword),
-//            ItemDetailsLookUp(
-//                binding.rvDetailsInfoKeyword,
-//                "flexbox"
-//            ),
-//            StorageStrategy.createLongStorage()
-//        ).withSelectionPredicate(SelectionPredicates.createSelectAnything()).build()
-//        rvKeywordAdapter.setSelectionTracker(keywordSelectionTracker)
     }
 
     private fun initRvSimilar(ctx: Context) {
@@ -145,12 +128,12 @@ class DetailInfoFragment : Fragment() {
         val pieDataColors = listOf<Int>(
             ContextCompat.getColor(requireContext(), R.color.point_beige_accent),
             ContextCompat.getColor(requireContext(), R.color.point_beige),
-            ContextCompat.getColor(requireContext(), R.color.light_beige)
+            ContextCompat.getColor(requireContext(), R.color.dark_beige)
         )
         val pieValuesTextColors = listOf<Int>(
             ContextCompat.getColor(requireContext(), R.color.white),
             ContextCompat.getColor(requireContext(), R.color.white),
-            ContextCompat.getColor(requireContext(), R.color.dark_gray_7d),
+            ContextCompat.getColor(requireContext(), R.color.white),
         )
         pieDataSet.apply {
             colors = pieDataColors
@@ -174,11 +157,11 @@ class DetailInfoFragment : Fragment() {
 //                setLeftTopRightBottom(0,5,10,5)
 //            }
 
-            setDrawCenterText(true)
-            setDrawEntryLabels(true)
+            setDrawCenterText(false)
+            setDrawEntryLabels(true) // 성별 표기
 //            setDrawMarkers(true)
             setTouchEnabled(false) // 그래프 터치 (확대, 회전 등)
-            setUsePercentValues(false) // 그래프 안에 텍스트를 퍼센트로 표기할건지 여부
+            setUsePercentValues(true) // 그래프 안에 텍스트를 퍼센트로 표기할건지 여부
             description.isEnabled = false // 그래프 설명(이름?)
             isDrawHoleEnabled = false // 가운데를 뚫을건지 여부
 
@@ -221,7 +204,7 @@ class DetailInfoFragment : Fragment() {
         return PieDataSet(pieListData, "")
     }
 
-    private fun drawBubbleChartSeason(dataSet: BubbleData) {
+    private fun drawBubbleChartSeason(dataSet: List<BubbleDataSet>) {
 
         val yR = binding.chartBubbleDetailsInfoSeason.axisRight
         yR.apply {
@@ -248,8 +231,8 @@ class DetailInfoFragment : Fragment() {
             axisMinimum = 0.5f
         }
 
-//        val bubbleData = BubbleData(dataSet)
-        dataSet.apply {
+        val bubbleData = BubbleData(dataSet)
+        bubbleData.apply {
             setValueTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             setValueTextSize(15f)
             setValueFormatter(IndexAxisValueFormatter(listOf<String>("봄", "여름", "가을", "겨울")))
@@ -270,7 +253,7 @@ class DetailInfoFragment : Fragment() {
 
     }
 
-    private fun dummyBubbleDataSeason(sp: Int, sm: Int, fa: Int, wi: Int): BubbleData {
+    private fun dummyBubbleDataSeason(sp: Int, sm: Int, fa: Int, wi: Int): List<BubbleDataSet> {
         val primarySeasonDataSet = BubbleDataSet(listOf(BubbleEntry(1f, 40f, sp.toFloat())), "primary")
         primarySeasonDataSet.color =
             ContextCompat.getColor(requireContext(), R.color.point_beige_accent)
@@ -305,12 +288,12 @@ class DetailInfoFragment : Fragment() {
         data.setValueTextSize(14f)
         data.setValueTextColor(Color.BLACK)
         data.setHighlightCircleWidth(1.5f)
-        return data
+//        return data
 
-//        return listOf<BubbleDataSet>(
-//            primarySeasonDataSet,
-//            seasonDataSet
-//        )
+        return listOf<BubbleDataSet>(
+            primarySeasonDataSet,
+            seasonDataSet
+        )
     }
 
 
@@ -322,8 +305,9 @@ class DetailInfoFragment : Fragment() {
 //                txtDetailsInfoPrice2.text = it.volumeAndPrice[1]
                 initLastingPowerBarChart(it.longevity.veryWeak, it.longevity.weak, it.longevity.medium, it.longevity.strong, it.longevity.veryStrong)
                 initsillageBarChart(it.sillage.light, it.sillage.medium, it.sillage.heavy)
-                drawGenderPieChart(dummyPieDataGender(it.gender.female.toFloat(), it.gender.male.toFloat(), it.gender.neutral.toFloat()))
+//                drawGenderPieChart(dummyPieDataGender(it.gender.female.toFloat(), it.gender.male.toFloat(), it.gender.neutral.toFloat()))
 //                drawBubbleChartSeason(dummyBubbleDataSeason(it.seasonal.spring,it.seasonal.summer,it.seasonal.fall,it.seasonal.winter))
+                drawGenderPieChart(dummyPieDataGender(50f, 30f, 20f))
                 drawBubbleChartSeason(dummyBubbleDataSeason(0,30,30,0))
             }
 

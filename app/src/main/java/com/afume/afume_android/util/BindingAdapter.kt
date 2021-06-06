@@ -11,6 +11,13 @@ import com.bumptech.glide.Glide
 object BindingAdapter {
 
     @JvmStatic
+    @BindingAdapter("setPerfumeLike")
+    fun ImageView.setPerfumeLike(status: Boolean) {
+        if(status) setImageResource(R.drawable.favorite_active)
+        else setImageResource(R.drawable.favorite_inactive)
+    }
+
+    @JvmStatic
     @BindingAdapter("setLikeList")
     fun ImageView.setLikeList(status: Int) {
         if (status == 0) {
