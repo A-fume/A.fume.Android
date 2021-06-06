@@ -13,7 +13,7 @@ import com.afume.afume_android.data.vo.DetailNoteListData
 import com.afume.afume_android.databinding.FragmentDetailNoteBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailViewModel
 
-class DetailNoteFragment : Fragment() {
+class DetailNoteFragment(val perfumeIdx: Int) : Fragment() {
 
     lateinit var binding: FragmentDetailNoteBinding
     lateinit var noteAdapter: DetailNoteAdapter
@@ -37,7 +37,7 @@ class DetailNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getPerfumeInfoWithReview(1)
+        viewModel.getPerfumeInfoWithReview(perfumeIdx)
         viewModel.perfumeDetailWithReviewData.observe(requireActivity(), Observer {
             noteAdapter.replaceAll(ArrayList(it))
             noteAdapter.notifyDataSetChanged()

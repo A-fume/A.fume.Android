@@ -26,7 +26,7 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 
-class DetailInfoFragment : Fragment() {
+class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 
     lateinit var binding: FragmentDetailInfoBinding
     lateinit var rvKeywordAdapter: DetailKeywordAdapter
@@ -46,7 +46,7 @@ class DetailInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getPerfumeInfo(1)
+        viewModel.getPerfumeInfo(perfumeIdx)
         observe()
 
         initRv(context)

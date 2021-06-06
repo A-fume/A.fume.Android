@@ -16,9 +16,12 @@ class PerfumeDetailActivity : AppCompatActivity() {
     lateinit var viewPagerAdapter: ViewPagerAdapter
     private val viewModel: PerfumeDetailViewModel by viewModels()
     private var isLiked : Boolean = false
+    var perfumeIdx: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        perfumeIdx = intent.getIntExtra("perfumeIdx", 1)
+
         binding = DataBindingUtil.setContentView(this,R.layout.activity_perfume_detail)
         binding.lifecycleOwner=this
         binding.viewModel = viewModel
@@ -58,8 +61,8 @@ class PerfumeDetailActivity : AppCompatActivity() {
             supportFragmentManager
         )
         viewPagerAdapter.fragments = listOf(
-            DetailInfoFragment(),
-            DetailNoteFragment()
+            DetailInfoFragment(perfumeIdx),
+            DetailNoteFragment(perfumeIdx)
         )
 
         binding.vpPerfumeDetail.adapter = viewPagerAdapter
