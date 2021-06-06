@@ -9,10 +9,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.afume.afume_android.R
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import com.afume.afume_android.data.vo.HomePerfumeListData
+import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentDetailInfoBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailViewModel
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
@@ -99,32 +98,32 @@ class DetailInfoFragment : Fragment() {
     private fun initRvSimilar(ctx: Context) {
         rvSimilarAdapter = PopularListAdapter(ctx)
         binding.rvDetailsInfoSimilar.adapter = rvSimilarAdapter
-        rvSimilarAdapter.data = mutableListOf(
-            HomePerfumeListData(
-                image = null,
-                brand = "1번 브랜드",
-                name = "1번향수",
-                like = 0
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "2번 브랜드",
-                name = "2번향수",
-                like = 1
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "3번 브랜드",
-                name = "3번향수",
-                like = 1
-            ),
-            HomePerfumeListData(
-                image = null,
-                brand = "4번 브랜드",
-                name = "4번향수",
-                like = 0
-            )
-        )
+//        rvSimilarAdapter.data = mutableListOf(
+//            HomePerfumeListData(
+//                image = null,
+//                brand = "1번 브랜드",
+//                name = "1번향수",
+//                like = 0
+//            ),
+//            HomePerfumeListData(
+//                image = null,
+//                brand = "2번 브랜드",
+//                name = "2번향수",
+//                like = 1
+//            ),
+//            HomePerfumeListData(
+//                image = null,
+//                brand = "3번 브랜드",
+//                name = "3번향수",
+//                like = 1
+//            ),
+//            HomePerfumeListData(
+//                image = null,
+//                brand = "4번 브랜드",
+//                name = "4번향수",
+//                like = 0
+//            )
+//        )
         rvSimilarAdapter.notifyDataSetChanged()
     }
 

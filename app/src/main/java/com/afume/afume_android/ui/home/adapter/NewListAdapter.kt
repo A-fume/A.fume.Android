@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.R
-import com.afume.afume_android.data.vo.HomePerfumeListData
+import com.afume.afume_android.data.vo.response.NewPerfumeItem
 import com.afume.afume_android.databinding.RvItemHomeNewBinding
 
 class NewListAdapter(private val context: Context) : RecyclerView.Adapter<NewListViewHolder>() {
-    var data = mutableListOf<HomePerfumeListData>()
+    var data = mutableListOf<NewPerfumeItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewListViewHolder {
         val binding : RvItemHomeNewBinding = DataBindingUtil.inflate(
@@ -30,10 +30,15 @@ class NewListAdapter(private val context: Context) : RecyclerView.Adapter<NewLis
     }
 
     override fun getItemCount(): Int = data.size
+
+    internal fun setNewPerfume(data : MutableList<NewPerfumeItem>?){
+        if(data!=null) this.data = data
+        notifyDataSetChanged()
+    }
 }
 
 class NewListViewHolder(val binding: RvItemHomeNewBinding) : RecyclerView.ViewHolder(binding.root){
-    fun bind(item: HomePerfumeListData){
+    fun bind(item: NewPerfumeItem){
         binding.item = item
     }
 }

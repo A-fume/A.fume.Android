@@ -7,7 +7,7 @@ import com.afume.afume_android.data.vo.response.BrandInfo
 import com.afume.afume_android.databinding.RvItemFilterBrandBinding
 
 class BrandRecyclerViewAdapter(
-    val setSelectedBrand: (Int, Boolean) -> Unit,
+    val setSelectedBrand: (BrandInfo, Boolean) -> Unit,
     val countBadge: (Int, Boolean) -> Unit
 ) : RecyclerView.Adapter<BrandRecyclerViewAdapter.BrandRecyclerViewHolder>() {
 
@@ -56,12 +56,12 @@ class BrandRecyclerViewAdapter(
                     true -> {
                         // 선택되었다면, 리스트에 추가
                         countBadge(1, true)
-                        setSelectedBrand(info.brandIdx, true)
+                        setSelectedBrand(info, true)
                     }
                     false -> {
                         //선택 해제 되었다면, 리스트에서 발견 후 삭제
                         countBadge(1, false)
-                        setSelectedBrand(info.brandIdx, false)
+                        setSelectedBrand(info, false)
 
                     }
                 }

@@ -71,21 +71,23 @@ class SurveyViewModel : ViewModel() {
         Log.e("setPerfumeList", _perfumeList.value.toString())
     }
 
-    fun addKeywordList(index: Int) {
-        if (selectedKeywordList.value != null) tempSelectedKeywordList = selectedKeywordList.value!!
+    fun addKeywordList(index: Int, boolean: Boolean) {
+        if (boolean) {
+            if (selectedKeywordList.value != null) tempSelectedKeywordList =
+                selectedKeywordList.value!!
 
-        if (!tempSelectedKeywordList.contains(index)) tempSelectedKeywordList.add(index)
-        selectedKeywordList.value = tempSelectedKeywordList
+            if (!tempSelectedKeywordList.contains(index)) tempSelectedKeywordList.add(index)
+            selectedKeywordList.value = tempSelectedKeywordList
 
-        Log.e("index", index.toString())
-        Log.e("add keyword", selectedKeywordList.value.toString())
-    }
+            Log.e("index", index.toString())
+            Log.e("add keyword", selectedKeywordList.value.toString())
+        }
+        else{
+            selectedKeywordList.value?.remove(index)
 
-    fun removeKeywordList(index: Int) {
-        selectedKeywordList.value?.remove(index)
-
-        Log.e("index", index.toString())
-        Log.e("remove keyword", selectedKeywordList.value.toString())
+            Log.e("index", index.toString())
+            Log.e("remove keyword", selectedKeywordList.value.toString())
+        }
     }
 
     fun addSeriesList(index: Int) {
@@ -115,7 +117,7 @@ class SurveyViewModel : ViewModel() {
                 token,
                 request
             )
-            Log.e("request",request.toString())
+            Log.e("request", request.toString())
             Log.e("survey post", message)
         }
     }
