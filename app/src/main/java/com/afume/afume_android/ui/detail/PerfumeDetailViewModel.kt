@@ -1,6 +1,7 @@
-package com.afume.afume_android.ui.detail.info
+package com.afume.afume_android.ui.detail
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -41,9 +42,10 @@ class PerfumeDetailViewModel: ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _perfumeDetailWithReviewData.postValue(it.data)
                     Log.d("DETAILDATAWithReviews", it.toString())
+                    _perfumeDetailWithReviewData.postValue(it.data)
                 }) {
+                    Log.d("DETAILDATAWithReviews error", it.toString())
 //                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 })
     }

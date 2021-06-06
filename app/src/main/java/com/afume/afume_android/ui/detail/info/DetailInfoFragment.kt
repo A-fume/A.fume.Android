@@ -1,6 +1,7 @@
 package com.afume.afume_android.ui.detail.info
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,19 +14,22 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.afume.afume_android.data.vo.HomePerfumeListData
 import com.afume.afume_android.databinding.FragmentDetailInfoBinding
+import com.afume.afume_android.ui.detail.PerfumeDetailViewModel
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.IBubbleDataSet
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import kotlin.collections.toList as toList
 
 class DetailInfoFragment : Fragment() {
 
     lateinit var binding: FragmentDetailInfoBinding
     lateinit var rvKeywordAdapter: DetailKeywordAdapter
+    private val rvPriceAdapter = PriceRvAdapter()
     private lateinit var rvSimilarAdapter: PopularListAdapter
     lateinit var chartLastingPowerAdapter: HorizontalBarChartAdapter
     private val viewModel: PerfumeDetailViewModel by activityViewModels()
@@ -44,17 +48,17 @@ class DetailInfoFragment : Fragment() {
         viewModel.getPerfumeInfo(1)
         observe()
 
-        initRvKeyword(context)
+        initRv(context)
         initLastingPowerBarChart(0,0,0,0,0)
         initsillageBarChart(0,0,0)
         initRvSimilar(requireContext())
 
         drawGenderPieChart(dummyPieDataGender(0f, 0f, 0f))
-        drawBubbleChartSeason(dummyBubbleDataSeason())
+        drawBubbleChartSeason(dummyBubbleDataSeason(0,0,0,0))
 
     }
 
-    private fun initRvKeyword(ctx: Context?) {
+    private fun initRv(ctx: Context?) {
         val flexboxLayoutManager = FlexboxLayoutManager(ctx).apply {
             flexDirection = FlexDirection.ROW
             flexWrap = FlexWrap.WRAP
@@ -69,6 +73,8 @@ class DetailInfoFragment : Fragment() {
             adapter = rvKeywordAdapter
             layoutManager = flexboxLayoutManager
         }
+
+        binding.fragDetailRvPrice.run { adapter = rvPriceAdapter }
 
 //        val tempList = arrayListOf(
 //            "#산뜻한","#자연의", "#여성스러운", "#비누향", "#남성적인", "#비누향")
@@ -216,7 +222,7 @@ class DetailInfoFragment : Fragment() {
         return PieDataSet(pieListData, "")
     }
 
-    private fun drawBubbleChartSeason(dataSet: List<BubbleDataSet>) {
+    private fun drawBubbleChartSeason(dataSet: BubbleData) {
 
         val yR = binding.chartBubbleDetailsInfoSeason.axisRight
         yR.apply {
@@ -243,10 +249,11 @@ class DetailInfoFragment : Fragment() {
             axisMinimum = 0.5f
         }
 
-        val bubbleData = BubbleData(dataSet)
-        bubbleData.apply {
+//        val bubbleData = BubbleData(dataSet)
+        dataSet.apply {
             setValueTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             setValueTextSize(15f)
+            setValueFormatter(IndexAxisValueFormatter(listOf<String>("봄", "여름", "가을", "겨울")))
         }
 
         binding.chartBubbleDetailsInfoSeason.apply {
@@ -264,23 +271,47 @@ class DetailInfoFragment : Fragment() {
 
     }
 
-    private fun dummyBubbleDataSeason(): List<BubbleDataSet> {
-        val primarySeasonDataSet = BubbleDataSet(listOf(BubbleEntry(1f, 50f, 50f)), "primary")
+    private fun dummyBubbleDataSeason(sp: Int, sm: Int, fa: Int, wi: Int): BubbleData {
+        val primarySeasonDataSet = BubbleDataSet(listOf(BubbleEntry(1f, 40f, sp.toFloat())), "primary")
         primarySeasonDataSet.color =
             ContextCompat.getColor(requireContext(), R.color.point_beige_accent)
 
         val seasonDataEntryList = listOf<BubbleEntry>(
-            BubbleEntry(2f, 30f, 30f),
-            BubbleEntry(3f, 25f, 25f),
-            BubbleEntry(4f, 25f, 25f)
+            BubbleEntry(2f, 40f, sm.toFloat()),
+            BubbleEntry(3f, 40f, fa.toFloat()),
+            BubbleEntry(4f, 40f, wi.toFloat())
         )
         val seasonDataSet = BubbleDataSet(seasonDataEntryList, "normal")
         seasonDataSet.color = ContextCompat.getColor(requireContext(), R.color.point_beige)
 
-        return listOf<BubbleDataSet>(
-            primarySeasonDataSet,
-            seasonDataSet
-        )
+        val set1 = BubbleDataSet(listOf(BubbleEntry(1f, 40f, sp.toFloat())), "봄")
+        set1.setDrawValues(true)
+
+        val set2 = BubbleDataSet(listOf(BubbleEntry(1f, 40f, sm.toFloat())), "여름")
+        set2.setDrawValues(true)
+
+        val set3 = BubbleDataSet(listOf(BubbleEntry(1f, 40f, fa.toFloat())), "가을")
+        set3.setDrawValues(true)
+
+        val set4 = BubbleDataSet(listOf(BubbleEntry(1f, 40f, wi.toFloat())), "겨울")
+        set3.setDrawValues(true)
+
+        val dataSets = ArrayList<IBubbleDataSet>()
+        dataSets.add(set1)
+        dataSets.add(set2)
+        dataSets.add(set3)
+        dataSets.add(set4)
+        var data = BubbleData(dataSets)
+        data.setDrawValues(true)
+        data.setValueTextSize(14f)
+        data.setValueTextColor(Color.BLACK)
+        data.setHighlightCircleWidth(1.5f)
+        return data
+
+//        return listOf<BubbleDataSet>(
+//            primarySeasonDataSet,
+//            seasonDataSet
+//        )
     }
 
 
@@ -288,15 +319,21 @@ class DetailInfoFragment : Fragment() {
         viewModel.perfumeDetailData.observe(requireActivity(), Observer {
             binding.run {
                 data = it
-                txtDetailsInfoPrice1.text = it.volumeAndPrice[0]
-                txtDetailsInfoPrice2.text = it.volumeAndPrice[1]
-                dummyPieDataGender(it.gender.female.toFloat(), it.gender.male.toFloat(), it.gender.neutral.toFloat())
+//                txtDetailsInfoPrice1.text = it.volumeAndPrice[0]
+//                txtDetailsInfoPrice2.text = it.volumeAndPrice[1]
                 initLastingPowerBarChart(it.longevity.veryWeak, it.longevity.weak, it.longevity.medium, it.longevity.strong, it.longevity.veryStrong)
                 initsillageBarChart(it.sillage.light, it.sillage.medium, it.sillage.heavy)
+                drawGenderPieChart(dummyPieDataGender(it.gender.female.toFloat(), it.gender.male.toFloat(), it.gender.neutral.toFloat()))
+//                drawBubbleChartSeason(dummyBubbleDataSeason(it.seasonal.spring,it.seasonal.summer,it.seasonal.fall,it.seasonal.winter))
+                drawBubbleChartSeason(dummyBubbleDataSeason(0,30,30,0))
             }
 
             rvKeywordAdapter.run {
                 replaceAll(ArrayList(it.Keywords))
+                notifyDataSetChanged()
+            }
+            rvPriceAdapter.run {
+                replaceAll(ArrayList(it.volumeAndPrice))
                 notifyDataSetChanged()
             }
         })

@@ -89,4 +89,5 @@ interface AfumeService {
     fun getPerfumeDetailWithReview(
         @Path("perfumeIdx") perfumeIdx : Int
     ): Single<ResponsePerfumeDetailWithReviews>
+
 }

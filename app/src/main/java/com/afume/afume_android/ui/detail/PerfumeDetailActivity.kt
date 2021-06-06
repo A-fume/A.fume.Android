@@ -6,10 +6,8 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
-import com.afume.afume_android.data.vo.PerfumeDetailData
 import com.afume.afume_android.databinding.ActivityPerfumeDetailBinding
 import com.afume.afume_android.ui.detail.info.DetailInfoFragment
-import com.afume.afume_android.ui.detail.info.PerfumeDetailViewModel
 import com.afume.afume_android.ui.detail.note.DetailNoteFragment
 
 class PerfumeDetailActivity : AppCompatActivity() {
@@ -27,6 +25,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
         initInfo()
         initViewPager()
         initTab()
+
     }
 
     private fun initInfo(){
@@ -38,14 +37,14 @@ class PerfumeDetailActivity : AppCompatActivity() {
 //        )
 
         detailImageAdapter = DetailImageAdapter(baseContext)
+        binding.vpPerfumeDetailImage.adapter = detailImageAdapter
 
         viewModel.getPerfumeInfo(1)
         viewModel.perfumeDetailData.observe(this, Observer {
             binding.rbPerfumeDetail.setStar(it.score)
             detailImageAdapter.data = it.imageUrls
+            detailImageAdapter.notifyDataSetChanged()
         })
-
-        binding.vpPerfumeDetailImage.adapter = detailImageAdapter
 
 //        detailImageAdapter.data = item.image
 

@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.afume.afume_android.ui.detail.info.PerfumeDetailViewModel" />
+            type="com.afume.afume_android.ui.detail.PerfumeDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

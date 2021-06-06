@@ -1,6 +1,7 @@
 package com.afume.afume_android.ui.detail
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -25,6 +26,7 @@ class DetailImageAdapter(val context: Context) : RecyclerView.Adapter<DetailImag
     }
 
     override fun onBindViewHolder(holder: DetailImageViewHolder, position: Int) {
+        Log.d("getPerfumeInfo null", data.isNullOrEmpty().toString())
         if (data.isNullOrEmpty()) return
         data!![position].let{
             holder.bind(it)
@@ -32,6 +34,7 @@ class DetailImageAdapter(val context: Context) : RecyclerView.Adapter<DetailImag
     }
 
     override fun getItemCount(): Int {
+        Log.d("getPerfumeInfo size", data?.size.toString())
         return if(data.isNullOrEmpty()) 0
         else data!!.size
     }
@@ -39,6 +42,7 @@ class DetailImageAdapter(val context: Context) : RecyclerView.Adapter<DetailImag
 
 class DetailImageViewHolder(val binding: RvItemDetailImageBinding, val context: Context) : RecyclerView.ViewHolder(binding.root){
     fun bind(image : String){
+        Log.d("getPerfumeInfo images", image)
         Glide.with(context)
             .load(image)
             .into(binding.imageView2)
