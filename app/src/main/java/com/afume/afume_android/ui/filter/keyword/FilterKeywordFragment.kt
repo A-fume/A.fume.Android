@@ -28,10 +28,7 @@ class FilterKeywordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFilterKeywordBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-        binding.vm = viewModel
-        return binding.root
+        return initBinding(inflater, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,6 +36,14 @@ class FilterKeywordFragment : Fragment() {
         initKeywordRv(context)
 
     }
+
+    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?):View{
+        binding = FragmentFilterKeywordBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
+        return binding.root
+    }
+
     private fun initKeywordRv(ctx: Context?){
         val flexboxLayoutManager= FlexboxLayoutManager(ctx).apply {
             flexDirection= FlexDirection.ROW
@@ -47,9 +52,10 @@ class FilterKeywordFragment : Fragment() {
         }
 
         val keywordAdapter = FlexboxRecyclerViewAdapter(
-                { index -> viewModel.addKeywordList(index) },
-                { index -> viewModel.removeKeywordList(index) }
+                { index,add -> viewModel.addKeywordList(index,add) },
+                { index,add -> viewModel.countBadges(index,add) }
             )
+
         binding.rvKeyword.apply {
             layoutManager=flexboxLayoutManager
             adapter=keywordAdapter

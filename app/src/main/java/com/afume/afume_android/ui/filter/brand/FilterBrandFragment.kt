@@ -15,35 +15,38 @@ import com.afume.afume_android.databinding.FragmentFilterBrandBinding
 import com.afume.afume_android.ui.filter.FilterViewModel
 import com.afume.afume_android.ui.filter.ItemDetailsLookUp
 import com.afume.afume_android.ui.filter.ItemKeyProvider
-import com.afume.afume_android.ui.filter.RvBrandData
 import com.google.android.material.tabs.TabLayout
 
 class FilterBrandFragment : Fragment() {
-    private val filterViewModel: FilterViewModel by activityViewModels()
+    private val viewModel: FilterViewModel by activityViewModels()
 
-    private lateinit var binding : FragmentFilterBrandBinding
+    private lateinit var binding: FragmentFilterBrandBinding
     private lateinit var brandAdapter: BrandRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding= FragmentFilterBrandBinding.inflate(inflater,container,false)
-        binding.lifecycleOwner= this
-
-        return binding.root
+        return initBinding(inflater, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initBrandTab()
-        setTabClickEvent(context)
+        setTabClickEvent()
         initBrandRvItem(context)
 
 
     }
-    private fun initBrandTab(){
+
+    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
+        binding = FragmentFilterBrandBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
+        return binding.root
+    }
+
+    private fun initBrandTab() {
         binding.tabBrand.apply {
             addTab(binding.tabBrand.newTab().setText("ㄱ"))
             addTab(binding.tabBrand.newTab().setText("ㄴ"))
@@ -61,17 +64,21 @@ class FilterBrandFragment : Fragment() {
             addTab(binding.tabBrand.newTab().setText("ㅎ"))
         }
 
-    }
-    private fun initBrandRvItem(ctx:Context?){
 
-        brandAdapter=
-            BrandRecyclerViewAdapter(ctx)
+    }
+
+    private fun initBrandRvItem(ctx: Context?) {
+
+        brandAdapter = BrandRecyclerViewAdapter(
+            { brandIdx, b -> viewModel.setSelectedBrandListIdx(brandIdx, b) },
+            { idx, b -> viewModel.countBadges(idx, b) })
+
         binding.rvBrand.apply {
-            adapter=brandAdapter
-            layoutManager=LinearLayoutManager(ctx)
+            adapter = brandAdapter
+            layoutManager = LinearLayoutManager(ctx)
         }
 
-        val brandSelectionTracker= SelectionTracker.Builder<Long>(
+        val brandSelectionTracker = SelectionTracker.Builder<Long>(
             "brandName",
             binding.rvBrand,
             ItemKeyProvider(binding.rvBrand),
@@ -81,51 +88,47 @@ class FilterBrandFragment : Fragment() {
             ),
             StorageStrategy.createLongStorage()
         ).withSelectionPredicate(SelectionPredicates.createSelectAnything()).build()
-        //brandAdapter.setSelectionTracker(brandSelectionTracker)
 
-//        brandAdapter.data= listOf(
-//            BrandViewModel("조말론"),
-//            BrandViewModel("딥디크"),
-//            BrandViewModel("데메테르"),
-//            BrandViewModel("르라보"),
-//            BrandViewModel("조말론"),
-//        )
-
+        binding.tabBrand.getTabAt(0)?.select()
     }
-    private fun setTabClickEvent(ctx:Context?){
-        val tab =binding.tabBrand
-        tab.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+
+    private fun setTabClickEvent() {
+        val tab = binding.tabBrand
+        tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
-
+                selectInitial(tab)
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-
             }
-
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                if(tab?.position==0){
-                    brandAdapter.data= listOf(
-                        RvBrandData("ㄱ조말론"),
-                        RvBrandData("ㄱ딥디크"),
-                        RvBrandData("ㄱ데메테르"),
-                        RvBrandData("ㄱ르라보"),
-                        RvBrandData("ㄱ조말론"),
-                    )
-                }
-                else if(tab?.position==1){
-                    brandAdapter.data= listOf(
-                        RvBrandData("ㄴ조말론"),
-                        RvBrandData("ㄴ딥디크"),
-                        RvBrandData("ㄴ데메테르"),
-                        RvBrandData("ㄴ르라보"),
-                        RvBrandData("ㄴ조말론"),
-                    )
-                }
-                brandAdapter.notifyDataSetChanged()
+                selectInitial(tab)
             }
-
         })
+    }
+
+    fun selectInitial(tab: TabLayout.Tab?){
+        when (tab?.position) {
+            0 -> bindInitialBrand("ㄱ")
+            1 -> bindInitialBrand("ㄴ")
+            2 -> bindInitialBrand("ㄷ")
+            3 -> bindInitialBrand("ㄹ")
+            4 -> bindInitialBrand("ㅁ")
+            5 -> bindInitialBrand("ㅂ")
+            6 -> bindInitialBrand("ㅅ")
+            7 -> bindInitialBrand("ㅇ")
+            8 -> bindInitialBrand("ㅈ")
+            9 -> bindInitialBrand("ㅊ")
+            10 -> bindInitialBrand("ㅋ")
+            11 -> bindInitialBrand("ㅌ")
+            12 -> bindInitialBrand("ㅍ")
+            13 -> bindInitialBrand("ㅎ")
+        }
+    }
+
+    fun bindInitialBrand(initial: String) {
+        brandAdapter.initial = initial
+        brandAdapter.data = viewModel.bindBrandTab(initial)
+        brandAdapter.notifyDataSetChanged()
     }
 
 

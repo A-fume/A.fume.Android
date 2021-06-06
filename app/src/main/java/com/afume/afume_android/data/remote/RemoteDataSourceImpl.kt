@@ -16,8 +16,8 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return api.getValidateNickname(nickname).data
     }
 
-    override suspend fun postRegisterInfo(body: RequestRegister): String {
-        return api.postRegisterInfo(body).message
+    override suspend fun postRegisterInfo(body: RequestRegister): ResponseRegister {
+        return api.postRegisterInfo(body).data
     }
 
     override suspend fun postLoginInfo(body: RequestLogin): ResponseLogin {
@@ -51,8 +51,8 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return api.getLikedPerfume(token, userIdx).data.rows
     }
 
-    override suspend fun getMyPerfume(token: String, userIdx: Int): MutableList<ResponseMyPerfume> {
-        return api.getMyPerfume(token,userIdx).data
+    override suspend fun getMyPerfume(token: String): MutableList<ResponseMyPerfume> {
+        return api.getMyPerfume(token).data
     }
 
     override suspend fun putMyInfo(token: String, userIdx: Int, body: RequestEditMyInfo): ResponseEditMyInfo {
@@ -61,5 +61,34 @@ class RemoteDataSourceImpl : RemoteDataSource{
 
     override suspend fun putPassword(token: String, body: RequestEditPassword): String {
         return api.putPassword(token,body).message
+    }
+
+    override suspend fun getFilterSeries(): ResponseSeries {
+        return api.getFilterSeries().data
+    }
+
+    override suspend fun getFilterBrand(): MutableList<InitialBrand> {
+        return  api.getFilterBrand().data
+    }
+
+    override suspend fun postSearchPerfume(body:RequestSearch): MutableList<PerfumeInfo> {
+        return  api.postSearchPerfume(body).data.rows
+    }
+
+
+    override suspend fun getRecommendPerfumeList(token: String): MutableList<RecommendPerfumeItem> {
+        return api.getRecommendPerfumeList(token).data.rows
+    }
+
+    override suspend fun getCommonPerfumeList(token: String): MutableList<RecommendPerfumeItem> {
+        return api.getCommonPerfumeList(token).data.rows
+    }
+
+    override suspend fun getRecentPerfumeList(token: String): MutableList<RecentPerfumeItem> {
+        return api.getRecentList(token).data.rows
+    }
+
+    override suspend fun getNewPerfumeList(): MutableList<NewPerfumeItem> {
+        return api.getNewPerfumeList().data.rows
     }
 }

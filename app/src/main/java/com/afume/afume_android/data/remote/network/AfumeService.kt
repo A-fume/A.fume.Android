@@ -2,6 +2,7 @@ package com.afume.afume_android.data.remote.network
 
 import com.afume.afume_android.data.vo.request.*
 import com.afume.afume_android.data.vo.response.*
+import io.reactivex.Single
 import retrofit2.http.*
 
 interface AfumeService {
@@ -21,7 +22,7 @@ interface AfumeService {
     @POST("user/register")
     suspend fun postRegisterInfo(
         @Body body: RequestRegister
-    ): ResponseBase<Boolean>
+    ): ResponseBase<ResponseRegister>
 
     //Sign - sign in
     @POST("user/login")
@@ -58,10 +59,9 @@ interface AfumeService {
         @Path("userIdx") userIdx : Int
     ):ResponseBase<ResponsePerfume>
 
-    @GET("user/{userIdx}/review")
+    @GET("user/review")
     suspend fun getMyPerfume(
-        @Header("x-access-token") token : String,
-        @Path("userIdx") userIdx : Int
+        @Header("x-access-token") token : String
     ):ResponseBase<MutableList<ResponseMyPerfume>>
 
     // Edit - My info
@@ -78,4 +78,55 @@ interface AfumeService {
         @Header("x-access-token") token : String,
         @Body body : RequestEditPassword
     ):ResponseMessage
+
+    //Filter - Brand
+    @GET("filter/brand")
+    suspend fun getFilterBrand(
+    ):ResponseBase<MutableList<InitialBrand>>
+
+    //Filter - Series
+    @GET("filter/series")
+    suspend fun getFilterSeries(
+    ):ResponseBase<ResponseSeries>
+
+    // Search
+    @POST("perfume/search")
+    suspend fun postSearchPerfume(
+        @Body body: RequestSearch
+    ):ResponseBase<ResponsePerfume>
+
+    // Home - personal recommend
+    @GET("perfume/recommend/personal")
+    suspend fun getRecommendPerfumeList(
+        @Header("x-access-token") token : String,
+    ):ResponseBase<ResponseRecommendPerfumeList>
+
+    // Home - common recommend
+    @GET("perfume/recommend/common")
+    suspend fun getCommonPerfumeList(
+        @Header("x-access-token") token : String,
+    ):ResponseBase<ResponseRecommendPerfumeList>
+
+    // Home - recent perfume
+    @GET("perfume/recent")
+    suspend fun getRecentList(
+        @Header("x-access-token") token : String,
+    ):ResponseBase<ResponseRecentPerfumeList>
+
+    // Home - New Perfume List
+    @GET("perfume/new")
+    suspend fun getNewPerfumeList(
+
+    ):ResponseBase<ResponseNewPerfumeList>
+
+    @GET("perfume/{perfumeIdx}")
+    fun getPerfumeDetail(
+        @Path("perfumeIdx") perfumeIdx : Int
+    ): Single<ResponsePerfumeDetail>
+
+    @GET("perfume/{perfumeIdx}/review")
+    fun getPerfumeDetailWithReview(
+        @Path("perfumeIdx") perfumeIdx : Int
+    ): Single<ResponsePerfumeDetailWithReviews>
+
 }

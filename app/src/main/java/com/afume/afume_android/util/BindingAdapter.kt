@@ -25,8 +25,27 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("setLikeList")
+    fun ImageView.setLikeList(status: Boolean) {
+        if (!status) {
+            setImageResource(R.drawable.favorite_inactive)
+        } else {
+            setImageResource(R.drawable.favorite_active)
+        }
+    }
+
+    @JvmStatic
     @BindingAdapter("setImage")
     fun setImage(view: ImageView, res: Int?) {
+        Glide.with(view.context)
+            .load(res)
+            .into(view)
+
+    }
+
+    @JvmStatic
+    @BindingAdapter("setImage")
+    fun setImage(view: ImageView, res: String?) {
         Glide.with(view.context)
             .load(res)
             .into(view)

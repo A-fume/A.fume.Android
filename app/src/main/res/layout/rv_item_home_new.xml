@@ -7,7 +7,7 @@
     <data>
         <variable
             name="item"
-            type="com.afume.afume_android.data.vo.HomePerfumeListData" />
+            type="com.afume.afume_android.data.vo.response.NewPerfumeItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,6 +23,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="6dp"
             android:layout_marginRight="6dp"
+            setImage="@{item.imageUrl}"
             android:background="@drawable/border_light_gray_f0_line_square"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +32,7 @@
 
         <ImageView
             android:id="@+id/imageView11"
-            setLikeList="@{item.like}"
+            setLikeList="@{item.liked}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
@@ -46,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{item.brand}"
+            android:text="@{item.brandName}"
             android:fontFamily="@font/notosans_regular"
             android:textSize="12sp"
             android:includeFontPadding="false"

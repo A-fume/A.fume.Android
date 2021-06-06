@@ -7,6 +7,10 @@
         <variable
             name="fm"
             type="com.afume.afume_android.ui.detail.info.DetailInfoFragment" />
+
+        <variable
+            name="data"
+            type="com.afume.afume_android.data.vo.response.PerfumeDetail" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -38,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="31dp"
                 android:layout_marginEnd="18dp"
-                android:text="아로마틱 후제아 계열의 오리지널 구찌 길티 뿌르 옴므 오 드 뚜왈렛은 새로운 세대의 향수 애호가들의 자유로운 영혼을 표현하며 향수의 새로운 장을 열어갑니다. 뚜렷한 개성을 지녔지만 자연스럽게 서로 융화되는 구찌 길티 남성용 및 여성용 향수는 #ForeverGuilty에서 영감을 받아 탄생했으며, 자기 표현과 두려움 없는 모습을 상징합니다."
+                android:text="@{data.story}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView46"
                 app:layout_constraintTop_toBottomOf="@+id/textView46" />
@@ -75,10 +79,11 @@
                 android:layout_marginTop="13dp"
                 android:layout_marginEnd="18dp"
                 android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txt_story"
                 app:layout_constraintTop_toBottomOf="@+id/txt_story"
-                tools:listitem="@layout/rv_item_filter_flexbox">
+                tools:listitem="@layout/rv_item_detail_keyword">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -154,7 +159,7 @@
                 android:fontFamily="@font/notosans_medium"
                 android:gravity="right|end"
                 android:includeFontPadding="false"
-                android:text="킹 윌리엄 페어"
+                android:text="@{data.ingredients.top}"
                 android:textColor="@color/primary_black"
                 android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_keyword"
@@ -167,7 +172,7 @@
                 android:fontFamily="@font/notosans_medium"
                 android:gravity="right|end"
                 android:includeFontPadding="false"
-                android:text="파출리"
+                android:text="@{data.ingredients.middle}"
                 android:textColor="@color/primary_black"
                 android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_keyword"
@@ -180,7 +185,7 @@
                 android:fontFamily="@font/notosans_medium"
                 android:gravity="right|end"
                 android:includeFontPadding="false"
-                android:text="프리지아"
+                android:text="@{data.ingredients.base}"
                 android:textColor="@color/primary_black"
                 android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_keyword"
@@ -318,6 +323,7 @@
                 android:layout_marginTop="24dp"
                 app:layoutManager="LinearLayoutManager"
                 android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_season"
                 app:layout_constraintStart_toStartOf="@+id/txt_lasting"
                 app:layout_constraintTop_toBottomOf="@+id/txt_lasting"
@@ -344,6 +350,7 @@
                 android:layout_marginTop="24dp"
                 app:layoutManager="LinearLayoutManager"
                 android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_lasting"
                 app:layout_constraintStart_toStartOf="@+id/txt_sillage"
                 app:layout_constraintTop_toBottomOf="@+id/txt_sillage"
@@ -419,6 +426,7 @@
                 android:orientation="horizontal"
                 app:layoutManager="LinearLayoutManager"
                 android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_gender"
                 app:layout_constraintStart_toStartOf="@+id/txt_similar"
