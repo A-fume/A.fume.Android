@@ -1,7 +1,7 @@
 package com.afume.afume_android.ui.note
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.afume.afume_android.R
 
 class NoteActivity : AppCompatActivity() {
