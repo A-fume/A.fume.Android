@@ -223,7 +223,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/act_perfume_detail_iv_write"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="17dp"
@@ -245,10 +245,10 @@
                 android:text="시향 노트 쓰기"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-                app:layout_constraintEnd_toEndOf="@+id/imageView8"
-                app:layout_constraintStart_toStartOf="@+id/imageView8"
-                app:layout_constraintTop_toTopOf="@+id/imageView8" />
+                app:layout_constraintBottom_toBottomOf="@+id/act_perfume_detail_iv_write"
+                app:layout_constraintEnd_toEndOf="@+id/act_perfume_detail_iv_write"
+                app:layout_constraintStart_toStartOf="@+id/act_perfume_detail_iv_write"
+                app:layout_constraintTop_toTopOf="@+id/act_perfume_detail_iv_write" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
