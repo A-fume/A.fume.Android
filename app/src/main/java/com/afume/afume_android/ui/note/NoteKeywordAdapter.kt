@@ -12,12 +12,17 @@ import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.databinding.RvItemFilterFlexboxBinding
 
-class NoteKeywordAdapter(internal val select:(KeywordInfo, Boolean)->Unit) :
+class NoteKeywordAdapter(private val type : Int, internal val select:(KeywordInfo, Boolean)->Unit) :
     ListAdapter<KeywordInfo, NoteKeywordAdapter.NoteFlexboxRecyclerViewHolder>(
         NoteKeywordDiffCallback
     ) {
     init {
         setHasStableIds(true)
+    }
+
+    companion object{
+        const val DIALOG_TYPE = 0
+        const val LIST_TYPE = 1
     }
 
     var data = mutableListOf<KeywordInfo>()
@@ -53,7 +58,6 @@ class NoteKeywordAdapter(internal val select:(KeywordInfo, Boolean)->Unit) :
         if(data!=null) this.data=data
         submitList(data)
         notifyDataSetChanged()
-
     }
 
     inner class NoteFlexboxRecyclerViewHolder(val binding: RvItemFilterFlexboxBinding) :
@@ -71,20 +75,24 @@ class NoteKeywordAdapter(internal val select:(KeywordInfo, Boolean)->Unit) :
                     setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
                 }
             }
-            binding.root.setOnClickListener {
-                if (!data.checked) {
-                    binding.rvItemTxtFlexbox.apply {
-                        select(data,true)
-                        data.checked=true
+            when(type){
+                DIALOG_TYPE -> {
+                    binding.root.setOnClickListener {
+                        if (!data.checked) {
+                            binding.rvItemTxtFlexbox.apply {
+                                select(data,true)
+                                data.checked=true
+                            }
+                        }
+                        else {
+                            binding.rvItemTxtFlexbox.apply {
+                                select(data,false)
+                                data.checked=false
+                            }
+                        }
+                        notifyDataSetChanged()
                     }
                 }
-                else {
-                    binding.rvItemTxtFlexbox.apply {
-                        select(data,false)
-                        data.checked=false
-                    }
-                }
-                notifyDataSetChanged()
             }
         }
 

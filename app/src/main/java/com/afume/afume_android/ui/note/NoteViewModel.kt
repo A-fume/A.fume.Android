@@ -1,6 +1,5 @@
 package com.afume.afume_android.ui.note
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,7 +27,7 @@ class NoteViewModel : ViewModel() {
     val contentsTxt = MutableLiveData<String>("")
 
     // seekBar
-    val seekBarProgress = MutableLiveData<Int>()
+    val longevityProgress = MutableLiveData<Int>()
 
     // 계절 선택
     val selectedSeasonList: MutableLiveData<MutableList<Int>> = MutableLiveData()
@@ -60,19 +59,15 @@ class NoteViewModel : ViewModel() {
 
             if (!tempSelectedKeywordList.contains(keyword)) tempSelectedKeywordList.add(keyword)
             selectedKeywordList.value = tempSelectedKeywordList
-
-            Log.e("index", keyword.toString())
-            Log.e("add keyword", selectedKeywordList.value.toString())
         } else {
-            selectedKeywordList.value?.remove(keyword)
-
-            Log.e("index", keyword.toString())
-            Log.e("remove keyword", selectedKeywordList.value.toString())
+            if(tempSelectedKeywordList.contains(keyword)) tempSelectedKeywordList.remove(keyword)
+            selectedKeywordList.value = tempSelectedKeywordList
         }
+        checkKeywordList()
     }
 
     private fun checkKeywordList(){
-        if(tempSelectedKeywordList.size > 0){
+        if(selectedKeywordList.value?.isNotEmpty() == true){
             _rvKeywordList.postValue(true)
         }else{
             _rvKeywordList.postValue(false)

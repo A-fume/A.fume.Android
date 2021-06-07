@@ -52,7 +52,7 @@ class KeywordBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         val keywordAdapter =
-            NoteKeywordAdapter { index, add -> viewModel.addKeywordList(index, add) }
+            NoteKeywordAdapter (0) { index, add -> viewModel.addKeywordList(index, add) }
 
         binding.rvNoteKeyword.apply {
             layoutManager=flexboxLayoutManager

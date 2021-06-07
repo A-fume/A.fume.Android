@@ -13,12 +13,18 @@ import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityNoteBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
+import com.afume.afume_android.util.NoteKeywordAdapter
 import com.afume.afume_android.util.setSelectedSeasonBtn
 import com.afume.afume_android.util.setSelectedSeekBarTxt
 import com.afume.afume_android.util.startActivity
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
 
 class NoteActivity : AppCompatActivity() {
     lateinit var binding: ActivityNoteBinding
+    lateinit var noteKeywordAdapter : NoteKeywordAdapter
     private val noteViewModel : NoteViewModel by viewModels()
     private val keywordBottomSheetFragment = KeywordBottomSheetFragment()
 
@@ -36,6 +42,22 @@ class NoteActivity : AppCompatActivity() {
         setComponentList()
         onSeekBarChangeListener()
         onClickSeasonBtn()
+        initKeywordList()
+    }
+
+    private fun initKeywordList(){
+        val flexboxLayoutManager= FlexboxLayoutManager(this).apply {
+            flexDirection= FlexDirection.ROW
+            flexWrap= FlexWrap.WRAP
+            alignItems = AlignItems.STRETCH
+        }
+
+        noteKeywordAdapter = NoteKeywordAdapter(1) { index, add -> noteViewModel.addKeywordList(index, add) }
+
+        binding.rvNoteKeywordList.apply {
+            layoutManager=flexboxLayoutManager
+            adapter=noteKeywordAdapter
+        }
     }
 
     private fun setComponentList(){
