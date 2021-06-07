@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/act_perfume_detail_iv_write"
             android:layout_width="108dp"
             android:layout_height="108dp"
             android:layout_marginStart="8dp"
@@ -36,8 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-            app:layout_constraintEnd_toEndOf="@+id/imageView8"
+            app:layout_constraintBottom_toBottomOf="@+id/act_perfume_detail_iv_write"
+            app:layout_constraintEnd_toEndOf="@+id/act_perfume_detail_iv_write"
             app:srcCompat="@drawable/favorite_inactive" />
 
         <TextView
@@ -52,8 +52,8 @@
             android:textSize="12sp"
             android:includeFontPadding="false"
             android:textColor="@color/dark_gray_7d"
-            app:layout_constraintStart_toStartOf="@+id/imageView8"
-            app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+            app:layout_constraintStart_toStartOf="@+id/act_perfume_detail_iv_write"
+            app:layout_constraintTop_toBottomOf="@+id/act_perfume_detail_iv_write" />
 
         <TextView
             android:id="@+id/textView10"
