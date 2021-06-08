@@ -91,4 +91,8 @@ class RemoteDataSourceImpl : RemoteDataSource{
     override suspend fun getNewPerfumeList(): MutableList<NewPerfumeItem> {
         return api.getNewPerfumeList().data.rows
     }
+
+    override suspend fun postReview(token: String, perfumeIdx: Int, body: RequestReview): String {
+        return api.postReview(token, perfumeIdx, body).message
+    }
 }

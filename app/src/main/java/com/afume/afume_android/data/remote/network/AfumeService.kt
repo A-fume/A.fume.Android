@@ -135,4 +135,12 @@ interface AfumeService {
         @Path("perfumeIdx") perfumeIdx : Int
     ): Single<ResponseBase<Boolean>>
 
+
+    // note - add
+    @POST("perfume/{perfumeIdx}/review")
+    fun postReview(
+        @Header("x-access-token") token : String,
+        @Path("perfumeIdx") perfumeIdx : Int,
+        @Body body : RequestReview
+    ):ResponseMessage
 }

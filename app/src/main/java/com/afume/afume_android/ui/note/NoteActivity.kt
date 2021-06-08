@@ -16,6 +16,7 @@ import com.afume.afume_android.ui.detail.PerfumeDetailActivity
 import com.afume.afume_android.util.NoteKeywordAdapter
 import com.afume.afume_android.util.setSelectedSeekBarTxt
 import com.afume.afume_android.util.startActivity
+import com.afume.afume_android.util.toastLong
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -31,6 +32,8 @@ class NoteActivity : AppCompatActivity() {
     lateinit var txtReverbList : List<TextView>
     lateinit var txtGenderList : List<TextView>
 
+    var perfumeIdx: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
@@ -39,6 +42,7 @@ class NoteActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
         binding.item = wishList
+        perfumeIdx = wishList?.perfumeIdx!!
 
         setEnabledShareBtn()
         setEnabledCompleteBtn()
@@ -162,6 +166,8 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickCompleteBtn(view : View){
+//        noteViewModel.postReview(perfumeIdx)
+        this.toastLong("시향 노트 추가")
         finish()
     }
 }
