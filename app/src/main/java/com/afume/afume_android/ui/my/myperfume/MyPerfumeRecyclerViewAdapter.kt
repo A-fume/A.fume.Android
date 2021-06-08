@@ -42,7 +42,7 @@ class MyPerfumeRecyclerViewHolder(val binding: RvItemMyMyperfumeBinding) :
 
     fun goToNotePageWithReviewIdx(view: View, reviewIdx: Int) {
         val intent = Intent(view.context, NoteActivity::class.java)
-        intent.putExtra("perfumeIdx", reviewIdx)
+        intent.putExtra("reviewIdx", reviewIdx)
         view.context.startActivity(intent)
     }
 }

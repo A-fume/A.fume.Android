@@ -13,7 +13,7 @@ data class PerfumeInfo(
     val releaseDate: String?=null,
     val perfumeIdx: Int,
     val likeCnt: Int?=null,
-    var isLiked: Boolean=false,
+    var isLiked: Boolean,
     val brandName: String,
     val mainSeriesName: String?=null
 )

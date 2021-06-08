@@ -11,7 +11,7 @@ import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.databinding.FragmentWishListBinding
 import com.afume.afume_android.databinding.LayoutPleaseLoginBinding
 import com.afume.afume_android.ui.my.MyViewModel
-import com.afume.afume_android.ui.signin.SignInActivity
+import com.afume.afume_android.ui.signin.SignHomeActivity
 
 
 class WishListFragment : Fragment() {
@@ -50,7 +50,7 @@ class WishListFragment : Fragment() {
 
     private fun setPleaseLoginView(binding: LayoutPleaseLoginBinding) {
         binding.btnGoToLogin.setOnClickListener {
-            val intent = Intent(requireContext(), SignInActivity::class.java)
+            val intent = Intent(requireContext(), SignHomeActivity::class.java)
             startActivity(intent)
         }
     }

@@ -1,5 +1,6 @@
 package com.afume.afume_android.util
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.DialogCommonBinding
+import com.afume.afume_android.ui.signin.SignHomeActivity
 
 class CommonDialog : DialogFragment(), View.OnClickListener {
     lateinit var binding : DialogCommonBinding
@@ -38,6 +40,8 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
                 setContents(R.string.dialog_login, "취소", "로그인 하기")
 
                 binding.btnCommonDialogYes.setOnClickListener {
+                    val intent = Intent(context,SignHomeActivity::class.java)
+                    startActivity(intent)
                     dismiss()
                 }
 

@@ -4,28 +4,31 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.SearchRepository
 import com.afume.afume_android.data.vo.request.FilterInfoP
 import com.afume.afume_android.data.vo.request.RequestSearch
 import com.afume.afume_android.data.vo.response.PerfumeInfo
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
 class SearchViewModel : ViewModel() {
     private val searchRepository = SearchRepository()
+    private val compositeDisposable = CompositeDisposable()
 
     val filterList = MutableLiveData(mutableListOf<FilterInfoP>())
     val perfumeList = MutableLiveData(mutableListOf<PerfumeInfo>())
+    val perfumeLike: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
-        Log.e("search viewModel", "뷰모델 생성됐다")
         postSearchResultPerfume()
     }
 
     fun postSearchResultPerfume() {
-//        searchText()
 
-        val requestSearch =
-            RequestSearch("", mutableListOf<Int>(), mutableListOf<Int>(), mutableListOf<Int>())
+        val requestSearch = RequestSearch("", mutableListOf<Int>(), mutableListOf<Int>(), mutableListOf<Int>())
         val tempFilterList = filterList.value
         tempFilterList?.forEach {
             when (it.type) {
@@ -39,10 +42,32 @@ class SearchViewModel : ViewModel() {
         Log.e("Request Search ", requestSearch.toString())
 
         viewModelScope.launch {
-            perfumeList.value = searchRepository.postResultPerfume(requestSearch)
+            perfumeList.value = searchRepository.postResultPerfume(AfumeApplication.prefManager.accessToken,requestSearch)
             Log.e("search result", perfumeList.value.toString())
         }
 
+    }
+
+    fun postPerfumeLike(perfumeIdx: Int) {
+        compositeDisposable.add(
+            searchRepository.postPerfumeLike(AfumeApplication.prefManager.accessToken, perfumeIdx)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Log.d("postPerfumeLike", it.toString())
+                    Log.e("postPerfumeLike", it.toString())
+                    perfumeLike.postValue(it.data)
+                    clickHeartPerfumeList(perfumeIdx,it.data)
+                }) {
+                    Log.d("postPerfumeLike error", it.toString())
+//                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
+                })
+    }
+
+    private fun clickHeartPerfumeList(perfumeIdx: Int, isSelected:Boolean){
+        val tempList = perfumeList.value
+        tempList?.forEach { if(it.perfumeIdx==perfumeIdx) it.isLiked= isSelected}
+        perfumeList.value=tempList
     }
 
 

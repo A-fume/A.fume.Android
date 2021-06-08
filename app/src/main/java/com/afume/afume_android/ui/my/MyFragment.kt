@@ -84,12 +84,8 @@ class MyFragment : Fragment() {
         clickBtnCancel()
     }
 
-    private fun haveToken(): Boolean {
-        return AfumeApplication.prefManager.accessToken != ""
-    }
-
     private fun inflateMenu() {
-        if (haveToken()) binding.myNavigationDrawer.inflateMenu(R.menu.navigation_drawer)
+        if (AfumeApplication.prefManager.haveToken()) binding.myNavigationDrawer.inflateMenu(R.menu.navigation_drawer)
         else {
             val textView = TextView(context)
             textView.text = "                        "
