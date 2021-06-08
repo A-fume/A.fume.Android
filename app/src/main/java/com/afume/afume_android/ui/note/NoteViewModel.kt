@@ -29,6 +29,11 @@ class NoteViewModel : ViewModel() {
     // RatingBar
     val rating = MutableLiveData<Float>(0f)
 
+    // SeekBar
+    val longevityProgress = MutableLiveData<Int>()
+    val reverbProgress = MutableLiveData<Int>()
+    val genderProgress = MutableLiveData<Int>()
+
     // 계절 선택
     val selectedSeasonList: MutableLiveData<MutableList<Int>> = MutableLiveData()
     private var tempSelectedSeasonList = mutableListOf<Int>()
