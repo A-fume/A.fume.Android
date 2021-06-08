@@ -2,12 +2,12 @@ package com.afume.afume_android.ui.note
 
 import android.os.Bundle
 import android.view.View
-import android.widget.CheckedTextView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityNoteBinding
@@ -29,7 +29,6 @@ class NoteActivity : AppCompatActivity() {
     lateinit var txtLongevityList : List<TextView>
     lateinit var txtReverbList : List<TextView>
     lateinit var txtGenderList : List<TextView>
-    lateinit var btnSeasonList : List<CheckedTextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,18 +36,47 @@ class NoteActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
 
+        setEnabledShareBtn()
         setEnabledCompleteBtn()
         setComponentList()
         onSeekBarChangeListener()
-//        onClickSeasonBtn()
         initKeywordList()
+    }
+
+    private fun setEnabledShareBtn(){
+        noteViewModel.selectedKeywordList.observe(this, Observer{
+            noteViewModel.checkShareBtn()
+        })
+
+        setSeekBarObserve(noteViewModel.longevityProgress)
+        setSeekBarObserve(noteViewModel.reverbProgress)
+        setSeekBarObserve(noteViewModel.genderProgress)
+
+        setSeasonBtnObserve(noteViewModel.springBtn)
+        setSeasonBtnObserve(noteViewModel.summerBtn)
+        setSeasonBtnObserve(noteViewModel.fallBtn)
+        setSeasonBtnObserve(noteViewModel.winterBtn)
+    }
+
+    private fun setSeekBarObserve(seekBar: LiveData<Int>){
+        seekBar.observe(this, Observer {
+            noteViewModel.checkShareBtn()
+        })
+    }
+
+    private fun setSeasonBtnObserve(seasonBtn: LiveData<Boolean>){
+        seasonBtn.observe(this, Observer {
+            noteViewModel.checkShareBtn()
+        })
     }
 
     private fun setEnabledCompleteBtn(){
         noteViewModel.contentsTxt.observe(this, Observer {
+            noteViewModel.checkShareBtn()
             noteViewModel.checkCompleteBtn()
         })
         noteViewModel.rating.observe(this, Observer {
+            noteViewModel.checkShareBtn()
             noteViewModel.checkCompleteBtn()
         })
     }
@@ -72,8 +100,6 @@ class NoteActivity : AppCompatActivity() {
         txtLongevityList = listOf(binding.txtNoteLongevityVeryWeak, binding.txtNoteLongevityWeak, binding.txtNoteLongevityUsual, binding.txtNoteLongevityStrong, binding.txtNoteLongevityVeryStrong)
         txtReverbList = listOf(binding.txtNoteReverbLight, binding.txtNoteReverbUsual, binding.txtNoteReverbHeavy)
         txtGenderList = listOf(binding.txtNoteGenderMan, binding.txtNoteGenderNeuter, binding.txtNoteGenderWoman)
-
-        btnSeasonList = listOf(binding.btnNoteSeasonSpring, binding.btnNoteSeasonSummer, binding.btnNoteSeasonFall, binding.btnNoteSeasonWinder)
     }
 
     private fun onSeekBarChangeListener(){

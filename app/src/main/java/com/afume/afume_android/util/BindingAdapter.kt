@@ -132,7 +132,7 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("setNoteShareBtnBackground")
-    fun ImageView.setNoteShareBtnBackground(status: Boolean) {
+    fun CheckedTextView.setNoteShareBtnBackground(status: Boolean) {
         if(status){
             setBackgroundColor(resources.getColor(R.color.point_beige))
         }else{

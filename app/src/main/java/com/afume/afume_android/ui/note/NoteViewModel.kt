@@ -68,6 +68,11 @@ class NoteViewModel : ViewModel() {
     }
 
     // 공유 버튼 활성화
+    private val _isValidShareBtn = MutableLiveData<Boolean>(false)
+    val isValidShareBtn : LiveData<Boolean>
+        get() = _isValidShareBtn
+
+    // 공유 버튼 체크
     private val _shareBtn = MutableLiveData<Boolean>(false)
     val shareBtn : LiveData<Boolean>
         get() = _shareBtn
@@ -104,8 +109,19 @@ class NoteViewModel : ViewModel() {
         }
     }
 
-    fun checkShareBtn(){
+    fun setShareBtn(){
         _shareBtn.value = _shareBtn.value != true
+    }
+
+    fun checkShareBtn(){
+        if(contentsTxt.value?.isNotEmpty() == true && rating.value != 0f && selectedKeywordList.value?.isNotEmpty() == true
+            && longevityProgress.value != null && reverbProgress.value != null && genderProgress.value != null
+            &&(_springBtn.value == true || _summerBtn.value == true || _fallBtn.value == true || _winterBtn.value == true)){
+            _isValidShareBtn.postValue(true)
+        }else{
+            _isValidShareBtn.postValue(false)
+            _shareBtn.value = false
+        }
     }
 
     fun checkCompleteBtn(){
