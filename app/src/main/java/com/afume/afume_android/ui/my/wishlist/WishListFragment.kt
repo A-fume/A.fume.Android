@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.databinding.FragmentWishListBinding
 import com.afume.afume_android.databinding.LayoutPleaseLoginBinding
@@ -30,9 +31,20 @@ class WishListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (AfumeApplication.prefManager.accessToken == "") setPleaseLoginView(loginBinding)
-        else setMyWishListView(wishListBinding)
+        if (AfumeApplication.prefManager.haveToken()) setMyWishListView(wishListBinding)
+        else setPleaseLoginView(loginBinding)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (AfumeApplication.prefManager.haveToken()) {
+
+            myViewModel.getLikedPerfume()
+            myViewModel.getMyPerfume()
+
+        }
     }
 
     private fun inflateView(container: ViewGroup?): View {
@@ -57,6 +69,7 @@ class WishListFragment : Fragment() {
 
     private fun setMyWishListView(binding: FragmentWishListBinding) {
         initRvWishList(binding)
+        observeWishList(binding)
     }
 
     private fun initRvWishList(binding: FragmentWishListBinding) {
@@ -65,5 +78,24 @@ class WishListFragment : Fragment() {
         wishListAdapter.notifyDataSetChanged()
     }
 
+    private fun setInvisible(binding: FragmentWishListBinding) {
+        //위시리스트가 있을 때 사용
+        if (wishListAdapter.data.isNotEmpty()) {
+            binding.imgWishlistNull.visibility = View.INVISIBLE
+            binding.txtWishlistNull.visibility = View.INVISIBLE
+            binding.rvWishlist.visibility=View.VISIBLE
+        }
+        else{
+
+            binding.imgWishlistNull.visibility = View.VISIBLE
+            binding.txtWishlistNull.visibility = View.VISIBLE
+            binding.rvWishlist.visibility=View.INVISIBLE
+        }
+    }
+    private fun observeWishList(binding: FragmentWishListBinding) {
+        myViewModel.wishList.observe(viewLifecycleOwner, Observer { list ->
+            setInvisible(binding)
+        })
+    }
 
 }
