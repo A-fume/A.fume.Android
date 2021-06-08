@@ -9,6 +9,9 @@
         <variable
             name="viewModel"
             type="com.afume.afume_android.ui.note.NoteViewModel" />
+        <variable
+            name="item"
+            type="com.afume.afume_android.data.vo.ParcelableWishList" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,7 +65,7 @@
                     android:layout_height="156dp"
                     android:layout_marginTop="41dp"
                     android:background="@drawable/border_light_gray_f0_line_square"
-                    android:src="@drawable/dummy_perfume_image"
+                    setImage="@{item.imageUrl}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView16" />
@@ -100,7 +103,7 @@
                     android:layout_marginTop="42dp"
                     android:fontFamily="@font/nanummyeongjo_bold"
                     android:includeFontPadding="false"
-                    android:text="GUCCI"
+                    android:text="@{item.perfumeName}"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="16dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +116,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/notosans_bold"
                     android:includeFontPadding="false"
-                    android:text="뿌르 옴므 오 드 뚜왈렛"
+                    android:text="@{item.brandName}"
                     android:textColor="@color/black_1d"
                     android:textSize="24dp"
                     app:layout_constraintStart_toStartOf="@+id/textView18"

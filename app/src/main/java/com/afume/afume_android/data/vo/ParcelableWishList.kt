@@ -8,5 +8,5 @@ data class ParcelableWishList(
     val perfumeIdx: Int,
     val perfumeName: String,
     val brandName: String,
-    val imageUrl: String
+    val imageUrl: String?
 ) : Parcelable
