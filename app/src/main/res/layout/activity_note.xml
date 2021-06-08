@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:isIndicator="false"
-                    android:rating="0"
+                    android:rating="@={viewModel.rating}"
                     android:stepSize="0.5"
                     app:layout_constraintEnd_toEndOf="@+id/imageView18"
                     app:layout_constraintTop_toBottomOf="@+id/imageView18" />
@@ -778,7 +778,7 @@
                     app:layout_constraintTop_toTopOf="@+id/textView45"
                     app:srcCompat="@drawable/ic_check_white" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

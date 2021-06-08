@@ -26,8 +26,8 @@ class NoteViewModel : ViewModel() {
     // 입력 내용
     val contentsTxt = MutableLiveData<String>("")
 
-    // seekBar
-    val longevityProgress = MutableLiveData<Int>()
+    // RatingBar
+    val rating = MutableLiveData<Float>(0f)
 
     // 계절 선택
     val selectedSeasonList: MutableLiveData<MutableList<Int>> = MutableLiveData()
@@ -76,6 +76,14 @@ class NoteViewModel : ViewModel() {
 
     fun checkShareBtn(){
         _shareBtn.value = _shareBtn.value != true
+    }
+
+    fun checkCompleteBtn(){
+        if(contentsTxt.value?.isNotEmpty() == true && rating.value != 0f){
+            _completeBtn.postValue(true)
+        }else{
+            _completeBtn.postValue(false)
+        }
     }
 
 }

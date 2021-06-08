@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityNoteBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
@@ -39,10 +40,20 @@ class NoteActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
 
+        setEnabledCompleteBtn()
         setComponentList()
         onSeekBarChangeListener()
         onClickSeasonBtn()
         initKeywordList()
+    }
+
+    private fun setEnabledCompleteBtn(){
+        noteViewModel.contentsTxt.observe(this, Observer {
+            noteViewModel.checkCompleteBtn()
+        })
+        noteViewModel.rating.observe(this, Observer {
+            noteViewModel.checkCompleteBtn()
+        })
     }
 
     private fun initKeywordList(){
@@ -72,7 +83,7 @@ class NoteActivity : AppCompatActivity() {
         binding.sbNoteLongevity.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
                 setSelectedSeekBarTxtBold(txtLongevityList,progress)
-                Log.d("명",progress.toString())
+                Log.d("명",noteViewModel.rating.value.toString())
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -90,7 +101,6 @@ class NoteActivity : AppCompatActivity() {
         binding.sbNoteReverb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
                 setSelectedSeekBarTxtBold(txtReverbList,progress)
-                Log.d("명",progress.toString())
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -108,7 +118,6 @@ class NoteActivity : AppCompatActivity() {
         binding.sbNoteGender.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
                 setSelectedSeekBarTxtBold(txtGenderList,progress)
-                Log.d("명",progress.toString())
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
