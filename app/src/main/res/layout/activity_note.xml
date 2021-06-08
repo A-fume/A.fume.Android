@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
         <variable
             name="viewModel"
             type="com.afume.afume_android.ui.note.NoteViewModel" />
@@ -569,38 +569,40 @@
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="18dp"
                     android:layout_marginEnd="12dp"
-                    android:checked="false"
+                    android:checked="@{viewModel.springBtn}"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="봄"
+                    android:onClick="@{() -> viewModel.onClickSpringBtn()}"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    android:drawableRight="@drawable/ic_check_grey"
+                    android:drawableEnd="@drawable/selector_note_season"
                     android:paddingVertical="18dp"
                     android:paddingHorizontal="18dp"
                     app:layout_constraintEnd_toStartOf="@+id/btn_note_season_summer"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView34"
-                    android:background="@drawable/selector_note_season" />
+                    setNoteSeasonBtnBackground="@{viewModel.springBtn}"/>
 
                 <CheckedTextView
                     android:id="@+id/btn_note_season_summer"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
                     android:layout_marginEnd="18dp"
-                    android:checked="false"
+                    android:checked="@{viewModel.summerBtn}"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="여름"
+                    android:onClick="@{() -> viewModel.onClickSummerBtn()}"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    android:drawableRight="@drawable/ic_check_grey"
+                    android:drawableEnd="@drawable/selector_note_season"
                     android:paddingVertical="18dp"
                     android:paddingHorizontal="18dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/btn_note_season_spring"
                     app:layout_constraintTop_toTopOf="@+id/btn_note_season_spring"
-                    android:background="@drawable/selector_note_season"/>
+                    setNoteSeasonBtnBackground="@{viewModel.summerBtn}"/>
 
                 <CheckedTextView
                     android:id="@+id/btn_note_season_fall"
@@ -608,14 +610,15 @@
                     android:layout_height="56dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="12dp"
-                    android:background="@drawable/selector_note_season"
-                    android:checked="false"
+                    setNoteSeasonBtnBackground="@{viewModel.fallBtn}"
+                    android:checked="@{viewModel.fallBtn}"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
-                    android:drawableRight="@drawable/ic_check_grey"
+                    android:drawableEnd="@drawable/selector_note_season"
                     android:paddingVertical="18dp"
                     android:paddingHorizontal="18dp"
                     android:text="가을"
+                    android:onClick="@{() -> viewModel.onClickFallBtn()}"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
                     app:layout_constraintEnd_toStartOf="@+id/btn_note_season_winder"
@@ -626,14 +629,15 @@
                     android:id="@+id/btn_note_season_winder"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
-                    android:background="@drawable/selector_note_season"
-                    android:checked="false"
+                    setNoteSeasonBtnBackground="@{viewModel.winterBtn}"
+                    android:checked="@{viewModel.winterBtn}"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
-                    android:drawableRight="@drawable/ic_check_grey"
+                    android:drawableEnd="@drawable/selector_note_season"
                     android:paddingVertical="18dp"
                     android:paddingHorizontal="18dp"
                     android:text="겨울"
+                    android:onClick="@{() -> viewModel.onClickWinterBtn()}"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="@+id/btn_note_season_summer"

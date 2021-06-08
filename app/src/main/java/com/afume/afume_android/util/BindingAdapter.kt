@@ -2,9 +2,11 @@ package com.afume.afume_android.util
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.CheckedTextView
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -135,6 +137,20 @@ object BindingAdapter {
             setBackgroundColor(resources.getColor(R.color.point_beige))
         }else{
             setBackgroundColor(resources.getColor(R.color.light_gray_f0))
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setNoteSeasonBtnBackground")
+    fun CheckedTextView.setNoteSeasonBtnBackground(status: Boolean) {
+        if(!status){
+            this.typeface = ResourcesCompat.getFont(this.context, R.font.notosans_regular)
+            this.setTextColor(ContextCompat.getColor(this.context, R.color.dark_gray_7d))
+            background = ContextCompat.getDrawable(this.context, R.drawable.border_gray_cd_line)
+        }else{
+            this.typeface = ResourcesCompat.getFont(this.context, R.font.notosans_bold)
+            this.setTextColor(ContextCompat.getColor(this.context, R.color.white))
+            setBackgroundColor(resources.getColor(R.color.point_beige))
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.afume.afume_android.ui.note
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.CheckedTextView
 import android.widget.TextView
@@ -14,7 +13,6 @@ import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityNoteBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
 import com.afume.afume_android.util.NoteKeywordAdapter
-import com.afume.afume_android.util.setSelectedSeasonBtn
 import com.afume.afume_android.util.setSelectedSeekBarTxt
 import com.afume.afume_android.util.startActivity
 import com.google.android.flexbox.AlignItems
@@ -79,11 +77,9 @@ class NoteActivity : AppCompatActivity() {
     }
 
     private fun onSeekBarChangeListener(){
-        Log.d("명",noteViewModel.longevityProgress.value.toString())
         noteViewModel.longevityProgress.observe(this, Observer {
             binding.sbNoteLongevity.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
             setSelectedSeekBarTxtBold(txtLongevityList,it)
-            Log.d("명",noteViewModel.longevityProgress.value.toString())
         })
 
         noteViewModel.reverbProgress.observe(this, Observer {
@@ -120,28 +116,6 @@ class NoteActivity : AppCompatActivity() {
            }else{
                list[i].setSelectedSeekBarTxt(false)
            }
-        }
-    }
-
-    private fun onClickSeasonBtn(){
-        btnSeasonList.forEachIndexed { index, checkedTextView ->
-            btnSeasonList[index].setOnClickListener {
-                if(btnSeasonList[index].isChecked) {
-                    checkSeasonBtn(btnSeasonList[index], false)
-                }else{
-                    checkSeasonBtn(btnSeasonList[index], true)
-            }
-        }}
-    }
-
-    private fun checkSeasonBtn(button: CheckedTextView, isChecked: Boolean) {
-        button.setSelectedSeasonBtn(isChecked)
-        if(isChecked){
-            button.isChecked = true
-            //button.checkMarkDrawable = ContextCompat.getDrawable(this, R.drawable.ic_check_white)
-        }else{
-            button.isChecked = false
-            //button.checkMarkDrawable = ContextCompat.getDrawable(this, R.drawable.ic_check_grey)
         }
     }
 

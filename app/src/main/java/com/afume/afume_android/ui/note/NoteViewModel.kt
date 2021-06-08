@@ -35,11 +35,36 @@ class NoteViewModel : ViewModel() {
     val genderProgress = MutableLiveData<Int>()
 
     // 계절 선택
-    val selectedSeasonList: MutableLiveData<MutableList<Int>> = MutableLiveData()
-    private var tempSelectedSeasonList = mutableListOf<Int>()
+    private val _springBtn = MutableLiveData<Boolean>(false)
+    val springBtn : LiveData<Boolean>
+        get() = _springBtn
 
-    fun onClickSeasonBtn(){
+    private val _summerBtn = MutableLiveData<Boolean>(false)
+    val summerBtn : LiveData<Boolean>
+        get() = _summerBtn
 
+    private val _fallBtn = MutableLiveData<Boolean>(false)
+    val fallBtn : LiveData<Boolean>
+        get() = _fallBtn
+
+    private val _winterBtn = MutableLiveData<Boolean>(false)
+    val winterBtn : LiveData<Boolean>
+        get() = _winterBtn
+
+    fun onClickSpringBtn(){
+        _springBtn.value = _springBtn.value != true
+    }
+
+    fun onClickSummerBtn(){
+        _summerBtn.value = _summerBtn.value != true
+    }
+
+    fun onClickFallBtn(){
+        _fallBtn.value = _fallBtn.value != true
+    }
+
+    fun onClickWinterBtn(){
+        _winterBtn.value = _winterBtn.value != true
     }
 
     // 공유 버튼 활성화
