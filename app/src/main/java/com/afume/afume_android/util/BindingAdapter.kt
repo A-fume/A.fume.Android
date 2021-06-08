@@ -1,10 +1,16 @@
 package com.afume.afume_android.util
 
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.CheckedTextView
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import com.afume.afume_android.R
 import com.bumptech.glide.Glide
 
@@ -86,5 +92,65 @@ object BindingAdapter {
     @BindingAdapter("setWarningFont")
     fun EditText.setWarningFont(status: Boolean){
         setTextColor(ResourcesCompat.getColor(this.resources, if(status) R.color.brick else R.color.primary_black, null))
+    }
+
+    @JvmStatic
+    @BindingAdapter("setNoteContentsText")
+    fun setNoteContentsText(view: EditText, text: String) {
+        when (text.length) {
+            0 -> {
+                view.setBackgroundResource(R.drawable.border_gray_cd_line)
+            }
+            else -> {
+                view.setBackgroundResource(R.drawable.border_gray_cd_line_square)
+            }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("TextAttrChanged")
+    fun setTextAttrChanged(view: EditText, listener: InverseBindingListener) {
+        view.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                listener.onChange()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+    }
+
+    @JvmStatic
+    @InverseBindingAdapter(attribute = "setNoteContentsText", event = "TextAttrChanged")
+    fun getNoteContentsSizeText(view: EditText): String {
+        return view.text.toString()
+    }
+
+    @JvmStatic
+    @BindingAdapter("setNoteShareBtnBackground")
+    fun CheckedTextView.setNoteShareBtnBackground(status: Boolean) {
+        if(status){
+            setBackgroundColor(resources.getColor(R.color.point_beige))
+        }else{
+            setBackgroundColor(resources.getColor(R.color.light_gray_f0))
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setNoteSeasonBtnBackground")
+    fun CheckedTextView.setNoteSeasonBtnBackground(status: Boolean) {
+        if(!status){
+            this.typeface = ResourcesCompat.getFont(this.context, R.font.notosans_regular)
+            this.setTextColor(ContextCompat.getColor(this.context, R.color.dark_gray_7d))
+            background = ContextCompat.getDrawable(this.context, R.drawable.border_gray_cd_line)
+        }else{
+            this.typeface = ResourcesCompat.getFont(this.context, R.font.notosans_bold)
+            this.setTextColor(ContextCompat.getColor(this.context, R.color.white))
+            setBackgroundColor(resources.getColor(R.color.point_beige))
+        }
     }
 }

@@ -13,6 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
         <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar">true</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
 
         <!--Navigation Drawer margin-->
         <item name="listPreferredItemHeightSmall">36dp</item>
@@ -31,6 +32,19 @@
         <item name="android:textColor">@color/dark_gray_7d</item>
     </style>
 
+    <style name="Theme.RatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_bar_stars</item>
+        <item name="android:minHeight">24dp</item>
+        <item name="android:maxHeight">24dp</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/keyword_dialog_back</item>
+    </style>
     <style name="Theme.AfumeAndroid.NavigationDrawerText" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/notosans_regular</item>
         <item name="android:textSize">15dp</item>
