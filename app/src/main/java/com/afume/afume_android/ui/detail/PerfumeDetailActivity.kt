@@ -1,5 +1,6 @@
 package com.afume.afume_android.ui.detail
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -9,6 +10,7 @@ import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityPerfumeDetailBinding
 import com.afume.afume_android.ui.detail.info.DetailInfoFragment
 import com.afume.afume_android.ui.detail.note.DetailNoteFragment
+import com.afume.afume_android.ui.note.NoteActivity
 
 class PerfumeDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityPerfumeDetailBinding
@@ -17,6 +19,9 @@ class PerfumeDetailActivity : AppCompatActivity() {
     private val viewModel: PerfumeDetailViewModel by viewModels()
     private var isLiked : Boolean = false
     var perfumeIdx: Int = 0
+    var perfumeName = ""
+    var brandName = ""
+    var image : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,14 +40,14 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.postPerfumeLike(1)
+        viewModel.postPerfumeLike(perfumeIdx)
     }
 
     private fun initInfo(){
         detailImageAdapter = DetailImageAdapter(baseContext)
         binding.vpPerfumeDetailImage.adapter = detailImageAdapter
 
-        viewModel.getPerfumeInfo(1)
+        viewModel.getPerfumeInfo(perfumeIdx)
         viewModel.perfumeDetailData.observe(this, Observer {
             binding.item = it
             binding.rbPerfumeDetail.setStar(it.score)
@@ -50,6 +55,10 @@ class PerfumeDetailActivity : AppCompatActivity() {
             detailImageAdapter.notifyDataSetChanged()
 
             isLiked = it.isLiked
+
+            perfumeName = it.name
+            brandName = it.brandName
+            image = it.imageUrls?.get(0)
         })
 
         binding.indicatorPerfumeDetail.setViewPager(binding.vpPerfumeDetailImage)
@@ -84,6 +93,16 @@ class PerfumeDetailActivity : AppCompatActivity() {
             }else{
                 isLiked = true
                 binding.actPerfumeDetailIvLike.setImageResource(R.drawable.favorite_active)
+            }
+        }
+
+        binding.actPerfumeDetailIvWrite.setOnClickListener {
+            val intent = Intent(this@PerfumeDetailActivity, NoteActivity::class.java)
+            intent.run {
+                putExtra("perfumeIdx", perfumeIdx)
+                putExtra("perfumeName", perfumeName)
+                putExtra("brandName", brandName)
+                putExtra("imageUrl", image)
             }
         }
     }
