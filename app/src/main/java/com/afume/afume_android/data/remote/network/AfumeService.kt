@@ -92,6 +92,7 @@ interface AfumeService {
     // Search
     @POST("perfume/search")
     suspend fun postSearchPerfume(
+        @Header("x-access-token") token : String?,
         @Body body: RequestSearch
     ):ResponseBase<ResponsePerfume>
 

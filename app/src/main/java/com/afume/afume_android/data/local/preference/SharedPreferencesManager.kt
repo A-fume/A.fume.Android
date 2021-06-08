@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.annotation.CallSuper
 import androidx.core.content.edit
+import com.afume.afume_android.AfumeApplication
 
 class SharedPreferencesManager (context: Context){
     private val sharedPreferences : SharedPreferences = context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
@@ -46,6 +47,10 @@ class SharedPreferencesManager (context: Context){
             .remove(AUTH_TOKEN)
             .remove(REFRESH_TOKEN)
             .apply()
+    }
+
+    fun haveToken(): Boolean {
+        return AfumeApplication.prefManager.accessToken != ""
     }
 
     companion object {

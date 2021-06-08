@@ -47,7 +47,7 @@ class SearchHomeFragment : Fragment() {
     }
 
     private fun initRvPerfumeList() {
-        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter()
+        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx->viewModel.postPerfumeLike(idx)}
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
 //        rvPerfumeAdapter.data = listOf(
 //            DefaultRecyclerViewPerfumeViewModel("르라브", "어마더 13"),

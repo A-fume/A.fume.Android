@@ -71,8 +71,8 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return  api.getFilterBrand().data
     }
 
-    override suspend fun postSearchPerfume(body:RequestSearch): MutableList<PerfumeInfo> {
-        return  api.postSearchPerfume(body).data.rows
+    override suspend fun postSearchPerfume(token: String?,body:RequestSearch): MutableList<PerfumeInfo> {
+        return  api.postSearchPerfume(token,body).data.rows
     }
 
 

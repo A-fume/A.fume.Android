@@ -13,7 +13,7 @@ import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.databinding.FragmentMyPerfumeBinding
 import com.afume.afume_android.databinding.LayoutPleaseLoginBinding
 import com.afume.afume_android.ui.my.MyViewModel
-import com.afume.afume_android.ui.signin.SignInActivity
+import com.afume.afume_android.ui.signin.SignHomeActivity
 
 
 class MyPerfumeFragment : Fragment() {
@@ -59,7 +59,7 @@ class MyPerfumeFragment : Fragment() {
 
     private fun setPleaseLoginView(binding: LayoutPleaseLoginBinding) {
         binding.btnGoToLogin.setOnClickListener {
-            val intent = Intent(requireContext(), SignInActivity::class.java)
+            val intent = Intent(requireContext(), SignHomeActivity::class.java)
             startActivity(intent)
         }
 

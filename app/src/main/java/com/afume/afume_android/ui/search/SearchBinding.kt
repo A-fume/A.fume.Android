@@ -1,5 +1,6 @@
 package com.afume.afume_android.ui.search
 
+import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,9 +11,10 @@ import com.bumptech.glide.Glide
 object SearchBinding {
     @JvmStatic
     @BindingAdapter("bindingDrawable")
-    fun changeDrawable(imageView: ImageView, drawable: String) {
+    fun changeDrawable(imageView: ImageView, url: String) {
+        Log.e("url",url)
         Glide.with(imageView.context)
-            .load(drawable)
+            .load(url)
             .into(imageView)
     }
 
