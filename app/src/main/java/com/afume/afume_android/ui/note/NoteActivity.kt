@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
+import com.afume.afume_android.data.vo.ParcelableWishList
 import com.afume.afume_android.databinding.ActivityNoteBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
 import com.afume.afume_android.util.NoteKeywordAdapter
@@ -32,9 +33,12 @@ class NoteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
+
         binding = DataBindingUtil.setContentView(this,R.layout.activity_note)
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
+        binding.item = wishList
 
         setEnabledShareBtn()
         setEnabledCompleteBtn()
