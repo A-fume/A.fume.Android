@@ -76,6 +76,10 @@ class HomeViewModel : ViewModel(){
                 _commonPerfumeList.value = homeRepository.getCommonPerfumeList(AfumeApplication.prefManager.accessToken)
                 _newPerfumeList.value = homeRepository.getNewPerfumeList()
                 _recentPerfumeList.value = homeRepository.getRecentPerfumeList(AfumeApplication.prefManager.accessToken)
+
+                if(_recentPerfumeList.value!!.isEmpty()){
+                    _isValidRecentList.postValue(false)
+                }
             }catch (e : HttpException){
                 when(e.response()?.code()){
                     401 -> { // 최근 검색 향수 없음

@@ -1,12 +1,13 @@
 package com.afume.afume_android.ui.detail
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
+import com.afume.afume_android.data.vo.ParcelableWishList
 import com.afume.afume_android.databinding.ActivityPerfumeDetailBinding
 import com.afume.afume_android.ui.detail.info.DetailInfoFragment
 import com.afume.afume_android.ui.detail.note.DetailNoteFragment
@@ -98,12 +99,11 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
         binding.actPerfumeDetailIvWrite.setOnClickListener {
             val intent = Intent(this@PerfumeDetailActivity, NoteActivity::class.java)
+            val wishListPerfume = ParcelableWishList(perfumeIdx,perfumeName,brandName,image)
             intent.run {
-                putExtra("perfumeIdx", perfumeIdx)
-                putExtra("perfumeName", perfumeName)
-                putExtra("brandName", brandName)
-                putExtra("imageUrl", image)
+                putExtra("wishListPerfume", wishListPerfume)
             }
+            startActivity(intent)
         }
     }
 }

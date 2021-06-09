@@ -10,8 +10,8 @@ import com.afume.afume_android.data.vo.request.RequestSurvey
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.afume.afume_android.data.vo.response.SeriesInfo
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class SurveyViewModel : ViewModel() {
     private val surveyRepository = SurveyRepository()
@@ -35,10 +35,12 @@ class SurveyViewModel : ViewModel() {
     val keywordList: LiveData<MutableList<KeywordInfo>> get() = _keywordList
 
     init {
+
+        getSeries()
+        getKeyword()
+        getSurveyPerfume()
+
         viewModelScope.launch {
-            _seriesList.value = surveyRepository.getSeries()
-            _perfumeList.value = surveyRepository.getSurveyPerfume()
-            _keywordList.value = surveyRepository.getKeyword()
             Log.e("perfume value", _perfumeList.value.toString())
             Log.e("mutavle", tempSelectedPerfumeList.toString())
             selectedPerfumeList.value = tempSelectedPerfumeList
@@ -81,8 +83,7 @@ class SurveyViewModel : ViewModel() {
 
             Log.e("index", index.toString())
             Log.e("add keyword", selectedKeywordList.value.toString())
-        }
-        else{
+        } else {
             selectedKeywordList.value?.remove(index)
 
             Log.e("index", index.toString())
@@ -105,20 +106,42 @@ class SurveyViewModel : ViewModel() {
         Log.e("index", index.toString())
         Log.e("remove series", selectedSeriesList.value.toString())
     }
+    fun getSeries(){
+        viewModelScope.launch{
+            try { _seriesList.value = surveyRepository.getSeries()}
+            catch (e: HttpException){}
+        }
+    }
+    fun getSurveyPerfume(){
+        viewModelScope.launch{
+            try { _perfumeList.value = surveyRepository.getSurveyPerfume()}
+            catch (e: HttpException){}
+        }
+    }
+    fun getKeyword(){
+        viewModelScope.launch{
+            try { _keywordList.value = surveyRepository.getKeyword()}
+            catch (e: HttpException){}
+        }
+    }
 
     fun postSurvey(token: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val request = RequestSurvey(
-                selectedKeywordList.value,
-                selectedSeriesList.value,
-                selectedPerfumeList.value
-            )
-            val message = surveyRepository.postSurvey(
-                token,
-                request
-            )
-            Log.e("request", request.toString())
-            Log.e("survey post", message)
+        viewModelScope.launch {
+            try {
+                val request = RequestSurvey(
+                    selectedKeywordList.value,
+                    selectedSeriesList.value,
+                    selectedPerfumeList.value
+                )
+                val message = surveyRepository.postSurvey(
+                    token,
+                    request
+                )
+                Log.e("request", request.toString())
+                Log.e("survey post", message)
+            } catch (e: HttpException) {
+
+            }
         }
     }
 

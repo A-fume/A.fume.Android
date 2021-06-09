@@ -4,18 +4,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.afume.afume_android.data.repository.NoteRepository
 import com.afume.afume_android.data.repository.SurveyRepository
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import kotlinx.coroutines.launch
 
 class NoteViewModel : ViewModel() {
     private val surveyRepository = SurveyRepository()
+    private val noteRepository = NoteRepository()
 
     private val _keywordList: MutableLiveData<MutableList<KeywordInfo>> = MutableLiveData()
     val keywordList: LiveData<MutableList<KeywordInfo>> get() = _keywordList
 
     val selectedKeywordList: MutableLiveData<MutableList<KeywordInfo>> = MutableLiveData()
     private var tempSelectedKeywordList = mutableListOf<KeywordInfo>()
+
+    var selectedKeywordIdxList = mutableListOf<Int>()
 
     init {
         viewModelScope.launch {
@@ -35,6 +39,8 @@ class NoteViewModel : ViewModel() {
     val genderProgress = MutableLiveData<Int>()
 
     // 계절 선택
+    var selectedSeasonList = mutableListOf<String>()
+
     private val _springBtn = MutableLiveData<Boolean>(false)
     val springBtn : LiveData<Boolean>
         get() = _springBtn
@@ -132,4 +138,81 @@ class NoteViewModel : ViewModel() {
         }
     }
 
+    fun postReview(perfumeIdx : Int){
+//        viewModelScope.launch {
+//            try{
+//                val reviewInfo = RequestReview(
+//                    score = rating.value!!,
+//                    longevity = getLongevity(longevityProgress.value!!),
+//                    sillage = getReverb(reverbProgress.value!!),
+//                    seasonal = getSeason(),
+//                    gender = getGender(genderProgress.value!!),
+//                    access = _shareBtn.value!!,
+//                    content = contentsTxt.value!!,
+//                    keywordList = getKeyword()
+//                )
+//
+//                Log.d("명 : ", reviewInfo.toString())
+//
+//                noteRepository.postReview(
+//                    AfumeApplication.prefManager.accessToken,
+//                    perfumeIdx,
+//                    reviewInfo
+//                ).let {
+//                    Log.d("시향 노트 추가 성공 : ", it)
+//                }
+//            }catch (e: HttpException){
+//                when(e.response()?.code()){
+//                    401 -> { // 잘못된 토큰
+//                        Log.d("시향 노트 추가 실패 : ", e.message())
+//                    }
+//                }
+//            }
+//        }
+    }
+
+    private fun getLongevity(longevity : Int):String{
+        return when (longevity) {
+            0 -> return "매우 약함"
+            1 -> return "약함"
+            2 -> return "보통"
+            3 -> return "강함"
+            4 -> return "매우 강함"
+            else -> ""
+        }
+    }
+
+    private fun getReverb(reverb : Int):String{
+        return when (reverb) {
+            0 -> return "가벼움"
+            1 -> return "보통"
+            2 -> return "무거움"
+            else -> ""
+        }
+    }
+
+    private fun getGender(gender : Int):String{
+        return when (gender) {
+            0 -> return "남성"
+            1 -> return "중성"
+            2 -> return "여성"
+            else -> ""
+        }
+    }
+
+    private fun getSeason() : MutableList<String>{
+        if(_springBtn.value == true) selectedSeasonList.add("봄")
+        if(_summerBtn.value == true) selectedSeasonList.add("여름")
+        if(_fallBtn.value == true) selectedSeasonList.add("가을")
+        if(_winterBtn.value == true) selectedSeasonList.add("겨울")
+
+        return selectedSeasonList
+    }
+
+    private fun getKeyword() : MutableList<Int>{
+        selectedKeywordList.value?.forEachIndexed{ _, keywordInfo ->
+            selectedKeywordIdxList.add(keywordInfo.keywordIdx)
+        }
+        return selectedKeywordIdxList
+    }
 }
