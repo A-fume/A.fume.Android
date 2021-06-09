@@ -88,6 +88,11 @@ class NoteViewModel : ViewModel() {
     val completeBtn : LiveData<Boolean>
         get() = _completeBtn
 
+    // 삭제,수정 버튼 활성화
+    private val _isValidUpdateBtn = MutableLiveData<Boolean>(false)
+    val isValidUpdateBtn : LiveData<Boolean>
+        get() = _isValidUpdateBtn
+
     // 키워드 리싸이클러뷰 노출 여부
     private val _rvKeywordList = MutableLiveData<Boolean>(false)
     val rvKeywordList : LiveData<Boolean>
