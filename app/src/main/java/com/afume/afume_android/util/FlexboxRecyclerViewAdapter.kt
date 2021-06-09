@@ -2,6 +2,7 @@ package com.afume.afume_android.util
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
@@ -62,27 +63,34 @@ class FlexboxRecyclerViewAdapter(internal val select:(KeywordInfo, Boolean)->Uni
         fun bind(data: KeywordInfo) {
             binding.rvData = data
             binding.root.setOnClickListener {
-                if (!data.checked) {
-                    binding.rvItemTxtFlexbox.apply {
-                        setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
-                        setTextColor(ContextCompat.getColor(this.context, R.color.white))
-                        select(data,true)
-                        countBadge(2,true)
-                        data.checked=true
+                if(data.clickable) {
+                    if (!data.checked) {
+                        binding.rvItemTxtFlexbox.apply {
+                            setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
+                            setTextColor(ContextCompat.getColor(this.context, R.color.white))
+                            select(data, true)
+                            countBadge(2, true)
+                            data.checked = true
 
-                    }
-                }
-                else {
-                    binding.rvItemTxtFlexbox.apply {
-                        background = ContextCompat.getDrawable(this.context, R.drawable.border_gray_cd_line_square)
-                        setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
-                        select(data,false)
-                        countBadge(2,false)
-                        data.checked=false
-                    }
+                        }
+                    } else {
+                        binding.rvItemTxtFlexbox.apply {
+                            background = ContextCompat.getDrawable(
+                                this.context,
+                                R.drawable.border_gray_cd_line_square
+                            )
+                            setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+                            select(data, false)
+                            countBadge(2, false)
+                            data.checked = false
+                        }
 
 //                selectionTracker.select(data.keywordIdx.toLong())
-            }
+                    }
+                }
+                else{
+                    Toast.makeText(it.context, "5개 이상 선택 할 수 없어요.", Toast.LENGTH_SHORT).show()
+                }
 
 //            if (selectionTracker.isSelected(data.keywordIdx.toLong())) {
 //                binding.rvItemTxtFlexbox.apply {

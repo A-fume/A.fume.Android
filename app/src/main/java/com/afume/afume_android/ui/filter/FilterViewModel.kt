@@ -13,6 +13,7 @@ import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.data.vo.response.SeriesInfo
 import com.afume.afume_android.data.vo.response.SeriesIngredients
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class FilterViewModel : ViewModel() {
     private val filterRepository = FilterRepository()
@@ -35,47 +36,53 @@ class FilterViewModel : ViewModel() {
     val seriesList: LiveData<MutableList<SeriesInfo>> get() = _seriesList
 
     // selected List - series
-    val selectedSeriesMap: MutableLiveData<MutableMap<Int, List<SeriesIngredients>>> = MutableLiveData()
+    val selectedSeriesMap: MutableLiveData<MutableMap<Int, List<SeriesIngredients>>> =
+        MutableLiveData()
 
     //brand List
-    var brandMap: MutableLiveData<MutableMap<String, MutableList<BrandInfo>>> = MutableLiveData(mutableMapOf())
+    var brandMap: MutableLiveData<MutableMap<String, MutableList<BrandInfo>>> =
+        MutableLiveData(mutableMapOf())
     val selectedBrandMap: MutableLiveData<MutableList<BrandInfo>> = MutableLiveData()
 
     init {
-        viewModelScope.launch {
-            _keywordList.value = filterRepository.getKeyword()
-            getSeries()
-            getBrand()
-        }
+        Log.e("filter", "생성됐다")
+        getBrand()
+        getSeries()
+        getKeyword()
 
         badgeCount.value = mutableListOf(0, 0, 0)
 
     }
 
+    fun blockClickSeriesMoreThan5() {
+
+    }
+
+    fun blockClickBrandMoreThan5() {
+
+    }
+
+    fun blockClickKeywordMoreThan5() {
+        val tempList = keywordList.value
+        if (badgeCount.value?.get(2)!! >= 5) {
+            Log.e("count", badgeCount.value?.get(2).toString())
+            tempList?.forEach {
+                val keyword = it
+                keyword.clickable = false
+                selectedKeywordList.value?.forEach {
+                    if (keyword.keywordIdx == it.keywordIdx) keyword.clickable=true
+                }
+            }
+        }else{
+            tempList?.forEach {
+                it.clickable=true
+            }
+        }
+        _keywordList.value = tempList
+    }
+
     fun bindBrandTab(initial: String): MutableList<BrandInfo> {
         return brandMap.value!![initial] ?: mutableListOf()
-    }
-
-    suspend fun getBrand() {
-        val initialBrand = filterRepository.getBrand()
-        Log.e("getBrand", initialBrand.toString())
-
-        val tempMap = mutableMapOf<String,MutableList<BrandInfo>>()
-        initialBrand.forEach {
-            tempMap.put(it.firstInitial, it.brands)
-        }
-        brandMap.value = tempMap
-    }
-
-    suspend fun getSeries(){
-        val series = filterRepository.getSeries().rows
-        series.forEach {
-            val entireIngredients=SeriesIngredients(ingredientIdx = -1,name="전체",seriesIdx = it.seriesIdx)
-            it.ingredients.add(0,entireIngredients)
-        }
-        Log.e("series 통신",series.toString())
-        _seriesList.value=series
-        Log.e("series 통신 후 라이브데이터에 전달", _seriesList.value.toString())
     }
 
     fun addSeriesIngredientIdx(seriesNumber: Int, idxList: List<SeriesIngredients>) {
@@ -150,23 +157,69 @@ class FilterViewModel : ViewModel() {
         }
     }
 
-    fun sendSelectFilter():SendFilter{
+    fun getBrand() {
+        viewModelScope.launch {
+            try {
+                val initialBrand = filterRepository.getBrand()
+                Log.e("getBrand", initialBrand.toString())
+
+                val tempMap = mutableMapOf<String, MutableList<BrandInfo>>()
+                initialBrand.forEach {
+                    tempMap.put(it.firstInitial, it.brands)
+                }
+                brandMap.value = tempMap
+            } catch (e: HttpException) {
+
+            }
+        }
+
+    }
+
+    fun getSeries() {
+        viewModelScope.launch {
+            try {
+                val series = filterRepository.getSeries().rows
+                series.forEach {
+                    val entireIngredients =
+                        SeriesIngredients(ingredientIdx = -1, name = "전체", seriesIdx = it.seriesIdx)
+                    it.ingredients.add(0, entireIngredients)
+                }
+                Log.e("series 통신", series.toString())
+                _seriesList.value = series
+                Log.e("series 통신 후 라이브데이터에 전달", _seriesList.value.toString())
+            } catch (e: HttpException) {
+
+            }
+        }
+    }
+
+    fun getKeyword() {
+        viewModelScope.launch {
+            try {
+                _keywordList.value = filterRepository.getKeyword()
+            } catch (e: HttpException) {
+
+            }
+        }
+    }
+
+    fun sendSelectFilter(): SendFilter {
 
         val filterInfoPList = mutableListOf<FilterInfoP>()
         selectedSeriesMap.value?.mapValues {
             it.value.forEach { it ->
-                var ingredientInfoP=FilterInfoP(it.ingredientIdx,it.name,1)
+                var ingredientInfoP = FilterInfoP(it.ingredientIdx, it.name, 1)
                 filterInfoPList.add(ingredientInfoP)
             }
         }
 
         selectedBrandMap.value?.forEach {
-            val brandInfoP=FilterInfoP(it.brandIdx,it.name,2)
+            val brandInfoP = FilterInfoP(it.brandIdx, it.name, 2)
             filterInfoPList.add(brandInfoP)
         }
 
         selectedKeywordList.value?.forEach {
-            val keywordInfoP=FilterInfoP(it.keywordIdx,it.name,3)
+            val keywordInfoP = FilterInfoP(it.keywordIdx, it.name, 3)
             filterInfoPList.add(keywordInfoP)
         }
 

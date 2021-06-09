@@ -41,9 +41,18 @@ class FilterActivity : AppCompatActivity() {
         binding.btnFilterApply.setOnClickListener {
             sendFilter()
         }
+        binding.toolbarFilter.toolbarBtn.setOnClickListener {
+            finish()
+        }
 
         binding.toolbarFilter.toolbar = R.drawable.icon_btn_cancel
         binding.toolbarFilter.toolbartxt = "필터"
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
 
     }
 
