@@ -143,4 +143,11 @@ interface AfumeService {
         @Path("perfumeIdx") perfumeIdx : Int,
         @Body body : RequestReview
     ):ResponseMessage
+
+    // note - delete
+    @DELETE("review/{reviewIdx}")
+    fun deleteReview(
+        @Header("x-access-token") token : String,
+        @Path("reviewIdx") reviewIdx : Int
+    ):ResponseMessage
 }

@@ -1,13 +1,16 @@
 package com.afume.afume_android.ui.note
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.NoteRepository
 import com.afume.afume_android.data.repository.SurveyRepository
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class NoteViewModel : ViewModel() {
     private val surveyRepository = SurveyRepository()
@@ -219,5 +222,25 @@ class NoteViewModel : ViewModel() {
             selectedKeywordIdxList.add(keywordInfo.keywordIdx)
         }
         return selectedKeywordIdxList
+    }
+
+    fun deleteReview(reviewIdx: Int){
+        viewModelScope.launch {
+            try{
+                noteRepository.deleteReview(AfumeApplication.prefManager.accessToken, reviewIdx).let {
+                    Log.d("시향 노트 삭제 성공 : ", it)
+                }
+            }catch (e : HttpException){
+                when(e.response()?.code()){
+                    400 -> { // 잘못된 접근 : 자신의 리뷰 아닌 경우
+                        Log.d("시향 노트 추가 실패 : ", e.message())
+                    }
+                    401 -> { // 잘못된 토큰
+                        Log.d("시향 노트 추가 실패 : ", e.message())
+                    }
+                }
+            }
+
+        }
     }
 }

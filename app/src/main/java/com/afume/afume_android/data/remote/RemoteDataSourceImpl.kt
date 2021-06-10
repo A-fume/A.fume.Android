@@ -95,4 +95,8 @@ class RemoteDataSourceImpl : RemoteDataSource{
     override suspend fun postReview(token: String, perfumeIdx: Int, body: RequestReview): String {
         return api.postReview(token, perfumeIdx, body).message
     }
+
+    override suspend fun deleteReview(token: String, reviewIdx: Int): String {
+        return api.deleteReview(token, reviewIdx).message
+    }
 }

@@ -33,10 +33,12 @@ class NoteActivity : AppCompatActivity() {
     lateinit var txtGenderList : List<TextView>
 
     var perfumeIdx: Int = 0
+    var reviewIdx: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
+        reviewIdx = intent.getIntExtra("reviewIdx",0)
 
         binding = DataBindingUtil.setContentView(this,R.layout.activity_note)
         binding.lifecycleOwner = this
@@ -168,6 +170,12 @@ class NoteActivity : AppCompatActivity() {
     fun onClickCompleteBtn(view : View){
 //        noteViewModel.postReview(perfumeIdx)
         this.toastLong("시향 노트 추가")
+        finish()
+    }
+
+    fun onClickDeleteBtn(view : View){
+//        noteViewModel.deleteReview(reviewIdx)
+        this.toastLong("시향 노트 삭제")
         finish()
     }
 }
