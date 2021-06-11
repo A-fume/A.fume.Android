@@ -7,6 +7,7 @@ import com.afume.afume_android.data.vo.request.RequestReview
 class NoteRepository {
     val remoteDataSource: RemoteDataSource = RemoteDataSourceImpl()
 
+    suspend fun getReview(reviewIdx: Int) = remoteDataSource.getReview(reviewIdx)
     suspend fun postReview(token : String, perfumeIdx: Int, body : RequestReview) = remoteDataSource.postReview(token, perfumeIdx, body)
     suspend fun deleteReview(token : String, reviewIdx : Int) = remoteDataSource.deleteReview(token, reviewIdx)
 }

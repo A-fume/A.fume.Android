@@ -135,6 +135,11 @@ interface AfumeService {
         @Path("perfumeIdx") perfumeIdx : Int
     ): Single<ResponseBase<Boolean>>
 
+    // note - get
+    @GET("review/{reviewIdx}")
+    fun getReview(
+        @Path("perfumeIdx") perfumeIdx : Int
+    ):ResponseBase<ResponseReview>
 
     // note - add
     @POST("perfume/{perfumeIdx}/review")

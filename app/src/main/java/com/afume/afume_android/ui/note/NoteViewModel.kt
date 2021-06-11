@@ -243,4 +243,19 @@ class NoteViewModel : ViewModel() {
 
         }
     }
+
+    fun fetReview(reviewIdx: Int){
+//        viewModelScope.launch {
+//            try{
+//                noteRepository.getReview(reviewIdx).let {
+//                    rating.value = it.score
+//                    longevityProgress.value = it.longevity
+//                    reverbProgress.value = it.sillage
+//                    genderProgress.value = it.gender
+//                    _shareBtn.value = it.access
+//                    contentsTxt.value = it.content
+//                }
+//            }
+//        }
+    }
 }
