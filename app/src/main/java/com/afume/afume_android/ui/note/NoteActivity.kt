@@ -37,20 +37,28 @@ class NoteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
-        reviewIdx = intent.getIntExtra("reviewIdx",0)
-
         binding = DataBindingUtil.setContentView(this,R.layout.activity_note)
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
-        binding.item = wishList
-        perfumeIdx = wishList?.perfumeIdx!!
+        initNote()
 
         setEnabledShareBtn()
         setEnabledCompleteBtn()
         setComponentList()
         onSeekBarChangeListener()
         initKeywordList()
+    }
+
+    private fun initNote(){
+        reviewIdx = intent.getIntExtra("reviewIdx",0)
+
+        if(reviewIdx == 0){ // 추가일 경우
+            val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
+            binding.item = wishList
+            perfumeIdx = wishList?.perfumeIdx!!
+        }else{ // 조회, 수정, 삭제일 경우
+            binding.item = noteViewModel.getReview(reviewIdx)
+        }
     }
 
     private fun setEnabledShareBtn(){

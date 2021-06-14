@@ -146,64 +146,66 @@ class NoteViewModel : ViewModel() {
         }
     }
 
+    // 시향노트 추가
     fun postReview(perfumeIdx : Int){
-//        viewModelScope.launch {
-//            try{
-//                val reviewInfo = RequestReview(
-//                    score = rating.value!!,
-//                    longevity = getLongevity(longevityProgress.value!!),
-//                    sillage = getReverb(reverbProgress.value!!),
-//                    seasonal = getSeason(),
-//                    gender = getGender(genderProgress.value!!),
-//                    access = _shareBtn.value!!,
-//                    content = contentsTxt.value!!,
-//                    keywordList = getKeyword()
-//                )
-//
-//                Log.d("명 : ", reviewInfo.toString())
-//
-//                noteRepository.postReview(
-//                    AfumeApplication.prefManager.accessToken,
-//                    perfumeIdx,
-//                    reviewInfo
-//                ).let {
-//                    Log.d("시향 노트 추가 성공 : ", it)
-//                }
-//            }catch (e: HttpException){
-//                when(e.response()?.code()){
-//                    401 -> { // 잘못된 토큰
-//                        Log.d("시향 노트 추가 실패 : ", e.message())
-//                    }
-//                }
-//            }
-//        }
+        _isValidUpdateBtn.postValue(false)
+        viewModelScope.launch {
+            try{
+                val reviewInfo = RequestReview(
+                    score = rating.value!!,
+                    longevity = getLongevity(longevityProgress.value?: -1),
+                    sillage = getReverb(reverbProgress.value?: -1),
+                    seasonal = getSeason(),
+                    gender = getGender(genderProgress.value?: -1),
+                    access = _shareBtn.value!!,
+                    content = contentsTxt.value!!,
+                    keywordList = getKeyword()
+                )
+
+                Log.d("명 : ", reviewInfo.toString())
+
+                noteRepository.postReview(
+                    AfumeApplication.prefManager.accessToken,
+                    perfumeIdx,
+                    reviewInfo
+                ).let {
+                    Log.d("시향 노트 추가 성공 : ", it)
+                }
+            }catch (e: HttpException){
+                when(e.response()?.code()){
+                    401 -> { // 잘못된 토큰
+                        Log.d("시향 노트 추가 실패 : ", e.message())
+                    }
+                }
+            }
+        }
     }
 
     private fun getLongevity(longevity : Int):String{
         return when (longevity) {
-            0 -> return "매우 약함"
-            1 -> return "약함"
-            2 -> return "보통"
-            3 -> return "강함"
-            4 -> return "매우 강함"
+            0 -> "매우 약함"
+            1 -> "약함"
+            2 -> "보통"
+            3 -> "강함"
+            4 -> "매우 강함"
             else -> ""
         }
     }
 
     private fun getReverb(reverb : Int):String{
         return when (reverb) {
-            0 -> return "가벼움"
-            1 -> return "보통"
-            2 -> return "무거움"
+            0 -> "가벼움"
+            1 -> "보통"
+            2 -> "무거움"
             else -> ""
         }
     }
 
     private fun getGender(gender : Int):String{
         return when (gender) {
-            0 -> return "남성"
-            1 -> return "중성"
-            2 -> return "여성"
+            0 -> "남성"
+            1 -> "중성"
+            2 -> "여성"
             else -> ""
         }
     }
