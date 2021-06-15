@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.NoteRepository
 import com.afume.afume_android.data.repository.SurveyRepository
+import com.afume.afume_android.data.vo.ParcelableWishList
+import com.afume.afume_android.data.vo.request.RequestReview
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -226,38 +228,115 @@ class NoteViewModel : ViewModel() {
         return selectedKeywordIdxList
     }
 
-    fun deleteReview(reviewIdx: Int){
-        viewModelScope.launch {
-            try{
-                noteRepository.deleteReview(AfumeApplication.prefManager.accessToken, reviewIdx).let {
-                    Log.d("시향 노트 삭제 성공 : ", it)
-                }
-            }catch (e : HttpException){
-                when(e.response()?.code()){
-                    400 -> { // 잘못된 접근 : 자신의 리뷰 아닌 경우
-                        Log.d("시향 노트 추가 실패 : ", e.message())
-                    }
-                    401 -> { // 잘못된 토큰
-                        Log.d("시향 노트 추가 실패 : ", e.message())
-                    }
-                }
-            }
+    // 시향노트 조회
+    fun getReview(reviewIdx: Int):ParcelableWishList{
+        var item = ParcelableWishList(0,"","","")
 
+        _isValidUpdateBtn.postValue(true)
+
+        viewModelScope.launch {
+            try {
+                noteRepository.getReview(reviewIdx).let {
+                    rating.value = it.score
+                    longevityProgress.value = convertLongevity(it.longevity)
+                    reverbProgress.value = convertReverb(it.sillage)
+                    genderProgress.value = convertGender(it.gender)
+                    convertSeason(it.seasonal)
+                    _shareBtn.value = it.access
+                    contentsTxt.value = it.content
+
+                    item = ParcelableWishList(
+                        it.perfume.perfumeIdx,
+                        it.perfume.perfumeName,
+                        it.brand.brandName,
+                        it.perfume.imageUrl
+                    )
+
+                    Log.d("시향 노트 조회 성공 :", "")
+
+                }
+            } catch (e: HttpException) {
+                Log.d("시향 노트 조회 실패 :", e.message())
+            }
+//            rating.value = 3.5f
+//            longevityProgress.value = convertLongevity("약함")
+//            reverbProgress.value = convertReverb("")
+//            genderProgress.value = convertGender("여성")
+//            val abc = listOf<String>("봄","가을")
+//            convertSeason(abc)
+//            _shareBtn.value = true
+//            contentsTxt.value = "fffff"
+//
+//            item = ParcelableWishList(
+//                1,
+//                "네임",
+//                "브랜드",
+//                "it.perfume.imageUrl"
+//            )
+        }
+        return item
+    }
+
+    private fun convertLongevity(longevity : String):Int{
+        return when(longevity){
+            "매우 약함" -> 0
+            "약함" -> 1
+            "보통" -> 2
+            "강함" -> 3
+            "매우 강함" -> 4
+            else -> -1
         }
     }
 
-    fun fetReview(reviewIdx: Int){
+    private fun convertReverb(reverb : String):Int{
+        return when(reverb){
+            "가벼움" -> 0
+            "보통" -> 1
+            "무거움" -> 2
+            else -> -1
+        }
+    }
+
+    private fun convertGender(gender : String):Int{
+        return when(gender){
+            "남성" -> 0
+            "중성" -> 1
+            "여성" -> 2
+            else -> -1
+        }
+    }
+
+    private fun convertSeason(seasons : List<String>){
+        seasons.forEach {
+            when(it){
+                "봄" -> _springBtn.value = true
+                "여름" -> _summerBtn.value = true
+                "가을" -> _fallBtn.value = true
+                "겨울" -> _winterBtn.value = true
+            }
+        }
+    }
+
+    // 시향노트 삭제
+    fun deleteReview(reviewIdx: Int){
 //        viewModelScope.launch {
 //            try{
-//                noteRepository.getReview(reviewIdx).let {
-//                    rating.value = it.score
-//                    longevityProgress.value = it.longevity
-//                    reverbProgress.value = it.sillage
-//                    genderProgress.value = it.gender
-//                    _shareBtn.value = it.access
-//                    contentsTxt.value = it.content
+//                noteRepository.deleteReview(AfumeApplication.prefManager.accessToken, reviewIdx).let {
+//                    Log.d("시향 노트 삭제 성공 : ", it)
+//                }
+//            }catch (e : HttpException){
+//                when(e.response()?.code()){
+//                    400 -> { // 잘못된 접근 : 자신의 리뷰 아닌 경우
+//                        Log.d("시향 노트 추가 실패 : ", e.message())
+//                    }
+//                    401 -> { // 잘못된 토큰
+//                        Log.d("시향 노트 추가 실패 : ", e.message())
+//                    }
 //                }
 //            }
+//
 //        }
     }
+
+
 }

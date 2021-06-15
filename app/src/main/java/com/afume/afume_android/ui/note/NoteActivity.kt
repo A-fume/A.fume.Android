@@ -122,18 +122,24 @@ class NoteActivity : AppCompatActivity() {
 
     private fun onSeekBarChangeListener(){
         noteViewModel.longevityProgress.observe(this, Observer {
-            binding.sbNoteLongevity.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
-            setSelectedSeekBarTxtBold(txtLongevityList,it)
+            if(it > -1){
+                binding.sbNoteLongevity.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
+                setSelectedSeekBarTxtBold(txtLongevityList,it)
+            }
         })
 
         noteViewModel.reverbProgress.observe(this, Observer {
-            binding.sbNoteReverb.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
-            setSelectedSeekBarTxtBold(txtReverbList,it)
+            if(it > -1){
+                binding.sbNoteReverb.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
+                setSelectedSeekBarTxtBold(txtReverbList,it)
+            }
         })
 
         noteViewModel.genderProgress.observe(this, Observer {
-            binding.sbNoteGender.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
-            setSelectedSeekBarTxtBold(txtGenderList,it)
+            if(it > -1){
+                binding.sbNoteGender.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
+                setSelectedSeekBarTxtBold(txtGenderList,it)
+            }
         })
 //        binding.sbNoteLongevity.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
 //            override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
