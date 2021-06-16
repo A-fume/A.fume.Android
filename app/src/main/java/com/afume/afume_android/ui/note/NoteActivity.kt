@@ -13,10 +13,7 @@ import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.ParcelableWishList
 import com.afume.afume_android.databinding.ActivityNoteBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
-import com.afume.afume_android.util.NoteKeywordAdapter
-import com.afume.afume_android.util.setSelectedSeekBarTxt
-import com.afume.afume_android.util.startActivity
-import com.afume.afume_android.util.toastLong
+import com.afume.afume_android.util.*
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -196,7 +193,10 @@ class NoteActivity : AppCompatActivity() {
 
     fun onClickDeleteBtn(view : View){
 //        noteViewModel.deleteReview(reviewIdx)
-        this.toastLong("시향 노트 삭제")
-        finish()
+        val bundle = Bundle()
+        bundle.putString("title","delete")
+        val dialog: CommonDialog = CommonDialog().getInstance()
+        dialog.arguments = bundle
+        dialog.show(this.supportFragmentManager, dialog.tag)
     }
 }
