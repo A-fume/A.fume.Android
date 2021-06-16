@@ -13,5 +13,6 @@ data class InitialBrand(
 data class BrandInfo(
     val brandIdx: Int,
     val name: String="",
-    var check: Boolean=false
+    var check: Boolean=false,
+    var clickable: Boolean=true
 )

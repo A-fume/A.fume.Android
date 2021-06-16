@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.afume.afume_android.databinding.FragmentFilterIncenseSeriesBinding
 import com.afume.afume_android.ui.filter.FilterViewModel
 
@@ -19,6 +20,8 @@ class FilterIncenseSeriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        observeBlockClickMoreThan5()
 
     }
 
@@ -38,6 +41,12 @@ class FilterIncenseSeriesFragment : Fragment() {
             { tabNumber, add -> viewModel.countBadges(tabNumber, add) })
         binding.rvIncenseSeries.adapter = seriesAdapter
         seriesAdapter.notifyDataSetChanged()
+    }
+
+    fun observeBlockClickMoreThan5(){
+        viewModel.badgeCount.observe(viewLifecycleOwner, Observer {
+            viewModel.blockClickSeriesMoreThan5()
+        })
     }
 
 }

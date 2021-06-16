@@ -55,11 +55,45 @@ class FilterViewModel : ViewModel() {
     }
 
     fun blockClickSeriesMoreThan5() {
+        val temp = _seriesList.value
+        Log.e("count badge 1 brand", badgeCount.value?.get(0).toString())
+        temp?.forEach {
+            val ingredients = it.ingredients
+            ingredients.forEach { ingredient ->
+                if (badgeCount.value?.get(0)!! >= 5) {
+                    ingredient.clickable = false
+                    selectedSeriesMap.value?.forEach {
+                        it.value.forEach {
+                            if (ingredient.ingredientIdx == it.ingredientIdx) ingredient.clickable =
+                                true
+                        }
+                    }
+                } else ingredient.clickable = true
+            }
+        }
 
+        _seriesList.value = temp
     }
 
     fun blockClickBrandMoreThan5() {
-
+        val tempMap = brandMap.value
+        if (badgeCount.value?.get(1)!! >= 5) {
+            Log.e("count badge 1 brand", badgeCount.value?.get(1).toString())
+            tempMap?.forEach {
+                val brandInitial = it
+                brandInitial.value.forEach { brand ->
+                    brand.clickable = false
+                    selectedBrandMap.value?.forEach {
+                        if (brand.brandIdx == it.brandIdx) brand.clickable = true
+                    }
+                }
+            }
+        } else {
+            tempMap?.forEach {
+                it.value.forEach { it.clickable = true }
+            }
+        }
+        brandMap.value = tempMap
     }
 
     fun blockClickKeywordMoreThan5() {
@@ -70,12 +104,12 @@ class FilterViewModel : ViewModel() {
                 val keyword = it
                 keyword.clickable = false
                 selectedKeywordList.value?.forEach {
-                    if (keyword.keywordIdx == it.keywordIdx) keyword.clickable=true
+                    if (keyword.keywordIdx == it.keywordIdx) keyword.clickable = true
                 }
             }
-        }else{
+        } else {
             tempList?.forEach {
-                it.clickable=true
+                it.clickable = true
             }
         }
         _keywordList.value = tempList

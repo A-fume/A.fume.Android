@@ -2,6 +2,7 @@ package com.afume.afume_android.ui.filter.brand
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.data.vo.response.BrandInfo
 import com.afume.afume_android.databinding.RvItemFilterBrandBinding
@@ -20,7 +21,7 @@ class BrandRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandRecyclerViewHolder {
         val binding =
-            RvItemFilterBrandBinding.inflate(LayoutInflater.from(parent.context), parent, false,)
+            RvItemFilterBrandBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BrandRecyclerViewHolder(binding)
     }
 
@@ -50,22 +51,24 @@ class BrandRecyclerViewAdapter(
         fun bind(info: BrandInfo) {
             binding.item = info
             binding.root.setOnClickListener {
+                if(info.clickable){
+                    info.check = !info.check
+                    when (info.check) {
+                        true -> {
+                            // 선택되었다면, 리스트에 추가
+                            countBadge(1, true)
+                            setSelectedBrand(info, true)
+                        }
+                        false -> {
+                            //선택 해제 되었다면, 리스트에서 발견 후 삭제
+                            countBadge(1, false)
+                            setSelectedBrand(info, false)
 
-                info.check = !info.check
-                when (info.check) {
-                    true -> {
-                        // 선택되었다면, 리스트에 추가
-                        countBadge(1, true)
-                        setSelectedBrand(info, true)
+                        }
                     }
-                    false -> {
-                        //선택 해제 되었다면, 리스트에서 발견 후 삭제
-                        countBadge(1, false)
-                        setSelectedBrand(info, false)
-
-                    }
+                    notifyDataSetChanged()
                 }
-                notifyDataSetChanged()
+                else Toast.makeText(it.context, "5개 이상 선택 할 수 없어요.", Toast.LENGTH_SHORT).show()
             }
         }
 
