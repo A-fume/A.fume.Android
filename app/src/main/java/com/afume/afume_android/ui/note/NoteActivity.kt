@@ -13,10 +13,7 @@ import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.ParcelableWishList
 import com.afume.afume_android.databinding.ActivityNoteBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
-import com.afume.afume_android.util.NoteKeywordAdapter
-import com.afume.afume_android.util.setSelectedSeekBarTxt
-import com.afume.afume_android.util.startActivity
-import com.afume.afume_android.util.toastLong
+import com.afume.afume_android.util.*
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -33,22 +30,32 @@ class NoteActivity : AppCompatActivity() {
     lateinit var txtGenderList : List<TextView>
 
     var perfumeIdx: Int = 0
+    var reviewIdx: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
-
         binding = DataBindingUtil.setContentView(this,R.layout.activity_note)
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
-        binding.item = wishList
-        perfumeIdx = wishList?.perfumeIdx!!
+        initNote()
 
         setEnabledShareBtn()
         setEnabledCompleteBtn()
         setComponentList()
         onSeekBarChangeListener()
         initKeywordList()
+    }
+
+    private fun initNote(){
+        reviewIdx = intent.getIntExtra("reviewIdx",0)
+
+        if(reviewIdx == 0){ // 추가일 경우
+            val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
+            binding.item = wishList
+            perfumeIdx = wishList?.perfumeIdx!!
+        }else{ // 조회, 수정, 삭제일 경우
+            binding.item = noteViewModel.getReview(reviewIdx)
+        }
     }
 
     private fun setEnabledShareBtn(){
@@ -112,18 +119,24 @@ class NoteActivity : AppCompatActivity() {
 
     private fun onSeekBarChangeListener(){
         noteViewModel.longevityProgress.observe(this, Observer {
-            binding.sbNoteLongevity.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
-            setSelectedSeekBarTxtBold(txtLongevityList,it)
+            if(it > -1){
+                binding.sbNoteLongevity.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
+                setSelectedSeekBarTxtBold(txtLongevityList,it)
+            }
         })
 
         noteViewModel.reverbProgress.observe(this, Observer {
-            binding.sbNoteReverb.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
-            setSelectedSeekBarTxtBold(txtReverbList,it)
+            if(it > -1){
+                binding.sbNoteReverb.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
+                setSelectedSeekBarTxtBold(txtReverbList,it)
+            }
         })
 
         noteViewModel.genderProgress.observe(this, Observer {
-            binding.sbNoteGender.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
-            setSelectedSeekBarTxtBold(txtGenderList,it)
+            if(it > -1){
+                binding.sbNoteGender.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
+                setSelectedSeekBarTxtBold(txtGenderList,it)
+            }
         })
 //        binding.sbNoteLongevity.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
 //            override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
@@ -163,11 +176,27 @@ class NoteActivity : AppCompatActivity() {
 
     fun onClickKeywordBtn(view : View){
         keywordBottomSheetFragment.show(supportFragmentManager, "noteKeywordDialog")
+        noteViewModel.convertKeyword()
     }
 
     fun onClickCompleteBtn(view : View){
 //        noteViewModel.postReview(perfumeIdx)
         this.toastLong("시향 노트 추가")
         finish()
+    }
+
+    fun onClickUpdateBtn(view : View){
+//        noteViewModel.updateReview(reviewIdx)
+        this.toastLong("시향 노트 수정")
+        finish()
+    }
+
+    fun onClickDeleteBtn(view : View){
+//        noteViewModel.deleteReview(reviewIdx)
+        val bundle = Bundle()
+        bundle.putString("title","delete")
+        val dialog: CommonDialog = CommonDialog().getInstance()
+        dialog.arguments = bundle
+        dialog.show(this.supportFragmentManager, dialog.tag)
     }
 }

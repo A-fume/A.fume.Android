@@ -44,14 +44,14 @@
             android:background="@drawable/border_point_beige_fill_16" />
 
         <TextView
-            android:id="@+id/act_button_tv_note"
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="시향노트"
+            android:text="조회"
             android:textSize="20dp"
             android:layout_marginTop="5dp"
             android:padding="10dp"
-            android:background="@drawable/border_point_beige_fill_16" />
+            android:background="@drawable/border_point_beige_fill_16"/>
 
     </LinearLayout>
 </layout>

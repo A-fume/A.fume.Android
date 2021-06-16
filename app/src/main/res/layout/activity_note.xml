@@ -200,6 +200,7 @@
                 <EditText
                     android:id="@+id/imageView20"
                     setNoteContentsText="@={viewModel.contentsTxt}"
+                    android:text="@={viewModel.contentsTxt}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
@@ -287,6 +288,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:overScrollMode="never"
                     android:visibility="@{viewModel.rvKeywordList? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -574,7 +576,7 @@
                     android:layout_marginTop="18dp"
                     android:layout_marginEnd="12dp"
                     android:checked="@{viewModel.springBtn}"
-                    android:drawableEnd="@drawable/selector_note_complete"
+                    android:drawableEnd="@drawable/selector_note_season"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:onClick="@{() -> viewModel.onClickSpringBtn()}"
@@ -794,7 +796,7 @@
                 <Button
                     android:id="@+id/button"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="52dp"
                     android:layout_marginTop="22dp"
                     android:background="@drawable/selector_note_complete"
                     android:enabled="@{viewModel.completeBtn}"
@@ -804,12 +806,62 @@
                     android:text="기록 완료"
                     android:textColor="@color/white"
                     android:textSize="15dp"
+                    android:visibility="@{viewModel.isValidUpdateBtn? View.INVISIBLE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView45" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.isValidUpdateBtn? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_note_delete"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:backgroundTint="@color/dark_gray_7d"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:cornerRadius="0dp"
+                android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
+                android:onClick="onClickDeleteBtn"
+                android:text="삭제"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_note_update"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_note_update"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:backgroundTint="@color/primary_black"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:cornerRadius="0dp"
+                android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
+                android:text="수정 완료"
+                android:onClick="onClickUpdateBtn"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@+id/btn_note_delete"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
