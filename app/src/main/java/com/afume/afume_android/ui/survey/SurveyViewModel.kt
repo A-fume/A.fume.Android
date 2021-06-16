@@ -120,7 +120,15 @@ class SurveyViewModel : ViewModel() {
     }
     fun getKeyword(){
         viewModelScope.launch{
-            try { _keywordList.value = surveyRepository.getKeyword()}
+            try {
+                val keyword = surveyRepository.getKeyword()
+                keyword.forEach {
+                    it.clickable = true
+                }
+                _keywordList.value = keyword
+
+                Log.e("keywordList",keywordList.value.toString())
+            }
             catch (e: HttpException){}
         }
     }
