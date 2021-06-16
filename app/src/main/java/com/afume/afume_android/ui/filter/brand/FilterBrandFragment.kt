@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
@@ -35,8 +36,14 @@ class FilterBrandFragment : Fragment() {
         initBrandTab()
         setTabClickEvent()
         initBrandRvItem(context)
+        observeBlockClickMoreThan5()
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        observeBlockClickMoreThan5()
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
@@ -129,6 +136,12 @@ class FilterBrandFragment : Fragment() {
         brandAdapter.initial = initial
         brandAdapter.data = viewModel.bindBrandTab(initial)
         brandAdapter.notifyDataSetChanged()
+    }
+
+    fun observeBlockClickMoreThan5(){
+        viewModel.badgeCount.observe(viewLifecycleOwner, Observer {
+            viewModel.blockClickBrandMoreThan5()
+        })
     }
 
 

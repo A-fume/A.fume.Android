@@ -3,6 +3,7 @@ package com.afume.afume_android.ui.filter.incense
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -53,78 +54,81 @@ class IngredientFlexboxAdapter(
             Log.d("ingredients data", data.toString())
 
             binding.root.setOnClickListener {
-                data.checked = !data.checked
-                binding.ingredient = data
+                if(data.clickable) {
+                    data.checked = !data.checked
+                    binding.ingredient = data
 //                isSelectedIngredients(binding.rvItemIngredient,data.checked)
 
-                if (data.ingredientIdx == -1) {
-                    //전체를 선택했을 경우
+                    if (data.ingredientIdx == -1) {
+                        //전체를 선택했을 경우
 
-                    for (i in 1..selectedIngredients.size) {
-                        countBadge(0, false)
-                    }
-                    selectedIngredients.clear()
+                        for (i in 1..selectedIngredients.size) {
+                            countBadge(0, false)
+                        }
+                        selectedIngredients.clear()
 
-                    val onlyEntireActive = currentList
-                    for (i in 1..currentList.lastIndex) {
-                        onlyEntireActive[i].checked = false
-                    }
+                        val onlyEntireActive = currentList
+                        for (i in 1..currentList.lastIndex) {
+                            onlyEntireActive[i].checked = false
+                        }
 
-                    submitList(onlyEntireActive)
-                    notifyDataSetChanged()
+                        submitList(onlyEntireActive)
+                        notifyDataSetChanged()
 
-                    //전체 선택을 했을 경우, 모든 인덱스 리스트에 추가
-                    if (data.checked) {
-                        ingredientsList.forEach { selectedIngredients.add(it) }
-                        selectedIngredients.removeAt(0) // 전체 키워드 삭제
-                        Log.e("전체 선택 추가 add index", it.toString())
-                        selectedEntire = true
-                        countBadge(0, true)
-                    } else {
-                        selectedEntire = false
-                        countBadge(0, false)
-                    }
+                        //전체 선택을 했을 경우, 모든 인덱스 리스트에 추가
+                        if (data.checked) {
+                            ingredientsList.forEach { selectedIngredients.add(it) }
+                            selectedIngredients.removeAt(0) // 전체 키워드 삭제
+                            Log.e("전체 선택 추가 add index", it.toString())
+                            selectedEntire = true
+                            countBadge(0, true)
+                        } else {
+                            selectedEntire = false
+                            countBadge(0, false)
+                        }
 
-                } else { // 전체가 아닌 하나의 ingredient를 선택했을 때
-                    if (data.checked) {
+                    } else { // 전체가 아닌 하나의 ingredient를 선택했을 때
+                        if (data.checked) {
 
-                        // 전체가 선택이 되어 있는 경우 , 모든 인덱스를 리스트에서 삭제한 후, 선택한 인덱스 추가
-                        if (selectedEntire) {
+                            // 전체가 선택이 되어 있는 경우 , 모든 인덱스를 리스트에서 삭제한 후, 선택한 인덱스 추가
+                            if (selectedEntire) {
 
 //                            ingredientsList.forEach {
 //                                selectedIngredients.remove(data)
 //                                Log.e("전체 선택 해제 index remove", it.toString())
 //                            }
-                            selectedIngredients.clear()
-                            selectedEntire = false
+                                selectedIngredients.clear()
+                                selectedEntire = false
+                                countBadge(0, false)
+
+                                val ingredientsDataList = currentList
+                                ingredientsDataList[0].checked = false
+
+                                submitList(ingredientsDataList)
+                                notifyDataSetChanged()
+
+                            }
+                            selectedIngredients.add(data)
+                            countBadge(0, true)
+                            Log.e(" 단일 add index", data.ingredientIdx.toString())
+
+                            Log.e("현재 선택된 ingredients", selectedIngredients.toString())
+
+                        } else {
+                            selectedIngredients.remove(data)
                             countBadge(0, false)
-
-                            val ingredientsDataList = currentList
-                            ingredientsDataList[0].checked = false
-
-                            submitList(ingredientsDataList)
-                            notifyDataSetChanged()
-
+                            Log.e("단일 선택 해제 remove index", data.ingredientIdx.toString())
                         }
-                        selectedIngredients.add(data)
-                        countBadge(0, true)
-                        Log.e(" 단일 add index", data.ingredientIdx.toString())
 
                         Log.e("현재 선택된 ingredients", selectedIngredients.toString())
-
-                    } else {
-                        selectedIngredients.remove(data)
-                        countBadge(0, false)
-                        Log.e("단일 선택 해제 remove index", data.ingredientIdx.toString())
                     }
 
-                    Log.e("현재 선택된 ingredients", selectedIngredients.toString())
+                    // viewModel로 selectedIngredients 넘기기
+                    setSelectedIngredients(data.seriesIdx, selectedIngredients)
                 }
-
-                // viewModel로 selectedIngredients 넘기기
-                setSelectedIngredients(data.seriesIdx, selectedIngredients)
-
+                else Toast.makeText(it.context, "5개 이상 선택 할 수 없어요.", Toast.LENGTH_SHORT).show()
             }
+
         }
 
     }

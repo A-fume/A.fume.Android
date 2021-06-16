@@ -13,6 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class SearchViewModel : ViewModel() {
     private val searchRepository = SearchRepository()
@@ -27,24 +28,28 @@ class SearchViewModel : ViewModel() {
     }
 
     fun postSearchResultPerfume() {
-
-        val requestSearch = RequestSearch("", mutableListOf<Int>(), mutableListOf<Int>(), mutableListOf<Int>())
-        val tempFilterList = filterList.value
-        tempFilterList?.forEach {
-            when (it.type) {
-                1 -> requestSearch.ingredientList?.add(it.idx)
-                2 -> requestSearch.brandList?.add(it.idx)
-                3 -> requestSearch.keywordList?.add(it.idx)
-                4 -> requestSearch.searchText = it.name
+        try{
+            val requestSearch = RequestSearch("", mutableListOf<Int>(), mutableListOf<Int>(), mutableListOf<Int>())
+            val tempFilterList = filterList.value
+            tempFilterList?.forEach {
+                when (it.type) {
+                    1 -> requestSearch.ingredientList?.add(it.idx)
+                    2 -> requestSearch.brandList?.add(it.idx)
+                    3 -> requestSearch.keywordList?.add(it.idx)
+                    4 -> requestSearch.searchText = it.name
+                }
             }
-        }
-        filterList.value =tempFilterList
-        Log.e("Request Search ", requestSearch.toString())
+            filterList.value =tempFilterList
+            Log.e("Request Search ", requestSearch.toString())
 
-        viewModelScope.launch {
-            perfumeList.value = searchRepository.postResultPerfume(AfumeApplication.prefManager.accessToken,requestSearch)
-            Log.e("search result", perfumeList.value.toString())
+            viewModelScope.launch {
+                perfumeList.value = searchRepository.postResultPerfume(AfumeApplication.prefManager.accessToken,requestSearch)
+                Log.e("search result", perfumeList.value.toString())
+            }
+        }catch (e: HttpException){
+
         }
+
 
     }
 

@@ -36,7 +36,7 @@ class FilterKeywordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initKeywordRv(context)
-        observeCountBadge()
+        observeBlockClickMoreThan5()
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?):View{
@@ -76,7 +76,7 @@ class FilterKeywordFragment : Fragment() {
         keywordAdapter.setSelectionTracker(keywordSelectionTracker)
     }
 
-    fun observeCountBadge(){
+    fun observeBlockClickMoreThan5(){
         viewModel.badgeCount.observe(viewLifecycleOwner, Observer {
                 viewModel.blockClickKeywordMoreThan5()
             })
