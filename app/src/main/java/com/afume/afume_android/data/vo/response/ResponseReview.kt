@@ -10,7 +10,7 @@ data class ResponseReview(
     val content : String,
     val reviewIdx : Int,
     val perfume : PerfumeItem,
-    val keyword : KeywordItem,
+    val keyword : MutableList<KeywordInfo>,
     val brand : BrandItem
     )
 
@@ -18,11 +18,6 @@ data class PerfumeItem(
     val perfumeIdx : Int,
     val perfumeName : String,
     val imageUrl : String
-)
-
-data class KeywordItem(
-    val keywordIdx : Int,
-    val keyword : String
 )
 
 data class BrandItem(

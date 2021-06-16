@@ -179,6 +179,7 @@ class NoteActivity : AppCompatActivity() {
 
     fun onClickKeywordBtn(view : View){
         keywordBottomSheetFragment.show(supportFragmentManager, "noteKeywordDialog")
+        noteViewModel.convertKeyword()
     }
 
     fun onClickCompleteBtn(view : View){

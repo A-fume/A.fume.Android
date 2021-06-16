@@ -200,6 +200,7 @@
                 <EditText
                     android:id="@+id/imageView20"
                     setNoteContentsText="@={viewModel.contentsTxt}"
+                    android:text="@={viewModel.contentsTxt}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
@@ -287,6 +288,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:overScrollMode="never"
                     android:visibility="@{viewModel.rvKeywordList? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

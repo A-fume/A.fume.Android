@@ -244,6 +244,9 @@ class NoteViewModel : ViewModel() {
                     convertSeason(it.seasonal)
                     _shareBtn.value = it.access
                     contentsTxt.value = it.content
+                    selectedKeywordList.value = it.keyword
+                    checkKeywordList()
+                    checkShareBtn()
 
                     item = ParcelableWishList(
                         it.perfume.perfumeIdx,
@@ -260,19 +263,22 @@ class NoteViewModel : ViewModel() {
             }
 //            rating.value = 3.5f
 //            longevityProgress.value = convertLongevity("약함")
-//            reverbProgress.value = convertReverb("")
+//            reverbProgress.value = convertReverb("가벼움")
 //            genderProgress.value = convertGender("여성")
 //            val abc = listOf<String>("봄","가을")
 //            convertSeason(abc)
 //            _shareBtn.value = true
 //            contentsTxt.value = "fffff"
-//
-//            item = ParcelableWishList(
-//                1,
-//                "네임",
-//                "브랜드",
-//                "it.perfume.imageUrl"
-//            )
+//            selectedKeywordList.value = mutableListOf(KeywordInfo(name="고급스러운", keywordIdx=9, checked=true), KeywordInfo(name="깨끗한", keywordIdx=24, checked=true))
+//            checkKeywordList()
+//            checkShareBtn()
+
+            item = ParcelableWishList(
+                1,
+                "네임",
+                "브랜드",
+                "it.perfume.imageUrl"
+            )
         }
         return item
     }
@@ -314,6 +320,17 @@ class NoteViewModel : ViewModel() {
                 "가을" -> _fallBtn.value = true
                 "겨울" -> _winterBtn.value = true
             }
+        }
+    }
+
+    fun convertKeyword(){
+        selectedKeywordList.value?.forEach { selectedKeywordInfo ->
+            _keywordList.value?.forEach { keywordInfo ->
+                if(selectedKeywordInfo.keywordIdx == keywordInfo.keywordIdx){
+                    keywordInfo.checked = true
+                }
+            }
+            addKeywordList(selectedKeywordInfo, true)
         }
     }
 
