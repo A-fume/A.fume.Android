@@ -188,6 +188,12 @@ class NoteActivity : AppCompatActivity() {
         finish()
     }
 
+    fun onClickUpdateBtn(view : View){
+//        noteViewModel.updateReview(reviewIdx)
+        this.toastLong("시향 노트 수정")
+        finish()
+    }
+
     fun onClickDeleteBtn(view : View){
 //        noteViewModel.deleteReview(reviewIdx)
         this.toastLong("시향 노트 삭제")

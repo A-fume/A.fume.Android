@@ -150,7 +150,6 @@ class NoteViewModel : ViewModel() {
 
     // 시향노트 추가
     fun postReview(perfumeIdx : Int){
-        _isValidUpdateBtn.postValue(false)
         viewModelScope.launch {
             try{
                 val reviewInfo = RequestReview(
@@ -235,43 +234,43 @@ class NoteViewModel : ViewModel() {
         _isValidUpdateBtn.postValue(true)
 
         viewModelScope.launch {
-            try {
-                noteRepository.getReview(reviewIdx).let {
-                    rating.value = it.score
-                    longevityProgress.value = convertLongevity(it.longevity)
-                    reverbProgress.value = convertReverb(it.sillage)
-                    genderProgress.value = convertGender(it.gender)
-                    convertSeason(it.seasonal)
-                    _shareBtn.value = it.access
-                    contentsTxt.value = it.content
-                    selectedKeywordList.value = it.keyword
-                    checkKeywordList()
-                    checkShareBtn()
-
-                    item = ParcelableWishList(
-                        it.perfume.perfumeIdx,
-                        it.perfume.perfumeName,
-                        it.brand.brandName,
-                        it.perfume.imageUrl
-                    )
-
-                    Log.d("시향 노트 조회 성공 :", "")
-
-                }
-            } catch (e: HttpException) {
-                Log.d("시향 노트 조회 실패 :", e.message())
-            }
-//            rating.value = 3.5f
-//            longevityProgress.value = convertLongevity("약함")
-//            reverbProgress.value = convertReverb("가벼움")
-//            genderProgress.value = convertGender("여성")
-//            val abc = listOf<String>("봄","가을")
-//            convertSeason(abc)
-//            _shareBtn.value = true
-//            contentsTxt.value = "fffff"
-//            selectedKeywordList.value = mutableListOf(KeywordInfo(name="고급스러운", keywordIdx=9, checked=true), KeywordInfo(name="깨끗한", keywordIdx=24, checked=true))
-//            checkKeywordList()
-//            checkShareBtn()
+//            try {
+//                noteRepository.getReview(reviewIdx).let {
+//                    rating.value = it.score
+//                    longevityProgress.value = convertLongevity(it.longevity)
+//                    reverbProgress.value = convertReverb(it.sillage)
+//                    genderProgress.value = convertGender(it.gender)
+//                    convertSeason(it.seasonal)
+//                    _shareBtn.value = it.access
+//                    contentsTxt.value = it.content
+//                    selectedKeywordList.value = it.keyword
+//                    checkKeywordList()
+//                    checkShareBtn()
+//
+//                    item = ParcelableWishList(
+//                        it.perfume.perfumeIdx,
+//                        it.perfume.perfumeName,
+//                        it.brand.brandName,
+//                        it.perfume.imageUrl
+//                    )
+//
+//                    Log.d("시향 노트 조회 성공 :", "")
+//
+//                }
+//            } catch (e: HttpException) {
+//                Log.d("시향 노트 조회 실패 :", e.message())
+//            }
+            rating.value = 3.5f
+            longevityProgress.value = convertLongevity("약함")
+            reverbProgress.value = convertReverb("가벼움")
+            genderProgress.value = convertGender("여성")
+            val abc = listOf<String>("봄","가을")
+            convertSeason(abc)
+            _shareBtn.value = true
+            contentsTxt.value = "fffff"
+            selectedKeywordList.value = mutableListOf(KeywordInfo(name="고급스러운", keywordIdx=9, checked=true), KeywordInfo(name="깨끗한", keywordIdx=24, checked=true))
+            checkKeywordList()
+            checkShareBtn()
 
             item = ParcelableWishList(
                 1,
@@ -334,25 +333,59 @@ class NoteViewModel : ViewModel() {
         }
     }
 
+    // 시향노트 수정
+    fun updateReview(reviewIdx: Int){
+        viewModelScope.launch {
+            try{
+                val reviewInfo = RequestReview(
+                    score = rating.value!!,
+                    longevity = getLongevity(longevityProgress.value?: -1),
+                    sillage = getReverb(reverbProgress.value?: -1),
+                    seasonal = getSeason(),
+                    gender = getGender(genderProgress.value?: -1),
+                    access = _shareBtn.value!!,
+                    content = contentsTxt.value!!,
+                    keywordList = getKeyword()
+                )
+
+                Log.d("명 : ", reviewInfo.toString())
+
+                noteRepository.postReview(
+                    AfumeApplication.prefManager.accessToken,
+                    reviewIdx,
+                    reviewInfo
+                ).let {
+                    Log.d("시향 노트 수정 성공 : ", it)
+                }
+            }catch (e: HttpException){
+                when(e.response()?.code()){
+                    401 -> { // 잘못된 토큰
+                        Log.d("시향 노트 수정 실패 : ", e.message())
+                    }
+                }
+            }
+        }
+    }
+
     // 시향노트 삭제
     fun deleteReview(reviewIdx: Int){
-//        viewModelScope.launch {
-//            try{
-//                noteRepository.deleteReview(AfumeApplication.prefManager.accessToken, reviewIdx).let {
-//                    Log.d("시향 노트 삭제 성공 : ", it)
-//                }
-//            }catch (e : HttpException){
-//                when(e.response()?.code()){
-//                    400 -> { // 잘못된 접근 : 자신의 리뷰 아닌 경우
-//                        Log.d("시향 노트 추가 실패 : ", e.message())
-//                    }
-//                    401 -> { // 잘못된 토큰
-//                        Log.d("시향 노트 추가 실패 : ", e.message())
-//                    }
-//                }
-//            }
-//
-//        }
+        viewModelScope.launch {
+            try{
+                noteRepository.deleteReview(AfumeApplication.prefManager.accessToken, reviewIdx).let {
+                    Log.d("시향 노트 삭제 성공 : ", it)
+                }
+            }catch (e : HttpException){
+                when(e.response()?.code()){
+                    400 -> { // 잘못된 접근 : 자신의 리뷰 아닌 경우
+                        Log.d("시향 노트 추가 실패 : ", e.message())
+                    }
+                    401 -> { // 잘못된 토큰
+                        Log.d("시향 노트 추가 실패 : ", e.message())
+                    }
+                }
+            }
+
+        }
     }
 
 

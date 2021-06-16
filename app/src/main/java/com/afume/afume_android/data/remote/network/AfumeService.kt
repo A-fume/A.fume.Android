@@ -149,6 +149,14 @@ interface AfumeService {
         @Body body : RequestReview
     ):ResponseMessage
 
+    // note - update
+    @PUT("review/{reviewIdx}")
+    fun putReview(
+        @Header("x-access-token") token : String,
+        @Path("reviewIdx") reviewIdx : Int,
+        @Body body : RequestReview
+    )
+
     // note - delete
     @DELETE("review/{reviewIdx}")
     fun deleteReview(

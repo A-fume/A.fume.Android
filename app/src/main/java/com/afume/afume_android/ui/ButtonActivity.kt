@@ -30,8 +30,10 @@ class ButtonActivity : AppCompatActivity() {
             startActivity(Intent(this, PerfumeDetailActivity::class.java))
         }
 
-        binding.actButtonTvNote.setOnClickListener {
-            startActivity(Intent(this, NoteActivity::class.java))
+        binding.textView4.setOnClickListener {
+            val intent = Intent(this, NoteActivity::class.java)
+            intent.putExtra("reviewIdx", 1)
+            startActivity(intent)
         }
     }
 }
