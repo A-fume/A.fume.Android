@@ -350,7 +350,7 @@ class NoteViewModel : ViewModel() {
 
                 Log.d("명 : ", reviewInfo.toString())
 
-                noteRepository.postReview(
+                noteRepository.putReview(
                     AfumeApplication.prefManager.accessToken,
                     reviewIdx,
                     reviewInfo

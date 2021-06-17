@@ -139,7 +139,7 @@ interface AfumeService {
     // note - get
     @GET("review/{reviewIdx}")
     fun getReview(
-        @Path("perfumeIdx") perfumeIdx : Int
+        @Path("reviewIdx") reviewIdx : Int
     ):ResponseBase<ResponseReview>
 
     // note - add
@@ -156,7 +156,7 @@ interface AfumeService {
         @Header("x-access-token") token : String,
         @Path("reviewIdx") reviewIdx : Int,
         @Body body : RequestReview
-    )
+    ):ResponseMessage
 
     // note - delete
     @DELETE("review/{reviewIdx}")
