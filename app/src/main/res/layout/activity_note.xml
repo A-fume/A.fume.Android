@@ -783,7 +783,6 @@
                     android:drawableTop="@drawable/ic_check_white"
                     android:paddingVertical="5dp"
                     android:checked="@{viewModel.shareBtn}"
-                    android:enabled="@{viewModel.isValidShareBtn}"
                     android:onClick="@{() -> viewModel.setShareBtn()}"
                     android:paddingStart="6dp"
                     android:paddingTop="8dp"

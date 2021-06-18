@@ -11,6 +11,7 @@ import com.afume.afume_android.data.repository.SurveyRepository
 import com.afume.afume_android.data.vo.ParcelableWishList
 import com.afume.afume_android.data.vo.request.RequestReview
 import com.afume.afume_android.data.vo.response.KeywordInfo
+import com.afume.afume_android.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -88,6 +89,9 @@ class NoteViewModel : ViewModel() {
     val shareBtn : LiveData<Boolean>
         get() = _shareBtn
 
+    private val _showErrorToast = SingleLiveEvent<Void>()
+    val showErrorToast: LiveData<Void> = _showErrorToast
+
     // 완료 버튼 활성화
     private val _completeBtn = MutableLiveData<Boolean>(false)
     val completeBtn : LiveData<Boolean>
@@ -126,7 +130,11 @@ class NoteViewModel : ViewModel() {
     }
 
     fun setShareBtn(){
-        _shareBtn.value = _shareBtn.value != true
+        if(_isValidShareBtn.value == true){
+            _shareBtn.value = _shareBtn.value != true
+        }else{
+            _showErrorToast.call()
+        }
     }
 
     fun checkShareBtn(){

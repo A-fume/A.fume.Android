@@ -71,6 +71,10 @@ class NoteActivity : AppCompatActivity() {
         setSeasonBtnObserve(noteViewModel.summerBtn)
         setSeasonBtnObserve(noteViewModel.fallBtn)
         setSeasonBtnObserve(noteViewModel.winterBtn)
+
+        noteViewModel.showErrorToast.observe(this, Observer {
+            this.toastLong("입력 칸을 모두 작성해야 공개가 가능합니다.")
+        })
     }
 
     private fun setSeekBarObserve(seekBar: LiveData<Int>){
