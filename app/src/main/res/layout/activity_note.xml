@@ -23,6 +23,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -801,7 +802,6 @@
             android:id="@+id/button"
             android:layout_width="0dp"
             android:layout_height="52dp"
-            android:layout_marginTop="22dp"
             android:background="@drawable/selector_note_complete"
             android:enabled="@{viewModel.completeBtn}"
             android:fontFamily="@font/notosans_bold"
@@ -813,8 +813,7 @@
             android:visibility="@{viewModel.isValidUpdateBtn? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView45" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
