@@ -19,6 +19,7 @@ import com.afume.afume_android.ui.setting.EditMyInfoActivity
 import com.afume.afume_android.ui.setting.EditPasswordActivity
 import com.afume.afume_android.ui.signin.SignInActivity
 import com.afume.afume_android.util.TabSelectedListener
+import com.afume.afume_android.util.toastLong
 
 class MyFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
@@ -111,6 +112,9 @@ class MyFragment : Fragment() {
                 R.id.edit_my_info -> intent(EditMyInfoActivity::class.java)
                 R.id.edit_password -> intent(EditPasswordActivity::class.java)
                 R.id.logout -> {
+                    AfumeApplication.prefManager.clear()
+                    requireContext().toastLong("로그아웃되었습니다.")
+                    binding.drawerLayout.closeDrawers()
                 }
             }
             true

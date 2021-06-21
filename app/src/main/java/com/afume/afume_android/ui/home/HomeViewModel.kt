@@ -21,7 +21,7 @@ class HomeViewModel : ViewModel(){
     val ageTxt = MutableLiveData<String>("")
 
     fun setUserInfo(){
-        if(AfumeApplication.prefManager.userEmail.isNotEmpty()){
+        if(AfumeApplication.prefManager.haveToken()){
             nickTxt.postValue(AfumeApplication.prefManager.userNickname)
             ageTxt.postValue(getAgeGroupInfo().toString() + "대 " + getGenderInfo())
         }
