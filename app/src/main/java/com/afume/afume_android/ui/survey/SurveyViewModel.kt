@@ -15,6 +15,7 @@ import retrofit2.HttpException
 
 class SurveyViewModel : ViewModel() {
     private val surveyRepository = SurveyRepository()
+    var txtButton=MutableLiveData("다음")
 
     private val selectedPerfumeList: MutableLiveData<MutableList<Int>> = MutableLiveData()
     private var tempSelectedPerfumeList = mutableListOf<Int>()
@@ -49,6 +50,12 @@ class SurveyViewModel : ViewModel() {
         }
     }
 
+    fun setActiveButton(pos:Int){
+        when(pos){
+            0,1 -> txtButton.value="다음"
+            2->txtButton.value="완료"
+        }
+    }
     fun addPerfumeList(index: Int) {
         if (selectedPerfumeList.value != null) tempSelectedPerfumeList =
             selectedPerfumeList.value!!
@@ -120,7 +127,15 @@ class SurveyViewModel : ViewModel() {
     }
     fun getKeyword(){
         viewModelScope.launch{
-            try { _keywordList.value = surveyRepository.getKeyword()}
+            try {
+                val keyword = surveyRepository.getKeyword()
+                keyword.forEach {
+                    it.clickable = true
+                }
+                _keywordList.value = keyword
+
+                Log.e("keywordList",keywordList.value.toString())
+            }
             catch (e: HttpException){}
         }
     }
