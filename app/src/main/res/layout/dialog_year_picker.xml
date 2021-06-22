@@ -34,7 +34,7 @@
             android:includeFontPadding="false"
             android:text="완료"
             android:textColor="@color/white"
-            android:textSize="12dp"
+            android:textSize="15dp"
             android:backgroundTint="@color/black_1d"
             android:insetTop="0dp"
             android:insetBottom="0dp"
