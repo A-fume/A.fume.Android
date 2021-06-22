@@ -18,16 +18,25 @@ class SurveyKeywordFragment : Fragment() {
     private lateinit var binding:FragmentSurveyKeywordBinding
     private val viewModel: SurveyViewModel by activityViewModels()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        binding= FragmentSurveyKeywordBinding.inflate(layoutInflater,container,false)
-        binding.vm = viewModel
-        binding.lifecycleOwner=this
-        return binding.root
+        return initBinding(container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRvKeyword(context)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.setActiveButton(1)
+    }
+
+    private fun initBinding(container: ViewGroup?): View {
+        binding = FragmentSurveyKeywordBinding.inflate(layoutInflater, container, false)
+        binding.lifecycleOwner = this
+        viewModel.setActiveButton(1)
+        binding.vm = viewModel
+        return binding.root
     }
 
     private fun initRvKeyword(ctx:Context?){
@@ -46,19 +55,6 @@ class SurveyKeywordFragment : Fragment() {
             adapter=keywordAdapter
         }
 
-//        val keywordSelectionTracker= SelectionTracker.Builder<Long>(
-//            "survey_keyword",
-//            binding.rvSurveyKeyword,
-//            ItemKeyProvider(binding.rvSurveyKeyword),
-//            ItemDetailsLookUp(
-//                binding.rvSurveyKeyword,
-//                "flexbox"
-//            ),
-//            StorageStrategy.createLongStorage()
-//        ).withSelectionPredicate(SelectionPredicates.createSelectAnything()).build()
-//        keywordAdapter.setSelectionTracker(keywordSelectionTracker)
-//
-//        keywordAdapter.notifyDataSetChanged()
     }
 
 }

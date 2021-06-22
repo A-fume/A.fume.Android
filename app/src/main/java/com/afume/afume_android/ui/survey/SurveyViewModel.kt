@@ -15,6 +15,7 @@ import retrofit2.HttpException
 
 class SurveyViewModel : ViewModel() {
     private val surveyRepository = SurveyRepository()
+    var txtButton=MutableLiveData("다음")
 
     private val selectedPerfumeList: MutableLiveData<MutableList<Int>> = MutableLiveData()
     private var tempSelectedPerfumeList = mutableListOf<Int>()
@@ -49,6 +50,12 @@ class SurveyViewModel : ViewModel() {
         }
     }
 
+    fun setActiveButton(pos:Int){
+        when(pos){
+            0,1 -> txtButton.value="다음"
+            2->txtButton.value="완료"
+        }
+    }
     fun addPerfumeList(index: Int) {
         if (selectedPerfumeList.value != null) tempSelectedPerfumeList =
             selectedPerfumeList.value!!
