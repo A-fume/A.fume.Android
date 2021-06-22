@@ -45,6 +45,7 @@ class SignUpViewModel()  : ViewModel() {
     // 이메일 입력 실시간 확인
     fun inputEmail(s: CharSequence?, start: Int, before: Int, count: Int) {
         Handler().postDelayed({ checkEmailForm() }, 0L)
+        Handler().postDelayed({ checkEmptyEmail() }, 0L)
 
         resetValidateEmail()
     }
@@ -54,21 +55,22 @@ class SignUpViewModel()  : ViewModel() {
         emailNotice.value = "이메일 형식이 맞지 않습니다."
         _isValidEmailNotice.value = !android.util.Patterns.EMAIL_ADDRESS.matcher(emailTxt.value.toString()).matches()
 
-        checkEmptyEmail()
-    }
-
-    // 이메일 빈칸확인
-    private fun checkEmptyEmail(){
-        if(emailTxt.value?.length == 0){
+        if(_isValidEmailNotice.value == true){
             _isValidEmailBtn.postValue(false)
-            _isValidEmailNotice.postValue(false)
         }else{
             _isValidEmailBtn.postValue(true)
         }
     }
 
+    // 이메일 빈칸확인
+    private fun checkEmptyEmail(){
+        if(emailTxt.value?.length == 0){
+            _isValidEmailNotice.postValue(false)
+        }
+    }
+
     private fun resetValidateEmail(){
-        if(_isValidEmail.value!!){
+        if(_isValidEmail.value == true){
             _isValidEmail.postValue(false)
             _isValidEmailBtn.postValue(true)
         }
@@ -105,7 +107,7 @@ class SignUpViewModel()  : ViewModel() {
         get() = _isValidNickNotice
 
     // 닉네임 중복확인 버튼 노출 여부
-    private val _isValidNickBtn = MutableLiveData<Boolean>(true)
+    private val _isValidNickBtn = MutableLiveData<Boolean>(false)
     val isValidNickBtn : LiveData<Boolean>
         get() = _isValidNickBtn
 
@@ -122,6 +124,7 @@ class SignUpViewModel()  : ViewModel() {
     // 닉네임 입력 실시간 확인
     fun inputNick(s: CharSequence?, start: Int, before: Int, count: Int) {
         Handler().postDelayed({ checkNickForm()},0L)
+        Handler().postDelayed({ checkEmptyNick()},0L)
 
         resetValidateNick()
     }
@@ -133,7 +136,11 @@ class SignUpViewModel()  : ViewModel() {
 
         _isValidNickNotice.value = !nickPattern.matcher(nickTxt.value.toString()).matches()
 
-        checkEmptyNick()
+        if(_isValidNickNotice.value == true){
+            _isValidNickBtn.postValue(false)
+        }else{
+            _isValidNickBtn.postValue(true)
+        }
     }
 
     // 닉네임 빈칸확인
@@ -141,8 +148,6 @@ class SignUpViewModel()  : ViewModel() {
         if(nickTxt.value?.length == 0){
             _isValidNickBtn.postValue(false)
             _isValidNickNotice.postValue(false)
-        }else{
-            _isValidNickBtn.postValue(true)
         }
     }
 
