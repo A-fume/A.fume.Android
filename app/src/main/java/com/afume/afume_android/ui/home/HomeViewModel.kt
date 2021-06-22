@@ -11,43 +11,10 @@ import com.afume.afume_android.data.vo.response.RecentPerfumeItem
 import com.afume.afume_android.data.vo.response.RecommendPerfumeItem
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import java.util.*
 
 class HomeViewModel : ViewModel(){
     private val homeRepository = HomeRepository()
 
-    // 고정값 설정
-    val nickTxt = MutableLiveData<String>("")
-    val ageTxt = MutableLiveData<String>("")
-
-    fun setUserInfo(){
-        if(AfumeApplication.prefManager.haveToken()){
-            nickTxt.postValue(AfumeApplication.prefManager.userNickname)
-            ageTxt.postValue(getAgeGroupInfo().toString() + "대 " + getGenderInfo())
-        }
-    }
-
-    // 나이 구하기
-    private fun getAgeGroupInfo() : Int{
-        val age = getYear() - AfumeApplication.prefManager.userAge + 1
-
-        return (age/10)*10
-    }
-
-    // 현재 년도 구하기
-    private fun getYear(): Int{
-        val instance = Calendar.getInstance()
-        return instance.get(Calendar.YEAR)
-    }
-
-
-    private fun getGenderInfo(): String{
-        return if(AfumeApplication.prefManager.userGender == "MAN"){
-            "남성"
-        }else{
-            "여성"
-        }
-    }
     private val _recommendPerfumeList : MutableLiveData<MutableList<RecommendPerfumeItem>> = MutableLiveData()
     val recommendPerfumeList : LiveData<MutableList<RecommendPerfumeItem>>
         get() = _recommendPerfumeList
