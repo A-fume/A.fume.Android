@@ -58,9 +58,9 @@
                     android:fontFamily="@font/nanummyeongjo_extrabold"
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="6sp"
-                    android:text='@{viewModel.nickTxt + " 님을 위한\n향수 추천"}'
                     android:textColor="@color/primary_black"
                     android:textSize="18sp"
+                    android:text="@string/txt_home_title_null"
                     app:layout_constraintStart_toStartOf="@+id/btn_cancel"
                     app:layout_constraintTop_toBottomOf="@+id/btn_cancel" />
 
@@ -128,16 +128,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/vp_home_recommend" />
 
                 <TextView
-                    android:id="@+id/act_perfume_detail_tv_like"
+                    android:id="@+id/txt_home_age_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/nanummyeongjo_extrabold"
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="6sp"
-                    android:text='@{viewModel.ageTxt + "이\n많이 찾는 향수"}'
                     android:textColor="@color/primary_black"
                     android:textSize="18sp"
+                    android:text="@string/txt_home_age_null"
                     app:layout_constraintStart_toStartOf="@+id/btn_heart"
                     app:layout_constraintTop_toBottomOf="@+id/btn_heart" />
 
@@ -148,11 +148,11 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
-                    android:text='@{viewModel.nickTxt + " 님 연령대 분들에게 인기 많은 향수 입니다."}'
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/act_perfume_detail_tv_like"
-                    app:layout_constraintTop_toBottomOf="@+id/act_perfume_detail_tv_like" />
+                    android:text="@string/txt_home_subtitle_null"
+                    app:layout_constraintStart_toStartOf="@+id/txt_home_age_title"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_home_age_title" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_home_popular"
