@@ -7,7 +7,7 @@
     <data>
         <variable
             name="item"
-            type="com.afume.afume_android.data.vo.response.NewPerfumeItem" />
+            type="com.afume.afume_android.data.vo.response.HomePerfumeItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,12 +30,11 @@
             setImage="@{item.imageUrl}" />
 
         <ImageView
-            android:id="@+id/imageView11"
-            setLikeList="@{item.liked}"
+            android:id="@+id/btn_like"
+            setLikeList="@{item.isLiked}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView10"
             app:layout_constraintEnd_toEndOf="@+id/imageView10"

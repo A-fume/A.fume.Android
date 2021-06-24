@@ -10,16 +10,16 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentDetailInfoBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailViewModel
+import com.afume.afume_android.ui.home.HomeViewModel
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
-import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBubbleDataSet
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
@@ -34,6 +34,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
     private lateinit var rvSimilarAdapter: PopularListAdapter
     lateinit var chartLastingPowerAdapter: HorizontalBarChartAdapter
     private val viewModel: PerfumeDetailViewModel by activityViewModels()
+    private val homeViewModel : HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,7 +80,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
     }
 
     private fun initRvSimilar(ctx: Context) {
-        rvSimilarAdapter = PopularListAdapter(ctx)
+        rvSimilarAdapter = PopularListAdapter(parentFragmentManager){ idx -> homeViewModel.postPerfumeLike(0,idx)}
         binding.rvDetailsInfoSimilar.adapter = rvSimilarAdapter
 //        rvSimilarAdapter.data = mutableListOf(
 //            HomePerfumeListData(

@@ -97,9 +97,7 @@ class HomeFragment : Fragment() {
 
     private fun initPopularList(){
         popularAdapter =
-            PopularListAdapter(
-                requireContext()
-            )
+            PopularListAdapter(parentFragmentManager) { idx -> homeViewModel.postPerfumeLike(0, idx)}
         binding.rvHomePopular.adapter = popularAdapter
 
         popularAdapter.notifyDataSetChanged()
@@ -108,9 +106,7 @@ class HomeFragment : Fragment() {
 
     private fun initRecentList(){
         recentAdapter =
-            RecentListAdapter(
-                requireContext()
-            )
+            RecentListAdapter(parentFragmentManager) { idx -> homeViewModel.postPerfumeLike(1, idx)}
         binding.rvHomeRecent.adapter = recentAdapter
 
         recentAdapter.notifyDataSetChanged()
@@ -119,7 +115,7 @@ class HomeFragment : Fragment() {
 
     private fun initNewList(){
         newAdapter =
-            NewListAdapter(requireContext())
+            NewListAdapter(parentFragmentManager) { idx -> homeViewModel.postPerfumeLike(2, idx)}
         binding.rvHomeNew.adapter = newAdapter
 
         newAdapter.notifyDataSetChanged()
