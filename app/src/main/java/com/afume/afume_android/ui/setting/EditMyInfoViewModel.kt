@@ -33,7 +33,7 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 자동입력
     fun checkMyInfo(){
-        if(AfumeApplication.prefManager.userEmail.isNotEmpty()){
+        if(AfumeApplication.prefManager.haveToken()){
             nickTxt.postValue(AfumeApplication.prefManager.userNickname)
             checkGenderInfo(AfumeApplication.prefManager.userGender)
             ageTxt.postValue(AfumeApplication.prefManager.userAge.toString())

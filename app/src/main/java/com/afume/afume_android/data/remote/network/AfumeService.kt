@@ -106,19 +106,19 @@ interface AfumeService {
     @GET("perfume/recommend/common")
     suspend fun getCommonPerfumeList(
         @Header("x-access-token") token : String,
-    ):ResponseBase<ResponseRecommendPerfumeList>
+    ):ResponseBase<ResponseHomePerfumeList>
 
     // Home - recent perfume
     @GET("perfume/recent")
     suspend fun getRecentList(
         @Header("x-access-token") token : String,
-    ):ResponseBase<ResponseRecentPerfumeList>
+    ):ResponseBase<ResponseHomePerfumeList>
 
     // Home - New Perfume List
     @GET("perfume/new")
     suspend fun getNewPerfumeList(
 
-    ):ResponseBase<ResponseNewPerfumeList>
+    ):ResponseBase<ResponseHomePerfumeList>
 
     @GET("perfume/{perfumeIdx}")
     fun getPerfumeDetail(

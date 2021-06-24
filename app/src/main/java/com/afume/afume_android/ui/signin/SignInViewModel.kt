@@ -21,7 +21,7 @@ class SignInViewModel : ViewModel() {
 
     // 자동입력
     fun checkRegisterInfo(){
-        if(AfumeApplication.prefManager.userEmail.isNotEmpty()){
+        if(AfumeApplication.prefManager.haveToken()){
             emailTxt.postValue(AfumeApplication.prefManager.userEmail)
             passwordTxt.postValue(AfumeApplication.prefManager.userPassword)
         }

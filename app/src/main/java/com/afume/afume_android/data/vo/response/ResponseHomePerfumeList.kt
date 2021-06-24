@@ -1,14 +1,14 @@
 package com.afume.afume_android.data.vo.response
 
-class ResponseRecentPerfumeList (
+class ResponseHomePerfumeList (
     val count : Int,
-    val rows : MutableList<RecentPerfumeItem>
+    val rows : MutableList<HomePerfumeItem>
 )
 
-data class RecentPerfumeItem(
+data class HomePerfumeItem(
     val perfumeIdx : Int,
     val name : String,
     val imageUrl : String,
     val brandName : String,
-    val isLiked : Boolean
+    var isLiked : Boolean
 )

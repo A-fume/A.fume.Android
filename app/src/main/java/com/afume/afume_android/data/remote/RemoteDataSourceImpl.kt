@@ -80,15 +80,15 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return api.getRecommendPerfumeList(token).data.rows
     }
 
-    override suspend fun getCommonPerfumeList(token: String): MutableList<RecommendPerfumeItem> {
+    override suspend fun getCommonPerfumeList(token: String): MutableList<HomePerfumeItem> {
         return api.getCommonPerfumeList(token).data.rows
     }
 
-    override suspend fun getRecentPerfumeList(token: String): MutableList<RecentPerfumeItem> {
+    override suspend fun getRecentPerfumeList(token: String): MutableList<HomePerfumeItem> {
         return api.getRecentList(token).data.rows
     }
 
-    override suspend fun getNewPerfumeList(): MutableList<NewPerfumeItem> {
+    override suspend fun getNewPerfumeList(): MutableList<HomePerfumeItem> {
         return api.getNewPerfumeList().data.rows
     }
 

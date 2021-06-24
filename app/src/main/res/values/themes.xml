@@ -21,7 +21,7 @@
     </style>
 
     <style name="AppTheme.NumberPicker" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:textSize">25dp</item>
+        <item name="android:textSize">24dp</item>
         <item name="android:fontFamily">@font/nanummyeongjo_bold</item>
         <item name="colorControlNormal">@color/point_beige</item>
     </style>
