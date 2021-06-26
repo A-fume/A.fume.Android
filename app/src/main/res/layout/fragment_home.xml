@@ -79,24 +79,22 @@
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="262dp"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginStart="98dp"
-                    android:layout_marginLeft="98dp"
                     android:layout_marginTop="86dp"
                     android:src="@drawable/border_light_gray_f9_fill_5"
                     app:layout_constraintBottom_toBottomOf="@+id/vp_home_recommend"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/vp_home_recommend"
+                    app:layout_constraintStart_toStartOf="@+id/vp_home_recommend"
                     app:layout_constraintTop_toTopOf="@+id/vp_home_recommend" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vp_home_recommend"
+                    setRecommendPerfumeList="@{viewModel.recommendPerfumeList}"
                     android:layout_width="0dp"
                     android:layout_height="297dp"
                     android:layout_marginStart="98dp"
                     android:layout_marginTop="12dp"
-                    setRecommendPerfumeList="@{viewModel.recommendPerfumeList}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
