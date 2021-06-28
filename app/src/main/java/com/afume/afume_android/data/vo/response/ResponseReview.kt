@@ -2,10 +2,10 @@ package com.afume.afume_android.data.vo.response
 
 data class ResponseReview(
     val score : Float,
-    val longevity : String,
-    val sillage : String,
+    val longevity : Int,
+    val sillage : Int,
     val seasonal : List<String>,
-    val gender: String,
+    val gender: Int,
     val access : Boolean,
     val content : String,
     val reviewIdx : Int,

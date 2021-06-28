@@ -242,36 +242,37 @@ class NoteViewModel : ViewModel() {
         _isValidUpdateBtn.postValue(true)
 
         viewModelScope.launch {
-//            try {
-//                noteRepository.getReview(reviewIdx).let {
-//                    rating.value = it.score
-//                    longevityProgress.value = convertLongevity(it.longevity)
-//                    reverbProgress.value = convertReverb(it.sillage)
-//                    genderProgress.value = convertGender(it.gender)
-//                    convertSeason(it.seasonal)
-//                    _shareBtn.value = it.access
-//                    contentsTxt.value = it.content
-//                    selectedKeywordList.value = it.keyword
-//                    checkKeywordList()
-//                    checkShareBtn()
-//
-//                    item = ParcelableWishList(
-//                        it.perfume.perfumeIdx,
-//                        it.perfume.perfumeName,
-//                        it.brand.brandName,
-//                        it.perfume.imageUrl
-//                    )
-//
-//                    Log.d("시향 노트 조회 성공 :", "")
-//
-//                }
-//            } catch (e: HttpException) {
-//                Log.d("시향 노트 조회 실패 :", e.message())
-//            }
+            try {
+                noteRepository.getReview(reviewIdx).let {
+                    rating.value = it.score
+                    longevityProgress.value = it.longevity
+                    reverbProgress.value = it.sillage
+                    genderProgress.value = it.gender
+                    convertSeason(it.seasonal)
+                    _shareBtn.value = it.access
+                    contentsTxt.value = it.content
+                    selectedKeywordList.value = it.keyword
+                    checkKeywordList()
+                    checkShareBtn()
+
+                    item = ParcelableWishList(
+                        it.perfume.perfumeIdx,
+                        it.perfume.perfumeName,
+                        it.brand.brandName,
+                        it.perfume.imageUrl
+                    )
+
+                    Log.d("시향 노트 조회 성공 :", "")
+
+                }
+            } catch (e: HttpException) {
+                Log.d("시향 노트 조회 실패 :", e.message())
+            }
+
             rating.value = 3.5f
-            longevityProgress.value = convertLongevity("약함")
-            reverbProgress.value = convertReverb("가벼움")
-            genderProgress.value = convertGender("여성")
+            longevityProgress.value = 0
+            reverbProgress.value = 1
+            genderProgress.value = 2
             val abc = listOf<String>("봄","가을")
             convertSeason(abc)
             _shareBtn.value = true
@@ -288,35 +289,6 @@ class NoteViewModel : ViewModel() {
             )
         }
         return item
-    }
-
-    private fun convertLongevity(longevity : String):Int{
-        return when(longevity){
-            "매우 약함" -> 0
-            "약함" -> 1
-            "보통" -> 2
-            "강함" -> 3
-            "매우 강함" -> 4
-            else -> -1
-        }
-    }
-
-    private fun convertReverb(reverb : String):Int{
-        return when(reverb){
-            "가벼움" -> 0
-            "보통" -> 1
-            "무거움" -> 2
-            else -> -1
-        }
-    }
-
-    private fun convertGender(gender : String):Int{
-        return when(gender){
-            "남성" -> 0
-            "중성" -> 1
-            "여성" -> 2
-            else -> -1
-        }
     }
 
     private fun convertSeason(seasons : List<String>){
