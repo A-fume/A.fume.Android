@@ -162,10 +162,10 @@ class NoteViewModel : ViewModel() {
             try{
                 val reviewInfo = RequestReview(
                     score = rating.value!!,
-                    longevity = getLongevity(longevityProgress.value?: -1),
-                    sillage = getReverb(reverbProgress.value?: -1),
+                    longevity = longevityProgress.value?: -1,
+                    sillage = reverbProgress.value?: -1,
                     seasonal = getSeason(),
-                    gender = getGender(genderProgress.value?: -1),
+                    gender = genderProgress.value?: -1,
                     access = _shareBtn.value!!,
                     content = contentsTxt.value!!,
                     keywordList = getKeyword()
@@ -187,35 +187,6 @@ class NoteViewModel : ViewModel() {
                     }
                 }
             }
-        }
-    }
-
-    private fun getLongevity(longevity : Int):String{
-        return when (longevity) {
-            0 -> "매우 약함"
-            1 -> "약함"
-            2 -> "보통"
-            3 -> "강함"
-            4 -> "매우 강함"
-            else -> ""
-        }
-    }
-
-    private fun getReverb(reverb : Int):String{
-        return when (reverb) {
-            0 -> "가벼움"
-            1 -> "보통"
-            2 -> "무거움"
-            else -> ""
-        }
-    }
-
-    private fun getGender(gender : Int):String{
-        return when (gender) {
-            0 -> "남성"
-            1 -> "중성"
-            2 -> "여성"
-            else -> ""
         }
     }
 
@@ -319,10 +290,10 @@ class NoteViewModel : ViewModel() {
             try{
                 val reviewInfo = RequestReview(
                     score = rating.value!!,
-                    longevity = getLongevity(longevityProgress.value?: -1),
-                    sillage = getReverb(reverbProgress.value?: -1),
+                    longevity = longevityProgress.value?: -1,
+                    sillage = reverbProgress.value?: -1,
                     seasonal = getSeason(),
-                    gender = getGender(genderProgress.value?: -1),
+                    gender = genderProgress.value?: -1,
                     access = _shareBtn.value!!,
                     content = contentsTxt.value!!,
                     keywordList = getKeyword()
