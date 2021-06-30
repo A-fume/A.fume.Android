@@ -185,13 +185,13 @@ class NoteActivity : AppCompatActivity() {
 
     fun onClickCompleteBtn(view : View){
 //        noteViewModel.postReview(perfumeIdx)
-        this.toastLong("시향 노트 추가")
+        this.toastLong("시향 노트가 추가되었습니다.")
         finish()
     }
 
     fun onClickUpdateBtn(view : View){
 //        noteViewModel.updateReview(reviewIdx)
-        this.toastLong("시향 노트 수정")
+        this.toastLong("시향 노트가 수정되었습니다.")
         finish()
     }
 
