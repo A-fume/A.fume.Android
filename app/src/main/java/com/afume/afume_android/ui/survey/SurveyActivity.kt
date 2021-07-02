@@ -56,6 +56,7 @@ class SurveyActivity : AppCompatActivity() {
     private fun clickBtnComplete(){
         binding.btnSurveyApply.setOnClickListener {
             Log.e("버튼 눌리나","버튼 눌린다")
+            AfumeApplication.prefManager.userSurvey = true
             viewModel.postSurvey(
                 AfumeApplication.prefManager.accessToken
             )

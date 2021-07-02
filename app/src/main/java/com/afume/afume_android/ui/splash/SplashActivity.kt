@@ -4,9 +4,11 @@ import android.animation.Animator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySplashBinding
-import com.afume.afume_android.ui.signin.SignHomeActivity
+import com.afume.afume_android.ui.MainActivity
+import com.afume.afume_android.ui.survey.SurveyActivity
 import com.afume.afume_android.util.startActivityWithFinish
 
 class SplashActivity : AppCompatActivity() {
@@ -30,7 +32,11 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun onAnimationEnd(p0: Animator?) {
-                startActivityWithFinish(SignHomeActivity::class.java)
+                if(AfumeApplication.prefManager.haveToken() && !AfumeApplication.prefManager.userSurvey){
+                    startActivityWithFinish(SurveyActivity::class.java)
+                }else{
+                    startActivityWithFinish(MainActivity::class.java)
+                }
             }
 
             override fun onAnimationCancel(p0: Animator?) {
