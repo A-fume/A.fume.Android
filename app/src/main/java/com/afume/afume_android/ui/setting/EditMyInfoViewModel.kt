@@ -155,11 +155,6 @@ class EditMyInfoViewModel : ViewModel() {
     }
 
     // 내 정보 수정
-    private val _isValidEditMyInfo = MutableLiveData<Boolean>(false)
-    val isValidEditMyInfo : LiveData<Boolean>
-        get() = _isValidEditMyInfo
-
-    // 내 정보 수정
     fun putMyInfo(){
         genderTxt = if(_isCheckMan.value == true){
             "MAN"
@@ -184,11 +179,8 @@ class EditMyInfoViewModel : ViewModel() {
                     AfumeApplication.prefManager.userNickname = nickTxt.value.toString()
                     AfumeApplication.prefManager.userGender = genderTxt
                     AfumeApplication.prefManager.userAge = ageTxt.value!!.toInt()
-
-                    _isValidEditMyInfo.postValue(true)
                 }
             }catch (e : HttpException){
-                _isValidEditMyInfo.postValue(false)
 
                 when(e.response()?.code()){
                     401 -> { // userIdx 일치 X 또는 토근 유효 X
