@@ -8,12 +8,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
+import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.request.FilterInfoP
 import com.afume.afume_android.data.vo.request.SendFilter
 import com.afume.afume_android.databinding.ActivityMainBinding
 import com.afume.afume_android.ui.search.SearchViewModel
 import com.afume.afume_android.ui.search.SingleViewModelFactory
+import com.afume.afume_android.util.toastLong
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -25,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initBinding()
         initNavigation()
+        initLoginInfo()
         searchViewModel= ViewModelProvider(this, SingleViewModelFactory.getInstance())[SearchViewModel::class.java]
-
     }
 
     override fun onResume() {
@@ -46,6 +48,12 @@ class MainActivity : AppCompatActivity() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         bottomNav.setupWithNavController(navController)
         bottomNav.itemIconTintList = null
+    }
+
+    private fun initLoginInfo(){
+        if(AfumeApplication.prefManager.haveToken()){
+            this.toastLong("자동 로그인되었습니다.")
+        }
     }
 
     private fun getFilter() {
