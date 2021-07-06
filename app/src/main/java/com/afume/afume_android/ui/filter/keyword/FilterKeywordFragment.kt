@@ -13,6 +13,7 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import com.afume.afume_android.databinding.FragmentFilterKeywordBinding
 import com.afume.afume_android.ui.filter.FilterViewModel
+import com.afume.afume_android.ui.filter.FilterViewModelFactory
 import com.afume.afume_android.ui.filter.ItemDetailsLookUp
 import com.afume.afume_android.ui.filter.ItemKeyProvider
 import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
@@ -23,7 +24,9 @@ import com.google.android.flexbox.FlexboxLayoutManager
 
 class FilterKeywordFragment : Fragment() {
     private lateinit var binding: FragmentFilterKeywordBinding
-    private val viewModel: FilterViewModel by activityViewModels()
+    private val viewModel: FilterViewModel by activityViewModels(){
+        FilterViewModelFactory.getInstance()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
