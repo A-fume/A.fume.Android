@@ -9,11 +9,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.afume.afume_android.databinding.FragmentFilterIncenseSeriesBinding
 import com.afume.afume_android.ui.filter.FilterViewModel
+import com.afume.afume_android.ui.filter.FilterViewModelFactory
 
 class FilterIncenseSeriesFragment : Fragment() {
     private lateinit var binding: FragmentFilterIncenseSeriesBinding
-    private val viewModel: FilterViewModel by activityViewModels()
-
+    private val viewModel: FilterViewModel by activityViewModels(){
+        FilterViewModelFactory.getInstance()
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
        return initBinding(inflater,container)
     }

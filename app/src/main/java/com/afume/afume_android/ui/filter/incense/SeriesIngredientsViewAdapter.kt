@@ -14,7 +14,7 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 
 class SeriesIngredientsViewAdapter(
-    val selectIngredients: (Int, List<SeriesIngredients>) -> Unit,
+    val selectIngredients: (String, List<SeriesIngredients>) -> Unit,
     val countBadge: (Int, Boolean) -> Unit
 ) : RecyclerView.Adapter<SeriesIngredientsViewHolder>() {
 
@@ -41,7 +41,7 @@ class SeriesIngredientsViewAdapter(
 
 class SeriesIngredientsViewHolder(
     val binding: RvItemFilterSeriesBinding,
-    val selectIngredients: (Int, List<SeriesIngredients>) -> Unit,
+    val selectIngredients: (String, List<SeriesIngredients>) -> Unit,
     val countBadge: (Int, Boolean) -> Unit
 ) :
     RecyclerView.ViewHolder(binding.root) {
