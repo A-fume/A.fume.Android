@@ -60,11 +60,13 @@ class SurveyActivity : AppCompatActivity() {
 
     private fun clickBtnComplete() {
         binding.btnSurveyApply.setOnClickListener {
+            Log.e("버튼 눌리나","버튼 눌린다")
             binding.vpSurvey.apply {
                 when (currentItem) {
                     0 -> currentItem = 1
                     1 -> currentItem = 2
                     2 -> {
+                        AfumeApplication.prefManager.userSurvey = true
                         viewModel.postSurvey(AfumeApplication.prefManager.accessToken)
                         this@SurveyActivity.startActivityWithFinish(MainActivity::class.java)
                     }

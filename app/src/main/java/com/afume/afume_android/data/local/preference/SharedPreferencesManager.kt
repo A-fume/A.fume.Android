@@ -41,11 +41,16 @@ class SharedPreferencesManager (context: Context){
         get() = sharedPreferences.getString(REFRESH_TOKEN)
         set(value) = sharedPreferences.putString(REFRESH_TOKEN, value)
 
+    var userSurvey : Boolean
+        get() = sharedPreferences.getBoolean(USER_SURVEY, false)
+        set(value) = sharedPreferences.edit { putBoolean(USER_SURVEY, value) }
+
     @CallSuper
     fun clear() {
         sharedPreferences.edit()
             .remove(AUTH_TOKEN)
             .remove(REFRESH_TOKEN)
+            .putBoolean(USER_SURVEY, false)
             .apply()
     }
 
@@ -63,6 +68,7 @@ class SharedPreferencesManager (context: Context){
         private const val USER_AGE = "user_age"
         private const val AUTH_TOKEN = "authentication_token"
         private const val REFRESH_TOKEN = "refresh_token"
+        private const val USER_SURVEY = "user_survey"
 
         private fun SharedPreferences.getString(key: String) =
             getString(key, "").orEmpty()
