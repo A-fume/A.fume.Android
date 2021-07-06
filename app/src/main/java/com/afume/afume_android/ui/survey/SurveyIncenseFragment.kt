@@ -13,14 +13,8 @@ class SurveyIncenseFragment : Fragment() {
     private lateinit var incenseAdapter: CircleRecyclerViewAdapter
     private val viewModel: SurveyViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentSurveyIncenseBinding.inflate(layoutInflater, container, false)
-        binding.vm=viewModel
-        return binding.root
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return initBinding(container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,19 +24,28 @@ class SurveyIncenseFragment : Fragment() {
         incenseAdapter.notifyDataSetChanged()
     }
 
-    private fun initRvIncense() {
-        incenseAdapter = CircleRecyclerViewAdapter(1,
-            add = { index->viewModel.addSeriesList(index)},remove = {index:Int->viewModel.removeSeriesList(index)})
-        binding.rvSurveyIncense.adapter = incenseAdapter
-        incenseAdapter.notifyDataSetChanged()
-
-
-    }
-
     override fun onResume() {
         super.onResume()
 //        incenseAdapter.setPerfumeData(viewModel.perfumeList.value)
+        viewModel.setActiveButton(2)
         incenseAdapter.setSeriesData(viewModel.seriesList.value)
     }
+
+    private fun initBinding(container: ViewGroup?): View {
+        binding = FragmentSurveyIncenseBinding.inflate(layoutInflater, container, false)
+        binding.lifecycleOwner = this
+        viewModel.setActiveButton(2)
+        binding.vm = viewModel
+        return binding.root
+    }
+
+    private fun initRvIncense() {
+        incenseAdapter = CircleRecyclerViewAdapter(1,
+            add = { index -> viewModel.addSeriesList(index) },
+            remove = { index: Int -> viewModel.removeSeriesList(index) })
+        binding.rvSurveyIncense.adapter = incenseAdapter
+        incenseAdapter.notifyDataSetChanged()
+    }
+
 
 }

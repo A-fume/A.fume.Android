@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
@@ -17,7 +19,7 @@ import com.afume.afume_android.ui.my.myperfume.MyPerfumeFragment
 import com.afume.afume_android.ui.my.wishlist.WishListFragment
 import com.afume.afume_android.ui.setting.EditMyInfoActivity
 import com.afume.afume_android.ui.setting.EditPasswordActivity
-import com.afume.afume_android.ui.signin.SignInActivity
+import com.afume.afume_android.ui.signin.SignHomeActivity
 import com.afume.afume_android.util.TabSelectedListener
 import com.afume.afume_android.util.toastLong
 
@@ -29,14 +31,12 @@ class MyFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMypageBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-        return binding.root
+      return initBinding(layoutInflater,container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initBind()
+        initToolbar()
         initVp()
         setUpTabWithViewPager()
         setNavigation()
@@ -48,7 +48,14 @@ class MyFragment : Fragment() {
 
     }
 
-    private fun initBind() {
+
+    private fun initBinding( inflater: LayoutInflater,container: ViewGroup?):View {
+        binding = FragmentMypageBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        return binding.root
+    }
+
+    private fun initToolbar() {
 
         binding.toolbarMypage.toolbartxt = "마이"
         //바궈야함
@@ -90,7 +97,12 @@ class MyFragment : Fragment() {
         else {
             val textView = TextView(context)
             textView.text = "                        "
-            textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_btn_up, 0, 0, 0)
+            textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.btn_more, 0, 0, 0)
+
+            binding.myNavigationDrawer.menu.removeGroup(R.id.group_my_info)
+            binding.myNavigationDrawer.menu.removeGroup(R.id.group_password)
+            binding.myNavigationDrawer.menu.removeGroup(R.id.group_logout)
+            binding.myNavigationDrawer.menu.removeGroup(R.id.group_divider)
 
             binding.myNavigationDrawer.inflateMenu(R.menu.navigation_drawer_login)
             binding.myNavigationDrawer.menu.getItem(0).actionView = textView
@@ -108,17 +120,25 @@ class MyFragment : Fragment() {
         binding.myNavigationDrawer.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
             when (menuItem.itemId) {
-                R.id.go_to_login -> intent(SignInActivity::class.java)
+                R.id.go_to_login -> intent(SignHomeActivity::class.java)
                 R.id.edit_my_info -> intent(EditMyInfoActivity::class.java)
                 R.id.edit_password -> intent(EditPasswordActivity::class.java)
                 R.id.logout -> {
                     AfumeApplication.prefManager.clear()
                     requireContext().toastLong("로그아웃되었습니다.")
+                    inflateMenu()
+                    refreshFragment(myPagePagerAdapter.fragments[0],childFragmentManager)
+                    refreshFragment(myPagePagerAdapter.fragments[1],childFragmentManager)
                     binding.drawerLayout.closeDrawers()
                 }
             }
             true
         }
+    }
+
+    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+        var ft: FragmentTransaction = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
     }
 
 

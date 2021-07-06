@@ -1,71 +1,43 @@
 package com.afume.afume_android.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.HomeRepository
-import com.afume.afume_android.data.vo.response.NewPerfumeItem
-import com.afume.afume_android.data.vo.response.RecentPerfumeItem
+import com.afume.afume_android.data.vo.response.HomePerfumeItem
+import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.afume.afume_android.data.vo.response.RecommendPerfumeItem
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import java.util.*
 
 class HomeViewModel : ViewModel(){
     private val homeRepository = HomeRepository()
+    private val compositeDisposable = CompositeDisposable()
 
-    // 고정값 설정
-    val nickTxt = MutableLiveData<String>("")
-    val ageTxt = MutableLiveData<String>("")
-
-    fun setUserInfo(){
-        if(AfumeApplication.prefManager.haveToken()){
-            nickTxt.postValue(AfumeApplication.prefManager.userNickname)
-            ageTxt.postValue(getAgeGroupInfo().toString() + "대 " + getGenderInfo())
-        }
-    }
-
-    // 나이 구하기
-    private fun getAgeGroupInfo() : Int{
-        val age = getYear() - AfumeApplication.prefManager.userAge + 1
-
-        return (age/10)*10
-    }
-
-    // 현재 년도 구하기
-    private fun getYear(): Int{
-        val instance = Calendar.getInstance()
-        return instance.get(Calendar.YEAR)
-    }
-
-
-    private fun getGenderInfo(): String{
-        return if(AfumeApplication.prefManager.userGender == "MAN"){
-            "남성"
-        }else{
-            "여성"
-        }
-    }
     private val _recommendPerfumeList : MutableLiveData<MutableList<RecommendPerfumeItem>> = MutableLiveData()
     val recommendPerfumeList : LiveData<MutableList<RecommendPerfumeItem>>
         get() = _recommendPerfumeList
 
-    private val _commonPerfumeList : MutableLiveData<MutableList<RecommendPerfumeItem>> = MutableLiveData()
-    val commonPerfumeList : LiveData<MutableList<RecommendPerfumeItem>>
+    private val _commonPerfumeList : MutableLiveData<MutableList<HomePerfumeItem>> = MutableLiveData()
+    val commonPerfumeList : LiveData<MutableList<HomePerfumeItem>>
         get() = _commonPerfumeList
 
-    private val _recentPerfumeList : MutableLiveData<MutableList<RecentPerfumeItem>> = MutableLiveData()
-    val recentPerfumeList : LiveData<MutableList<RecentPerfumeItem>>
+    private val _recentPerfumeList : MutableLiveData<MutableList<HomePerfumeItem>> = MutableLiveData()
+    val recentPerfumeList : LiveData<MutableList<HomePerfumeItem>>
         get() = _recentPerfumeList
 
     private val _isValidRecentList = MutableLiveData<Boolean>(true)
     val isValidRecentList : LiveData<Boolean>
         get() = _isValidRecentList
 
-    private val _newPerfumeList : MutableLiveData<MutableList<NewPerfumeItem>> = MutableLiveData()
-    val newPerfumeList : LiveData<MutableList<NewPerfumeItem>>
+    private val _newPerfumeList : MutableLiveData<MutableList<HomePerfumeItem>> = MutableLiveData()
+    val newPerfumeList : LiveData<MutableList<HomePerfumeItem>>
         get() = _newPerfumeList
 
     init {
@@ -89,5 +61,39 @@ class HomeViewModel : ViewModel(){
             }
 
         }
+    }
+
+    val perfumeList = MutableLiveData(mutableListOf<PerfumeInfo>())
+    val perfumeLike: MutableLiveData<Boolean> = MutableLiveData()
+
+    fun postPerfumeLike(type: Int, perfumeIdx: Int) {
+        compositeDisposable.add(
+            homeRepository.postPerfumeLike(AfumeApplication.prefManager.accessToken, perfumeIdx)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    perfumeLike.postValue(it.data)
+                    when(type){
+                        0 -> {
+                            clickHeartPerfumeList(_commonPerfumeList, perfumeIdx,it.data)
+                        }
+                        1 -> {
+                            clickHeartPerfumeList(_recentPerfumeList, perfumeIdx,it.data)
+                        }
+                        2 -> {
+                            clickHeartPerfumeList(_newPerfumeList, perfumeIdx,it.data)
+                        }
+                    }
+
+                }) {
+                    Log.d("postPerfumeLike error", it.toString())
+//                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
+                })
+    }
+
+    private fun clickHeartPerfumeList(perfumeList: MutableLiveData<MutableList<HomePerfumeItem>>, perfumeIdx: Int, isSelected:Boolean){
+        val tempList = perfumeList.value
+        tempList?.forEach { if(it.perfumeIdx==perfumeIdx) it.isLiked= isSelected}
+        perfumeList.value=tempList
     }
 }

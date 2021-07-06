@@ -27,7 +27,7 @@ interface RemoteDataSource {
     // search
     suspend fun postSearchPerfume(token: String?,body: RequestSearch):MutableList<PerfumeInfo>
     suspend fun getRecommendPerfumeList(token: String) : MutableList<RecommendPerfumeItem>
-    suspend fun getCommonPerfumeList(token: String) : MutableList<RecommendPerfumeItem>
-    suspend fun getRecentPerfumeList(token: String) : MutableList<RecentPerfumeItem>
-    suspend fun getNewPerfumeList() : MutableList<NewPerfumeItem>
+    suspend fun getCommonPerfumeList(token: String) : MutableList<HomePerfumeItem>
+    suspend fun getRecentPerfumeList(token: String) : MutableList<HomePerfumeItem>
+    suspend fun getNewPerfumeList() : MutableList<HomePerfumeItem>
 }
