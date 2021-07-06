@@ -279,7 +279,7 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 새비밀번호 실시간 확인
     fun inputNewPassword(s: CharSequence?, start: Int, before: Int, count: Int) {
-        Handler().postDelayed({ checkNewPasswordForm() }, 1000L)
+        Handler().postDelayed({ checkNewPasswordForm() }, 0L)
     }
 
     // 새비밀번호 자리수 확인
@@ -310,7 +310,7 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 새비밀번호 일치 실시간 확인
     fun inputAgainPassword(s: CharSequence?, start: Int, before: Int, count: Int) {
-        Handler().postDelayed({ checkAgainForm() }, 1000L)
+        Handler().postDelayed({ checkAgainForm() }, 0L)
     }
 
     private fun checkAgainForm(){
