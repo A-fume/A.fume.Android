@@ -213,32 +213,32 @@ class NoteViewModel : ViewModel() {
         _isValidUpdateBtn.postValue(true)
 
         viewModelScope.launch {
-            try {
-                noteRepository.getReview(reviewIdx).let {
-                    rating.value = it.score
-                    longevityProgress.value = it.longevity
-                    reverbProgress.value = it.sillage
-                    genderProgress.value = it.gender
-                    convertSeason(it.seasonal)
-                    _shareBtn.value = it.access
-                    contentsTxt.value = it.content
-                    selectedKeywordList.value = it.keyword
-                    checkKeywordList()
-                    checkShareBtn()
-
-                    item = ParcelableWishList(
-                        it.perfume.perfumeIdx,
-                        it.perfume.perfumeName,
-                        it.brand.brandName,
-                        it.perfume.imageUrl
-                    )
-
-                    Log.d("시향 노트 조회 성공 :", "")
-
-                }
-            } catch (e: HttpException) {
-                Log.d("시향 노트 조회 실패 :", e.message())
-            }
+//            try {
+//                noteRepository.getReview(reviewIdx).let {
+//                    rating.value = it.score
+//                    longevityProgress.value = it.longevity
+//                    reverbProgress.value = it.sillage
+//                    genderProgress.value = it.gender
+//                    convertSeason(it.seasonal)
+//                    _shareBtn.value = it.access
+//                    contentsTxt.value = it.content
+//                    selectedKeywordList.value = it.keyword
+//                    checkKeywordList()
+//                    checkShareBtn()
+//
+//                    item = ParcelableWishList(
+//                        it.perfume.perfumeIdx,
+//                        it.perfume.perfumeName,
+//                        it.brand.brandName,
+//                        it.perfume.imageUrl
+//                    )
+//
+//                    Log.d("시향 노트 조회 성공 :", "")
+//
+//                }
+//            } catch (e: HttpException) {
+//                Log.d("시향 노트 조회 실패 :", e.message())
+//            }
 
             rating.value = 3.5f
             longevityProgress.value = 0

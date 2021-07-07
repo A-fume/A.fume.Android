@@ -196,10 +196,16 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickDeleteBtn(view : View){
-//        noteViewModel.deleteReview(reviewIdx)
         val bundle = Bundle()
         bundle.putString("title","delete")
-        val dialog: CommonDialog = CommonDialog().getInstance()
+        val dialog: CommonDialog = CommonDialog().CustomDialogBuilder()
+            .setBtnClickListener(object : CommonDialog.CustomDialogListener {
+                override fun onPositiveClicked() {
+//                    noteViewModel.deleteReview(reviewIdx)
+                    finish()
+                }
+            })
+            .getInstance()
         dialog.arguments = bundle
         dialog.show(this.supportFragmentManager, dialog.tag)
     }
