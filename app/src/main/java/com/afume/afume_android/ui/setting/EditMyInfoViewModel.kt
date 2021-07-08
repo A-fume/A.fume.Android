@@ -118,6 +118,7 @@ class EditMyInfoViewModel : ViewModel() {
                 if(_isValidNick.value == true){
                     _isValidNickNotice.postValue(false)
                     _isValidNickBtn.postValue(false)
+                    _completeBtn.postValue(true)
                 }
             }catch (e : HttpException){
                 when(e.response()?.code()){
@@ -126,6 +127,7 @@ class EditMyInfoViewModel : ViewModel() {
                         _isValidNick.postValue(false)
                         _isValidNickNotice.postValue(true)
                         _isValidNickBtn.postValue(true)
+                        _completeBtn.postValue(false)
                     }
                 }
             }
@@ -153,6 +155,11 @@ class EditMyInfoViewModel : ViewModel() {
         _isCheckMan.postValue(false)
         _isCheckWoman.postValue(true)
     }
+
+    // 완료 버튼 활성화
+    private val _completeBtn = MutableLiveData<Boolean>(false)
+    val completeBtn : LiveData<Boolean>
+        get() = _completeBtn
 
     // 내 정보 수정
     fun putMyInfo(){
