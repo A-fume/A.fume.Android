@@ -38,6 +38,7 @@ class EditMyInfoViewModel : ViewModel() {
             checkGenderInfo(AfumeApplication.prefManager.userGender)
             ageTxt.postValue(AfumeApplication.prefManager.userAge.toString())
         }
+        Log.d("명", completeBtn.value.toString())
     }
 
     private fun checkGenderInfo(gender : String){
@@ -148,12 +149,14 @@ class EditMyInfoViewModel : ViewModel() {
     fun onClickManBtn(){
         _isCheckMan.postValue(true)
         _isCheckWoman.postValue(false)
+        checkChangeInfo()
     }
 
     // 여자 버튼 클릭
     fun onClickWomanBtn(){
         _isCheckMan.postValue(false)
         _isCheckWoman.postValue(true)
+        checkChangeInfo()
     }
 
     // 완료 버튼 활성화
@@ -161,14 +164,23 @@ class EditMyInfoViewModel : ViewModel() {
     val completeBtn : LiveData<Boolean>
         get() = _completeBtn
 
-    // 내 정보 수정
-    fun putMyInfo(){
+    // 수정 여부 확인
+    fun checkChangeInfo(){
         genderTxt = if(_isCheckMan.value == true){
             "MAN"
         }else{
             "WOMAN"
         }
 
+        if(_isValidNick.value == true || ageTxt.value!!.toInt() != AfumeApplication.prefManager.userAge || genderTxt != AfumeApplication.prefManager.userGender){
+            _completeBtn.postValue(true)
+        }else{
+            _completeBtn.postValue(false)
+        }
+    }
+
+    // 내 정보 수정
+    fun putMyInfo(){
         viewModelScope.launch {
             try{
                 val myInfo = RequestEditMyInfo(
