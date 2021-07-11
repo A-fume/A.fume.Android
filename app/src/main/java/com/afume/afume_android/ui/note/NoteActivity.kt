@@ -123,21 +123,21 @@ class NoteActivity : AppCompatActivity() {
 
     private fun onSeekBarChangeListener(){
         noteViewModel.longevityProgress.observe(this, Observer {
-            if(it > -1){
+            if(it != null){
                 binding.sbNoteLongevity.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtLongevityList,it)
             }
         })
 
         noteViewModel.reverbProgress.observe(this, Observer {
-            if(it > -1){
+            if(it != null){
                 binding.sbNoteReverb.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtReverbList,it)
             }
         })
 
         noteViewModel.genderProgress.observe(this, Observer {
-            if(it > -1){
+            if(it != null){
                 binding.sbNoteGender.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtGenderList,it)
             }
@@ -184,7 +184,7 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickCompleteBtn(view : View){
-//        noteViewModel.postReview(perfumeIdx)
+        noteViewModel.postReview(perfumeIdx)
         this.toastLong("시향 노트가 추가되었습니다.")
         finish()
     }
