@@ -12,7 +12,7 @@ import com.afume.afume_android.databinding.RvItemSeriesIngredientsFilterBinding
 
 class IngredientFlexboxAdapter(
     val ingredientsList: MutableList<SeriesIngredients>,
-    val setSelectedIngredients: (String, List<SeriesIngredients>) -> Unit,
+    val setSelectedIngredients: (String, MutableList<SeriesIngredients>) -> Unit,
     val countBadge: (Int, Boolean) -> Unit
 ) : ListAdapter<SeriesIngredients, IngredientFlexboxAdapter.IngredientFlexboxHolder>(
     seriesIngredientsDiffCallback
@@ -79,7 +79,7 @@ class IngredientFlexboxAdapter(
                     }
 
                     // viewModel로 selectedIngredients 넘기기
-                    setSelectedIngredients(data.seriesName, selectedIngredients)
+                    setSelectedIngredients(data.seriesName+" 전체", selectedIngredients)
                     Log.e("selectedIngredients__", selectedIngredients.toString())
                 }
             }

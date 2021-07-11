@@ -4,7 +4,7 @@ import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.afume.afume_android.data.vo.request.FilterInfoP
+import com.afume.afume_android.data.vo.request.SendFilter
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.bumptech.glide.Glide
 
@@ -20,10 +20,10 @@ object SearchBinding {
 
     @JvmStatic
     @BindingAdapter("setFilterData")
-    fun setFilterData(recyclerView: RecyclerView, list: MutableList<FilterInfoP>?) {
+    fun setFilterData(recyclerView: RecyclerView, filter: SendFilter?) {
         if (recyclerView.adapter != null) with(recyclerView.adapter as SelectedFilterRecyclerViewAdapter) {
-            list?.let {
-                setData(list)
+            filter?.let {
+                setData(filter)
             }
         }
     }

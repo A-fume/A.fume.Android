@@ -17,22 +17,8 @@ import com.afume.afume_android.ui.filter.FilterActivity
 class SearchResultFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var viewModel: SearchViewModel
-//    private val viewModel = ViewModelProvider(activity as MainActivity)[SearchViewModel::class.java]
-//    private val viewModel:SearchViewModel by activityViewModels()
-//    private val viewModel: SearchViewModel by view
-//    } activityViewModels()
-//    private val viewModel: SearchViewModel by activityViewModels {
-//        object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-//                SearchViewModel() as T
-//        }
-//    }
-//    private val viewModel: SearchViewModel by lazy {
-//        ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-//                SearchViewModel() as T
-//        }).get(SearchViewModel::class.java)
-//    }
+    private lateinit var rvFilterAdapter: SelectedFilterRecyclerViewAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -79,20 +65,13 @@ class SearchResultFragment : Fragment() {
 
     private fun initRvPerfumeList() {
         val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx->viewModel.postPerfumeLike(idx)}
-
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
-//        rvPerfumeAdapter.data = listOf(
-//            DefaultRecyclerViewPerfumeViewModel("르라브", "어마더 13"),
-//            DefaultRecyclerViewPerfumeViewModel("르라브", "어마더 13")
-//        )
         rvPerfumeAdapter.notifyDataSetChanged()
     }
 
     private fun initRvFilterList() {
-        val rvFilterAdapter = SelectedFilterRecyclerViewAdapter { viewModel.postSearchResultPerfume()}
+        rvFilterAdapter = SelectedFilterRecyclerViewAdapter { viewModel.postSearchResultPerfume()}
         binding.rvSearchFilter.adapter = rvFilterAdapter
-//        rvFilterAdapter.filterList =
-//            mutableListOf(FilterInfoP(2, "시트러스", 2), FilterInfoP(3, "비누", 3))
         rvFilterAdapter.notifyDataSetChanged()
     }
 
@@ -102,8 +81,8 @@ class SearchResultFragment : Fragment() {
     }
 
     private fun observeFilter(){
-        viewModel.filterList.observe(viewLifecycleOwner, Observer {
-            if(it!=null&&it.size==0){
+        viewModel.filter.observe(viewLifecycleOwner, Observer {
+            if(it.filterInfoPList!=null&& it.filterInfoPList!!.size==0){
                 binding.rvSearchFilter.visibility=View.GONE
             }
         })
