@@ -58,7 +58,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_filter"
-            setFilterData="@{viewModel.filterList}"
+            setFilterData="@{viewModel.filter}"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginStart="6dp"

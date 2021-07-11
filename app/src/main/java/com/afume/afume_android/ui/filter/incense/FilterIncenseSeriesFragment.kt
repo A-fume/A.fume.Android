@@ -39,7 +39,7 @@ class FilterIncenseSeriesFragment : Fragment() {
 
     private fun initIncenseSeriesRv() {
         val seriesAdapter = SeriesIngredientsViewAdapter(
-            { idx, list -> viewModel.addSeriesIngredientIdx(idx, list) },
+            { seriesName, list -> viewModel.addSeriesIngredientIdx(seriesName, list) },
             { tabNumber, add -> viewModel.countBadges(tabNumber, add) })
         binding.rvIncenseSeries.adapter = seriesAdapter
         seriesAdapter.notifyDataSetChanged()

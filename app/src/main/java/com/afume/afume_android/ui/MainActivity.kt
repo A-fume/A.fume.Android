@@ -52,9 +52,8 @@ class MainActivity : AppCompatActivity() {
         if (intent.getIntExtra("flag", 0) == 1) {
             val filter = intent?.getParcelableExtra<SendFilter>("filter")
             Log.e("서치 결과 프래그먼트", filter.toString())
-            filter?.filterInfoPList?.forEach{
-                searchViewModel.filterList.value?.add(it)
-            }
+
+            searchViewModel.filter.value=filter
 
             navController.navigate(R.id.searchHomeFragment)
             navController.navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
@@ -62,9 +61,15 @@ class MainActivity : AppCompatActivity() {
         if (intent.getIntExtra("flag", 0) == 3) {
 
             val searchText = intent?.getStringExtra("searchText")
-            if(searchText != ""&& searchText !=null) searchViewModel.filterList.value?.add(0, FilterInfoP(idx = 0, name = searchText!!, type = 4))
-            Log.e("서치했다 돌아왔다",searchViewModel.filterList.value.toString())
-//            if(searchText != "") searchViewModel.filterList.value = filter?.filterInfoPList
+
+            if(searchText != ""&& searchText !=null) {
+
+                searchViewModel.filter.value?.apply {
+                    filterInfoPList?.clear()
+                    filterSeriesPMap?.clear()
+                    filterInfoPList?.add(0, FilterInfoP(idx = 0, name = searchText!!, type = 4))
+                }
+            }
             navController.navigate(R.id.searchHomeFragment)
             navController.navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
         }
