@@ -67,6 +67,7 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 닉네임 입력 실시간 확인
     fun inputNickname(s: CharSequence?, start: Int, before: Int, count: Int) {
+        Handler().postDelayed({ checkEmptyNick() }, 0L)
         Handler().postDelayed({ checkNickForm() }, 0L)
 
         resetValidateNick()
@@ -79,8 +80,11 @@ class EditMyInfoViewModel : ViewModel() {
 
         _isValidNickNotice.value = !nickPattern.matcher(nickTxt.value.toString()).matches()
 
-        checkEmptyNick()
         checkChangeNick()
+
+        if(_isValidNickNotice.value == true){
+            _isValidNickBtn.postValue(false)
+        }
     }
 
     // 닉네임 빈칸확인
@@ -88,8 +92,6 @@ class EditMyInfoViewModel : ViewModel() {
         if(nickTxt.value?.length == 0){
             _isValidNickBtn.postValue(false)
             _isValidNickNotice.postValue(false)
-        }else{
-            _isValidNickBtn.postValue(true)
         }
     }
 
@@ -107,6 +109,8 @@ class EditMyInfoViewModel : ViewModel() {
             _isValidNick.postValue(false)
             _isValidNickBtn.postValue(true)
         }
+        _completeBtn.postValue(false)
+//        checkChangeInfo()
     }
 
     // 닉네임 중복확인
@@ -118,6 +122,7 @@ class EditMyInfoViewModel : ViewModel() {
                 if(_isValidNick.value == true){
                     _isValidNickNotice.postValue(false)
                     _isValidNickBtn.postValue(false)
+                    _completeBtn.postValue(true)
                 }
             }catch (e : HttpException){
                 when(e.response()?.code()){
@@ -126,6 +131,7 @@ class EditMyInfoViewModel : ViewModel() {
                         _isValidNick.postValue(false)
                         _isValidNickNotice.postValue(true)
                         _isValidNickBtn.postValue(true)
+                        _completeBtn.postValue(false)
                     }
                 }
             }
@@ -146,22 +152,40 @@ class EditMyInfoViewModel : ViewModel() {
     fun onClickManBtn(){
         _isCheckMan.postValue(true)
         _isCheckWoman.postValue(false)
+        genderTxt = "MAN"
+        checkChangeInfo()
     }
 
     // 여자 버튼 클릭
     fun onClickWomanBtn(){
         _isCheckMan.postValue(false)
         _isCheckWoman.postValue(true)
+        genderTxt = "WOMAN"
+        checkChangeInfo()
+    }
+
+    // 완료 버튼 활성화
+    private val _completeBtn = MutableLiveData<Boolean>(false)
+    val completeBtn : LiveData<Boolean>
+        get() = _completeBtn
+
+    // 수정 여부 확인
+    fun checkChangeInfo(){
+
+        if(_isValidNick.value == true || genderTxt != AfumeApplication.prefManager.userGender || ageTxt.value!!.toInt() != AfumeApplication.prefManager.userAge){
+            _completeBtn.postValue(true)
+        }else{
+            _completeBtn.postValue(false)
+        }
+
+        Log.d("명", _isValidNick.value.toString())
+        Log.d("명", ageTxt.value.toString()+AfumeApplication.prefManager.userAge)
+        Log.d("명", genderTxt+AfumeApplication.prefManager.userGender)
+        Log.d("명", _completeBtn.value.toString())
     }
 
     // 내 정보 수정
     fun putMyInfo(){
-        genderTxt = if(_isCheckMan.value == true){
-            "MAN"
-        }else{
-            "WOMAN"
-        }
-
         viewModelScope.launch {
             try{
                 val myInfo = RequestEditMyInfo(
