@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun onAnimationEnd(p0: Animator?) {
-                if(AfumeApplication.prefManager.haveToken() && !AfumeApplication.prefManager.userSurvey){
+                if(AfumeApplication.prefManager.haveToken() && AfumeApplication.prefManager.userSurvey){
                     startActivityWithFinish(SurveyActivity::class.java)
                 }else{
                     startActivityWithFinish(MainActivity::class.java)

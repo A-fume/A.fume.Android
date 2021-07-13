@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySurveyBinding
@@ -19,7 +23,7 @@ class SurveyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBinding()
-        overridePendingTransition(R.anim.slide_down,R.anim.slide_up)
+        overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
 
         initTabWithVp()
         binding.toolbarSurvey.toolbarBtn.setOnClickListener {
@@ -28,39 +32,47 @@ class SurveyActivity : AppCompatActivity() {
         clickBtnComplete()
     }
 
-    private fun initBinding(){
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_survey)
-        binding.lifecycleOwner=this
-        binding.toolbarSurvey.toolbar=R.drawable.icon_btn_cancel
+    private fun initBinding() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_survey)
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
+        binding.toolbarSurvey.toolbar = R.drawable.icon_btn_cancel
     }
 
-    private fun initTabWithVp(){
-        val surveyViewPagerAdapter=AfumeViewPagerAdapter(supportFragmentManager)
-        surveyViewPagerAdapter.fragments= listOf(
+    private fun initTabWithVp() {
+        val surveyViewPagerAdapter = AfumeViewPagerAdapter(supportFragmentManager)
+        surveyViewPagerAdapter.fragments = listOf(
             SurveyPerfumeFragment(),
             SurveyKeywordFragment(),
             SurveyIncenseFragment()
         )
-        binding.vpSurvey.adapter=surveyViewPagerAdapter
+        binding.vpSurvey.adapter = surveyViewPagerAdapter
         binding.tabSurvey.setupWithViewPager(binding.vpSurvey)
-        binding.tabSurvey.apply{
-            getTabAt(0)?.text="향수"
-            getTabAt(1)?.text="키워드"
-            getTabAt(2)?.text="계열"
+        binding.tabSurvey.apply {
+            getTabAt(0)?.text = "향수"
+            getTabAt(1)?.text = "키워드"
+            getTabAt(2)?.text = "계열"
         }
         val tabListener = TabSelectedListener(binding.tabSurvey)
         binding.tabSurvey.addOnTabSelectedListener(tabListener)
 
     }
 
-    private fun clickBtnComplete(){
+    private fun clickBtnComplete() {
         binding.btnSurveyApply.setOnClickListener {
             Log.e("버튼 눌리나","버튼 눌린다")
-            AfumeApplication.prefManager.userSurvey = true
-            viewModel.postSurvey(
-                AfumeApplication.prefManager.accessToken
-            )
-            this.startActivityWithFinish(MainActivity::class.java)
+            binding.vpSurvey.apply {
+                when (currentItem) {
+                    0 -> currentItem = 1
+                    1 -> currentItem = 2
+                    2 -> {
+                        AfumeApplication.prefManager.userSurvey = true
+                        viewModel.postSurvey(AfumeApplication.prefManager.accessToken)
+                        this@SurveyActivity.startActivityWithFinish(MainActivity::class.java)
+                    }
+                }
+            }
         }
     }
+
 }
