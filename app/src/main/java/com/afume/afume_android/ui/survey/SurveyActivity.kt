@@ -66,7 +66,7 @@ class SurveyActivity : AppCompatActivity() {
                     0 -> currentItem = 1
                     1 -> currentItem = 2
                     2 -> {
-                        AfumeApplication.prefManager.userSurvey = true
+                        AfumeApplication.prefManager.userSurvey = false
                         viewModel.postSurvey(AfumeApplication.prefManager.accessToken)
                         this@SurveyActivity.startActivityWithFinish(MainActivity::class.java)
                     }
