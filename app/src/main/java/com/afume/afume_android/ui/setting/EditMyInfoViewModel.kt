@@ -122,7 +122,7 @@ class EditMyInfoViewModel : ViewModel() {
                 if(_isValidNick.value == true){
                     _isValidNickNotice.postValue(false)
                     _isValidNickBtn.postValue(false)
-                    _completeBtn.postValue(true)
+//                    _completeBtn.postValue(true)
                 }
             }catch (e : HttpException){
                 when(e.response()?.code()){
@@ -131,7 +131,7 @@ class EditMyInfoViewModel : ViewModel() {
                         _isValidNick.postValue(false)
                         _isValidNickNotice.postValue(true)
                         _isValidNickBtn.postValue(true)
-                        _completeBtn.postValue(false)
+//                        _completeBtn.postValue(false)
                     }
                 }
             }
@@ -153,7 +153,6 @@ class EditMyInfoViewModel : ViewModel() {
         _isCheckMan.postValue(true)
         _isCheckWoman.postValue(false)
         genderTxt = "MAN"
-        checkChangeInfo()
     }
 
     // 여자 버튼 클릭
@@ -161,7 +160,6 @@ class EditMyInfoViewModel : ViewModel() {
         _isCheckMan.postValue(false)
         _isCheckWoman.postValue(true)
         genderTxt = "WOMAN"
-        checkChangeInfo()
     }
 
     // 완료 버튼 활성화
@@ -171,7 +169,6 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 수정 여부 확인
     fun checkChangeInfo(){
-
         if(_isValidNick.value == true || genderTxt != AfumeApplication.prefManager.userGender || ageTxt.value!!.toInt() != AfumeApplication.prefManager.userAge){
             _completeBtn.postValue(true)
         }else{
