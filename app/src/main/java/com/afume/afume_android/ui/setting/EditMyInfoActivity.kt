@@ -27,6 +27,7 @@ class EditMyInfoActivity : AppCompatActivity() {
     }
 
     private fun setCompleteBtn(){
+        setMyInfoObserve(editViewModel.isValidNickBtn)
         setMyInfoObserve(editViewModel.isValidNick)
         setMyInfoObserve(editViewModel.isCheckMan)
         setMyInfoObserve(editViewModel.isCheckWoman)
@@ -35,8 +36,8 @@ class EditMyInfoActivity : AppCompatActivity() {
         })
     }
 
-    private fun setMyInfoObserve(seasonBtn: LiveData<Boolean>){
-        seasonBtn.observe(this, Observer {
+    private fun setMyInfoObserve(editInfo: LiveData<Boolean>){
+        editInfo.observe(this, Observer {
             editViewModel.checkChangeInfo()
         })
     }

@@ -44,9 +44,11 @@ class EditMyInfoViewModel : ViewModel() {
         if(gender == "MAN"){
             _isCheckMan.postValue(true)
             _isCheckWoman.postValue(false)
+            genderTxt = "MAN"
         }else{
             _isCheckMan.postValue(false)
             _isCheckWoman.postValue(true)
+            genderTxt = "WOMAN"
         }
     }
 
@@ -110,7 +112,6 @@ class EditMyInfoViewModel : ViewModel() {
             _isValidNickBtn.postValue(true)
         }
         _completeBtn.postValue(false)
-//        checkChangeInfo()
     }
 
     // 닉네임 중복확인
@@ -122,7 +123,6 @@ class EditMyInfoViewModel : ViewModel() {
                 if(_isValidNick.value == true){
                     _isValidNickNotice.postValue(false)
                     _isValidNickBtn.postValue(false)
-//                    _completeBtn.postValue(true)
                 }
             }catch (e : HttpException){
                 when(e.response()?.code()){
@@ -131,7 +131,6 @@ class EditMyInfoViewModel : ViewModel() {
                         _isValidNick.postValue(false)
                         _isValidNickNotice.postValue(true)
                         _isValidNickBtn.postValue(true)
-//                        _completeBtn.postValue(false)
                     }
                 }
             }
@@ -169,16 +168,11 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 수정 여부 확인
     fun checkChangeInfo(){
-        if(_isValidNick.value == true || genderTxt != AfumeApplication.prefManager.userGender || ageTxt.value!!.toInt() != AfumeApplication.prefManager.userAge){
+        if((_isValidNick.value == true || genderTxt != AfumeApplication.prefManager.userGender || ageTxt.value != AfumeApplication.prefManager.userAge.toString()) && _isValidNickBtn.value == false){
             _completeBtn.postValue(true)
         }else{
             _completeBtn.postValue(false)
         }
-
-        Log.d("명", _isValidNick.value.toString())
-        Log.d("명", ageTxt.value.toString()+AfumeApplication.prefManager.userAge)
-        Log.d("명", genderTxt+AfumeApplication.prefManager.userGender)
-        Log.d("명", _completeBtn.value.toString())
     }
 
     // 내 정보 수정
