@@ -23,7 +23,7 @@ class MoreNewPerfumeActivity : AppCompatActivity() {
     }
 
     private fun initNewList(){
-        newAdapter = MoreNewListAdapter(this)
+        newAdapter = MoreNewListAdapter(supportFragmentManager) { idx -> homeViewModel.postPerfumeLike(2, idx)}
         binding.rvHomeMoreNew.adapter = newAdapter
 
     }

@@ -14,12 +14,15 @@ import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afume.afume_android.databinding.FragmentFilterBrandBinding
 import com.afume.afume_android.ui.filter.FilterViewModel
+import com.afume.afume_android.ui.filter.FilterViewModelFactory
 import com.afume.afume_android.ui.filter.ItemDetailsLookUp
 import com.afume.afume_android.ui.filter.ItemKeyProvider
 import com.google.android.material.tabs.TabLayout
 
 class FilterBrandFragment : Fragment() {
-    private val viewModel: FilterViewModel by activityViewModels()
+    private val viewModel: FilterViewModel by activityViewModels(){
+        FilterViewModelFactory.getInstance()
+    }
 
     private lateinit var binding: FragmentFilterBrandBinding
     private lateinit var brandAdapter: BrandRecyclerViewAdapter

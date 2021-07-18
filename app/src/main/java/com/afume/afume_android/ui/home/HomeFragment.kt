@@ -1,5 +1,6 @@
 package com.afume.afume_android.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.afume.afume_android.AfumeApplication
+import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentHomeBinding
 import com.afume.afume_android.ui.home.adapter.NewListAdapter
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
 import com.afume.afume_android.ui.home.adapter.RecentListAdapter
 import com.afume.afume_android.ui.home.adapter.RecommendListAdapter
+import java.util.*
 
 
 class HomeFragment : Fragment() {
@@ -29,7 +33,7 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = homeViewModel
 
-        homeViewModel.setUserInfo()
+        initInfo()
 
         binding.btnHomeMore.setOnClickListener {
             val moreNewPerfumeIntent = Intent(context,MoreNewPerfumeActivity::class.java)
@@ -49,6 +53,37 @@ class HomeFragment : Fragment() {
         initNewList()
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun initInfo(){
+        if(AfumeApplication.prefManager.haveToken()){
+            binding.txtHomeNameTitle.text = AfumeApplication.prefManager.userNickname+ getString(R.string.txt_home_title)
+            binding.txtHomeAgeTitle.text = getAgeGroupInfo().toString() + "대 " + getGenderInfo()+getString(R.string.txt_home_age)
+            binding.txtHomeNameSubtitle.text = AfumeApplication.prefManager.userNickname+getString(R.string.txt_home_subtitle)
+        }
+    }
+
+    // 나이 구하기
+    private fun getAgeGroupInfo() : Int{
+        val age = getYear() - AfumeApplication.prefManager.userAge + 1
+
+        return (age/10)*10
+    }
+
+    // 현재 년도 구하기
+    private fun getYear(): Int{
+        val instance = Calendar.getInstance()
+        return instance.get(Calendar.YEAR)
+    }
+
+
+    private fun getGenderInfo(): String{
+        return if(AfumeApplication.prefManager.userGender == "MAN"){
+            "남성"
+        }else{
+            "여성"
+        }
+    }
+
     private fun initRecommendList(){
         recommendAdapter =
             RecommendListAdapter(
@@ -62,9 +97,7 @@ class HomeFragment : Fragment() {
 
     private fun initPopularList(){
         popularAdapter =
-            PopularListAdapter(
-                requireContext()
-            )
+            PopularListAdapter(parentFragmentManager) { idx -> homeViewModel.postPerfumeLike(0, idx)}
         binding.rvHomePopular.adapter = popularAdapter
 
         popularAdapter.notifyDataSetChanged()
@@ -73,9 +106,7 @@ class HomeFragment : Fragment() {
 
     private fun initRecentList(){
         recentAdapter =
-            RecentListAdapter(
-                requireContext()
-            )
+            RecentListAdapter(parentFragmentManager) { idx -> homeViewModel.postPerfumeLike(1, idx)}
         binding.rvHomeRecent.adapter = recentAdapter
 
         recentAdapter.notifyDataSetChanged()
@@ -84,7 +115,7 @@ class HomeFragment : Fragment() {
 
     private fun initNewList(){
         newAdapter =
-            NewListAdapter(requireContext())
+            NewListAdapter(parentFragmentManager) { idx -> homeViewModel.postPerfumeLike(2, idx)}
         binding.rvHomeNew.adapter = newAdapter
 
         newAdapter.notifyDataSetChanged()

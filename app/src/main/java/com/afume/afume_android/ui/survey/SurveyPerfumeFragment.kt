@@ -13,15 +13,8 @@ class SurveyPerfumeFragment : Fragment() {
     private lateinit var surveyPerfumeAdapter: CircleRecyclerViewAdapter
     private val viewModel: SurveyViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentSurveyPerfumeBinding.inflate(layoutInflater, container, false)
-        binding.lifecycleOwner=this
-        binding.vm=viewModel
-        return binding.root
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return initBinding(container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,15 +23,27 @@ class SurveyPerfumeFragment : Fragment() {
 //        observeList()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.setActiveButton(0)
+        surveyPerfumeAdapter.notifyDataSetChanged()
+    }
+
+    private fun initBinding(container: ViewGroup?): View {
+        binding = FragmentSurveyPerfumeBinding.inflate(layoutInflater, container, false)
+        binding.lifecycleOwner = this
+        viewModel.setActiveButton(0)
+        binding.vm = viewModel
+        return binding.root
+    }
+
     private fun initRv() {
-        surveyPerfumeAdapter = CircleRecyclerViewAdapter(0, add = { index->viewModel.addPerfumeList(index)},remove = {index:Int->viewModel.removePerfumeList(index)})
+        surveyPerfumeAdapter = CircleRecyclerViewAdapter(0,
+            add = { index -> viewModel.addPerfumeList(index) },
+            remove = { index: Int -> viewModel.removePerfumeList(index) })
         binding.rvItemSurveyPerfume.adapter = surveyPerfumeAdapter
         surveyPerfumeAdapter.notifyDataSetChanged()
     }
 
-    override fun onResume() {
-        super.onResume()
-        surveyPerfumeAdapter.notifyDataSetChanged()
-    }
 
 }
