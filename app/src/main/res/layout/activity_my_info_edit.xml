@@ -297,10 +297,8 @@
             android:textSize="15dp"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:backgroundTint="@color/primary_black"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            app:cornerRadius="0dp"
+            android:enabled="@{viewModel.completeBtn}"
+            android:background="@drawable/selector_note_complete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
