@@ -11,6 +11,7 @@ import com.afume.afume_android.data.repository.SurveyRepository
 import com.afume.afume_android.data.vo.ParcelableWishList
 import com.afume.afume_android.data.vo.request.RequestReview
 import com.afume.afume_android.data.vo.response.KeywordInfo
+import com.afume.afume_android.data.vo.response.ResponseReview
 import com.afume.afume_android.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -101,6 +102,10 @@ class NoteViewModel : ViewModel() {
     private val _isValidUpdateBtn = MutableLiveData<Boolean>(false)
     val isValidUpdateBtn : LiveData<Boolean>
         get() = _isValidUpdateBtn
+
+    private val _showUpdateDialog = MutableLiveData<Boolean>(false)
+    val showUpdateDialog : LiveData<Boolean>
+        get() = _showUpdateDialog
 
     // 키워드 리싸이클러뷰 노출 여부
     private val _rvKeywordList = MutableLiveData<Boolean>(false)
@@ -206,6 +211,9 @@ class NoteViewModel : ViewModel() {
         return selectedKeywordIdxList
     }
 
+    // 수정사항 확인용
+    private lateinit var responseReview: ResponseReview
+
     // 시향노트 조회
     fun getReview(reviewIdx: Int):ParcelableWishList{
         var item = ParcelableWishList(0,"","","")
@@ -215,6 +223,7 @@ class NoteViewModel : ViewModel() {
         viewModelScope.launch {
 //            try {
 //                noteRepository.getReview(reviewIdx).let {
+//                    responseReview = it
 //                    rating.value = it.score
 //                    longevityProgress.value = it.longevity
 //                    reverbProgress.value = it.sillage
@@ -281,6 +290,16 @@ class NoteViewModel : ViewModel() {
                 }
             }
             addKeywordList(selectedKeywordInfo, true)
+        }
+    }
+
+    fun checkUpdateInfo(){
+        if(responseReview.score != rating.value || responseReview.longevity != longevityProgress.value || responseReview.sillage != reverbProgress.value
+            || responseReview.seasonal != getSeason() || responseReview.gender != genderProgress.value || responseReview.content != contentsTxt.value
+            || responseReview.keyword != getKeyword()){
+            _showUpdateDialog.postValue(true)
+        }else{
+            _showUpdateDialog.postValue(false)
         }
     }
 

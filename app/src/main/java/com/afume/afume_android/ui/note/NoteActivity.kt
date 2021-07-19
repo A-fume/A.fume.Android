@@ -171,7 +171,24 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickBackBtn(view : View){
-        finish()
+        noteViewModel.checkUpdateInfo()
+
+        noteViewModel.showUpdateDialog.observe(this, Observer {
+            if(it){
+                val bundle = Bundle()
+                bundle.putString("title","save")
+                val dialog: CommonDialog = CommonDialog().CustomDialogBuilder()
+                    .setBtnClickListener(object : CommonDialog.CustomDialogListener {
+                        override fun onPositiveClicked() {
+//                            noteViewModel.updateReview(reviewIdx)
+                            finish()
+                        }
+                    })
+                    .getInstance()
+                dialog.arguments = bundle
+                dialog.show(this.supportFragmentManager, dialog.tag)
+            }
+        })
     }
 
     fun onClickDetailBtn(view : View){
