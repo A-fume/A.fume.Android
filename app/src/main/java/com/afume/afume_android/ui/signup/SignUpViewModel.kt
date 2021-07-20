@@ -348,6 +348,7 @@ class SignUpViewModel()  : ViewModel() {
                     AfumeApplication.prefManager.accessToken = "Bearer "+it.token
                     AfumeApplication.prefManager.refreshToken = "Bearer "+it.refreshToken
                     _isValidRegister.postValue(true)
+                    AfumeApplication.prefManager.userSurvey = true
                 }
             } catch (e: HttpException) {
                 _isValidRegister.postValue(false)

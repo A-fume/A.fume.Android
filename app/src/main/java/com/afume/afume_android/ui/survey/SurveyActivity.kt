@@ -4,11 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySurveyBinding
@@ -58,7 +54,7 @@ class SurveyActivity : AppCompatActivity() {
 
     }
 
-    private fun clickBtnComplete() {
+    private fun clickBtnComplete(){
         binding.btnSurveyApply.setOnClickListener {
             Log.e("버튼 눌리나","버튼 눌린다")
             binding.vpSurvey.apply {
@@ -66,7 +62,7 @@ class SurveyActivity : AppCompatActivity() {
                     0 -> currentItem = 1
                     1 -> currentItem = 2
                     2 -> {
-                        AfumeApplication.prefManager.userSurvey = true
+                        AfumeApplication.prefManager.userSurvey = false
                         viewModel.postSurvey(AfumeApplication.prefManager.accessToken)
                         this@SurveyActivity.startActivityWithFinish(MainActivity::class.java)
                     }
@@ -74,5 +70,4 @@ class SurveyActivity : AppCompatActivity() {
             }
         }
     }
-
 }

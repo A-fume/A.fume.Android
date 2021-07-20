@@ -20,7 +20,9 @@ import com.google.android.material.badge.BadgeDrawable
 class FilterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilterBinding
     private lateinit var filterViewPagerAdapter: AfumeViewPagerAdapter
-    private val filterViewModel: FilterViewModel by viewModels()
+    private val filterViewModel: FilterViewModel by viewModels(){
+        FilterViewModelFactory.getInstance()
+    }
 
     private lateinit var seriesBadge: BadgeDrawable
     private lateinit var brandBadge: BadgeDrawable
@@ -33,7 +35,7 @@ class FilterActivity : AppCompatActivity() {
 
         initViewPager()
         setUpTabWithViewPager()
-        overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
+        overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
 
 
         observeViewModel()
@@ -43,6 +45,7 @@ class FilterActivity : AppCompatActivity() {
         }
         binding.toolbarFilter.toolbarBtn.setOnClickListener {
             finish()
+            overridePendingTransition(R.anim.slide_down, R.anim.slide_down)
         }
 
         binding.toolbarFilter.toolbar = R.drawable.icon_btn_cancel
