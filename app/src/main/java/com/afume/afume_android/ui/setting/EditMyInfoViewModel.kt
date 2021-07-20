@@ -38,6 +38,7 @@ class EditMyInfoViewModel : ViewModel() {
             checkGenderInfo(AfumeApplication.prefManager.userGender)
             ageTxt.postValue(AfumeApplication.prefManager.userAge.toString())
         }
+        Log.d("명", completeBtn.value.toString())
     }
 
     private fun checkGenderInfo(gender : String){
@@ -123,6 +124,7 @@ class EditMyInfoViewModel : ViewModel() {
                 if(_isValidNick.value == true){
                     _isValidNickNotice.postValue(false)
                     _isValidNickBtn.postValue(false)
+                    _completeBtn.postValue(true)
                 }
             }catch (e : HttpException){
                 when(e.response()?.code()){
@@ -131,6 +133,7 @@ class EditMyInfoViewModel : ViewModel() {
                         _isValidNick.postValue(false)
                         _isValidNickNotice.postValue(true)
                         _isValidNickBtn.postValue(true)
+                        _completeBtn.postValue(false)
                     }
                 }
             }

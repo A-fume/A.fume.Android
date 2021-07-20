@@ -71,6 +71,10 @@ class NoteActivity : AppCompatActivity() {
         setSeasonBtnObserve(noteViewModel.summerBtn)
         setSeasonBtnObserve(noteViewModel.fallBtn)
         setSeasonBtnObserve(noteViewModel.winterBtn)
+
+        noteViewModel.showErrorToast.observe(this, Observer {
+            this.toastLong("입력 칸을 모두 작성해야 공개가 가능합니다.")
+        })
     }
 
     private fun setSeekBarObserve(seekBar: LiveData<Int>){
@@ -119,21 +123,21 @@ class NoteActivity : AppCompatActivity() {
 
     private fun onSeekBarChangeListener(){
         noteViewModel.longevityProgress.observe(this, Observer {
-            if(it > -1){
+            if(it != null){
                 binding.sbNoteLongevity.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtLongevityList,it)
             }
         })
 
         noteViewModel.reverbProgress.observe(this, Observer {
-            if(it > -1){
+            if(it != null){
                 binding.sbNoteReverb.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtReverbList,it)
             }
         })
 
         noteViewModel.genderProgress.observe(this, Observer {
-            if(it > -1){
+            if(it != null){
                 binding.sbNoteGender.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtGenderList,it)
             }
@@ -167,7 +171,24 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickBackBtn(view : View){
-        finish()
+        noteViewModel.checkUpdateInfo()
+
+        noteViewModel.showUpdateDialog.observe(this, Observer {
+            if(it){
+                val bundle = Bundle()
+                bundle.putString("title","save")
+                val dialog: CommonDialog = CommonDialog().CustomDialogBuilder()
+                    .setBtnClickListener(object : CommonDialog.CustomDialogListener {
+                        override fun onPositiveClicked() {
+//                            noteViewModel.updateReview(reviewIdx)
+                            finish()
+                        }
+                    })
+                    .getInstance()
+                dialog.arguments = bundle
+                dialog.show(this.supportFragmentManager, dialog.tag)
+            }
+        })
     }
 
     fun onClickDetailBtn(view : View){
@@ -180,22 +201,28 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickCompleteBtn(view : View){
-//        noteViewModel.postReview(perfumeIdx)
-        this.toastLong("시향 노트 추가")
+        noteViewModel.postReview(perfumeIdx)
+        this.toastLong("시향 노트가 추가되었습니다.")
         finish()
     }
 
     fun onClickUpdateBtn(view : View){
 //        noteViewModel.updateReview(reviewIdx)
-        this.toastLong("시향 노트 수정")
+        this.toastLong("시향 노트가 수정되었습니다.")
         finish()
     }
 
     fun onClickDeleteBtn(view : View){
-//        noteViewModel.deleteReview(reviewIdx)
         val bundle = Bundle()
         bundle.putString("title","delete")
-        val dialog: CommonDialog = CommonDialog().getInstance()
+        val dialog: CommonDialog = CommonDialog().CustomDialogBuilder()
+            .setBtnClickListener(object : CommonDialog.CustomDialogListener {
+                override fun onPositiveClicked() {
+//                    noteViewModel.deleteReview(reviewIdx)
+                    finish()
+                }
+            })
+            .getInstance()
         dialog.arguments = bundle
         dialog.show(this.supportFragmentManager, dialog.tag)
     }

@@ -12,6 +12,7 @@ import com.afume.afume_android.ui.signin.SignHomeActivity
 
 class CommonDialog : DialogFragment(), View.OnClickListener {
     lateinit var binding : DialogCommonBinding
+    var listener: CustomDialogListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +21,6 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
     ): View? {
         binding = DialogCommonBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        processBundle(binding)
 
         this.setDrawable()
 
@@ -31,6 +31,12 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
         super.onResume()
 
         this.setHeight()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        processBundle(binding)
     }
 
     private fun processBundle(binding: DialogCommonBinding) {
@@ -54,10 +60,12 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
 
                 binding.btnCommonDialogYes.setOnClickListener {
                     dismiss()
+                    listener?.onPositiveClicked()
                 }
 
                 binding.btnCommonDialogNo.setOnClickListener {
                     dismiss()
+
                 }
             }
             "save" -> {
@@ -65,6 +73,7 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
 
                 binding.btnCommonDialogYes.setOnClickListener {
                     dismiss()
+                    listener?.onPositiveClicked()
                 }
 
                 binding.btnCommonDialogNo.setOnClickListener {
@@ -72,10 +81,6 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
                 }
             }
         }
-    }
-
-    fun getInstance(): CommonDialog {
-        return CommonDialog()
     }
 
     override fun onClick(p0: View?) {
@@ -87,4 +92,23 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
         binding.btnCommonDialogNo.text = cancel
         binding.btnCommonDialogYes.text = confirm
     }
+
+    inner class CustomDialogBuilder {
+
+        private val dialog = CommonDialog()
+
+        fun setBtnClickListener(listener: CustomDialogListener): CustomDialogBuilder {
+            dialog.listener = listener
+            return this
+        }
+
+        fun getInstance(): CommonDialog {
+            return dialog
+        }
+    }
+
+    interface CustomDialogListener{
+        fun onPositiveClicked()
+    }
+
 }

@@ -23,6 +23,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -358,6 +359,19 @@
                     app:layout_constraintStart_toStartOf="@+id/imageView22"
                     app:layout_constraintTop_toTopOf="@+id/imageView22" />
 
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:max="4"
+                    android:progress="@={viewModel.longevityProgress}"
+                    android:progressDrawable="@color/transparent"
+                    android:thumb="@color/transparent"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_note_longevity_very_weak"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_strong"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_weak"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_very_weak" />
+
                 <TextView
                     android:id="@+id/txt_note_longevity_very_weak"
                     android:layout_width="wrap_content"
@@ -484,6 +498,19 @@
                     app:layout_constraintEnd_toEndOf="@+id/imageView27"
                     app:layout_constraintStart_toStartOf="@+id/imageView27"
                     app:layout_constraintTop_toTopOf="@+id/imageView27" />
+
+                <SeekBar
+                    android:id="@+id/seekBar2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:max="2"
+                    android:progress="@={viewModel.reverbProgress}"
+                    android:progressDrawable="@color/transparent"
+                    android:thumb="@color/transparent"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_note_reverb_light"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_reverb_heavy"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_reverb_light"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_reverb_light" />
 
                 <TextView
                     android:id="@+id/txt_note_reverb_light"
@@ -703,6 +730,19 @@
                     app:layout_constraintStart_toStartOf="@+id/imageView40"
                     app:layout_constraintTop_toTopOf="@+id/imageView40" />
 
+                <SeekBar
+                    android:id="@+id/seekBar3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:max="2"
+                    android:progress="@={viewModel.genderProgress}"
+                    android:progressDrawable="@color/transparent"
+                    android:thumb="@color/transparent"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_note_gender_man"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_gender_woman"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_gender_man"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_gender_man" />
+
                 <TextView
                     android:id="@+id/txt_note_gender_man"
                     android:layout_width="wrap_content"
@@ -766,11 +806,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="32dp"
+                    android:layout_marginBottom="74dp"
                     android:fontFamily="@font/nanummyeongjo_bold"
                     android:includeFontPadding="false"
                     android:text="다른 분들과 향에 대한 기록을 공유해보세요.\n나의 시향 노트를 공개하시겠습니까?"
                     android:textColor="@color/primary_black"
                     android:textSize="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView44" />
 
@@ -783,7 +825,6 @@
                     android:drawableTop="@drawable/ic_check_white"
                     android:paddingVertical="5dp"
                     android:checked="@{viewModel.shareBtn}"
-                    android:enabled="@{viewModel.isValidShareBtn}"
                     android:onClick="@{() -> viewModel.setShareBtn()}"
                     android:paddingStart="6dp"
                     android:paddingTop="8dp"
@@ -793,26 +834,25 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textView45" />
 
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="0dp"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="22dp"
-                    android:background="@drawable/selector_note_complete"
-                    android:enabled="@{viewModel.completeBtn}"
-                    android:fontFamily="@font/notosans_bold"
-                    android:includeFontPadding="false"
-                    android:onClick="onClickCompleteBtn"
-                    android:text="기록 완료"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    android:visibility="@{viewModel.isValidUpdateBtn? View.INVISIBLE : View.VISIBLE}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView45" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:background="@drawable/selector_note_complete"
+            android:enabled="@{viewModel.completeBtn}"
+            android:fontFamily="@font/notosans_bold"
+            android:includeFontPadding="false"
+            android:onClick="onClickCompleteBtn"
+            android:text="기록 완료"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:visibility="@{viewModel.isValidUpdateBtn? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

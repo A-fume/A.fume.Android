@@ -11,6 +11,8 @@ import com.afume.afume_android.data.repository.SurveyRepository
 import com.afume.afume_android.data.vo.ParcelableWishList
 import com.afume.afume_android.data.vo.request.RequestReview
 import com.afume.afume_android.data.vo.response.KeywordInfo
+import com.afume.afume_android.data.vo.response.ResponseReview
+import com.afume.afume_android.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -88,6 +90,9 @@ class NoteViewModel : ViewModel() {
     val shareBtn : LiveData<Boolean>
         get() = _shareBtn
 
+    private val _showErrorToast = SingleLiveEvent<Void>()
+    val showErrorToast: LiveData<Void> = _showErrorToast
+
     // 완료 버튼 활성화
     private val _completeBtn = MutableLiveData<Boolean>(false)
     val completeBtn : LiveData<Boolean>
@@ -97,6 +102,10 @@ class NoteViewModel : ViewModel() {
     private val _isValidUpdateBtn = MutableLiveData<Boolean>(false)
     val isValidUpdateBtn : LiveData<Boolean>
         get() = _isValidUpdateBtn
+
+    private val _showUpdateDialog = MutableLiveData<Boolean>(false)
+    val showUpdateDialog : LiveData<Boolean>
+        get() = _showUpdateDialog
 
     // 키워드 리싸이클러뷰 노출 여부
     private val _rvKeywordList = MutableLiveData<Boolean>(false)
@@ -126,7 +135,11 @@ class NoteViewModel : ViewModel() {
     }
 
     fun setShareBtn(){
-        _shareBtn.value = _shareBtn.value != true
+        if(_isValidShareBtn.value == true){
+            _shareBtn.value = _shareBtn.value != true
+        }else{
+            _showErrorToast.call()
+        }
     }
 
     fun checkShareBtn(){
@@ -154,10 +167,10 @@ class NoteViewModel : ViewModel() {
             try{
                 val reviewInfo = RequestReview(
                     score = rating.value!!,
-                    longevity = getLongevity(longevityProgress.value?: -1),
-                    sillage = getReverb(reverbProgress.value?: -1),
+                    longevity = longevityProgress.value,
+                    sillage = reverbProgress.value,
                     seasonal = getSeason(),
-                    gender = getGender(genderProgress.value?: -1),
+                    gender = genderProgress.value,
                     access = _shareBtn.value!!,
                     content = contentsTxt.value!!,
                     keywordList = getKeyword()
@@ -182,35 +195,6 @@ class NoteViewModel : ViewModel() {
         }
     }
 
-    private fun getLongevity(longevity : Int):String{
-        return when (longevity) {
-            0 -> "매우 약함"
-            1 -> "약함"
-            2 -> "보통"
-            3 -> "강함"
-            4 -> "매우 강함"
-            else -> ""
-        }
-    }
-
-    private fun getReverb(reverb : Int):String{
-        return when (reverb) {
-            0 -> "가벼움"
-            1 -> "보통"
-            2 -> "무거움"
-            else -> ""
-        }
-    }
-
-    private fun getGender(gender : Int):String{
-        return when (gender) {
-            0 -> "남성"
-            1 -> "중성"
-            2 -> "여성"
-            else -> ""
-        }
-    }
-
     private fun getSeason() : MutableList<String>{
         if(_springBtn.value == true) selectedSeasonList.add("봄")
         if(_summerBtn.value == true) selectedSeasonList.add("여름")
@@ -227,6 +211,9 @@ class NoteViewModel : ViewModel() {
         return selectedKeywordIdxList
     }
 
+    // 수정사항 확인용
+    private lateinit var responseReview: ResponseReview
+
     // 시향노트 조회
     fun getReview(reviewIdx: Int):ParcelableWishList{
         var item = ParcelableWishList(0,"","","")
@@ -236,10 +223,11 @@ class NoteViewModel : ViewModel() {
         viewModelScope.launch {
 //            try {
 //                noteRepository.getReview(reviewIdx).let {
+//                    responseReview = it
 //                    rating.value = it.score
-//                    longevityProgress.value = convertLongevity(it.longevity)
-//                    reverbProgress.value = convertReverb(it.sillage)
-//                    genderProgress.value = convertGender(it.gender)
+//                    longevityProgress.value = it.longevity
+//                    reverbProgress.value = it.sillage
+//                    genderProgress.value = it.gender
 //                    convertSeason(it.seasonal)
 //                    _shareBtn.value = it.access
 //                    contentsTxt.value = it.content
@@ -260,10 +248,11 @@ class NoteViewModel : ViewModel() {
 //            } catch (e: HttpException) {
 //                Log.d("시향 노트 조회 실패 :", e.message())
 //            }
+
             rating.value = 3.5f
-            longevityProgress.value = convertLongevity("약함")
-            reverbProgress.value = convertReverb("가벼움")
-            genderProgress.value = convertGender("여성")
+            longevityProgress.value = 0
+            reverbProgress.value = 1
+            genderProgress.value = 2
             val abc = listOf<String>("봄","가을")
             convertSeason(abc)
             _shareBtn.value = true
@@ -280,35 +269,6 @@ class NoteViewModel : ViewModel() {
             )
         }
         return item
-    }
-
-    private fun convertLongevity(longevity : String):Int{
-        return when(longevity){
-            "매우 약함" -> 0
-            "약함" -> 1
-            "보통" -> 2
-            "강함" -> 3
-            "매우 강함" -> 4
-            else -> -1
-        }
-    }
-
-    private fun convertReverb(reverb : String):Int{
-        return when(reverb){
-            "가벼움" -> 0
-            "보통" -> 1
-            "무거움" -> 2
-            else -> -1
-        }
-    }
-
-    private fun convertGender(gender : String):Int{
-        return when(gender){
-            "남성" -> 0
-            "중성" -> 1
-            "여성" -> 2
-            else -> -1
-        }
     }
 
     private fun convertSeason(seasons : List<String>){
@@ -333,16 +293,26 @@ class NoteViewModel : ViewModel() {
         }
     }
 
+    fun checkUpdateInfo(){
+        if(responseReview.score != rating.value || responseReview.longevity != longevityProgress.value || responseReview.sillage != reverbProgress.value
+            || responseReview.seasonal != getSeason() || responseReview.gender != genderProgress.value || responseReview.content != contentsTxt.value
+            || responseReview.keyword != getKeyword()){
+            _showUpdateDialog.postValue(true)
+        }else{
+            _showUpdateDialog.postValue(false)
+        }
+    }
+
     // 시향노트 수정
     fun updateReview(reviewIdx: Int){
         viewModelScope.launch {
             try{
                 val reviewInfo = RequestReview(
                     score = rating.value!!,
-                    longevity = getLongevity(longevityProgress.value?: -1),
-                    sillage = getReverb(reverbProgress.value?: -1),
+                    longevity = longevityProgress.value,
+                    sillage = reverbProgress.value,
                     seasonal = getSeason(),
-                    gender = getGender(genderProgress.value?: -1),
+                    gender = genderProgress.value,
                     access = _shareBtn.value!!,
                     content = contentsTxt.value!!,
                     keywordList = getKeyword()
@@ -350,7 +320,7 @@ class NoteViewModel : ViewModel() {
 
                 Log.d("명 : ", reviewInfo.toString())
 
-                noteRepository.postReview(
+                noteRepository.putReview(
                     AfumeApplication.prefManager.accessToken,
                     reviewIdx,
                     reviewInfo
