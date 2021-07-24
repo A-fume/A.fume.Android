@@ -1,6 +1,7 @@
 package com.afume.afume_android.ui.home
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -25,6 +26,9 @@ class MoreNewPerfumeActivity : AppCompatActivity() {
     private fun initNewList(){
         newAdapter = MoreNewListAdapter(supportFragmentManager) { idx -> homeViewModel.postPerfumeLike(2, idx)}
         binding.rvHomeMoreNew.adapter = newAdapter
+    }
 
+    fun onClickBackBtn(view : View){
+        finish()
     }
 }
