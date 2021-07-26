@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.selection.ItemDetailsLookup
-import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +21,6 @@ class FlexboxRecyclerViewAdapter(internal val select:(KeywordInfo, Boolean)->Uni
     }
 
     var data = mutableListOf<KeywordInfo>()
-    private lateinit var selectionTracker: SelectionTracker<Long>
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -46,9 +44,6 @@ class FlexboxRecyclerViewAdapter(internal val select:(KeywordInfo, Boolean)->Uni
         }
     }
 
-    fun setSelectionTracker(selectionTracker: SelectionTracker<Long>) {
-        this.selectionTracker = selectionTracker
-    }
 
     internal fun setData(data: MutableList<KeywordInfo>?){
         if(data!=null) this.data=data
@@ -85,30 +80,11 @@ class FlexboxRecyclerViewAdapter(internal val select:(KeywordInfo, Boolean)->Uni
                             data.checked = false
                         }
 
-//                selectionTracker.select(data.keywordIdx.toLong())
                     }
                 }
                 else{
                     Toast.makeText(it.context, "5개 이상 선택 할 수 없어요.", Toast.LENGTH_SHORT).show()
                 }
-
-//            if (selectionTracker.isSelected(data.keywordIdx.toLong())) {
-//                binding.rvItemTxtFlexbox.apply {
-//                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
-//                    setTextColor(ContextCompat.getColor(this.context, R.color.white))
-//                    add(data.keywordIdx)
-//                }
-//            }
-//            if (!selectionTracker.isSelected(data.keywordIdx.toLong())) {
-//                binding.rvItemTxtFlexbox.apply {
-//                    background = ContextCompat.getDrawable(
-//                        this.context,
-//                        R.drawable.border_gray_cd_line_square
-//                    )
-//                    setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
-//                    remove(data.keywordIdx)
-//                }
-
 
             }
         }
