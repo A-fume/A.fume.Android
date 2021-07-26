@@ -171,7 +171,8 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 수정 여부 확인
     fun checkChangeInfo(){
-        if((_isValidNick.value == true || genderTxt != AfumeApplication.prefManager.userGender || ageTxt.value != AfumeApplication.prefManager.userAge.toString()) && _isValidNickBtn.value == false){
+        if((_isValidNick.value == true || genderTxt != AfumeApplication.prefManager.userGender || ageTxt.value != AfumeApplication.prefManager.userAge.toString()) && _isValidNickBtn.value == false
+            && _isValidNickNotice.value == false){
             _completeBtn.postValue(true)
         }else{
             _completeBtn.postValue(false)
