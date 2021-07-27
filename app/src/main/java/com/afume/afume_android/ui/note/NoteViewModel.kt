@@ -176,8 +176,6 @@ class NoteViewModel : ViewModel() {
                     keywordList = getKeyword()
                 )
 
-                Log.d("명 : ", reviewInfo.toString())
-
                 noteRepository.postReview(
                     AfumeApplication.prefManager.accessToken,
                     perfumeIdx,

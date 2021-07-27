@@ -148,7 +148,7 @@ interface AfumeService {
         @Header("x-access-token") token : String,
         @Path("perfumeIdx") perfumeIdx : Int,
         @Body body : RequestReview
-    ):ResponseMessage
+    ):ResponseBase<ResponseReviewAdd>
 
     // note - update
     @PUT("review/{reviewIdx}")
