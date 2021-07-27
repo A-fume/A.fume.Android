@@ -38,10 +38,7 @@ class FlexboxRecyclerViewAdapter(internal val select:(KeywordInfo, Boolean)->Uni
     }
 
     override fun onBindViewHolder(holder: FlexboxRecyclerViewHolder, position: Int) {
-        when (holder) {
-            is FlexboxRecyclerViewHolder -> holder.bind(data[position])
-            else -> throw Exception("You Should not attach her")
-        }
+        holder.bind(data[position])
     }
 
 
@@ -57,6 +54,14 @@ class FlexboxRecyclerViewAdapter(internal val select:(KeywordInfo, Boolean)->Uni
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: KeywordInfo) {
             binding.rvData = data
+
+            if(data.checked){
+                binding.rvItemTxtFlexbox.apply {
+                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
+                    setTextColor(ContextCompat.getColor(this.context, R.color.white))
+                }
+            }
+
             binding.root.setOnClickListener {
                 if(data.clickable) {
                     if (!data.checked) {
