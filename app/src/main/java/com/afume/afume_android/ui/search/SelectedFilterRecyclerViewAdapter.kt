@@ -8,7 +8,7 @@ import com.afume.afume_android.data.vo.request.FilterInfoP
 import com.afume.afume_android.data.vo.request.SendFilter
 import com.afume.afume_android.databinding.RvItemSearchFilterBinding
 
-class SelectedFilterRecyclerViewAdapter(val search:()->Unit) :
+class SelectedFilterRecyclerViewAdapter(val search:()->Unit,val btnCancel:(FilterInfoP?)->Unit) :
     RecyclerView.Adapter<SelectedFilterRecyclerViewAdapter.SelectedFilterRecyclerViewHolder>() {
 
     var sendFilter = SendFilter(mutableListOf<FilterInfoP>(), mutableMapOf())
@@ -37,17 +37,8 @@ class SelectedFilterRecyclerViewAdapter(val search:()->Unit) :
         fun bind(data: FilterInfoP?) {
             binding.filter = data
             binding.btnCancel.setOnClickListener {
-
-                if(data?.idx==-1){
-                    sendFilter.filterSeriesPMap?.get(data.name)?.clear()
-                }
-
-                sendFilter.filterInfoPList?.remove(data)
-
+                btnCancel(data)
                 notifyDataSetChanged()
-
-//                Log.d("set Filter DATA list",sendFilter.toString())
-
                 search()
             }
 
