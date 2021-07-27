@@ -158,6 +158,21 @@ class AfumeServiceImplTest {
     }
 
     @Test
+    fun getLikedPerfumeTestInvalidUserIdx() {
+        val invaludUserIdx = 999
+        runBlocking {
+            try {
+                val response = api.getLikedPerfume(token!!, invaludUserIdx)
+                Assert.assertFalse(true)
+            } catch (e: HttpException) {
+                val response = e.response()!!
+                val code = response.code()
+                Assert.assertEquals(403, code)
+            }
+        }
+    }
+
+    @Test
     fun getMyPerfume() {
         runBlocking {
             try {
