@@ -48,6 +48,12 @@ class SharedPreferencesManager (context: Context){
     @CallSuper
     fun clear() {
         sharedPreferences.edit()
+            .remove(USER_IDX)
+            .remove(USER_EMAIL)
+            .remove(USER_PASSWORD)
+            .remove(USER_NICKNAME)
+            .remove(USER_GENDER)
+            .remove(USER_AGE)
             .remove(AUTH_TOKEN)
             .remove(REFRESH_TOKEN)
             .putBoolean(USER_SURVEY, false)
