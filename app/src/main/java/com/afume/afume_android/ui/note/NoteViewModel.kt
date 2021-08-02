@@ -167,10 +167,10 @@ class NoteViewModel : ViewModel() {
             try{
                 val reviewInfo = RequestReview(
                     score = rating.value!!,
-                    longevity = longevityProgress.value,
-                    sillage = reverbProgress.value,
+                    longevity = longevityProgress.value?: -1,
+                    sillage = reverbProgress.value?: -1,
                     seasonal = getSeason(),
-                    gender = genderProgress.value,
+                    gender = genderProgress.value?: -1,
                     access = _shareBtn.value!!,
                     content = contentsTxt.value!!,
                     keywordList = getKeyword()
@@ -295,10 +295,10 @@ class NoteViewModel : ViewModel() {
             try{
                 val reviewInfo = RequestReview(
                     score = rating.value!!,
-                    longevity = longevityProgress.value,
-                    sillage = reverbProgress.value,
+                    longevity = longevityProgress.value?: -1,
+                    sillage = reverbProgress.value?: -1,
                     seasonal = getSeason(),
-                    gender = genderProgress.value,
+                    gender = genderProgress.value?: -1,
                     access = _shareBtn.value!!,
                     content = contentsTxt.value!!,
                     keywordList = getKeyword()

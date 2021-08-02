@@ -123,21 +123,21 @@ class NoteActivity : AppCompatActivity() {
 
     private fun onSeekBarChangeListener(){
         noteViewModel.longevityProgress.observe(this, Observer {
-            if(it != null){
+            if(it > 0){
                 binding.sbNoteLongevity.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtLongevityList,it)
             }
         })
 
         noteViewModel.reverbProgress.observe(this, Observer {
-            if(it != null){
+            if(it > 0){
                 binding.sbNoteReverb.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtReverbList,it)
             }
         })
 
         noteViewModel.genderProgress.observe(this, Observer {
-            if(it != null){
+            if(it > 0){
                 binding.sbNoteGender.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtGenderList,it)
             }
