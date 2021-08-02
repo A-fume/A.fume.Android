@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
+import com.afume.afume_android.data.vo.request.SendFilter
 import com.afume.afume_android.databinding.ActivityFilterBinding
 import com.afume.afume_android.ui.MainActivity
 import com.afume.afume_android.ui.filter.brand.FilterBrandFragment
@@ -20,7 +21,9 @@ import com.google.android.material.badge.BadgeDrawable
 class FilterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilterBinding
     private lateinit var filterViewPagerAdapter: AfumeViewPagerAdapter
-    private val filterViewModel: FilterViewModel by viewModels()
+    private val filterViewModel: FilterViewModel by viewModels(){
+        FilterViewModelFactory.getInstance()
+    }
 
     private lateinit var seriesBadge: BadgeDrawable
     private lateinit var brandBadge: BadgeDrawable
@@ -28,12 +31,13 @@ class FilterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        checkChangeFilter()
+        Log.e("filter act filter",filterViewModel.selectedKeywordList.value.toString())
         initBinding()
 
         initViewPager()
         setUpTabWithViewPager()
-        overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
+        overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
 
 
         observeViewModel()
@@ -43,16 +47,19 @@ class FilterActivity : AppCompatActivity() {
         }
         binding.toolbarFilter.toolbarBtn.setOnClickListener {
             finish()
+            overridePendingTransition(R.anim.slide_down, R.anim.slide_down)
         }
 
         binding.toolbarFilter.toolbar = R.drawable.icon_btn_cancel
         binding.toolbarFilter.toolbartxt = "필터"
 
+
+
     }
 
     override fun onResume() {
         super.onResume()
-
+        checkChangeFilter()
 
     }
 
@@ -124,6 +131,14 @@ class FilterActivity : AppCompatActivity() {
         intent.putExtra("flag",1)
         intent.putExtra("filter",filterViewModel.sendSelectFilter())
         startActivity(intent)
+    }
+
+    private fun checkChangeFilter(){
+        if(intent.getIntExtra("flag",0)==5000){
+            val fromSearchResult=intent?.getParcelableExtra<SendFilter>("filter")
+            filterViewModel.checkChangeFilter(fromSearchResult)
+
+        }
     }
 
 

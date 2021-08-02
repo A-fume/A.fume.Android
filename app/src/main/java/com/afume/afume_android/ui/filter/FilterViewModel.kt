@@ -20,7 +20,6 @@ class FilterViewModel : ViewModel() {
 
     // badge count
     val badgeCount = MutableLiveData<MutableList<Int>>()
-
     val applyBtn = MutableLiveData<Int>(0)
 
 
@@ -36,22 +35,20 @@ class FilterViewModel : ViewModel() {
     val seriesList: LiveData<MutableList<SeriesInfo>> get() = _seriesList
 
     // selected List - series
-    val selectedSeriesMap: MutableLiveData<MutableMap<Int, List<SeriesIngredients>>> =
+    val selectedSeriesMap: MutableLiveData<MutableMap<String, MutableList<SeriesIngredients>>> =
         MutableLiveData()
 
     //brand List
     var brandMap: MutableLiveData<MutableMap<String, MutableList<BrandInfo>>> =
         MutableLiveData(mutableMapOf())
-    val selectedBrandMap: MutableLiveData<MutableList<BrandInfo>> = MutableLiveData()
+    val selectedBrandList: MutableLiveData<MutableList<BrandInfo>> = MutableLiveData()
 
     init {
-        Log.e("filter", "생성됐다")
         getBrand()
         getSeries()
         getKeyword()
 
         badgeCount.value = mutableListOf(0, 0, 0)
-
     }
 
     fun blockClickSeriesMoreThan5() {
@@ -83,7 +80,7 @@ class FilterViewModel : ViewModel() {
                 val brandInitial = it
                 brandInitial.value.forEach { brand ->
                     brand.clickable = false
-                    selectedBrandMap.value?.forEach {
+                    selectedBrandList.value?.forEach {
                         if (brand.brandIdx == it.brandIdx) brand.clickable = true
                     }
                 }
@@ -119,41 +116,40 @@ class FilterViewModel : ViewModel() {
         return brandMap.value!![initial] ?: mutableListOf()
     }
 
-    fun addSeriesIngredientIdx(seriesNumber: Int, idxList: List<SeriesIngredients>) {
-        var tempMap = mutableMapOf<Int, List<SeriesIngredients>>()
+    fun addSeriesIngredientIdx(series: String, idxList: MutableList<SeriesIngredients>) {
+        var tempMap = mutableMapOf<String, MutableList<SeriesIngredients>>()
 
         if (selectedSeriesMap.value != null) {
             tempMap = selectedSeriesMap.value!!
 
-            if (tempMap.containsKey(seriesNumber)) {
-                tempMap.remove(seriesNumber)
+            if (tempMap.containsKey(series)) {
+                tempMap.remove(series)
             }
         }
-        tempMap[seriesNumber] = idxList
+        tempMap[series] = idxList
 
         selectedSeriesMap.value = tempMap
-        Log.e("선택된 계열은", seriesNumber.toString() + " 선택된 ingredient    " + selectedSeriesMap.value)
+        Log.e("선택된 계열은", series + " 선택된 ingredient    " + selectedSeriesMap.value)
     }
 
     fun setSelectedBrandListIdx(brand: BrandInfo, add: Boolean) {
         var tempBrandList = mutableListOf<BrandInfo>()
 
-        if (selectedBrandMap.value != null) {
-            tempBrandList = selectedBrandMap.value!!
+        if (selectedBrandList.value != null) {
+            tempBrandList = selectedBrandList.value!!
         }
 
         if (add) tempBrandList.add(brand)
         else tempBrandList.remove(brand)
 
-        selectedBrandMap.value = tempBrandList
-        Log.e("선택된 브랜드 리스트는", selectedBrandMap.value.toString())
+        selectedBrandList.value = tempBrandList
+        Log.e("선택된 브랜드 리스트는", selectedBrandList.value.toString())
     }
 
     fun countBadges(index: Int, add: Boolean) {
-        var tempBadgeCount = mutableListOf<Int>()
 
         if (badgeCount.value != null) {
-            tempBadgeCount = badgeCount.value!!
+            val tempBadgeCount = badgeCount.value!!
 
             if (add) tempBadgeCount[index] = tempBadgeCount[index] + 1
             else {
@@ -164,14 +160,15 @@ class FilterViewModel : ViewModel() {
             badgeCount.value = tempBadgeCount
 
         }
-        // todo index가 3 이상이면 에러 날리기
-        var allCount = 0
-        badgeCount.value?.forEach { allCount += it }
-//        Log.e("allcount",allCount.toString())
-        applyBtn.value = allCount
+        getTotalBadgeCount()
 
     }
 
+    fun getTotalBadgeCount(){
+        var allCount = 0
+        badgeCount.value?.forEach { allCount += it }
+        applyBtn.value = allCount
+    }
 
     fun addKeywordList(keyword: KeywordInfo, add: Boolean) {
         if (add) {
@@ -214,8 +211,15 @@ class FilterViewModel : ViewModel() {
             try {
                 val series = filterRepository.getSeries().rows
                 series.forEach {
+                    it.ingredients.forEach { ingredients ->
+                        ingredients.seriesName = it.name
+                    }
                     val entireIngredients =
-                        SeriesIngredients(ingredientIdx = -1, name = "전체", seriesIdx = it.seriesIdx)
+                        SeriesIngredients(
+                            ingredientIdx = -1,
+                            name = it.name + " 전체",
+                            seriesName = it.name
+                        )
                     it.ingredients.add(0, entireIngredients)
                 }
                 Log.e("series 통신", series.toString())
@@ -241,13 +245,18 @@ class FilterViewModel : ViewModel() {
 
         val filterInfoPList = mutableListOf<FilterInfoP>()
         selectedSeriesMap.value?.mapValues {
-            it.value.forEach { it ->
-                var ingredientInfoP = FilterInfoP(it.ingredientIdx, it.name, 1)
+            if (it.value[0].ingredientIdx == -1) {
+                val ingredientInfoP = FilterInfoP(it.value[0].ingredientIdx, it.value[0].name, 1)
                 filterInfoPList.add(ingredientInfoP)
+            } else {
+                it.value.forEach { ingredient->
+                    val ingredientInfoP = FilterInfoP(ingredient.ingredientIdx, ingredient.name, 1)
+                    filterInfoPList.add(ingredientInfoP)
+                }
             }
         }
 
-        selectedBrandMap.value?.forEach {
+        selectedBrandList.value?.forEach {
             val brandInfoP = FilterInfoP(it.brandIdx, it.name, 2)
             filterInfoPList.add(brandInfoP)
         }
@@ -256,8 +265,80 @@ class FilterViewModel : ViewModel() {
             val keywordInfoP = FilterInfoP(it.keywordIdx, it.name, 3)
             filterInfoPList.add(keywordInfoP)
         }
+        return SendFilter(filterInfoPList,selectedSeriesMap.value)
+    }
 
-        return SendFilter(filterInfoPList)
+    fun checkChangeFilter(changeFilter: SendFilter?){
+
+        val brand = mutableListOf<BrandInfo>()
+        val keyword = mutableListOf<KeywordInfo>()
+        var seriesCount=0
+
+        changeFilter?.filterInfoPList?.forEach {
+            when(it.type){
+                1-> seriesCount++
+                2-> brand.add(BrandInfo(it.idx,it.name,true))
+                3-> keyword.add(KeywordInfo(it.name,it.idx,true))
+            }
+        }
+        selectedSeriesMap.value=changeFilter?.filterSeriesPMap
+
+        // change values of selected lists and badges from search result view
+        selectedSeriesMap.value=changeFilter?.filterSeriesPMap
+        badgeCount.value?.set(0,seriesCount)
+        selectedBrandList.value=brand
+        badgeCount.value?.set(1, brand.size)
+        selectedKeywordList.value=keyword
+        badgeCount.value?.set(2, keyword.size)
+
+        Log.e("change filter",selectedSeriesMap.value.toString())
+
+        // 뱃지 카운트 재정비
+        getTotalBadgeCount()
+
+        // view에 표시하기 위한 리스트
+        // 키워드
+        _keywordList.value?.forEach {k->
+            k.checked=false
+            keyword.forEach {
+                if (it.keywordIdx==k.keywordIdx) k.checked=true
+            }
+        }
+
+        // 브랜드
+        brandMap.value?.values?.forEach { list ->
+            list.forEach {b->
+                b.check=false
+                brand.forEach {
+                    if(b.brandIdx==it.brandIdx) b.check=true
+                }
+            }
+        }
+
+        // 계열
+        _seriesList.value?.forEach { series->
+            series.ingredients.forEach {s ->
+                s.checked=false
+                changeFilter?.filterSeriesPMap?.values?.forEach { list ->
+                    loop@for (selected in list) {
+                        if(s.ingredientIdx==selected.ingredientIdx){
+                            s.checked=true
+                            if(selected.ingredientIdx==-1) continue@loop
+                            Log.e("change filter s",s.toString())
+                        }
+                    }
+                }
+            }
+        }
+        Log.e("change filter series",_seriesList.value.toString())
+
+    }
+
+    companion object {
+        private var instance: FilterViewModel? = null
+        fun getInstance() = instance ?: synchronized(FilterViewModel::class.java) {
+            instance ?: FilterViewModel().also { instance = it }
+        }
     }
 
 }

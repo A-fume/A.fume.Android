@@ -6,12 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.selection.SelectionPredicates
-import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StorageStrategy
 import com.afume.afume_android.databinding.FragmentKeywordBottomSheetBinding
-import com.afume.afume_android.ui.filter.ItemDetailsLookUp
-import com.afume.afume_android.ui.filter.ItemKeyProvider
 import com.afume.afume_android.util.NoteKeywordAdapter
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
@@ -58,18 +53,6 @@ class KeywordBottomSheetFragment : BottomSheetDialogFragment() {
             layoutManager=flexboxLayoutManager
             adapter=keywordAdapter
         }
-
-        val keywordSelectionTracker= SelectionTracker.Builder<Long>(
-            "note_keyword",
-            binding.rvNoteKeyword,
-            ItemKeyProvider(binding.rvNoteKeyword),
-            ItemDetailsLookUp(
-                binding.rvNoteKeyword,
-                "notekeyword"
-            ),
-            StorageStrategy.createLongStorage()
-        ).withSelectionPredicate(SelectionPredicates.createSelectAnything()).build()
-        keywordAdapter.setSelectionTracker(keywordSelectionTracker)
 
         keywordAdapter.notifyDataSetChanged()
     }

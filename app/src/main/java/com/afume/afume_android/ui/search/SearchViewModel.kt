@@ -1,6 +1,8 @@
 package com.afume.afume_android.ui.search
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +10,7 @@ import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.SearchRepository
 import com.afume.afume_android.data.vo.request.FilterInfoP
 import com.afume.afume_android.data.vo.request.RequestSearch
+import com.afume.afume_android.data.vo.request.SendFilter
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -19,7 +22,7 @@ class SearchViewModel : ViewModel() {
     private val searchRepository = SearchRepository()
     private val compositeDisposable = CompositeDisposable()
 
-    val filterList = MutableLiveData(mutableListOf<FilterInfoP>())
+    var filter = MutableLiveData<SendFilter>()
     val perfumeList = MutableLiveData(mutableListOf<PerfumeInfo>())
     val perfumeLike: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -28,32 +31,61 @@ class SearchViewModel : ViewModel() {
     }
 
     fun postSearchResultPerfume() {
-        try{
-            val requestSearch = RequestSearch("", mutableListOf<Int>(), mutableListOf<Int>(), mutableListOf<Int>())
-            val tempFilterList = filterList.value
+        try {
+            val requestSearch =
+                RequestSearch("", mutableListOf<Int>(), mutableListOf<Int>(), mutableListOf<Int>())
+            val tempFilterList = filter.value?.filterInfoPList
             tempFilterList?.forEach {
                 when (it.type) {
-                    1 -> requestSearch.ingredientList?.add(it.idx)
+                    1 -> {
+                        if (it.idx != -1) requestSearch.ingredientList?.add(it.idx)
+                        else {
+                            filter.value?.filterSeriesPMap?.get(it.name)?.forEach {
+                                requestSearch.ingredientList?.add(it.ingredientIdx)
+                            }
+                        }
+                    }
                     2 -> requestSearch.brandList?.add(it.idx)
                     3 -> requestSearch.keywordList?.add(it.idx)
                     4 -> requestSearch.searchText = it.name
                 }
             }
-            filterList.value =tempFilterList
+            filter.value?.filterInfoPList = tempFilterList
             Log.e("Request Search ", requestSearch.toString())
 
             viewModelScope.launch {
-                perfumeList.value = searchRepository.postResultPerfume(AfumeApplication.prefManager.accessToken,requestSearch)
+                perfumeList.value = searchRepository.postResultPerfume(
+                    AfumeApplication.prefManager.accessToken,
+                    requestSearch
+                )
                 Log.e("search result", perfumeList.value.toString())
             }
-        }catch (e: HttpException){
+        } catch (e: HttpException) {
 
         }
 
 
     }
 
-    fun postPerfumeLike(perfumeIdx: Int) {
+    fun cancelBtnFilter(f: FilterInfoP?) {
+        if(f !=null) {
+            if (f.idx == -1) filter.value?.filterSeriesPMap?.get(f.name)?.clear()
+            else {
+
+                if(f.type==1) filter.value?.filterSeriesPMap?.values?.forEach{list->
+                    var index=-1
+                    list.forEachIndexed { i, v ->
+                        if(v.ingredientIdx==f.idx) index=i
+                    }
+                    if(index !=-1) list.removeAt(index)
+                }
+
+            }
+            filter.value?.filterInfoPList?.remove(f)
+        }
+    }
+
+    fun postPerfumeLike(perfumeIdx: Int, context: Context?) {
         compositeDisposable.add(
             searchRepository.postPerfumeLike(AfumeApplication.prefManager.accessToken, perfumeIdx)
                 .subscribeOn(Schedulers.io())
@@ -62,17 +94,23 @@ class SearchViewModel : ViewModel() {
                     Log.d("postPerfumeLike", it.toString())
                     Log.e("postPerfumeLike", it.toString())
                     perfumeLike.postValue(it.data)
-                    clickHeartPerfumeList(perfumeIdx,it.data)
+                    clickHeartPerfumeList(perfumeIdx, it.data)
                 }) {
                     Log.d("postPerfumeLike error", it.toString())
-//                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 })
     }
 
-    private fun clickHeartPerfumeList(perfumeIdx: Int, isSelected:Boolean){
+    fun sendFilter(): SendFilter {
+        val presentFilter =
+            SendFilter(filter.value?.filterInfoPList, filter.value?.filterSeriesPMap)
+        return presentFilter
+    }
+
+    private fun clickHeartPerfumeList(perfumeIdx: Int, isSelected: Boolean) {
         val tempList = perfumeList.value
-        tempList?.forEach { if(it.perfumeIdx==perfumeIdx) it.isLiked= isSelected}
-        perfumeList.value=tempList
+        tempList?.forEach { if (it.perfumeIdx == perfumeIdx) it.isLiked = isSelected }
+        perfumeList.value = tempList
     }
 
 

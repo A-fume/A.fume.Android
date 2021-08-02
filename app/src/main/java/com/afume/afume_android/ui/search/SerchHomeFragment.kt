@@ -47,22 +47,13 @@ class SearchHomeFragment : Fragment() {
     }
 
     private fun initRvPerfumeList() {
-        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx->viewModel.postPerfumeLike(idx)}
+        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx->viewModel.postPerfumeLike(idx,context)}
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
-//        rvPerfumeAdapter.data = listOf(
-//            DefaultRecyclerViewPerfumeViewModel("르라브", "어마더 13"),
-//            DefaultRecyclerViewPerfumeViewModel("르라브", "어마더 13")
-//        )
         rvPerfumeAdapter.notifyDataSetChanged()
     }
 
     private fun removeRvFilterList() {
         binding.rvSearchFilter.visibility=View.GONE
-//        val rvFilterAdapter = SelectedFilterRecyclerViewAdapter()
-//        binding.rvSearchFilter.adapter = rvFilterAdapter
-////        rvFilterAdapter.filterList =
-////            mutableListOf(FilterInfoP(2, "시트러스", 2), FilterInfoP(3, "비누", 3))
-//        rvFilterAdapter.notifyDataSetChanged()
     }
 
     private fun goToSelectFilters(ctx: Context) {

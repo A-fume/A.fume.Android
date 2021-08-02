@@ -17,43 +17,23 @@ import com.afume.afume_android.ui.filter.FilterActivity
 class SearchResultFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var viewModel: SearchViewModel
-//    private val viewModel = ViewModelProvider(activity as MainActivity)[SearchViewModel::class.java]
-//    private val viewModel:SearchViewModel by activityViewModels()
-//    private val viewModel: SearchViewModel by view
-//    } activityViewModels()
-//    private val viewModel: SearchViewModel by activityViewModels {
-//        object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-//                SearchViewModel() as T
-//        }
-//    }
-//    private val viewModel: SearchViewModel by lazy {
-//        ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-//                SearchViewModel() as T
-//        }).get(SearchViewModel::class.java)
-//    }
+    private lateinit var rvFilterAdapter: SelectedFilterRecyclerViewAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-
-        viewModel = ViewModelProvider(requireActivity(), SingleViewModelFactory.getInstance())[SearchViewModel::class.java]
-        binding.viewModel = viewModel
-        return binding.root
+        return initBinding(inflater,container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRvPerfumeList()
+        initRvPerfumeList(context)
         initRvFilterList()
+        initToolbar()
 
         binding.fabFilter.setOnClickListener { context?.let { it1 -> goToSelectFilters(it1) } }
 
-
-        initToolbar()
 
         viewModel.postSearchResultPerfume()
         observeFilter()
@@ -64,6 +44,14 @@ class SearchResultFragment : Fragment() {
         viewModel.postSearchResultPerfume()
     }
 
+
+    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View{
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        viewModel = ViewModelProvider(requireActivity(), SingleViewModelFactory.getInstance())[SearchViewModel::class.java]
+        binding.viewModel = viewModel
+        return binding.root
+    }
 
     fun initToolbar(){
         binding.toolbarBtnSearch.setOnClickListener {
@@ -77,33 +65,32 @@ class SearchResultFragment : Fragment() {
         }
     }
 
-    private fun initRvPerfumeList() {
-        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx->viewModel.postPerfumeLike(idx)}
-
+    private fun initRvPerfumeList(context: Context?) {
+        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx->viewModel.postPerfumeLike(idx,context)}
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
-//        rvPerfumeAdapter.data = listOf(
-//            DefaultRecyclerViewPerfumeViewModel("르라브", "어마더 13"),
-//            DefaultRecyclerViewPerfumeViewModel("르라브", "어마더 13")
-//        )
         rvPerfumeAdapter.notifyDataSetChanged()
     }
 
     private fun initRvFilterList() {
-        val rvFilterAdapter = SelectedFilterRecyclerViewAdapter { viewModel.postSearchResultPerfume()}
+        rvFilterAdapter = SelectedFilterRecyclerViewAdapter (
+            {viewModel.postSearchResultPerfume()}, { filterInfoP->viewModel.cancelBtnFilter(filterInfoP)}
+        )
+
         binding.rvSearchFilter.adapter = rvFilterAdapter
-//        rvFilterAdapter.filterList =
-//            mutableListOf(FilterInfoP(2, "시트러스", 2), FilterInfoP(3, "비누", 3))
         rvFilterAdapter.notifyDataSetChanged()
     }
 
     private fun goToSelectFilters(ctx: Context) {
         val intent = Intent(ctx, FilterActivity::class.java)
+        intent.putExtra("flag",5000)
+        intent.putExtra("filter",viewModel.sendFilter())
+
         startActivity(intent)
     }
 
     private fun observeFilter(){
-        viewModel.filterList.observe(viewLifecycleOwner, Observer {
-            if(it!=null&&it.size==0){
+        viewModel.filter.observe(viewLifecycleOwner, Observer {
+            if(it.filterInfoPList!=null&& it.filterInfoPList!!.size==0){
                 binding.rvSearchFilter.visibility=View.GONE
             }
         })

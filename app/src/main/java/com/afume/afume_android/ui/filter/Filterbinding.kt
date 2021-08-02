@@ -30,7 +30,7 @@ object FilterBinding {
     @BindingAdapter("setIngredientList")
     fun setIngredientList(recyclerView: RecyclerView, list: MutableList<SeriesIngredients>?) {
         if (recyclerView.adapter != null) with(recyclerView.adapter as IngredientFlexboxAdapter) {
-            this.submitList(list)
+            this.setList(list)
         }
     }
 

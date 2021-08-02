@@ -1,5 +1,8 @@
 package com.afume.afume_android.data.vo.response
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 data class ResponseSeries(
     val count:Int,
     val rows: MutableList<SeriesInfo>
@@ -15,11 +18,12 @@ data class SeriesInfo(
     var isLiked: Boolean=false
 )
 
+@Parcelize
 data class SeriesIngredients(
     val ingredientIdx:Int=2,
     val name: String="베르가못",
     val imageUrl: String=" ",
-    val seriesIdx: Int=2,
+    var seriesName: String,
     var checked: Boolean= false,
     var clickable: Boolean=true
-)
+):Parcelable

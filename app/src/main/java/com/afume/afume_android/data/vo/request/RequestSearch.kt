@@ -14,7 +14,8 @@ data class RequestSearch(
 
 @Parcelize
 data class SendFilter(
-    val filterInfoPList: MutableList<FilterInfoP>?
+    var filterInfoPList: MutableList<FilterInfoP>?,
+    var filterSeriesPMap: MutableMap<String,MutableList<SeriesIngredients>>?
 ) : Parcelable
 
 //type ingredient = 1 , brand = 2, keyword = 3
