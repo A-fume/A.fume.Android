@@ -181,11 +181,14 @@ class NoteViewModel : ViewModel() {
                     perfumeIdx,
                     reviewInfo
                 ).let {
-                    Log.d("시향 노트 추가 성공 : ", it)
+                    Log.d("시향 노트 추가 성공 : ", it.reviewIdx.toString())
                 }
             }catch (e: HttpException){
                 when(e.response()?.code()){
                     401 -> { // 잘못된 토큰
+                        Log.d("시향 노트 추가 실패 : ", e.message())
+                    }
+                    else -> {
                         Log.d("시향 노트 추가 실패 : ", e.message())
                     }
                 }

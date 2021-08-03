@@ -102,12 +102,12 @@ class SignInViewModel : ViewModel() {
                     AfumeApplication.prefManager.userAge = it.birth
                     AfumeApplication.prefManager.accessToken = "Bearer "+it.token
                     AfumeApplication.prefManager.refreshToken = "Bearer "+it.refreshToken
+
+                    _isValidLogin.postValue(true)
+                    _isValidLoginNotice.postValue(false)
+
+                    Log.d("로그인 통신 성공", it.toString())
                 }
-
-                _isValidLogin.postValue(true)
-                _isValidLoginNotice.postValue(false)
-
-                Log.d("로그인 통신 성공", "")
             }catch (e : HttpException){
                 _isValidLogin.postValue(false)
                 _isValidLoginNotice.postValue(true)
