@@ -17,7 +17,7 @@ interface RemoteDataSource {
     suspend fun putMyInfo(token: String, userIdx: Int, body: RequestEditMyInfo) : ResponseEditMyInfo
     suspend fun putPassword(token: String, body: RequestEditPassword) : String
     suspend fun getReview(reviewIdx: Int) : ResponseReview
-    suspend fun postReview(token: String, perfumeIdx: Int, body: RequestReview) : String
+    suspend fun postReview(token: String, perfumeIdx: Int, body: RequestReview) : ResponseReviewAdd
     suspend fun putReview(token: String, reviewIdx: Int, body: RequestReview) : String
     suspend fun deleteReview(token: String, reviewIdx: Int) : String
 

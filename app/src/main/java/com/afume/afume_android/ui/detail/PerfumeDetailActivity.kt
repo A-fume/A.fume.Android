@@ -2,6 +2,7 @@ package com.afume.afume_android.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -105,5 +106,9 @@ class PerfumeDetailActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+    }
+
+    fun onClickBackBtn(view : View){
+        finish()
     }
 }

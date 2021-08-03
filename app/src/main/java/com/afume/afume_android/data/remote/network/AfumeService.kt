@@ -138,21 +138,21 @@ interface AfumeService {
 
     // note - get
     @GET("review/{reviewIdx}")
-    fun getReview(
+    suspend fun getReview(
         @Path("reviewIdx") reviewIdx : Int
     ):ResponseBase<ResponseReview>
 
     // note - add
     @POST("perfume/{perfumeIdx}/review")
-    fun postReview(
+    suspend fun postReview(
         @Header("x-access-token") token : String,
         @Path("perfumeIdx") perfumeIdx : Int,
         @Body body : RequestReview
-    ):ResponseMessage
+    ):ResponseBase<ResponseReviewAdd>
 
     // note - update
     @PUT("review/{reviewIdx}")
-    fun putReview(
+    suspend fun putReview(
         @Header("x-access-token") token : String,
         @Path("reviewIdx") reviewIdx : Int,
         @Body body : RequestReview
@@ -160,7 +160,7 @@ interface AfumeService {
 
     // note - delete
     @DELETE("review/{reviewIdx}")
-    fun deleteReview(
+    suspend fun deleteReview(
         @Header("x-access-token") token : String,
         @Path("reviewIdx") reviewIdx : Int
     ):ResponseMessage

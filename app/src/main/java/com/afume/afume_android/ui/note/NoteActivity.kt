@@ -123,21 +123,21 @@ class NoteActivity : AppCompatActivity() {
 
     private fun onSeekBarChangeListener(){
         noteViewModel.longevityProgress.observe(this, Observer {
-            if(it != null){
+            if(it > 0){
                 binding.sbNoteLongevity.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtLongevityList,it)
             }
         })
 
         noteViewModel.reverbProgress.observe(this, Observer {
-            if(it != null){
+            if(it > 0){
                 binding.sbNoteReverb.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtReverbList,it)
             }
         })
 
         noteViewModel.genderProgress.observe(this, Observer {
-            if(it != null){
+            if(it > 0){
                 binding.sbNoteGender.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtGenderList,it)
             }
@@ -207,7 +207,7 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickUpdateBtn(view : View){
-//        noteViewModel.updateReview(reviewIdx)
+        noteViewModel.updateReview(reviewIdx)
         this.toastLong("시향 노트가 수정되었습니다.")
         finish()
     }
@@ -218,7 +218,7 @@ class NoteActivity : AppCompatActivity() {
         val dialog: CommonDialog = CommonDialog().CustomDialogBuilder()
             .setBtnClickListener(object : CommonDialog.CustomDialogListener {
                 override fun onPositiveClicked() {
-//                    noteViewModel.deleteReview(reviewIdx)
+                    noteViewModel.deleteReview(reviewIdx)
                     finish()
                 }
             })
