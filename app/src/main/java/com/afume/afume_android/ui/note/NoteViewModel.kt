@@ -249,13 +249,6 @@ class NoteViewModel : ViewModel() {
             } catch (e: HttpException) {
                 Log.d("시향 노트 조회 실패 :", e.message())
             }
-
-            item = ParcelableWishList(
-                1,
-                "네임",
-                "브랜드",
-                "it.perfume.imageUrl"
-            )
         }
         return item
     }
@@ -290,6 +283,8 @@ class NoteViewModel : ViewModel() {
         }else{
             _showUpdateDialog.postValue(false)
         }
+
+        Log.d("명",_showUpdateDialog.value.toString())
     }
 
     // 시향노트 수정
@@ -324,14 +319,20 @@ class NoteViewModel : ViewModel() {
         }
     }
 
+    private val _isValidNoteDelete = MutableLiveData<String>("")
+    val isValidNoteDelete : LiveData<String>
+        get() = _isValidNoteDelete
+
     // 시향노트 삭제
     fun deleteReview(reviewIdx: Int){
         viewModelScope.launch {
             try{
                 noteRepository.deleteReview(AfumeApplication.prefManager.accessToken, reviewIdx).let {
+                    _isValidNoteDelete.postValue("시향 노트가 삭제되었습니다.")
                     Log.d("시향 노트 삭제 성공 : ", it)
                 }
             }catch (e : HttpException){
+                _isValidNoteDelete.postValue("시향 노트 삭제 실패")
                 when(e.response()?.code()){
                     400 -> { // 잘못된 접근 : 자신의 리뷰 아닌 경우
                         Log.d("시향 노트 삭제 실패 : ", e.message())
