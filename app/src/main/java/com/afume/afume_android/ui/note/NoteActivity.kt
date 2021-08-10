@@ -184,6 +184,9 @@ class NoteActivity : AppCompatActivity() {
                             noteViewModel.updateReview(reviewIdx)
                             finish()
                         }
+                        override fun onNegativeClicked() {
+                            finish()
+                        }
                     })
                     .getInstance()
                 dialog.arguments = bundle
@@ -223,6 +226,8 @@ class NoteActivity : AppCompatActivity() {
                 override fun onPositiveClicked() {
                     noteViewModel.deleteReview(reviewIdx)
                     finish()
+                }
+                override fun onNegativeClicked() {
                 }
             })
             .getInstance()
