@@ -47,14 +47,15 @@ class NoteActivity : AppCompatActivity() {
     }
 
     private fun initNote(){
-        reviewIdx = intent.getIntExtra("reviewIdx",0)
+        val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
+        binding.item = wishList
 
-        if(reviewIdx == 0){ // 추가일 경우
-            val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
-            binding.item = wishList
-            perfumeIdx = wishList?.perfumeIdx!!
+        if(wishList?.reviewIdx == 0){ // 추가일 경우
+            perfumeIdx = wishList.perfumeIdx
         }else{ // 조회, 수정, 삭제일 경우
-            binding.item = noteViewModel.getReview(reviewIdx)
+            wishList?.reviewIdx?.let {
+                noteViewModel.getReview(it)
+            }
         }
     }
 
@@ -180,7 +181,7 @@ class NoteActivity : AppCompatActivity() {
                 val dialog: CommonDialog = CommonDialog().CustomDialogBuilder()
                     .setBtnClickListener(object : CommonDialog.CustomDialogListener {
                         override fun onPositiveClicked() {
-//                            noteViewModel.updateReview(reviewIdx)
+                            noteViewModel.updateReview(reviewIdx)
                             finish()
                         }
                     })

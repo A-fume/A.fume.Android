@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.NoteRepository
 import com.afume.afume_android.data.repository.SurveyRepository
-import com.afume.afume_android.data.vo.ParcelableWishList
 import com.afume.afume_android.data.vo.request.RequestReview
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.data.vo.response.ResponseReview
@@ -216,9 +215,7 @@ class NoteViewModel : ViewModel() {
     private lateinit var responseReview: ResponseReview
 
     // 시향노트 조회
-    fun getReview(reviewIdx: Int):ParcelableWishList{
-        var item = ParcelableWishList(0,"","","")
-
+    fun getReview(reviewIdx: Int){
         _isValidUpdateBtn.postValue(true)
 
         viewModelScope.launch {
@@ -236,13 +233,6 @@ class NoteViewModel : ViewModel() {
                     checkKeywordList()
                     checkShareBtn()
 
-                    item = ParcelableWishList(
-                        it.perfume.perfumeIdx,
-                        it.perfume.perfumeName,
-                        it.brand.brandName,
-                        it.perfume.imageUrl
-                    )
-
                     Log.d("시향 노트 조회 성공 :", "")
 
                 }
@@ -250,7 +240,6 @@ class NoteViewModel : ViewModel() {
                 Log.d("시향 노트 조회 실패 :", e.message())
             }
         }
-        return item
     }
 
     private fun convertSeason(seasons : List<String>){
@@ -287,6 +276,10 @@ class NoteViewModel : ViewModel() {
         Log.d("명",_showUpdateDialog.value.toString())
     }
 
+    private val _isValidNoteUpdate = MutableLiveData<String>("")
+    val isValidNoteUpdate : LiveData<String>
+        get() = _isValidNoteUpdate
+
     // 시향노트 수정
     fun updateReview(reviewIdx: Int){
         viewModelScope.launch {
@@ -307,9 +300,11 @@ class NoteViewModel : ViewModel() {
                     reviewIdx,
                     reviewInfo
                 ).let {
+                    _isValidNoteUpdate.postValue("시향 노트가 수정되었습니다.")
                     Log.d("시향 노트 수정 성공 : ", it)
                 }
             }catch (e: HttpException){
+                _isValidNoteUpdate.postValue("시향 노트 수정 실패")
                 when(e.response()?.code()){
                     401 -> { // 잘못된 토큰
                         Log.d("시향 노트 수정 실패 : ", e.message())
