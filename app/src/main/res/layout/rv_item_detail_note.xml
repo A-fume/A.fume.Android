@@ -129,7 +129,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@{`by.`+item.nickname}"
+            android:text="@{`by. `+item.nickname}"
             android:fontFamily="@font/nanummyeongjo"
             android:textSize="12sp"
             android:includeFontPadding="false"
