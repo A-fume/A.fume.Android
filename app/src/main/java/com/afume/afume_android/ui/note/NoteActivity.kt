@@ -55,6 +55,7 @@ class NoteActivity : AppCompatActivity() {
         }else{ // 조회, 수정, 삭제일 경우
             wishList?.reviewIdx?.let {
                 noteViewModel.getReview(it)
+                reviewIdx = wishList.reviewIdx
             }
         }
     }
