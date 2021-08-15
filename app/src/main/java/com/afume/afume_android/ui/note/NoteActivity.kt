@@ -207,15 +207,13 @@ class NoteActivity : AppCompatActivity() {
 
     fun onClickCompleteBtn(view : View){
         noteViewModel.postReview(perfumeIdx)
-        noteViewModel.isValidNoteUpdate.observe(this, Observer {
-            this.toastLong(it)
-        })
+        this.toastLong(noteViewModel.isValidNoteAdd.value.toString())
         finish()
     }
 
     fun onClickUpdateBtn(view : View){
         noteViewModel.updateReview(reviewIdx)
-        this.toastLong("시향 노트가 수정되었습니다.")
+        this.toastLong(noteViewModel.isValidNoteUpdate.value.toString())
         finish()
     }
 
@@ -234,5 +232,7 @@ class NoteActivity : AppCompatActivity() {
             .getInstance()
         dialog.arguments = bundle
         dialog.show(this.supportFragmentManager, dialog.tag)
+
+        this.toastLong(noteViewModel.isValidNoteDelete.value.toString())
     }
 }

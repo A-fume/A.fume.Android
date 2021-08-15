@@ -160,6 +160,10 @@ class NoteViewModel : ViewModel() {
         }
     }
 
+    private val _isValidNoteAdd = MutableLiveData<String>("")
+    val isValidNoteAdd : LiveData<String>
+        get() = _isValidNoteAdd
+
     // 시향노트 추가
     fun postReview(perfumeIdx : Int){
         viewModelScope.launch {
@@ -180,9 +184,11 @@ class NoteViewModel : ViewModel() {
                     perfumeIdx,
                     reviewInfo
                 ).let {
+                    _isValidNoteAdd.postValue("시향 노트가 추가되었습니다.")
                     Log.d("시향 노트 추가 성공 : ", it.reviewIdx.toString())
                 }
             }catch (e: HttpException){
+                _isValidNoteAdd.postValue("시향 노트 추가 실패")
                 when(e.response()?.code()){
                     401 -> { // 잘못된 토큰
                         Log.d("시향 노트 추가 실패 : ", e.message())
