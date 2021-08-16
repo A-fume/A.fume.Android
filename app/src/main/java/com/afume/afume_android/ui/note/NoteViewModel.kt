@@ -202,6 +202,8 @@ class NoteViewModel : ViewModel() {
     }
 
     private fun getSeason() : MutableList<String>{
+        selectedSeasonList.clear()
+
         if(_springBtn.value == true) selectedSeasonList.add("봄")
         if(_summerBtn.value == true) selectedSeasonList.add("여름")
         if(_fallBtn.value == true) selectedSeasonList.add("가을")
@@ -271,15 +273,9 @@ class NoteViewModel : ViewModel() {
     }
 
     fun checkUpdateInfo(){
-        if(responseReview.score != rating.value || responseReview.longevity != longevityProgress.value || responseReview.sillage != reverbProgress.value
-            || responseReview.seasonal != getSeason() || responseReview.gender != genderProgress.value || responseReview.content != contentsTxt.value
-            || responseReview.keyword != getKeyword()){
-            _showUpdateDialog.postValue(true)
-        }else{
-            _showUpdateDialog.postValue(false)
-        }
-
-        Log.d("명",_showUpdateDialog.value.toString())
+        _showUpdateDialog.value = (responseReview.score != rating.value || responseReview.longevity != longevityProgress.value || responseReview.sillage != reverbProgress.value
+                || responseReview.seasonal != getSeason() || responseReview.gender != genderProgress.value || responseReview.content != contentsTxt.value
+                || responseReview.keyword != selectedKeywordList.value || responseReview.access != _shareBtn.value)
     }
 
     private val _isValidNoteUpdate = MutableLiveData<String>("")

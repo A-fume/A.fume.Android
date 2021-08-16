@@ -173,6 +173,14 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickBackBtn(view : View){
+        backBtn()
+    }
+
+    override fun onBackPressed() {
+        backBtn()
+    }
+
+    private fun backBtn(){
         noteViewModel.checkUpdateInfo()
 
         noteViewModel.showUpdateDialog.observe(this, Observer {
@@ -192,6 +200,9 @@ class NoteActivity : AppCompatActivity() {
                     .getInstance()
                 dialog.arguments = bundle
                 dialog.show(this.supportFragmentManager, dialog.tag)
+            }
+            else{
+                finish()
             }
         })
     }
