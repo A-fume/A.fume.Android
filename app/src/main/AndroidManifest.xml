@@ -24,10 +24,10 @@
         </activity>
         <activity android:name=".ui.search.SearchTextActivity" />
         <activity android:name=".ui.setting.EditMyInfoActivity" />
-        <activity android:name=".ui.setting.EditPasswordActivity" />
+        <activity android:name=".ui.setting.EditPasswordActivity" android:windowSoftInputMode="stateAlwaysVisible" />
         <activity android:name=".ui.ButtonActivity"/>
         <activity android:name=".ui.signin.SignHomeActivity" />
-        <activity android:name=".ui.signin.SignInActivity" />
+        <activity android:name=".ui.signin.SignInActivity" android:windowSoftInputMode="stateAlwaysVisible" />
         <activity android:name=".ui.signup.SignUpEmailActivity" android:windowSoftInputMode="stateAlwaysVisible" />
         <activity android:name=".ui.signup.SignUpPasswordActivity" android:windowSoftInputMode="stateAlwaysVisible"/>
         <activity android:name=".ui.signup.SignUpGenderActivity" />

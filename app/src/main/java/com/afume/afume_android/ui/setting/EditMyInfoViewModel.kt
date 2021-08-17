@@ -171,12 +171,8 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 수정 여부 확인
     fun checkChangeInfo(){
-        if((_isValidNick.value == true || genderTxt != AfumeApplication.prefManager.userGender || ageTxt.value != AfumeApplication.prefManager.userAge.toString()) && _isValidNickBtn.value == false
-            && _isValidNickNotice.value == false){
-            _completeBtn.postValue(true)
-        }else{
-            _completeBtn.postValue(false)
-        }
+        _completeBtn.value = ((_isValidNick.value == true || genderTxt != AfumeApplication.prefManager.userGender || ageTxt.value != AfumeApplication.prefManager.userAge.toString()) && _isValidNickBtn.value == false
+                && _isValidNickNotice.value == false)
     }
 
     // 내 정보 수정
@@ -200,7 +196,6 @@ class EditMyInfoViewModel : ViewModel() {
                     AfumeApplication.prefManager.userAge = ageTxt.value!!.toInt()
                 }
             }catch (e : HttpException){
-
                 when(e.response()?.code()){
                     401 -> { // userIdx 일치 X 또는 토근 유효 X
                         Log.d("내 정보 수정 실패", e.message())
