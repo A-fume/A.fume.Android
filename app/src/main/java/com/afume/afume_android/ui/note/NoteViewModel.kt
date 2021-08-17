@@ -40,9 +40,9 @@ class NoteViewModel : ViewModel() {
     val rating = MutableLiveData<Float>(0f)
 
     // SeekBar
-    val longevityProgress = MutableLiveData<Int>()
-    val reverbProgress = MutableLiveData<Int>()
-    val genderProgress = MutableLiveData<Int>()
+    val longevityProgress = MutableLiveData<Int>(-1)
+    val reverbProgress = MutableLiveData<Int>(-1)
+    val genderProgress = MutableLiveData<Int>(-1)
 
     // 계절 선택
     var selectedSeasonList = mutableListOf<String>()
@@ -143,7 +143,7 @@ class NoteViewModel : ViewModel() {
 
     fun checkShareBtn(){
         if(contentsTxt.value?.isNotEmpty() == true && rating.value != 0f && selectedKeywordList.value?.isNotEmpty() == true
-            && longevityProgress.value != null && reverbProgress.value != null && genderProgress.value != null
+            && longevityProgress.value != -1 && reverbProgress.value != -1 && genderProgress.value != -1
             &&(_springBtn.value == true || _summerBtn.value == true || _fallBtn.value == true || _winterBtn.value == true)){
             _isValidShareBtn.postValue(true)
         }else{
@@ -170,10 +170,10 @@ class NoteViewModel : ViewModel() {
             try{
                 val reviewInfo = RequestReview(
                     score = rating.value!!,
-                    longevity = longevityProgress.value?: -1,
-                    sillage = reverbProgress.value?: -1,
+                    longevity = longevityProgress.value,
+                    sillage = reverbProgress.value,
                     seasonal = getSeason(),
-                    gender = genderProgress.value?: -1,
+                    gender = genderProgress.value,
                     access = _shareBtn.value!!,
                     content = contentsTxt.value!!,
                     keywordList = getKeyword()
@@ -288,10 +288,10 @@ class NoteViewModel : ViewModel() {
             try{
                 val reviewInfo = RequestReview(
                     score = rating.value!!,
-                    longevity = longevityProgress.value?: -1,
-                    sillage = reverbProgress.value?: -1,
+                    longevity = longevityProgress.value,
+                    sillage = reverbProgress.value,
                     seasonal = getSeason(),
-                    gender = genderProgress.value?: -1,
+                    gender = genderProgress.value,
                     access = _shareBtn.value!!,
                     content = contentsTxt.value!!,
                     keywordList = getKeyword()
@@ -339,9 +339,6 @@ class NoteViewModel : ViewModel() {
                     }
                 }
             }
-
         }
     }
-
-
 }
