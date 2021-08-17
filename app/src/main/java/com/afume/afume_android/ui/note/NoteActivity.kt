@@ -205,6 +205,8 @@ class NoteActivity : AppCompatActivity() {
                 finish()
             }
         })
+
+        setNoteToastObserve(noteViewModel.isValidNoteUpdate, "시향 노트가 수정되었습니다.", "시향 노트 수정 실패")
     }
 
     fun onClickDetailBtn(view : View){
@@ -218,13 +220,13 @@ class NoteActivity : AppCompatActivity() {
 
     fun onClickCompleteBtn(view : View){
         noteViewModel.postReview(perfumeIdx)
-        this.toastLong(noteViewModel.isValidNoteAdd.value.toString())
+        setNoteToastObserve(noteViewModel.isValidNoteAdd, "시향 노트가 추가되었습니다.", "시향 노트 추가 실패")
         finish()
     }
 
     fun onClickUpdateBtn(view : View){
         noteViewModel.updateReview(reviewIdx)
-        this.toastLong(noteViewModel.isValidNoteUpdate.value.toString())
+        setNoteToastObserve(noteViewModel.isValidNoteUpdate, "시향 노트가 수정되었습니다.", "시향 노트 수정 실패")
         finish()
     }
 
@@ -244,6 +246,16 @@ class NoteActivity : AppCompatActivity() {
         dialog.arguments = bundle
         dialog.show(this.supportFragmentManager, dialog.tag)
 
-        this.toastLong(noteViewModel.isValidNoteDelete.value.toString())
+        setNoteToastObserve(noteViewModel.isValidNoteDelete, "시향 노트가 삭제되었습니다.", "시향 노트 삭제 실패")
+    }
+
+    private fun setNoteToastObserve(noteNetworkState: LiveData<Boolean>,success: String, fail: String){
+        noteNetworkState.observe(this, Observer {
+            if(it){
+                this.toast(success)
+            }else{
+                this.toast(fail)
+            }
+        })
     }
 }
