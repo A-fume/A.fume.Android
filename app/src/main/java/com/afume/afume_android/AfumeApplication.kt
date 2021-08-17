@@ -2,6 +2,7 @@ package com.afume.afume_android
 
 import android.app.Application
 import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
 import com.afume.afume_android.data.local.preference.SharedPreferencesManager
 
 class AfumeApplication : Application() {
@@ -18,5 +19,6 @@ class AfumeApplication : Application() {
         super.onCreate()
         instance = this
         prefManager = SharedPreferencesManager(applicationContext)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 }

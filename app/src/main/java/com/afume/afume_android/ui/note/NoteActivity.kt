@@ -47,14 +47,16 @@ class NoteActivity : AppCompatActivity() {
     }
 
     private fun initNote(){
-        reviewIdx = intent.getIntExtra("reviewIdx",0)
+        val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
+        binding.item = wishList
 
-        if(reviewIdx == 0){ // 추가일 경우
-            val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
-            binding.item = wishList
-            perfumeIdx = wishList?.perfumeIdx!!
+        if(wishList?.reviewIdx == 0){ // 추가일 경우
+            perfumeIdx = wishList.perfumeIdx
         }else{ // 조회, 수정, 삭제일 경우
-            binding.item = noteViewModel.getReview(reviewIdx)
+            wishList?.reviewIdx?.let {
+                noteViewModel.getReview(it)
+                reviewIdx = wishList.reviewIdx
+            }
         }
     }
 
@@ -123,21 +125,21 @@ class NoteActivity : AppCompatActivity() {
 
     private fun onSeekBarChangeListener(){
         noteViewModel.longevityProgress.observe(this, Observer {
-            if(it > 0){
+            if(it > -1){
                 binding.sbNoteLongevity.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtLongevityList,it)
             }
         })
 
         noteViewModel.reverbProgress.observe(this, Observer {
-            if(it > 0){
+            if(it > -1){
                 binding.sbNoteReverb.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtReverbList,it)
             }
         })
 
         noteViewModel.genderProgress.observe(this, Observer {
-            if(it > 0){
+            if(it > -1){
                 binding.sbNoteGender.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
                 setSelectedSeekBarTxtBold(txtGenderList,it)
             }
@@ -171,6 +173,14 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickBackBtn(view : View){
+        backBtn()
+    }
+
+    override fun onBackPressed() {
+        backBtn()
+    }
+
+    private fun backBtn(){
         noteViewModel.checkUpdateInfo()
 
         noteViewModel.showUpdateDialog.observe(this, Observer {
@@ -180,13 +190,19 @@ class NoteActivity : AppCompatActivity() {
                 val dialog: CommonDialog = CommonDialog().CustomDialogBuilder()
                     .setBtnClickListener(object : CommonDialog.CustomDialogListener {
                         override fun onPositiveClicked() {
-//                            noteViewModel.updateReview(reviewIdx)
+                            noteViewModel.updateReview(reviewIdx)
+                            finish()
+                        }
+                        override fun onNegativeClicked() {
                             finish()
                         }
                     })
                     .getInstance()
                 dialog.arguments = bundle
                 dialog.show(this.supportFragmentManager, dialog.tag)
+            }
+            else{
+                finish()
             }
         })
     }
@@ -202,13 +218,13 @@ class NoteActivity : AppCompatActivity() {
 
     fun onClickCompleteBtn(view : View){
         noteViewModel.postReview(perfumeIdx)
-        this.toastLong("시향 노트가 추가되었습니다.")
+        this.toastLong(noteViewModel.isValidNoteAdd.value.toString())
         finish()
     }
 
     fun onClickUpdateBtn(view : View){
         noteViewModel.updateReview(reviewIdx)
-        this.toastLong("시향 노트가 수정되었습니다.")
+        this.toastLong(noteViewModel.isValidNoteUpdate.value.toString())
         finish()
     }
 
@@ -221,9 +237,13 @@ class NoteActivity : AppCompatActivity() {
                     noteViewModel.deleteReview(reviewIdx)
                     finish()
                 }
+                override fun onNegativeClicked() {
+                }
             })
             .getInstance()
         dialog.arguments = bundle
         dialog.show(this.supportFragmentManager, dialog.tag)
+
+        this.toastLong(noteViewModel.isValidNoteDelete.value.toString())
     }
 }

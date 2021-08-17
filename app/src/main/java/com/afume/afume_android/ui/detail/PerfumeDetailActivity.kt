@@ -100,7 +100,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
         binding.actPerfumeDetailIvWrite.setOnClickListener {
             val intent = Intent(this@PerfumeDetailActivity, NoteActivity::class.java)
-            val wishListPerfume = ParcelableWishList(perfumeIdx,perfumeName,brandName,image)
+            val wishListPerfume = ParcelableWishList(perfumeIdx,0,perfumeName,brandName,image)
             intent.run {
                 putExtra("wishListPerfume", wishListPerfume)
             }

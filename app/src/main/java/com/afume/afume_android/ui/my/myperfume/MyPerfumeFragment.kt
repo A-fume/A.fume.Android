@@ -43,6 +43,13 @@ class MyPerfumeFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (AfumeApplication.prefManager.haveToken()) {
+            myViewModel.getMyPerfume()
+        }
+    }
+
 
     private fun inflateView(container: ViewGroup?): View {
         return if (AfumeApplication.prefManager.accessToken == "") {
