@@ -160,8 +160,8 @@ class NoteViewModel : ViewModel() {
         }
     }
 
-    private val _isValidNoteAdd = MutableLiveData<String>("")
-    val isValidNoteAdd : LiveData<String>
+    private val _isValidNoteAdd = MutableLiveData<Boolean>()
+    val isValidNoteAdd : LiveData<Boolean>
         get() = _isValidNoteAdd
 
     // 시향노트 추가
@@ -184,11 +184,11 @@ class NoteViewModel : ViewModel() {
                     perfumeIdx,
                     reviewInfo
                 ).let {
-                    _isValidNoteAdd.postValue("시향 노트가 추가되었습니다.")
+                    _isValidNoteAdd.postValue(true)
                     Log.d("시향 노트 추가 성공 : ", it.reviewIdx.toString())
                 }
             }catch (e: HttpException){
-                _isValidNoteAdd.postValue("시향 노트 추가 실패")
+                _isValidNoteAdd.postValue(false)
                 when(e.response()?.code()){
                     401 -> { // 잘못된 토큰
                         Log.d("시향 노트 추가 실패 : ", e.message())
@@ -277,8 +277,8 @@ class NoteViewModel : ViewModel() {
                 || responseReview.keyword != selectedKeywordList.value || responseReview.access != _shareBtn.value)
     }
 
-    private val _isValidNoteUpdate = MutableLiveData<String>("")
-    val isValidNoteUpdate : LiveData<String>
+    private val _isValidNoteUpdate = MutableLiveData<Boolean>()
+    val isValidNoteUpdate : LiveData<Boolean>
         get() = _isValidNoteUpdate
 
     // 시향노트 수정
@@ -301,11 +301,11 @@ class NoteViewModel : ViewModel() {
                     reviewIdx,
                     reviewInfo
                 ).let {
-                    _isValidNoteUpdate.postValue("시향 노트가 수정되었습니다.")
+                    _isValidNoteUpdate.postValue(true)
                     Log.d("시향 노트 수정 성공 : ", it)
                 }
             }catch (e: HttpException){
-                _isValidNoteUpdate.postValue("시향 노트 수정 실패")
+                _isValidNoteUpdate.postValue(false)
                 when(e.response()?.code()){
                     401 -> { // 잘못된 토큰
                         Log.d("시향 노트 수정 실패 : ", e.message())
@@ -315,8 +315,8 @@ class NoteViewModel : ViewModel() {
         }
     }
 
-    private val _isValidNoteDelete = MutableLiveData<String>("")
-    val isValidNoteDelete : LiveData<String>
+    private val _isValidNoteDelete = MutableLiveData<Boolean>()
+    val isValidNoteDelete : LiveData<Boolean>
         get() = _isValidNoteDelete
 
     // 시향노트 삭제
@@ -324,11 +324,11 @@ class NoteViewModel : ViewModel() {
         viewModelScope.launch {
             try{
                 noteRepository.deleteReview(AfumeApplication.prefManager.accessToken, reviewIdx).let {
-                    _isValidNoteDelete.postValue("시향 노트가 삭제되었습니다.")
+                    _isValidNoteDelete.postValue(true)
                     Log.d("시향 노트 삭제 성공 : ", it)
                 }
             }catch (e : HttpException){
-                _isValidNoteDelete.postValue("시향 노트 삭제 실패")
+                _isValidNoteDelete.postValue(false)
                 when(e.response()?.code()){
                     400 -> { // 잘못된 접근 : 자신의 리뷰 아닌 경우
                         Log.d("시향 노트 삭제 실패 : ", e.message())
