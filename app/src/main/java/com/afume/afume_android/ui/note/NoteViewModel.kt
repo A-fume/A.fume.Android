@@ -235,14 +235,13 @@ class NoteViewModel : ViewModel() {
                     reverbProgress.value = it.sillage
                     genderProgress.value = it.gender
                     convertSeason(it.seasonal)
-                    _shareBtn.value = it.access
                     contentsTxt.value = it.content
                     selectedKeywordList.value = it.keyword
                     checkKeywordList()
-                    checkShareBtn()
+                    _isValidShareBtn.value = it.access
+                    _shareBtn.value = it.access
 
-                    Log.d("시향 노트 조회 성공 :", "")
-
+                    Log.d("시향 노트 조회 성공 :", responseReview.toString())
                 }
             } catch (e: HttpException) {
                 Log.d("시향 노트 조회 실패 :", e.message())
