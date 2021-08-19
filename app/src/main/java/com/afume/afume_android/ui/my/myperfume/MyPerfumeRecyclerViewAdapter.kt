@@ -35,7 +35,7 @@ class MyPerfumeRecyclerViewHolder(val binding: RvItemMyMyperfumeBinding) :
 
     fun bind(data: ResponseMyPerfume) {
         binding.rvMyPerfume = data
-        binding.rvItemRbMyPerfume.setStar(data.score)
+//        binding.rvItemRbMyPerfume.setStar(data.score)
         binding.root.setOnClickListener {
             goToNotePageWithReviewIdx(it, data)
         }

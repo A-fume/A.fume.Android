@@ -54,24 +54,20 @@
             app:layout_constraintStart_toStartOf="@+id/rv_item_txt_my_perfume_brand"
             app:layout_constraintTop_toBottomOf="@+id/rv_item_txt_my_perfume_brand" />
 
-        <com.hedgehog.ratingbar.RatingBar
+        <RatingBar
             android:id="@+id/rv_item_rb_my_perfume"
+            style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="32dp"
-            app:halfstart="true"
+            android:isIndicator="true"
+            android:rating="1.5"
+            android:stepSize="0.5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/rv_item_txt_my_perfume_name"
             app:layout_constraintStart_toStartOf="@+id/rv_item_txt_my_perfume_name"
-            app:layout_constraintTop_toBottomOf="@+id/rv_item_txt_my_perfume_name"
-            app:starCount="5"
-            app:starEmpty="@drawable/star_inactive"
-            app:starFill="@drawable/star_active"
-            app:starHalf="@drawable/star_half"
-            app:starImageHeight="12dp"
-            app:starImagePadding="2dp"
-            app:starImageWidth="12dp" />
+            app:layout_constraintTop_toBottomOf="@+id/rv_item_txt_my_perfume_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
