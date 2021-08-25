@@ -173,11 +173,19 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickBackBtn(view : View){
-        backBtn()
+        if(reviewIdx==0){
+            finish()
+        }else{
+            backBtn()
+        }
     }
 
     override fun onBackPressed() {
-        backBtn()
+        if(reviewIdx==0){
+            finish()
+        }else{
+            backBtn()
+        }
     }
 
     private fun backBtn(){

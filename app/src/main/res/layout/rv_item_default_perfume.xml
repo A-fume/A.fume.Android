@@ -40,25 +40,31 @@
 
         <TextView
             android:id="@+id/rv_item_txt_perfume_brand"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
             android:includeFontPadding="false"
             android:text="@{perfume.brandName}"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="@+id/img_perfume"
             app:layout_constraintStart_toStartOf="@+id/img_perfume"
             app:layout_constraintTop_toBottomOf="@+id/img_perfume" />
 
         <TextView
             android:id="@+id/rv_item_txt_perfume_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="16dp"
             android:includeFontPadding="false"
             android:text="@{perfume.name}"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/primary_black"
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/rv_item_txt_perfume_brand"
             app:layout_constraintStart_toStartOf="@+id/rv_item_txt_perfume_brand"
             app:layout_constraintTop_toBottomOf="@+id/rv_item_txt_perfume_brand" />
 
