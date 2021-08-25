@@ -1,5 +1,6 @@
 package com.afume.afume_android.util
 
+import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.CheckedTextView
@@ -151,6 +152,20 @@ object BindingAdapter {
             this.typeface = ResourcesCompat.getFont(this.context, R.font.notosans_bold)
             this.setTextColor(ContextCompat.getColor(this.context, R.color.white))
             setBackgroundColor(resources.getColor(R.color.point_beige))
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    @JvmStatic
+    @BindingAdapter("noteUserAge","noteUserGender")
+    fun TextView.setNoteUserInfoText(age: String, gender: Int) {
+        when (gender) {
+            0 -> {
+                this.text = "$age / 남자"
+            }
+            1 -> {
+                this.text = "$age / 여자"
+            }
         }
     }
 }
