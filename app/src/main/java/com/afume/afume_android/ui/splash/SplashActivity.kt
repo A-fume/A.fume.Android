@@ -10,6 +10,7 @@ import com.afume.afume_android.databinding.ActivitySplashBinding
 import com.afume.afume_android.ui.MainActivity
 import com.afume.afume_android.ui.survey.SurveyActivity
 import com.afume.afume_android.util.startActivityWithFinish
+import com.afume.afume_android.util.toast
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +37,7 @@ class SplashActivity : AppCompatActivity() {
                     startActivityWithFinish(SurveyActivity::class.java)
                 }else{
                     startActivityWithFinish(MainActivity::class.java)
+                    this@SplashActivity.toast("자동 로그인되었습니다.")
                 }
             }
 

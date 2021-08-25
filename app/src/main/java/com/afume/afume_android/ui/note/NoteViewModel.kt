@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.NoteRepository
 import com.afume.afume_android.data.repository.SurveyRepository
-import com.afume.afume_android.data.vo.ParcelableWishList
 import com.afume.afume_android.data.vo.request.RequestReview
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.data.vo.response.ResponseReview
@@ -41,9 +40,9 @@ class NoteViewModel : ViewModel() {
     val rating = MutableLiveData<Float>(0f)
 
     // SeekBar
-    val longevityProgress = MutableLiveData<Int>()
-    val reverbProgress = MutableLiveData<Int>()
-    val genderProgress = MutableLiveData<Int>()
+    val longevityProgress = MutableLiveData<Int>(-1)
+    val reverbProgress = MutableLiveData<Int>(-1)
+    val genderProgress = MutableLiveData<Int>(-1)
 
     // 계절 선택
     var selectedSeasonList = mutableListOf<String>()
@@ -144,7 +143,7 @@ class NoteViewModel : ViewModel() {
 
     fun checkShareBtn(){
         if(contentsTxt.value?.isNotEmpty() == true && rating.value != 0f && selectedKeywordList.value?.isNotEmpty() == true
-            && longevityProgress.value != null && reverbProgress.value != null && genderProgress.value != null
+            && longevityProgress.value != -1 && reverbProgress.value != -1 && genderProgress.value != -1
             &&(_springBtn.value == true || _summerBtn.value == true || _fallBtn.value == true || _winterBtn.value == true)){
             _isValidShareBtn.postValue(true)
         }else{
@@ -161,16 +160,20 @@ class NoteViewModel : ViewModel() {
         }
     }
 
+    private val _isValidNoteAdd = MutableLiveData<Boolean>()
+    val isValidNoteAdd : LiveData<Boolean>
+        get() = _isValidNoteAdd
+
     // 시향노트 추가
     fun postReview(perfumeIdx : Int){
         viewModelScope.launch {
             try{
                 val reviewInfo = RequestReview(
                     score = rating.value!!,
-                    longevity = longevityProgress.value?: -1,
-                    sillage = reverbProgress.value?: -1,
+                    longevity = longevityProgress.value,
+                    sillage = reverbProgress.value,
                     seasonal = getSeason(),
-                    gender = genderProgress.value?: -1,
+                    gender = genderProgress.value,
                     access = _shareBtn.value!!,
                     content = contentsTxt.value!!,
                     keywordList = getKeyword()
@@ -181,9 +184,11 @@ class NoteViewModel : ViewModel() {
                     perfumeIdx,
                     reviewInfo
                 ).let {
+                    _isValidNoteAdd.postValue(true)
                     Log.d("시향 노트 추가 성공 : ", it.reviewIdx.toString())
                 }
             }catch (e: HttpException){
+                _isValidNoteAdd.postValue(false)
                 when(e.response()?.code()){
                     401 -> { // 잘못된 토큰
                         Log.d("시향 노트 추가 실패 : ", e.message())
@@ -197,6 +202,8 @@ class NoteViewModel : ViewModel() {
     }
 
     private fun getSeason() : MutableList<String>{
+        selectedSeasonList.clear()
+
         if(_springBtn.value == true) selectedSeasonList.add("봄")
         if(_summerBtn.value == true) selectedSeasonList.add("여름")
         if(_fallBtn.value == true) selectedSeasonList.add("가을")
@@ -216,9 +223,7 @@ class NoteViewModel : ViewModel() {
     private lateinit var responseReview: ResponseReview
 
     // 시향노트 조회
-    fun getReview(reviewIdx: Int):ParcelableWishList{
-        var item = ParcelableWishList(0,"","","")
-
+    fun getReview(reviewIdx: Int){
         _isValidUpdateBtn.postValue(true)
 
         viewModelScope.launch {
@@ -230,34 +235,18 @@ class NoteViewModel : ViewModel() {
                     reverbProgress.value = it.sillage
                     genderProgress.value = it.gender
                     convertSeason(it.seasonal)
-                    _shareBtn.value = it.access
                     contentsTxt.value = it.content
                     selectedKeywordList.value = it.keyword
                     checkKeywordList()
-                    checkShareBtn()
+                    _isValidShareBtn.value = it.access
+                    _shareBtn.value = it.access
 
-                    item = ParcelableWishList(
-                        it.perfume.perfumeIdx,
-                        it.perfume.perfumeName,
-                        it.brand.brandName,
-                        it.perfume.imageUrl
-                    )
-
-                    Log.d("시향 노트 조회 성공 :", "")
-
+                    Log.d("시향 노트 조회 성공 :", responseReview.toString())
                 }
             } catch (e: HttpException) {
                 Log.d("시향 노트 조회 실패 :", e.message())
             }
-
-            item = ParcelableWishList(
-                1,
-                "네임",
-                "브랜드",
-                "it.perfume.imageUrl"
-            )
         }
-        return item
     }
 
     private fun convertSeason(seasons : List<String>){
@@ -283,14 +272,14 @@ class NoteViewModel : ViewModel() {
     }
 
     fun checkUpdateInfo(){
-        if(responseReview.score != rating.value || responseReview.longevity != longevityProgress.value || responseReview.sillage != reverbProgress.value
-            || responseReview.seasonal != getSeason() || responseReview.gender != genderProgress.value || responseReview.content != contentsTxt.value
-            || responseReview.keyword != getKeyword()){
-            _showUpdateDialog.postValue(true)
-        }else{
-            _showUpdateDialog.postValue(false)
-        }
+        _showUpdateDialog.value = (responseReview.score != rating.value || responseReview.longevity != longevityProgress.value || responseReview.sillage != reverbProgress.value
+                || responseReview.seasonal != getSeason() || responseReview.gender != genderProgress.value || responseReview.content != contentsTxt.value
+                || responseReview.keyword != selectedKeywordList.value || responseReview.access != _shareBtn.value)
     }
+
+    private val _isValidNoteUpdate = MutableLiveData<Boolean>()
+    val isValidNoteUpdate : LiveData<Boolean>
+        get() = _isValidNoteUpdate
 
     // 시향노트 수정
     fun updateReview(reviewIdx: Int){
@@ -298,10 +287,10 @@ class NoteViewModel : ViewModel() {
             try{
                 val reviewInfo = RequestReview(
                     score = rating.value!!,
-                    longevity = longevityProgress.value?: -1,
-                    sillage = reverbProgress.value?: -1,
+                    longevity = longevityProgress.value,
+                    sillage = reverbProgress.value,
                     seasonal = getSeason(),
-                    gender = genderProgress.value?: -1,
+                    gender = genderProgress.value,
                     access = _shareBtn.value!!,
                     content = contentsTxt.value!!,
                     keywordList = getKeyword()
@@ -312,9 +301,11 @@ class NoteViewModel : ViewModel() {
                     reviewIdx,
                     reviewInfo
                 ).let {
+                    _isValidNoteUpdate.postValue(true)
                     Log.d("시향 노트 수정 성공 : ", it)
                 }
             }catch (e: HttpException){
+                _isValidNoteUpdate.postValue(false)
                 when(e.response()?.code()){
                     401 -> { // 잘못된 토큰
                         Log.d("시향 노트 수정 실패 : ", e.message())
@@ -324,14 +315,20 @@ class NoteViewModel : ViewModel() {
         }
     }
 
+    private val _isValidNoteDelete = MutableLiveData<Boolean>()
+    val isValidNoteDelete : LiveData<Boolean>
+        get() = _isValidNoteDelete
+
     // 시향노트 삭제
     fun deleteReview(reviewIdx: Int){
         viewModelScope.launch {
             try{
                 noteRepository.deleteReview(AfumeApplication.prefManager.accessToken, reviewIdx).let {
+                    _isValidNoteDelete.postValue(true)
                     Log.d("시향 노트 삭제 성공 : ", it)
                 }
             }catch (e : HttpException){
+                _isValidNoteDelete.postValue(false)
                 when(e.response()?.code()){
                     400 -> { // 잘못된 접근 : 자신의 리뷰 아닌 경우
                         Log.d("시향 노트 삭제 실패 : ", e.message())
@@ -341,9 +338,6 @@ class NoteViewModel : ViewModel() {
                     }
                 }
             }
-
         }
     }
-
-
 }

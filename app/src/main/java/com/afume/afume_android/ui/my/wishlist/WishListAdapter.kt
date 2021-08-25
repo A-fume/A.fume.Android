@@ -42,7 +42,7 @@ class WishListRecyclerHolder(val binding: RvItemMyWishlistBinding) : RecyclerVie
 
     fun goToNotePageWithPerfumeInfo(view: View, perfumeInfo: PerfumeInfo) {
         val intent = Intent(view.context, NoteActivity::class.java)
-        val wishListPerfume = ParcelableWishList(perfumeInfo.perfumeIdx,perfumeInfo.name,perfumeInfo.brandName,perfumeInfo.imageUrl)
+        val wishListPerfume = ParcelableWishList(perfumeInfo.perfumeIdx,0,perfumeInfo.name,perfumeInfo.brandName,perfumeInfo.imageUrl)
         intent.putExtra("wishListPerfume", wishListPerfume)
         view.context.startActivity(intent)
     }
