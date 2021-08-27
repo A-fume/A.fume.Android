@@ -52,7 +52,6 @@ class PerfumeDetailActivity : AppCompatActivity() {
         viewModel.getPerfumeInfo(perfumeIdx)
         viewModel.perfumeDetailData.observe(this, Observer {
             binding.item = it
-            binding.rbPerfumeDetail.setStar(it.score)
             detailImageAdapter.data = it.imageUrls
             detailImageAdapter.notifyDataSetChanged()
 

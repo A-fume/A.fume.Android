@@ -32,16 +32,16 @@
         <item name="android:textColor">@color/dark_gray_7d</item>
     </style>
 
-    <style name="Theme.RatingBar" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/rating_bar_stars</item>
-        <item name="android:minHeight">24dp</item>
-        <item name="android:maxHeight">24dp</item>
+    <style name="Theme.RatingBar.Note" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_bar_stars_note</item>
     </style>
 
-    <style name="Theme.RatingBar.Small" parent="Widget.AppCompat.RatingBar.Small">
-        <item name="android:progressDrawable">@drawable/rating_bar_stars</item>
-        <item name="android:minHeight">24dp</item>
-        <item name="android:maxHeight">24dp</item>
+    <style name="Theme.RatingBar.Detail.Note" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/rating_bar_stars_detail_note</item>
+    </style>
+
+    <style name="Theme.RatingBar.Detail" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/rating_bar_stars_detail</item>
     </style>
 
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
