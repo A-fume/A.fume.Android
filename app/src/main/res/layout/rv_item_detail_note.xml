@@ -19,10 +19,9 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,12 +29,11 @@
 
         <ImageView
             android:id="@+id/imageView4"
+            setLikeList="@{0}"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginTop="19dp"
             android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            setLikeList="@{0}"
             app:layout_constraintEnd_toStartOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/favorite_inactive" />
@@ -44,29 +42,29 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="17dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@{Integer.toString(item.likeCount)}"
             android:fontFamily="@font/notosans_regular"
-            android:textSize="12sp"
             android:includeFontPadding="false"
+            android:text="@{Integer.toString(item.likeCount)}"
             android:textColor="@color/gray_cd"
+            android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             noteUserAge="@{item.age}"
             noteUserGender="@{item.userGender}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/notosans_regular"
-            android:textSize="12sp"
             android:includeFontPadding="false"
             android:textColor="@color/dark_gray_7d"
-            app:layout_constraintStart_toStartOf="@+id/imageView5"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
         <TextView
