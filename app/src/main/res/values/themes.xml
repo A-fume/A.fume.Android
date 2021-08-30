@@ -34,6 +34,8 @@
 
     <style name="Theme.RatingBar.Note" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/rating_bar_stars_note</item>
+        <item name="maxHeight">24dp</item>
+        <item name="minHeight">24dp</item>
     </style>
 
     <style name="Theme.RatingBar.Detail.Note" parent="Widget.AppCompat.RatingBar.Small">
