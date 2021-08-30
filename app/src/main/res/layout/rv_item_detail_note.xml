@@ -28,8 +28,8 @@
             app:srcCompat="@drawable/ic_quotes" />
 
         <ImageView
-            android:id="@+id/imageView4"
-            setLikeList="@{0}"
+            android:id="@+id/btn_like"
+            setLikeList="@{item.access}"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginTop="19dp"

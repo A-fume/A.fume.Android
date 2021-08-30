@@ -20,6 +20,7 @@ interface RemoteDataSource {
     suspend fun postReview(token: String, perfumeIdx: Int, body: RequestReview) : ResponseReviewAdd
     suspend fun putReview(token: String, reviewIdx: Int, body: RequestReview) : String
     suspend fun deleteReview(token: String, reviewIdx: Int) : String
+    suspend fun postReviewLike(token: String, reviewIdx: Int) : Boolean
 
     // filter
     suspend fun getFilterSeries():ResponseSeries
