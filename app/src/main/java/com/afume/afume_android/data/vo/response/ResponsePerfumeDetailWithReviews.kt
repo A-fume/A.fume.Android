@@ -6,7 +6,7 @@ data class ResponsePerfumeDetailWithReviews(
 )
 
 data class PerfumeDetailWithReviews(
-    val score: Int,
+    val score: Float,
     val longevity: String,
     val sillage: String,
     val seasonal: List<String>,
