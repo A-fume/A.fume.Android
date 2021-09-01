@@ -40,9 +40,13 @@
                 android:id="@+id/txt_details_info_story"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="19dp"
                 android:layout_marginEnd="18dp"
                 android:text="@{data.story}"
+                android:fontFamily="@font/notosans_regular"
+                android:textSize="14dp"
+                android:includeFontPadding="false"
+                android:textColor="@color/black_2a"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView46"
                 app:layout_constraintTop_toBottomOf="@+id/textView46" />
@@ -51,7 +55,7 @@
                 android:id="@+id/img_bar_story"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="29dp"
                 android:layout_marginEnd="18dp"
                 android:background="@color/primary_black"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -224,7 +228,7 @@
                 android:layout_marginEnd="18dp"
                 android:fontFamily="@font/notosans_medium"
                 android:gravity="right|end"
-                tools:text="오드뚜알렛"
+                tools:text="@{data.abundanceRate}"
                 android:includeFontPadding="false"
                 android:textColor="@color/primary_black"
                 android:textSize="14dp"
@@ -259,39 +263,14 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/frag_detail_rv_price"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="18dp"
+                tools:listitem="@layout/rv_item_detail_price"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/textView54"/>
-
-            <TextView
-                android:id="@+id/txt_details_info_price1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/notosans_medium"
-                android:gravity="right|end"
-                android:includeFontPadding="false"
-                tools:text="200,000/100ml "
-                android:textColor="@color/primary_black"
-                android:textSize="14dp"
-                app:layout_constraintEnd_toEndOf="@+id/img_bar_keyword"
-                app:layout_constraintTop_toBottomOf="@+id/textView54" />
-
-            <TextView
-                android:id="@+id/txt_details_info_price2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/notosans_medium"
-                android:gravity="right|end"
-                android:includeFontPadding="false"
-                tools:text="200,000/100ml "
-                android:textColor="@color/primary_black"
-                android:textSize="14dp"
-                app:layout_constraintEnd_toEndOf="@+id/img_bar_keyword"
-                app:layout_constraintTop_toBottomOf="@+id/txt_details_info_price1" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView54" />
 
             <ImageView
                 android:id="@+id/img_bar_price"
@@ -302,7 +281,7 @@
                 android:background="@color/primary_black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txt_details_info_story"
-                app:layout_constraintTop_toBottomOf="@+id/txt_details_info_price2" />
+                app:layout_constraintTop_toBottomOf="@+id/frag_detail_rv_price" />
 
             <TextView
                 android:id="@+id/txt_season"

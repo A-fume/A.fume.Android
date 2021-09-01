@@ -287,7 +287,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
             }
 
             rvKeywordAdapter.run {
-                replaceAll(ArrayList(it.Keywords))
+//                replaceAll(ArrayList(it.Keywords))
                 notifyDataSetChanged()
             }
             rvPriceAdapter.run {

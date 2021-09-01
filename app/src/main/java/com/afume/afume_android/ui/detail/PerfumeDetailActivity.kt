@@ -52,14 +52,14 @@ class PerfumeDetailActivity : AppCompatActivity() {
         viewModel.getPerfumeInfo(perfumeIdx)
         viewModel.perfumeDetailData.observe(this, Observer {
             binding.item = it
-            detailImageAdapter.data = it.imageUrls
+//            detailImageAdapter.data = it.imageUrls
             detailImageAdapter.notifyDataSetChanged()
 
             isLiked = it.isLiked
 
             perfumeName = it.name
             brandName = it.brandName
-            image = it.imageUrls?.get(0)
+//            image = it.imageUrls?.get(0)
         })
 
         binding.indicatorPerfumeDetail.setViewPager(binding.vpPerfumeDetailImage)
