@@ -136,6 +136,13 @@ interface AfumeService {
         @Path("perfumeIdx") perfumeIdx : Int
     ): Single<ResponseBase<Boolean>>
 
+    // detail - note like
+    @POST("review/{reviewIdx}/like")
+    suspend fun postReviewLike(
+        @Header("x-access-token") token : String,
+        @Path("reviewIdx") reviewIdx : Int
+    ):ResponseBase<Boolean>
+
     // note - get
     @GET("review/{reviewIdx}")
     suspend fun getReview(

@@ -6,16 +6,16 @@ data class ResponsePerfumeDetailWithReviews(
 )
 
 data class PerfumeDetailWithReviews(
-    val score: Int,
+    val score: Float,
     val longevity: String,
     val sillage: String,
     val seasonal: List<String>,
     val gender: String,
-    val access: Boolean,
+    var access: Boolean,
     val content: String,
     val reviewIdx: Int,
-    val likeCount: Int,
-    val userGender: String,
+    var likeCount: Int,
+    val userGender: Int,
     val age: String,
     val nickname: String,
     val createTime: String
