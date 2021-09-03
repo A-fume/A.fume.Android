@@ -22,6 +22,11 @@ class PerfumeDetailViewModel: ViewModel() {
     private val _perfumeDetailData: MutableLiveData<PerfumeDetail> = MutableLiveData()
     val perfumeDetailData: LiveData<PerfumeDetail> get() = _perfumeDetailData
 
+    // note 영역
+    private val _isValidNoteData = MutableLiveData<Boolean>(false)
+    val isValidNoteData : LiveData<Boolean>
+        get() = _isValidNoteData
+
     fun getPerfumeInfo(perfumeIdx: Int) {
         compositeDisposable.add(
             repo.getPerfumeDetail(perfumeIdx)
@@ -29,6 +34,13 @@ class PerfumeDetailViewModel: ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     _perfumeDetailData.postValue(it.data)
+
+                    if(it.data.noteType == 0){
+                        _isValidNoteData.postValue(true)
+                    }else{
+                        _isValidNoteData.postValue(false)
+                    }
+
                     Log.d("getPerfumeInfo", it.toString())
                 }) {
                     Log.d("getPerfumeInfo error", it.toString())
