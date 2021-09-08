@@ -457,14 +457,12 @@
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/chart_pie_details_info_gender"
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/img_bar_sillage"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="19dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_gender"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_gender" />
 
             <ImageView
                 android:id="@+id/img_bar_gender"

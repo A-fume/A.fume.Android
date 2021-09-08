@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -17,6 +18,7 @@ import com.afume.afume_android.databinding.FragmentDetailInfoBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailViewModel
 import com.afume.afume_android.ui.home.HomeViewModel
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
+import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
@@ -112,9 +114,9 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         )
         pieDataSet.apply {
             colors = pieDataColors
-            valueTextSize = 14f
-            setDrawValues(true)
-            sliceSpace = 1f
+
+//            setDrawValues(true) // 라벨 노출 여부
+//            sliceSpace = 1f // 차트 사이 여백
 
             setValueTextColors(pieValuesTextColors)
 //            valueFormatter = object: ValueFormatter(){
@@ -133,19 +135,23 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 //            }
 
             setDrawCenterText(false)
-            setDrawEntryLabels(true) // 성별 표기
+            setEntryLabelTextSize(14f)
+            setEntryLabelTypeface(ResourcesCompat.getFont(this.context, R.font.notosans_regular))
 //            setDrawMarkers(true)
             setTouchEnabled(false) // 그래프 터치 (확대, 회전 등)
-            setUsePercentValues(true) // 그래프 안에 텍스트를 퍼센트로 표기할건지 여부
+            setUsePercentValues(false) // 그래프 안에 텍스트를 퍼센트로 표기할건지 여부
+            animateY(2500, Easing.EaseInOutCubic)
             description.isEnabled = false // 그래프 설명(이름?)
             isDrawHoleEnabled = false // 가운데를 뚫을건지 여부
 
             minOffset = 0f
             data = pieData
+            data.setDrawValues(false)
             invalidate()
         }
 
         val pieLegend = binding.chartPieDetailsInfoGender.legend
+        pieLegend.isEnabled = false
         pieLegend.apply {
 //            yOffset=10f
 //            xOffset=20f
