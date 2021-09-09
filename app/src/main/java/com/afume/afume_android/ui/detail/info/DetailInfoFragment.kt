@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
@@ -182,7 +183,33 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
             PieEntry(middle, "중성"),
         )
 
+        setMaxLegend(female,male,middle)
+
         return PieDataSet(pieListData, "")
+    }
+
+    private fun setMaxLegend(female: Float, male: Float, middle: Float){
+        val pieData = listOf(female, male, middle)
+
+        when(pieData.maxOrNull()){
+            female -> {
+                setBoldLegend(binding.txtDetailGenderFemale)
+                setBoldLegend(binding.txtDetailGenderFemalePercent)
+            }
+            male -> {
+                setBoldLegend(binding.txtDetailGenderMale)
+                setBoldLegend(binding.txtDetailGenderMalePercent)
+            }
+            middle -> {
+                setBoldLegend(binding.txtDetailGenderMiddle)
+                setBoldLegend(binding.txtDetailGenderMiddlePercent)
+            }
+        }
+    }
+
+    private fun setBoldLegend(legend: TextView){
+        legend.setTextColor(ResourcesCompat.getColor(this.resources, R.color.primary_black, null))
+        legend.typeface = ResourcesCompat.getFont(requireContext(), R.font.notosans_bold)
     }
 
     private fun drawBubbleChartSeason(dataSet: List<BubbleDataSet>) {
@@ -276,7 +303,6 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
             seasonDataSet
         )
     }
-
 
     private fun observe(){
         viewModel.perfumeDetailData.observe(requireActivity(), Observer {
