@@ -13,6 +13,8 @@ import com.afume.afume_android.databinding.ActivityPerfumeDetailBinding
 import com.afume.afume_android.ui.detail.info.DetailInfoFragment
 import com.afume.afume_android.ui.detail.note.DetailNoteFragment
 import com.afume.afume_android.ui.note.NoteActivity
+import com.afume.afume_android.util.TabSelectedListener
+import com.afume.afume_android.util.changeTabsFont
 
 class PerfumeDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityPerfumeDetailBinding
@@ -84,6 +86,8 @@ class PerfumeDetailActivity : AppCompatActivity() {
             getTabAt(0)?.text = "향수 정보"
             getTabAt(1)?.text = "시향 노트"
         }
+        binding.tabPerfumeDetail.addOnTabSelectedListener(TabSelectedListener(binding.tabPerfumeDetail))
+        binding.tabPerfumeDetail.changeTabsFont(0)
     }
 
     private fun setClick(){
