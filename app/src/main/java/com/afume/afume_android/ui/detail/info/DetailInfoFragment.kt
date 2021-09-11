@@ -1,7 +1,6 @@
 package com.afume.afume_android.ui.detail.info
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,8 +21,6 @@ import com.afume.afume_android.ui.home.adapter.PopularListAdapter
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.interfaces.datasets.IBubbleDataSet
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -214,20 +211,21 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 
     private fun drawBubbleChartSeason(dataSet: List<BubbleDataSet>) {
 
-        val yR = binding.chartBubbleDetailsInfoSeason.axisRight
-        yR.apply {
-            setDrawZeroLine(false)
-            setDrawAxisLine(false)
-            setDrawGridLines(false)
-        }
+//        val yR = binding.chartBubbleDetailsInfoSeason.axisRight
+//        yR.apply {
+//            setDrawZeroLine(false)
+//            setDrawAxisLine(true)
+//            setDrawGridLines(false)
+//            setDrawLabels(true)
+//        }
         val yL = binding.chartBubbleDetailsInfoSeason.axisLeft
         yL.apply {
             setDrawZeroLine(false)
             setDrawAxisLine(false)
             setDrawGridLines(false)
             setDrawLabels(false)
-            axisMaximum = 65f
-            axisMinimum = 15f
+            axisMaximum = 100f
+            axisMinimum = -40f
         }
         val xl = binding.chartBubbleDetailsInfoSeason.xAxis
         xl.apply {
@@ -235,15 +233,23 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
             setDrawGridLines(false)
             setDrawLabels(false)
             granularity = 1f
-            axisMaximum = 4.5f
-            axisMinimum = 0.5f
+            axisMaximum = 5f
+            axisMinimum = 0f
+//            position = XAxis.XAxisPosition.BOTTOM
+//            valueFormatter = IndexAxisValueFormatter(listOf<String>("","봄","여름","가을","겨울",""))
+//            typeface = ResourcesCompat.getFont(requireContext(), R.font.notosans_regular)
+//            textColor = ContextCompat.getColor(requireContext(), R.color.primary_black)
+//            textSize = 14f
         }
 
         val bubbleData = BubbleData(dataSet)
         bubbleData.apply {
+            setDrawValues(true)
+            setValueTypeface(ResourcesCompat.getFont(requireContext(), R.font.notosans_bold))
             setValueTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             setValueTextSize(15f)
-            setValueFormatter(IndexAxisValueFormatter(listOf<String>("봄", "여름", "가을", "겨울")))
+            //setValueFormatter(IndexAxisValueFormatter(listOf<String>(dataSet[0].values.toString()+"%",dataSet[1].toString()+"%",dataSet[2].toString()+"%",dataSet[3].toString()+"%")))
+//            setValueFormatter(IndexAxisValueFormatter(listOf(dataSet[0].values[0].data.toString(), dataSet[1].values[0].data.toString(), dataSet[2].values[0].data.toString() , dataSet[3].values[0].data.toString())))
         }
 
         binding.chartBubbleDetailsInfoSeason.apply {
@@ -258,50 +264,72 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
             data = bubbleData
             invalidate()
         }
-
     }
 
     private fun dummyBubbleDataSeason(sp: Int, sm: Int, fa: Int, wi: Int): List<BubbleDataSet> {
-        val primarySeasonDataSet = BubbleDataSet(listOf(BubbleEntry(1f, 40f, sp.toFloat())), "primary")
-        primarySeasonDataSet.color =
+        val springDataSet = BubbleDataSet(listOf(BubbleEntry(0.5f, sp.toFloat(), sp.toFloat())), "봄")
+        springDataSet.color =
             ContextCompat.getColor(requireContext(), R.color.point_beige_accent)
 
-        val seasonDataEntryList = listOf<BubbleEntry>(
-            BubbleEntry(2f, 40f, sm.toFloat()),
-            BubbleEntry(3f, 40f, fa.toFloat()),
-            BubbleEntry(4f, 40f, wi.toFloat())
-        )
-        val seasonDataSet = BubbleDataSet(seasonDataEntryList, "normal")
-        seasonDataSet.color = ContextCompat.getColor(requireContext(), R.color.point_beige)
+        val summerDataSet = BubbleDataSet(listOf(BubbleEntry(1.8f, sm.toFloat(), sm.toFloat())), "여름")
+        summerDataSet.color =
+            ContextCompat.getColor(requireContext(), R.color.point_beige)
 
-        val set1 = BubbleDataSet(listOf(BubbleEntry(1f, 40f, sp.toFloat())), "봄")
-        set1.setDrawValues(true)
+        val fallDataSet = BubbleDataSet(listOf(BubbleEntry(3.1f, fa.toFloat(), fa.toFloat())), "가을")
+        fallDataSet.color =
+            ContextCompat.getColor(requireContext(), R.color.point_beige)
 
-        val set2 = BubbleDataSet(listOf(BubbleEntry(1f, 40f, sm.toFloat())), "여름")
-        set2.setDrawValues(true)
-
-        val set3 = BubbleDataSet(listOf(BubbleEntry(1f, 40f, fa.toFloat())), "가을")
-        set3.setDrawValues(true)
-
-        val set4 = BubbleDataSet(listOf(BubbleEntry(1f, 40f, wi.toFloat())), "겨울")
-        set3.setDrawValues(true)
-
-        val dataSets = ArrayList<IBubbleDataSet>()
-        dataSets.add(set1)
-        dataSets.add(set2)
-        dataSets.add(set3)
-        dataSets.add(set4)
-        var data = BubbleData(dataSets)
-        data.setDrawValues(true)
-        data.setValueTextSize(14f)
-        data.setValueTextColor(Color.BLACK)
-        data.setHighlightCircleWidth(1.5f)
-//        return data
+        val winterDataSet = BubbleDataSet(listOf(BubbleEntry(4.4f, wi.toFloat(), wi.toFloat())), "겨울")
+        winterDataSet.color =
+            ContextCompat.getColor(requireContext(), R.color.point_beige)
 
         return listOf<BubbleDataSet>(
-            primarySeasonDataSet,
-            seasonDataSet
+            springDataSet,
+            summerDataSet,
+            fallDataSet,
+            winterDataSet
         )
+
+//        val primarySeasonDataSet = BubbleDataSet(listOf(BubbleEntry(1f, 40f, sp.toFloat())), "primary")
+//        primarySeasonDataSet.color =
+//            ContextCompat.getColor(requireContext(), R.color.point_beige_accent)
+//
+//        val seasonDataEntryList = listOf<BubbleEntry>(
+//            BubbleEntry(3f, 40f, sm.toFloat()),
+//            BubbleEntry(5f, 40f, fa.toFloat()),
+//            BubbleEntry(7f, 40f, wi.toFloat())
+//        )
+//        val seasonDataSet = BubbleDataSet(seasonDataEntryList, "normal")
+//        seasonDataSet.color = ContextCompat.getColor(requireContext(), R.color.point_beige)
+//
+//        val set1 = BubbleDataSet(listOf(BubbleEntry(0f, 40f, sp.toFloat())), "봄")
+//        set1.setDrawValues(true)
+//
+//        val set2 = BubbleDataSet(listOf(BubbleEntry(2f, 40f, sm.toFloat())), "여름")
+//        set2.setDrawValues(true)
+//
+//        val set3 = BubbleDataSet(listOf(BubbleEntry(3f, 40f, fa.toFloat())), "가을")
+//        set3.setDrawValues(true)
+//
+//        val set4 = BubbleDataSet(listOf(BubbleEntry(4f, 40f, wi.toFloat())), "겨울")
+//        set3.setDrawValues(true)
+//
+//        val dataSets = ArrayList<IBubbleDataSet>()
+//        dataSets.add(set1)
+//        dataSets.add(set2)
+//        dataSets.add(set3)
+//        dataSets.add(set4)
+//        var data = BubbleData(dataSets)
+//        data.setDrawValues(true)
+//        data.setValueTextSize(14f)
+//        data.setValueTextColor(Color.BLACK)
+//        data.setHighlightCircleWidth(1.5f)
+//        return data
+//
+//        return listOf<BubbleDataSet>(
+//            springDataSet,
+//            seasonDataSet
+//        )
     }
 
     private fun observe(){
@@ -315,7 +343,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 //                drawGenderPieChart(dummyPieDataGender(it.gender.female.toFloat(), it.gender.male.toFloat(), it.gender.neutral.toFloat()))
 //                drawBubbleChartSeason(dummyBubbleDataSeason(it.seasonal.spring,it.seasonal.summer,it.seasonal.fall,it.seasonal.winter))
                 drawGenderPieChart(dummyPieDataGender(50f, 30f, 20f))
-                drawBubbleChartSeason(dummyBubbleDataSeason(0,30,30,0))
+                drawBubbleChartSeason(dummyBubbleDataSeason(50,20,20,10))
             }
 
             rvKeywordAdapter.run {

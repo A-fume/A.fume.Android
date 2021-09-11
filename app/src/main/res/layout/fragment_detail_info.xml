@@ -357,10 +357,10 @@
             <com.github.mikephil.charting.charts.BubbleChart
                 android:id="@+id/chart_bubble_details_info_season"
                 android:layout_width="0dp"
-                android:layout_height="120dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="24dp"
-                app:layout_constraintEnd_toEndOf="@+id/img_bar_price"
-                app:layout_constraintStart_toStartOf="@+id/txt_season"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_season">
 
             </com.github.mikephil.charting.charts.BubbleChart>
