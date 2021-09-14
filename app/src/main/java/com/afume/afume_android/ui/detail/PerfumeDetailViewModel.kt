@@ -51,6 +51,9 @@ class PerfumeDetailViewModel: ViewModel() {
     private val _perfumeDetailWithReviewData: MutableLiveData<List<PerfumeDetailWithReviews>> = MutableLiveData()
     val perfumeDetailWithReviewData: LiveData<List<PerfumeDetailWithReviews>> get() = _perfumeDetailWithReviewData
 
+    private val _isValidNoteList = MutableLiveData<Boolean>(false)
+    val isValidNoteList: LiveData<Boolean> get() = _isValidNoteList
+
     fun getPerfumeInfoWithReview(perfumeIdx: Int) {
         compositeDisposable.add(
             repo.getPerfumeDetailWithReviews(perfumeIdx)
@@ -59,7 +62,14 @@ class PerfumeDetailViewModel: ViewModel() {
                 .subscribe({
                     Log.d("DETAILDATAWithReviews", it.toString())
                     _perfumeDetailWithReviewData.postValue(it.data)
+
+                    if(it.data.isNotEmpty()){
+                        _isValidNoteList.postValue(true)
+                    }else{
+                        _isValidNoteList.postValue(false)
+                    }
                 }) {
+                    _isValidNoteList.postValue(false)
                     Log.d("DETAILDATAWithReviews error", it.toString())
 //                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 })

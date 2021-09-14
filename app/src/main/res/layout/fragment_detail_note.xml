@@ -5,14 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
-            name="fg"
-            type="com.afume.afume_android.ui.detail.note.DetailNoteFragment" />
+            name="viewModel"
+            type="com.afume.afume_android.ui.detail.PerfumeDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/light_gray_f9">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_detail_note"
@@ -24,11 +26,27 @@
             android:layout_marginBottom="24dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
+            android:visibility="@{viewModel.isValidNoteList? View.VISIBLE : View.GONE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/rv_item_detail_note" />
+
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:textSize="15dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/gray_b9"
+            android:text="@string/txt_detail_note_list_empty"
+            android:visibility="@{viewModel.isValidNoteList? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
