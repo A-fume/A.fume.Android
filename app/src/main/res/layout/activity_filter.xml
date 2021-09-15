@@ -27,10 +27,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_filter"
         app:tabGravity="fill"
-        app:tabIndicatorHeight="3dp"
-        app:tabTextAppearance="@style/Theme.AfumeAndroid.Tabtext"
+        android:background="@drawable/tab_back"
+        app:tabIndicatorHeight="4dp"
         app:tabIndicatorColor="@color/primary_black"
-        app:tabSelectedTextColor="@color/primary_black">
+        app:tabSelectedTextColor="@color/primary_black"
+        app:tabTextColor="@color/dark_gray_7d"
+        app:tabTextAppearance="@style/Theme.Afume.Tab">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

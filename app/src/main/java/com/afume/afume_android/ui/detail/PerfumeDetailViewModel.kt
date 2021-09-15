@@ -22,6 +22,11 @@ class PerfumeDetailViewModel: ViewModel() {
     private val _perfumeDetailData: MutableLiveData<PerfumeDetail> = MutableLiveData()
     val perfumeDetailData: LiveData<PerfumeDetail> get() = _perfumeDetailData
 
+    // note 영역
+    private val _isValidNoteData = MutableLiveData<Boolean>(false)
+    val isValidNoteData : LiveData<Boolean>
+        get() = _isValidNoteData
+
     fun getPerfumeInfo(perfumeIdx: Int) {
         compositeDisposable.add(
             repo.getPerfumeDetail(perfumeIdx)
@@ -29,6 +34,13 @@ class PerfumeDetailViewModel: ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     _perfumeDetailData.postValue(it.data)
+
+                    if(it.data.noteType == 0){
+                        _isValidNoteData.postValue(true)
+                    }else{
+                        _isValidNoteData.postValue(false)
+                    }
+
                     Log.d("getPerfumeInfo", it.toString())
                 }) {
                     Log.d("getPerfumeInfo error", it.toString())
@@ -39,6 +51,9 @@ class PerfumeDetailViewModel: ViewModel() {
     private val _perfumeDetailWithReviewData: MutableLiveData<List<PerfumeDetailWithReviews>> = MutableLiveData()
     val perfumeDetailWithReviewData: LiveData<List<PerfumeDetailWithReviews>> get() = _perfumeDetailWithReviewData
 
+    private val _isValidNoteList = MutableLiveData<Boolean>(false)
+    val isValidNoteList: LiveData<Boolean> get() = _isValidNoteList
+
     fun getPerfumeInfoWithReview(perfumeIdx: Int) {
         compositeDisposable.add(
             repo.getPerfumeDetailWithReviews(perfumeIdx)
@@ -47,7 +62,14 @@ class PerfumeDetailViewModel: ViewModel() {
                 .subscribe({
                     Log.d("DETAILDATAWithReviews", it.toString())
                     _perfumeDetailWithReviewData.postValue(it.data)
+
+                    if(it.data.isNotEmpty()){
+                        _isValidNoteList.postValue(true)
+                    }else{
+                        _isValidNoteList.postValue(false)
+                    }
                 }) {
+                    _isValidNoteList.postValue(false)
                     Log.d("DETAILDATAWithReviews error", it.toString())
 //                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 })

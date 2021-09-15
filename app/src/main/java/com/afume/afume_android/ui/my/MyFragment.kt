@@ -21,6 +21,7 @@ import com.afume.afume_android.ui.setting.EditMyInfoActivity
 import com.afume.afume_android.ui.setting.EditPasswordActivity
 import com.afume.afume_android.ui.signin.SignHomeActivity
 import com.afume.afume_android.util.TabSelectedListener
+import com.afume.afume_android.util.changeTabsFont
 import com.afume.afume_android.util.toastLong
 
 class MyFragment : Fragment() {
@@ -80,6 +81,7 @@ class MyFragment : Fragment() {
             getTabAt(1)?.text = "위시 리스트"
         }
         binding.tabMypage.addOnTabSelectedListener(TabSelectedListener(binding.tabMypage))
+        binding.tabMypage.changeTabsFont(0)
     }
 
     private fun setNavigation() {

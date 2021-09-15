@@ -145,13 +145,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="32dp"
+                    android:background="@drawable/tab_back"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rb_perfume_detail"
                     app:tabIndicatorColor="@color/primary_black"
                     app:tabIndicatorHeight="4dp"
-                    app:tabMode="fixed"
-                    app:tabSelectedTextColor="@color/primary_black" />
+                    app:tabIndicatorGravity="bottom"
+                    app:tabSelectedTextColor="@color/primary_black"
+                    app:tabTextColor="@color/dark_gray_7d"
+                    app:tabTextAppearance="@style/Theme.Afume.Tab">
+                </com.google.android.material.tabs.TabLayout>
 
                 <com.afume.afume_android.ui.detail.MeasuredViewPager
                     android:id="@+id/vp_perfume_detail"
