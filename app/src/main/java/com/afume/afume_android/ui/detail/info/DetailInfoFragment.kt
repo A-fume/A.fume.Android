@@ -55,7 +55,6 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         initsillageBarChart(0,0,0)
         initRvSimilar(requireContext())
 
-        drawGenderPieChart(dummyPieDataGender(0f, 0f, 0f))
         drawBubbleChartSeason(dummyBubbleDataSeason(0,0,0,0))
 
     }
@@ -167,18 +166,19 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         }
     }
 
-    private fun dummyPieDataGender(female: Float, male: Float, middle: Float): PieDataSet {
-//        val pieListData = listOf<PieEntry>(
-//            PieEntry(60f, "여성   60%"),
-//            PieEntry(40f, "남성   40%"),
-//            PieEntry(20f, "중성   20%"),
-//        )
+    private fun setGenderPieData(female: Float, male: Float, middle: Float): PieDataSet {
 
-        val pieListData = listOf(
+        val pieListData = mutableListOf(
             PieEntry(female, "여성"),
             PieEntry(male, "남성"),
             PieEntry(middle, "중성"),
         )
+
+        pieListData.forEach {
+            if(it.value == 0f){
+                pieListData.remove(it)
+            }
+        }
 
         setMaxLegend(female,male,middle)
 
@@ -336,13 +336,10 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         viewModel.perfumeDetailData.observe(requireActivity(), Observer {
             binding.run {
                 data = it
-//                txtDetailsInfoPrice1.text = it.volumeAndPrice[0]
-//                txtDetailsInfoPrice2.text = it.volumeAndPrice[1]
                 initLastingPowerBarChart(it.longevity.veryWeak, it.longevity.weak, it.longevity.medium, it.longevity.strong, it.longevity.veryStrong)
                 initsillageBarChart(it.sillage.light, it.sillage.medium, it.sillage.heavy)
-//                drawGenderPieChart(dummyPieDataGender(it.gender.female.toFloat(), it.gender.male.toFloat(), it.gender.neutral.toFloat()))
 //                drawBubbleChartSeason(dummyBubbleDataSeason(it.seasonal.spring,it.seasonal.summer,it.seasonal.fall,it.seasonal.winter))
-                drawGenderPieChart(dummyPieDataGender(50f, 30f, 20f))
+                drawGenderPieChart(setGenderPieData(it.gender.female.toFloat(), it.gender.male.toFloat(), it.gender.neutral.toFloat()))
                 drawBubbleChartSeason(dummyBubbleDataSeason(50,20,20,10))
             }
 
