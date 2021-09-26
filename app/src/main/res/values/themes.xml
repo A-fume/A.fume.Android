@@ -46,12 +46,6 @@
         <item name="android:progressDrawable">@drawable/rating_bar_stars_detail</item>
     </style>
 
-    <style name="Theme.RatingBar.Small" parent="Widget.AppCompat.RatingBar.Small">
-        <item name="android:progressDrawable">@drawable/rating_bar_stars</item>
-        <item name="android:minHeight">24dp</item>
-        <item name="android:maxHeight">24dp</item>
-    </style>
-
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>

@@ -522,14 +522,13 @@
                 android:id="@+id/txt_detail_gender_female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="여성"
                 android:textColor="@color/dark_gray_7d"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_detail_gender_female_percent"
-                app:layout_constraintEnd_toStartOf="@+id/txt_detail_gender_female_percent"
+                app:layout_constraintEnd_toEndOf="@+id/txt_detail_gender_male"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintStart_toStartOf="@+id/txt_detail_gender_male" />
 
@@ -540,12 +539,11 @@
                 android:layout_marginBottom="6dp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
-                android:text="50%"
+                android:text="@{@string/chartPercentFormat(data.gender.female)}"
                 android:textColor="@color/dark_gray_7d"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@+id/txt_detail_gender_male_percent"
-                app:layout_constraintEnd_toEndOf="@+id/txt_detail_gender_male_percent"
-                app:layout_constraintStart_toStartOf="@+id/txt_detail_gender_male_percent" />
+                app:layout_constraintEnd_toEndOf="@+id/txt_detail_gender_male_percent" />
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -562,14 +560,13 @@
                 android:id="@+id/txt_detail_gender_male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="남성"
                 android:textColor="@color/dark_gray_7d"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_detail_gender_male_percent"
-                app:layout_constraintEnd_toStartOf="@+id/txt_detail_gender_male_percent"
+                app:layout_constraintEnd_toEndOf="@+id/txt_detail_gender_middle"
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
                 app:layout_constraintStart_toStartOf="@+id/txt_detail_gender_middle" />
 
@@ -580,12 +577,11 @@
                 android:layout_marginBottom="6dp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
-                android:text="30%"
+                android:text="@{@string/chartPercentFormat(data.gender.male)}"
                 android:textColor="@color/dark_gray_7d"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@+id/txt_detail_gender_middle_percent"
-                app:layout_constraintEnd_toEndOf="@+id/txt_detail_gender_middle_percent"
-                app:layout_constraintStart_toStartOf="@+id/txt_detail_gender_middle_percent" />
+                app:layout_constraintEnd_toEndOf="@+id/txt_detail_gender_middle_percent" />
 
             <ImageView
                 android:id="@+id/imageView7"
@@ -617,7 +613,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="17dp"
                 android:layout_marginBottom="23dp"
-                android:text="20%"
+                android:text="@{@string/chartPercentFormat(data.gender.neutral)}"
                 android:fontFamily="@font/notosans_regular"
                 android:textColor="@color/dark_gray_7d"
                 android:textSize="14dp"
