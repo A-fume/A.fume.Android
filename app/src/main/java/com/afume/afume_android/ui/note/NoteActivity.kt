@@ -39,8 +39,7 @@ class NoteActivity : AppCompatActivity() {
         binding.viewModel = noteViewModel
         initNote()
 
-        setEnabledShareBtn()
-        setEnabledCompleteBtn()
+        initObserver()
         setComponentList()
         onSeekBarChangeListener()
         initKeywordList()
@@ -60,9 +59,22 @@ class NoteActivity : AppCompatActivity() {
         }
     }
 
-    private fun setEnabledShareBtn(){
+    private fun initObserver(){
+        noteViewModel.rating.observe(this, Observer {
+            noteViewModel.checkShareBtn()
+            noteViewModel.checkCompleteBtn()
+            noteViewModel.checkUpdateInfo(0)
+        })
+
+        noteViewModel.contentsTxt.observe(this, Observer {
+            noteViewModel.checkShareBtn()
+            noteViewModel.checkCompleteBtn()
+            noteViewModel.checkUpdateInfo(0)
+        })
+
         noteViewModel.selectedKeywordList.observe(this, Observer{
             noteViewModel.checkShareBtn()
+            noteViewModel.checkUpdateInfo(0)
         })
 
         setSeekBarObserve(noteViewModel.longevityProgress)
@@ -74,6 +86,10 @@ class NoteActivity : AppCompatActivity() {
         setSeasonBtnObserve(noteViewModel.fallBtn)
         setSeasonBtnObserve(noteViewModel.winterBtn)
 
+        noteViewModel.shareBtn.observe(this, Observer {
+            noteViewModel.checkUpdateInfo(0)
+        })
+
         noteViewModel.showErrorToast.observe(this, Observer {
             this.toastLong("입력 칸을 모두 작성해야 공개가 가능합니다.")
         })
@@ -82,23 +98,14 @@ class NoteActivity : AppCompatActivity() {
     private fun setSeekBarObserve(seekBar: LiveData<Int>){
         seekBar.observe(this, Observer {
             noteViewModel.checkShareBtn()
+            noteViewModel.checkUpdateInfo(0)
         })
     }
 
     private fun setSeasonBtnObserve(seasonBtn: LiveData<Boolean>){
         seasonBtn.observe(this, Observer {
             noteViewModel.checkShareBtn()
-        })
-    }
-
-    private fun setEnabledCompleteBtn(){
-        noteViewModel.contentsTxt.observe(this, Observer {
-            noteViewModel.checkShareBtn()
-            noteViewModel.checkCompleteBtn()
-        })
-        noteViewModel.rating.observe(this, Observer {
-            noteViewModel.checkShareBtn()
-            noteViewModel.checkCompleteBtn()
+            noteViewModel.checkUpdateInfo(0)
         })
     }
 
@@ -189,7 +196,7 @@ class NoteActivity : AppCompatActivity() {
     }
 
     private fun backBtn(){
-        noteViewModel.checkUpdateInfo()
+        noteViewModel.checkUpdateInfo(1)
 
         noteViewModel.showUpdateDialog.observe(this, Observer {
             if(it){
