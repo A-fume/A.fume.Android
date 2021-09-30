@@ -41,32 +41,38 @@
 
         <TextView
             android:id="@+id/textView9"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginLeft="1dp"
             android:layout_marginTop="5dp"
-            android:text="@{item.brandName}"
             android:fontFamily="@font/notosans_regular"
-            android:textSize="12sp"
             android:includeFontPadding="false"
+            android:text="@{item.brandName}"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/dark_gray_7d"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/act_perfume_detail_iv_write"
             app:layout_constraintStart_toStartOf="@+id/act_perfume_detail_iv_write"
-            app:layout_constraintTop_toBottomOf="@+id/act_perfume_detail_iv_write" />
+            app:layout_constraintTop_toBottomOf="@+id/act_perfume_detail_iv_write"
+            tools:text="LE LABO"/>
 
         <TextView
             android:id="@+id/textView10"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="24dp"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
             android:text="@{item.name}"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/black_1d"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView9"
             app:layout_constraintStart_toStartOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            tools:text="어나더 13"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

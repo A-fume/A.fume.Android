@@ -47,14 +47,16 @@ class NoteActivity : AppCompatActivity() {
     }
 
     private fun initNote(){
-        reviewIdx = intent.getIntExtra("reviewIdx",0)
+        val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
+        binding.item = wishList
 
-        if(reviewIdx == 0){ // 추가일 경우
-            val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
-            binding.item = wishList
-            perfumeIdx = wishList?.perfumeIdx!!
+        if(wishList?.reviewIdx == 0){ // 추가일 경우
+            perfumeIdx = wishList.perfumeIdx
         }else{ // 조회, 수정, 삭제일 경우
-            binding.item = noteViewModel.getReview(reviewIdx)
+            wishList?.reviewIdx?.let {
+                noteViewModel.getReview(it)
+                reviewIdx = wishList.reviewIdx
+            }
         }
     }
 
@@ -71,6 +73,10 @@ class NoteActivity : AppCompatActivity() {
         setSeasonBtnObserve(noteViewModel.summerBtn)
         setSeasonBtnObserve(noteViewModel.fallBtn)
         setSeasonBtnObserve(noteViewModel.winterBtn)
+
+        noteViewModel.showErrorToast.observe(this, Observer {
+            this.toastLong("입력 칸을 모두 작성해야 공개가 가능합니다.")
+        })
     }
 
     private fun setSeekBarObserve(seekBar: LiveData<Int>){
@@ -167,7 +173,48 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickBackBtn(view : View){
-        finish()
+        if(reviewIdx==0){
+            finish()
+        }else{
+            backBtn()
+        }
+    }
+
+    override fun onBackPressed() {
+        if(reviewIdx==0){
+            finish()
+        }else{
+            backBtn()
+        }
+    }
+
+    private fun backBtn(){
+        noteViewModel.checkUpdateInfo()
+
+        noteViewModel.showUpdateDialog.observe(this, Observer {
+            if(it){
+                val bundle = Bundle()
+                bundle.putString("title","save")
+                val dialog: CommonDialog = CommonDialog().CustomDialogBuilder()
+                    .setBtnClickListener(object : CommonDialog.CustomDialogListener {
+                        override fun onPositiveClicked() {
+                            noteViewModel.updateReview(reviewIdx)
+                            finish()
+                        }
+                        override fun onNegativeClicked() {
+                            finish()
+                        }
+                    })
+                    .getInstance()
+                dialog.arguments = bundle
+                dialog.show(this.supportFragmentManager, dialog.tag)
+            }
+            else{
+                finish()
+            }
+        })
+
+        setNoteToastObserve(noteViewModel.isValidNoteUpdate, "시향 노트가 수정되었습니다.", "시향 노트 수정 실패")
     }
 
     fun onClickDetailBtn(view : View){
@@ -180,23 +227,43 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickCompleteBtn(view : View){
-//        noteViewModel.postReview(perfumeIdx)
-        this.toastLong("시향 노트 추가")
+        noteViewModel.postReview(perfumeIdx)
+        setNoteToastObserve(noteViewModel.isValidNoteAdd, "시향 노트가 추가되었습니다.", "시향 노트 추가 실패")
         finish()
     }
 
     fun onClickUpdateBtn(view : View){
-//        noteViewModel.updateReview(reviewIdx)
-        this.toastLong("시향 노트 수정")
+        noteViewModel.updateReview(reviewIdx)
+        setNoteToastObserve(noteViewModel.isValidNoteUpdate, "시향 노트가 수정되었습니다.", "시향 노트 수정 실패")
         finish()
     }
 
     fun onClickDeleteBtn(view : View){
-//        noteViewModel.deleteReview(reviewIdx)
         val bundle = Bundle()
         bundle.putString("title","delete")
-        val dialog: CommonDialog = CommonDialog().getInstance()
+        val dialog: CommonDialog = CommonDialog().CustomDialogBuilder()
+            .setBtnClickListener(object : CommonDialog.CustomDialogListener {
+                override fun onPositiveClicked() {
+                    noteViewModel.deleteReview(reviewIdx)
+                    finish()
+                }
+                override fun onNegativeClicked() {
+                }
+            })
+            .getInstance()
         dialog.arguments = bundle
         dialog.show(this.supportFragmentManager, dialog.tag)
+
+        setNoteToastObserve(noteViewModel.isValidNoteDelete, "시향 노트가 삭제되었습니다.", "시향 노트 삭제 실패")
+    }
+
+    private fun setNoteToastObserve(noteNetworkState: LiveData<Boolean>,success: String, fail: String){
+        noteNetworkState.observe(this, Observer {
+            if(it){
+                this.toast(success)
+            }else{
+                this.toast(fail)
+            }
+        })
     }
 }

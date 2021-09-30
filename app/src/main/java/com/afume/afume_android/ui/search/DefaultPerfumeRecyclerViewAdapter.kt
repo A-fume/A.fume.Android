@@ -67,7 +67,7 @@ class DefaultPerfumeRecyclerViewAdapter(val fragmentManager: FragmentManager, va
         private fun createDialog() {
             val bundle = Bundle()
             bundle.putString("title", "login")
-            val dialog: CommonDialog = CommonDialog().getInstance()
+            val dialog: CommonDialog = CommonDialog().CustomDialogBuilder().getInstance()
             dialog.arguments = bundle
             dialog.show(fragmentManager, dialog.tag)
         }

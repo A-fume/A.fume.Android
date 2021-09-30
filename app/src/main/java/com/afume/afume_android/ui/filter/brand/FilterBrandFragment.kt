@@ -8,15 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.selection.SelectionPredicates
-import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afume.afume_android.databinding.FragmentFilterBrandBinding
 import com.afume.afume_android.ui.filter.FilterViewModel
 import com.afume.afume_android.ui.filter.FilterViewModelFactory
-import com.afume.afume_android.ui.filter.ItemDetailsLookUp
-import com.afume.afume_android.ui.filter.ItemKeyProvider
 import com.google.android.material.tabs.TabLayout
 
 class FilterBrandFragment : Fragment() {
@@ -87,17 +82,6 @@ class FilterBrandFragment : Fragment() {
             adapter = brandAdapter
             layoutManager = LinearLayoutManager(ctx)
         }
-
-        val brandSelectionTracker = SelectionTracker.Builder<Long>(
-            "brandName",
-            binding.rvBrand,
-            ItemKeyProvider(binding.rvBrand),
-            ItemDetailsLookUp(
-                binding.rvBrand,
-                "brand"
-            ),
-            StorageStrategy.createLongStorage()
-        ).withSelectionPredicate(SelectionPredicates.createSelectAnything()).build()
 
         binding.tabBrand.getTabAt(0)?.select()
     }

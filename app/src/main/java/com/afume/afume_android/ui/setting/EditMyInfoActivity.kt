@@ -45,6 +45,7 @@ class EditMyInfoActivity : AppCompatActivity() {
     fun showYearPicker(view : View){
         val dialog: DialogFragment = YearPickerDialog(binding.btnMyInfoEditYearPicker)
         dialog.show(this.supportFragmentManager, dialog.tag)
+        editViewModel.checkChangeInfo()
     }
 
     fun onClickCompleteBtn(view: View){

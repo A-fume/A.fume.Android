@@ -22,6 +22,9 @@
     <!--filter - series-->
     <string name="ingredientFormat" formatted="false">#%s</string>
 
+    <!--perfume detail -->
+    <string name="chartPercentFormat" formatted="false">%d%%</string>
+
     <!--my -->
     <string name="txt_my_perfume_null">아직 시향 노트가 비어 있어요. 그동안 사용했던 향수 혹은 시향해봤던 향수를 기록해보세요.</string>
     <string name="txt_wish_list_null">아직 시향해보고 싶은 향수가 없군요! \n평소에 관심 있었던 향수를 \n 위시리스트에 추가해보세요!</string>
@@ -38,5 +41,7 @@
     <string name="txt_home_title_null">당신을 위한\n향수 추천</string>
     <string name="txt_home_age_null">20대 여성이\n많이 찾는 향수</string>
     <string name="txt_home_subtitle_null">20대 분들에게 인기 많은 향수 입니다.</string>
+
+    <string name="txt_detail_note_list_empty">아직 등록된 시향노트가 없어요 :)\n이 향수의 첫번째 시향 노트를 작성해보세요!</string>
 
 </resources>

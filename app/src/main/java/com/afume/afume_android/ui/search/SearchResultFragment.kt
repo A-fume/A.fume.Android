@@ -22,24 +22,18 @@ class SearchResultFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-
-        viewModel = ViewModelProvider(requireActivity(), SingleViewModelFactory.getInstance())[SearchViewModel::class.java]
-        binding.viewModel = viewModel
-        return binding.root
+        return initBinding(inflater,container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRvPerfumeList()
+        initRvPerfumeList(context)
         initRvFilterList()
+        initToolbar()
 
         binding.fabFilter.setOnClickListener { context?.let { it1 -> goToSelectFilters(it1) } }
 
-
-        initToolbar()
 
         viewModel.postSearchResultPerfume()
         observeFilter()
@@ -50,6 +44,14 @@ class SearchResultFragment : Fragment() {
         viewModel.postSearchResultPerfume()
     }
 
+
+    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View{
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        viewModel = ViewModelProvider(requireActivity(), SingleViewModelFactory.getInstance())[SearchViewModel::class.java]
+        binding.viewModel = viewModel
+        return binding.root
+    }
 
     fun initToolbar(){
         binding.toolbarBtnSearch.setOnClickListener {
@@ -63,20 +65,26 @@ class SearchResultFragment : Fragment() {
         }
     }
 
-    private fun initRvPerfumeList() {
-        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx->viewModel.postPerfumeLike(idx)}
+    private fun initRvPerfumeList(context: Context?) {
+        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx->viewModel.postPerfumeLike(idx,context)}
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
         rvPerfumeAdapter.notifyDataSetChanged()
     }
 
     private fun initRvFilterList() {
-        rvFilterAdapter = SelectedFilterRecyclerViewAdapter { viewModel.postSearchResultPerfume()}
+        rvFilterAdapter = SelectedFilterRecyclerViewAdapter (
+            {viewModel.postSearchResultPerfume()}, { filterInfoP->viewModel.cancelBtnFilter(filterInfoP)}
+        )
+
         binding.rvSearchFilter.adapter = rvFilterAdapter
         rvFilterAdapter.notifyDataSetChanged()
     }
 
     private fun goToSelectFilters(ctx: Context) {
         val intent = Intent(ctx, FilterActivity::class.java)
+        intent.putExtra("flag",5000)
+        intent.putExtra("filter",viewModel.sendFilter())
+
         startActivity(intent)
     }
 

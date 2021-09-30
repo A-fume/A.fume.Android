@@ -25,27 +25,34 @@
 
     <TextView
         android:id="@+id/rv_item_txt_wishlist_brand_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="18dp"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
         android:text="@{wishlist.brandName}"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/gray_cd"
         android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/rv_item_img_wishlist_perfume"
         app:layout_constraintTop_toTopOf="@+id/rv_item_img_wishlist_perfume" />
 
     <TextView
         android:id="@+id/rv_item_txt_wishlist_perfume_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:fontFamily="@font/notosans_medium"
         android:includeFontPadding="false"
         android:text="@{wishlist.name}"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/black_1d"
         android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_txt_wishlist_brand_name"
         app:layout_constraintStart_toStartOf="@+id/rv_item_txt_wishlist_brand_name"
         app:layout_constraintTop_toBottomOf="@+id/rv_item_txt_wishlist_brand_name" />
 
