@@ -11,6 +11,7 @@ import com.afume.afume_android.databinding.ActivitySurveyBinding
 import com.afume.afume_android.ui.MainActivity
 import com.afume.afume_android.ui.filter.AfumeViewPagerAdapter
 import com.afume.afume_android.util.TabSelectedListener
+import com.afume.afume_android.util.changeTabsFont
 import com.afume.afume_android.util.startActivityWithFinish
 
 class SurveyActivity : AppCompatActivity() {
@@ -51,7 +52,7 @@ class SurveyActivity : AppCompatActivity() {
         }
         val tabListener = TabSelectedListener(binding.tabSurvey)
         binding.tabSurvey.addOnTabSelectedListener(tabListener)
-
+        binding.tabSurvey.changeTabsFont(0)
     }
 
     private fun clickBtnComplete(){

@@ -2,6 +2,7 @@ package com.afume.afume_android.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -12,6 +13,8 @@ import com.afume.afume_android.databinding.ActivityPerfumeDetailBinding
 import com.afume.afume_android.ui.detail.info.DetailInfoFragment
 import com.afume.afume_android.ui.detail.note.DetailNoteFragment
 import com.afume.afume_android.ui.note.NoteActivity
+import com.afume.afume_android.util.TabSelectedListener
+import com.afume.afume_android.util.changeTabsFont
 
 class PerfumeDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityPerfumeDetailBinding
@@ -51,15 +54,14 @@ class PerfumeDetailActivity : AppCompatActivity() {
         viewModel.getPerfumeInfo(perfumeIdx)
         viewModel.perfumeDetailData.observe(this, Observer {
             binding.item = it
-            binding.rbPerfumeDetail.setStar(it.score)
-            detailImageAdapter.data = it.imageUrls
+//            detailImageAdapter.data = it.imageUrls
             detailImageAdapter.notifyDataSetChanged()
 
             isLiked = it.isLiked
 
             perfumeName = it.name
             brandName = it.brandName
-            image = it.imageUrls?.get(0)
+//            image = it.imageUrls?.get(0)
         })
 
         binding.indicatorPerfumeDetail.setViewPager(binding.vpPerfumeDetailImage)
@@ -84,6 +86,8 @@ class PerfumeDetailActivity : AppCompatActivity() {
             getTabAt(0)?.text = "향수 정보"
             getTabAt(1)?.text = "시향 노트"
         }
+        binding.tabPerfumeDetail.addOnTabSelectedListener(TabSelectedListener(binding.tabPerfumeDetail))
+        binding.tabPerfumeDetail.changeTabsFont(0)
     }
 
     private fun setClick(){
@@ -99,11 +103,15 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
         binding.actPerfumeDetailIvWrite.setOnClickListener {
             val intent = Intent(this@PerfumeDetailActivity, NoteActivity::class.java)
-            val wishListPerfume = ParcelableWishList(perfumeIdx,perfumeName,brandName,image)
+            val wishListPerfume = ParcelableWishList(perfumeIdx,0,perfumeName,brandName,image)
             intent.run {
                 putExtra("wishListPerfume", wishListPerfume)
             }
             startActivity(intent)
         }
+    }
+
+    fun onClickBackBtn(view : View){
+        finish()
     }
 }

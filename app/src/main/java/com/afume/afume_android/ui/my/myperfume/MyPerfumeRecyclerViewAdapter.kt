@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.afume.afume_android.data.vo.ParcelableWishList
 import com.afume.afume_android.data.vo.response.ResponseMyPerfume
 import com.afume.afume_android.databinding.RvItemMyMyperfumeBinding
 import com.afume.afume_android.ui.note.NoteActivity
@@ -34,15 +35,16 @@ class MyPerfumeRecyclerViewHolder(val binding: RvItemMyMyperfumeBinding) :
 
     fun bind(data: ResponseMyPerfume) {
         binding.rvMyPerfume = data
-        binding.rvItemRbMyPerfume.setStar(data.score)
+//        binding.rvItemRbMyPerfume.setStar(data.score)
         binding.root.setOnClickListener {
-            goToNotePageWithReviewIdx(it, data.reviewIdx)
+            goToNotePageWithReviewIdx(it, data)
         }
     }
 
-    fun goToNotePageWithReviewIdx(view: View, reviewIdx: Int) {
+    fun goToNotePageWithReviewIdx(view: View, perfumeInfo: ResponseMyPerfume) {
         val intent = Intent(view.context, NoteActivity::class.java)
-        intent.putExtra("reviewIdx", reviewIdx)
+        val wishListPerfume = ParcelableWishList(perfumeInfo.perfumeIdx,perfumeInfo.reviewIdx,perfumeInfo.perfumeName,perfumeInfo.brandName,perfumeInfo.imageUrl)
+        intent.putExtra("wishListPerfume", wishListPerfume)
         view.context.startActivity(intent)
     }
 }

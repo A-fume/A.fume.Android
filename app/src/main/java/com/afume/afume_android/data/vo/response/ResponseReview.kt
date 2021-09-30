@@ -1,5 +1,7 @@
 package com.afume.afume_android.data.vo.response
 
+import com.google.gson.annotations.SerializedName
+
 data class ResponseReview(
     val score : Float,
     val longevity : Int,
@@ -9,8 +11,11 @@ data class ResponseReview(
     val access : Boolean,
     val content : String,
     val reviewIdx : Int,
+    @SerializedName("Perfume")
     val perfume : PerfumeItem,
+    @SerializedName("KeywordList")
     val keyword : MutableList<KeywordInfo>,
+    @SerializedName("Brand")
     val brand : BrandItem
     )
 

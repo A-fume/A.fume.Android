@@ -23,6 +23,8 @@ class SignInActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = signInViewModel
 
+        binding.edtSignInEmail.requestFocus()
+
         signInViewModel.checkRegisterInfo()
         checkNextBtn()
     }

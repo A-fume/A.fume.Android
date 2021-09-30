@@ -36,14 +36,13 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/toolbar_mypage"
                     app:tabGravity="fill"
-                    android:background="@drawable/bottom_line_gray_cd"
-                    android:paddingBottom="2dp"
-                    app:tabIndicatorHeight="3dp"
+                    android:background="@drawable/tab_back"
+                    app:tabIndicatorHeight="4dp"
                     app:tabIndicatorGravity="bottom"
                     app:tabIndicatorColor="@color/primary_black"
                     app:tabSelectedTextColor="@color/primary_black"
                     app:tabTextColor="@color/dark_gray_7d"
-                    app:tabTextAppearance="@style/Theme.AfumeAndroid.Tabtext">
+                    app:tabTextAppearance="@style/Theme.Afume.Tab">
 
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"

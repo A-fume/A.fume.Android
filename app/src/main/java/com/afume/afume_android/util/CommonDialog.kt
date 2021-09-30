@@ -65,7 +65,6 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
 
                 binding.btnCommonDialogNo.setOnClickListener {
                     dismiss()
-
                 }
             }
             "save" -> {
@@ -78,6 +77,7 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
 
                 binding.btnCommonDialogNo.setOnClickListener {
                     dismiss()
+                    listener?.onNegativeClicked()
                 }
             }
         }
@@ -109,6 +109,7 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
 
     interface CustomDialogListener{
         fun onPositiveClicked()
+        fun onNegativeClicked()
     }
 
 }

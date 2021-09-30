@@ -1,5 +1,7 @@
 package com.afume.afume_android.data.vo.response
 
+import com.google.gson.annotations.SerializedName
+
 data class ResponsePerfumeDetail(
     val message: String,
     val data: PerfumeDetail
@@ -7,7 +9,7 @@ data class ResponsePerfumeDetail(
 data class PerfumeDetail(
     val perfumeIdx: Int,
     val name: String,
-    val imageUrls: List<String>?,
+    val imageUrls: List<String>,
     val brandName: String,
     val story: String,
     val abundanceRate: String,
@@ -45,9 +47,12 @@ data class Longevity(
     val undefined: Int
 )
 data class Ingredients(
+    @SerializedName("None")
+    val none: String,
     val top: String,
     val middle: String,
-    val base: String
+    val base: String,
+    val single: String
 )
 data class Gender(
     val male: Int,

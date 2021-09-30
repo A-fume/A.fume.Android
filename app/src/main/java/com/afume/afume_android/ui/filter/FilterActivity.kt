@@ -16,6 +16,7 @@ import com.afume.afume_android.ui.filter.brand.FilterBrandFragment
 import com.afume.afume_android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.afume.afume_android.ui.filter.keyword.FilterKeywordFragment
 import com.afume.afume_android.util.TabSelectedListener
+import com.afume.afume_android.util.changeTabsFont
 import com.google.android.material.badge.BadgeDrawable
 
 class FilterActivity : AppCompatActivity() {
@@ -101,6 +102,7 @@ class FilterActivity : AppCompatActivity() {
             keywordBadge.backgroundColor = ContextCompat.getColor(this.context, R.color.black)
         }
         binding.tabFilter.addOnTabSelectedListener(TabSelectedListener(binding.tabFilter))
+        binding.tabFilter.changeTabsFont(0)
     }
 
     private fun observeViewModel() {

@@ -7,14 +7,15 @@
 
     <application
         android:name=".AfumeApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AfumeAndroid"
         android:usesCleartextTraffic="true"
-        tools:replace="android:theme">
+        tools:replace="android:allowBackup,android:theme">
         <activity android:name=".ui.splash.SplashActivity" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,10 +24,10 @@
         </activity>
         <activity android:name=".ui.search.SearchTextActivity" />
         <activity android:name=".ui.setting.EditMyInfoActivity" />
-        <activity android:name=".ui.setting.EditPasswordActivity" />
+        <activity android:name=".ui.setting.EditPasswordActivity" android:windowSoftInputMode="stateAlwaysVisible" />
         <activity android:name=".ui.ButtonActivity"/>
         <activity android:name=".ui.signin.SignHomeActivity" />
-        <activity android:name=".ui.signin.SignInActivity" />
+        <activity android:name=".ui.signin.SignInActivity" android:windowSoftInputMode="stateAlwaysVisible" />
         <activity android:name=".ui.signup.SignUpEmailActivity" android:windowSoftInputMode="stateAlwaysVisible" />
         <activity android:name=".ui.signup.SignUpPasswordActivity" android:windowSoftInputMode="stateAlwaysVisible"/>
         <activity android:name=".ui.signup.SignUpGenderActivity" />
