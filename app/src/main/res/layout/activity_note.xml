@@ -849,7 +849,7 @@
                 android:fontFamily="@font/notosans_bold"
                 android:includeFontPadding="false"
                 android:text="수정 완료"
-                android:enabled="@{viewModel.completeBtn}"
+                android:enabled="@{viewModel.updateBtn}"
                 android:onClick="onClickUpdateBtn"
                 android:textColor="@color/white"
                 android:textSize="15dp"

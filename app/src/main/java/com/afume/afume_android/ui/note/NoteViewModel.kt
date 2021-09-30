@@ -9,7 +9,9 @@ import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.NoteRepository
 import com.afume.afume_android.data.repository.SurveyRepository
 import com.afume.afume_android.data.vo.request.RequestReview
+import com.afume.afume_android.data.vo.response.BrandItem
 import com.afume.afume_android.data.vo.response.KeywordInfo
+import com.afume.afume_android.data.vo.response.PerfumeItem
 import com.afume.afume_android.data.vo.response.ResponseReview
 import com.afume.afume_android.util.SingleLiveEvent
 import kotlinx.coroutines.launch
@@ -97,10 +99,15 @@ class NoteViewModel : ViewModel() {
     val completeBtn : LiveData<Boolean>
         get() = _completeBtn
 
-    // 삭제,수정 버튼 활성화
+    // 삭제,수정 버튼 영역 활성화
     private val _isValidUpdateBtn = MutableLiveData<Boolean>(false)
     val isValidUpdateBtn : LiveData<Boolean>
         get() = _isValidUpdateBtn
+
+    // 수정 버튼 활성화
+    private val _updateBtn = MutableLiveData<Boolean>(false)
+    val updateBtn : LiveData<Boolean>
+        get() = _updateBtn
 
     private val _showUpdateDialog = MutableLiveData<Boolean>(false)
     val showUpdateDialog : LiveData<Boolean>
@@ -220,7 +227,9 @@ class NoteViewModel : ViewModel() {
     }
 
     // 수정사항 확인용
-    private lateinit var responseReview: ResponseReview
+    private var responseReview = ResponseReview(0f, -1, -1, listOf(), -1, false, "",
+        0, PerfumeItem(0,"",""), mutableListOf(), BrandItem(0,"")
+    )
 
     // 시향노트 조회
     fun getReview(reviewIdx: Int){
@@ -271,10 +280,16 @@ class NoteViewModel : ViewModel() {
         }
     }
 
-    fun checkUpdateInfo(){
-        _showUpdateDialog.value = (responseReview.score != rating.value || responseReview.longevity != longevityProgress.value || responseReview.sillage != reverbProgress.value
-                || responseReview.seasonal != getSeason() || responseReview.gender != genderProgress.value || responseReview.content != contentsTxt.value
-                || responseReview.keyword != selectedKeywordList.value || responseReview.access != _shareBtn.value)
+    fun checkUpdateInfo(type:Int){
+        if(responseReview.perfume.perfumeIdx != 0){
+            _updateBtn.value = (responseReview.score != rating.value || responseReview.longevity != longevityProgress.value || responseReview.sillage != reverbProgress.value
+                    || responseReview.seasonal != getSeason() || responseReview.gender != genderProgress.value || responseReview.content != contentsTxt.value
+                    || responseReview.keyword != selectedKeywordList.value || responseReview.access != _shareBtn.value)
+
+            if(type == 1){
+                _showUpdateDialog.value = _updateBtn.value
+            }
+        }
     }
 
     private val _isValidNoteUpdate = MutableLiveData<Boolean>()
