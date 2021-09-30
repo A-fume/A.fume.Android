@@ -11,7 +11,8 @@
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -41,6 +42,7 @@
                     app:tabIndicatorGravity="bottom"
                     app:tabIndicatorColor="@color/primary_black"
                     app:tabSelectedTextColor="@color/primary_black"
+                    app:tabTextColor="@color/dark_gray_7d"
                     app:tabTextAppearance="@style/Theme.AfumeAndroid.Tabtext">
 
                     <com.google.android.material.tabs.TabItem
