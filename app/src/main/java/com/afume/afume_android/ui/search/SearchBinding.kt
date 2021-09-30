@@ -11,11 +11,13 @@ import com.bumptech.glide.Glide
 object SearchBinding {
     @JvmStatic
     @BindingAdapter("bindingDrawable")
-    fun changeDrawable(imageView: ImageView, url: String) {
-        Log.e("url",url)
-        Glide.with(imageView.context)
-            .load(url)
-            .into(imageView)
+    fun changeDrawable(imageView: ImageView, url: String?) {
+       if(url !=null){
+           Log.d("url",url)
+           Glide.with(imageView.context)
+               .load(url)
+               .into(imageView)
+       }
     }
 
     @JvmStatic

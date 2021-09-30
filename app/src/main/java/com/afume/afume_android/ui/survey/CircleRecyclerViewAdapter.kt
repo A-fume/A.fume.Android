@@ -79,7 +79,7 @@ class CirclePerfumeViewHolder(val binding:RvItemSurveyCircleBinding,val add:(Int
 
         binding.perfume=data
         binding.root.setOnClickListener {
-            Log.e("adapter",data.isLiked.toString())
+            Log.d("adapter",data.isLiked.toString())
             if(!data.isLiked) {
                 binding.rvItemSurveyClick.visibility=View.VISIBLE
                 data.isLiked=true
@@ -100,7 +100,7 @@ class CircleSeriesViewHolder(val binding:RvItemSurveySeriesBinding,val add:(Int)
 
         binding.series=data
         binding.root.setOnClickListener {
-            Log.e("adapter",data.isLiked.toString())
+            Log.d("adapter",data.isLiked.toString())
             if(!data.isLiked) {
                 binding.rvItemSurveyClick.visibility=View.VISIBLE
                 data.isLiked=true
