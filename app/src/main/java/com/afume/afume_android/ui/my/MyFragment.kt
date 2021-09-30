@@ -77,7 +77,7 @@ class MyFragment : Fragment() {
     private fun setUpTabWithViewPager() {
         binding.tabMypage.setupWithViewPager(binding.vpMypage)
         binding.tabMypage.apply {
-            getTabAt(0)?.text = "마이"
+            getTabAt(0)?.text = "마이 퍼퓸"
             getTabAt(1)?.text = "위시 리스트"
         }
         binding.tabMypage.addOnTabSelectedListener(TabSelectedListener(binding.tabMypage))
