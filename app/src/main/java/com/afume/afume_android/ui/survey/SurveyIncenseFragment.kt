@@ -43,7 +43,10 @@ class SurveyIncenseFragment : Fragment() {
         incenseAdapter = CircleRecyclerViewAdapter(1,
             add = { index -> viewModel.addSeriesList(index) },
             remove = { index: Int -> viewModel.removeSeriesList(index) })
-        binding.rvSurveyIncense.adapter = incenseAdapter
+        binding.rvSurveyIncense.apply {
+            setEmptyView(binding.listEmpty)
+            adapter = incenseAdapter
+        }
         incenseAdapter.notifyDataSetChanged()
     }
 

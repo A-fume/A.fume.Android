@@ -11,5 +11,5 @@ data class RecommendPerfumeItem(
     val imageUrl : String,
     val brandName : String,
     val isLiked : Boolean,
-    val keywordList : List<String>
+    val keywordList : List<String>?
 )

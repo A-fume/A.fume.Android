@@ -42,8 +42,9 @@ class SurveyViewModel : ViewModel() {
         getSurveyPerfume()
 
         viewModelScope.launch {
-            Log.e("perfume value", _perfumeList.value.toString())
-            Log.e("mutavle", tempSelectedPerfumeList.toString())
+            Log.d("perfume value", _perfumeList.value.toString())
+            Log.d("ser value", _seriesList.value.toString())
+            Log.d("mutavle", tempSelectedPerfumeList.toString())
             selectedPerfumeList.value = tempSelectedPerfumeList
             selectedKeywordList.value = tempSelectedKeywordList
             selectedSeriesList.value = tempSelectedSeriesList
@@ -64,20 +65,20 @@ class SurveyViewModel : ViewModel() {
         selectedPerfumeList.value = tempSelectedPerfumeList
 
 
-        Log.e("index", index.toString())
-        Log.e("add perfume", selectedPerfumeList.value.toString())
+        Log.d("index", index.toString())
+        Log.d("add perfume", selectedPerfumeList.value.toString())
     }
 
     fun removePerfumeList(index: Int) {
         selectedPerfumeList.value?.remove(index)
-        Log.e("index", index.toString())
-        Log.e("remove perfume", selectedPerfumeList.value.toString())
+        Log.d("index", index.toString())
+        Log.d("remove perfume", selectedPerfumeList.value.toString())
     }
 
     fun setPerfumeList(list: MutableList<PerfumeInfo>) {
         _perfumeList.value = list
-        Log.e("setPerfumeList", list.toString())
-        Log.e("setPerfumeList", _perfumeList.value.toString())
+        Log.d("setPerfumeList", list.toString())
+        Log.d("setPerfumeList", _perfumeList.value.toString())
     }
 
     fun addKeywordList(index: Int, boolean: Boolean) {
@@ -88,13 +89,13 @@ class SurveyViewModel : ViewModel() {
             if (!tempSelectedKeywordList.contains(index)) tempSelectedKeywordList.add(index)
             selectedKeywordList.value = tempSelectedKeywordList
 
-            Log.e("index", index.toString())
-            Log.e("add keyword", selectedKeywordList.value.toString())
+            Log.d("index", index.toString())
+            Log.d("add keyword", selectedKeywordList.value.toString())
         } else {
             selectedKeywordList.value?.remove(index)
 
-            Log.e("index", index.toString())
-            Log.e("remove keyword", selectedKeywordList.value.toString())
+            Log.d("index", index.toString())
+            Log.d("remove keyword", selectedKeywordList.value.toString())
         }
     }
 
@@ -104,20 +105,22 @@ class SurveyViewModel : ViewModel() {
         if (!tempSelectedSeriesList.contains(index)) tempSelectedSeriesList.add(index)
         selectedSeriesList.value = tempSelectedSeriesList
 
-        Log.e("index", index.toString())
-        Log.e("add series", selectedSeriesList.value.toString())
+        Log.d("index", index.toString())
+        Log.d("add series", selectedSeriesList.value.toString())
     }
 
     fun removeSeriesList(index: Int) {
         selectedSeriesList.value?.remove(index)
-        Log.e("index", index.toString())
-        Log.e("remove series", selectedSeriesList.value.toString())
+        Log.d("index", index.toString())
+        Log.d("remove series", selectedSeriesList.value.toString())
     }
     fun getSeries(){
         viewModelScope.launch{
             try { _seriesList.value = surveyRepository.getSeries()}
             catch (e: HttpException){}
         }
+
+        Log.d("ser value", _seriesList.value.toString())
     }
     fun getSurveyPerfume(){
         viewModelScope.launch{
@@ -134,7 +137,7 @@ class SurveyViewModel : ViewModel() {
                 }
                 _keywordList.value = keyword
 
-                Log.e("keywordList",keywordList.value.toString())
+                Log.d("keywordList",keywordList.value.toString())
             }
             catch (e: HttpException){}
         }
@@ -152,8 +155,8 @@ class SurveyViewModel : ViewModel() {
                     token,
                     request
                 )
-                Log.e("request", request.toString())
-                Log.e("survey post", message)
+                Log.d("request", request.toString())
+                Log.d("survey post", message)
             } catch (e: HttpException) {
 
             }

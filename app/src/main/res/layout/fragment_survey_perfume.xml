@@ -11,10 +11,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".ui.survey.SurveyPerfumeFragment">
 
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.afume.afume_android.util.RecyclerViewEmptySupport
             android:id="@+id/rv_item_survey_perfume"
             setPerfumeList="@{vm.perfumeList}"
             android:layout_width="match_parent"
@@ -31,5 +32,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:spanCount="3"
             tools:listitem="@layout/rv_item_survey_circle" />
+
+        <TextView
+            android:id="@+id/list_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:text="데이터가 없습니다"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rv_item_survey_perfume" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -12,7 +12,8 @@ import com.afume.afume_android.data.vo.response.RecommendPerfumeItem
 import com.afume.afume_android.databinding.RvItemHomeRecommendBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
 
-class RecommendListAdapter(private val context: Context) : RecyclerView.Adapter<RecommendListViewHolder>() {
+class RecommendListAdapter(private val context: Context) :
+    RecyclerView.Adapter<RecommendListViewHolder>() {
     var data = mutableListOf<RecommendPerfumeItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecommendListViewHolder {
@@ -29,34 +30,39 @@ class RecommendListAdapter(private val context: Context) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: RecommendListViewHolder, position: Int) {
-        data[position].let{
+        data[position].let {
             holder.bind(it)
         }
     }
 
     override fun getItemCount(): Int = data.size
 
-    internal fun setRecommendPerfume(data : MutableList<RecommendPerfumeItem>?){
-        if(data!=null) this.data = data
+    internal fun setRecommendPerfume(data: MutableList<RecommendPerfumeItem>?) {
+        if (data != null) this.data = data
         notifyDataSetChanged()
     }
 }
 
-class RecommendListViewHolder(val binding : RvItemHomeRecommendBinding) : RecyclerView.ViewHolder(binding.root){
-    fun bind(item: RecommendPerfumeItem){
+class RecommendListViewHolder(val binding: RvItemHomeRecommendBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(item: RecommendPerfumeItem?) {
         val adapter = HashTagAdapter()
-        adapter.data = item.keywordList
-        binding.rvHomeHashTag.adapter = adapter
+        if (item != null) {
+            if(item.keywordList!=null){
+                adapter.data = item.keywordList
+                binding.rvHomeHashTag.adapter = adapter
 
-        binding.item = item
-        binding.executePendingBindings()
+                binding.item = item
+                binding.executePendingBindings()
 
-        binding.root.setOnClickListener {
-            onClickPerfume(it, item.perfumeIdx)
+                binding.root.setOnClickListener {
+                    onClickPerfume(it, item.perfumeIdx)
+                }
+            }
         }
     }
 
-    private fun onClickPerfume(view: View, perfumeIdx: Int){
+    private fun onClickPerfume(view: View, perfumeIdx: Int) {
         val intent = Intent(view.context, PerfumeDetailActivity::class.java)
         intent.putExtra("perfumeIdx", perfumeIdx)
         view.context.startActivity(intent)

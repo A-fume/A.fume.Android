@@ -41,7 +41,10 @@ class SurveyPerfumeFragment : Fragment() {
         surveyPerfumeAdapter = CircleRecyclerViewAdapter(0,
             add = { index -> viewModel.addPerfumeList(index) },
             remove = { index: Int -> viewModel.removePerfumeList(index) })
-        binding.rvItemSurveyPerfume.adapter = surveyPerfumeAdapter
+        binding.rvItemSurveyPerfume.apply {
+            setEmptyView(binding.listEmpty)
+            adapter = surveyPerfumeAdapter
+        }
         surveyPerfumeAdapter.notifyDataSetChanged()
     }
 
