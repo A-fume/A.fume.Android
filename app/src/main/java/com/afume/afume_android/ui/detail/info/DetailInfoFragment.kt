@@ -174,9 +174,10 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
             PieEntry(middle, "중성"),
         )
 
-        pieListData.forEach {
-            if(it.value == 0f){
-                pieListData.remove(it)
+        val iter = pieListData.iterator()
+        while(iter.hasNext()) {
+            if(iter.next().value == 0f){
+                iter.remove()
             }
         }
 
