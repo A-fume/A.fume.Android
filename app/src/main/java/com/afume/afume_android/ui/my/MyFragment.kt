@@ -1,5 +1,6 @@
 package com.afume.afume_android.ui.my
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -28,6 +31,8 @@ class MyFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
     private lateinit var myPagePagerAdapter: AfumeViewPagerAdapter
     private val myViewModel: MyViewModel by viewModels()
+    private lateinit var callback: OnBackPressedCallback
+    var isDrawerOpen = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -49,6 +54,26 @@ class MyFragment : Fragment() {
 
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if(binding.drawerLayout.isDrawerOpen(GravityCompat.END)){
+                    binding.drawerLayout.closeDrawers()
+                }else{
+                    // 백스택 구현
+                    super.remove()
+                }
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
+    }
 
     private fun initBinding( inflater: LayoutInflater,container: ViewGroup?):View {
         binding = FragmentMypageBinding.inflate(inflater, container, false)
@@ -111,6 +136,7 @@ class MyFragment : Fragment() {
         }
 
     }
+
     private fun clickBtnCancel(){
         binding.myNavigationDrawer.getHeaderView(0).findViewById<ImageView>(R.id.btn_cancle)
             .setOnClickListener {
@@ -118,6 +144,7 @@ class MyFragment : Fragment() {
             }
 
     }
+
     private fun goToLoginOrEditInfo(){
         binding.myNavigationDrawer.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
@@ -148,5 +175,4 @@ class MyFragment : Fragment() {
         val intent = Intent(requireContext(), activity)
         startActivity(intent)
     }
-
 }
