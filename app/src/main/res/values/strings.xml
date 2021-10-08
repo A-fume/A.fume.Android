@@ -43,5 +43,5 @@
     <string name="txt_home_subtitle_null">20대 분들에게 인기 많은 향수 입니다.</string>
 
     <string name="txt_detail_note_list_empty">아직 등록된 시향노트가 없어요 :)\n이 향수의 첫번째 시향 노트를 작성해보세요!</string>
-
+    <string name="txt_list_empty"> %1$s 리스트를 불러오지 못했어요.\n 잠시 후 다시 시도해주세요.</string>
 </resources>

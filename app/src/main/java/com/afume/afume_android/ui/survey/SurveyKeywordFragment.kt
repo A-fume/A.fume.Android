@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentSurveyKeywordBinding
 import com.afume.afume_android.util.FlexboxRecyclerViewAdapter
 import com.google.android.flexbox.AlignItems
@@ -34,6 +35,7 @@ class SurveyKeywordFragment : Fragment() {
     private fun initBinding(container: ViewGroup?): View {
         binding = FragmentSurveyKeywordBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = this
+        binding.listEmpty.text = String.format(getString(R.string.txt_list_empty),"키워드")
         viewModel.setActiveButton(1)
         binding.vm = viewModel
         return binding.root
@@ -52,9 +54,9 @@ class SurveyKeywordFragment : Fragment() {
             )
         binding.rvSurveyKeyword.apply {
             layoutManager=flexboxLayoutManager
-            adapter=keywordAdapter
+            setEmptyView(binding.listEmpty)
+            adapter = keywordAdapter
         }
-
     }
 
 }
