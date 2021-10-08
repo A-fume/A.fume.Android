@@ -2,6 +2,7 @@ package com.afume.afume_android.ui.filter.brand
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,44 +32,33 @@ class FilterBrandFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initBrandTab()
-        setTabClickEvent()
-        initBrandRvItem(context)
+
         observeBlockClickMoreThan5()
-
-
+        observeBrandTab()
     }
 
     override fun onResume() {
         super.onResume()
         observeBlockClickMoreThan5()
+        observeBrandTab()
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
         binding = FragmentFilterBrandBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = viewModel
+
         return binding.root
     }
 
     private fun initBrandTab() {
-        binding.tabBrand.apply {
-            addTab(binding.tabBrand.newTab().setText("ㄱ"))
-            addTab(binding.tabBrand.newTab().setText("ㄴ"))
-            addTab(binding.tabBrand.newTab().setText("ㄷ"))
-            addTab(binding.tabBrand.newTab().setText("ㄹ"))
-            addTab(binding.tabBrand.newTab().setText("ㅁ"))
-            addTab(binding.tabBrand.newTab().setText("ㅂ"))
-            addTab(binding.tabBrand.newTab().setText("ㅅ"))
-            addTab(binding.tabBrand.newTab().setText("ㅇ"))
-            addTab(binding.tabBrand.newTab().setText("ㅈ"))
-            addTab(binding.tabBrand.newTab().setText("ㅊ"))
-            addTab(binding.tabBrand.newTab().setText("ㅋ"))
-            addTab(binding.tabBrand.newTab().setText("ㅌ"))
-            addTab(binding.tabBrand.newTab().setText("ㅍ"))
-            addTab(binding.tabBrand.newTab().setText("ㅎ"))
-        }
+        viewModel.brandTabOrders.value?.forEach { b->
+            Log.d("frag brand",b)
 
+            binding.tabBrand.addTab(binding.tabBrand.newTab().setText(b))
+        }
+        Log.d("frag getBrand", viewModel.brandMap.value.toString())
+        Log.d("frag getBrand", viewModel.brandTabOrders.value.toString())
 
     }
 
@@ -101,22 +91,8 @@ class FilterBrandFragment : Fragment() {
     }
 
     fun selectInitial(tab: TabLayout.Tab?){
-        when (tab?.position) {
-            0 -> bindInitialBrand("ㄱ")
-            1 -> bindInitialBrand("ㄴ")
-            2 -> bindInitialBrand("ㄷ")
-            3 -> bindInitialBrand("ㄹ")
-            4 -> bindInitialBrand("ㅁ")
-            5 -> bindInitialBrand("ㅂ")
-            6 -> bindInitialBrand("ㅅ")
-            7 -> bindInitialBrand("ㅇ")
-            8 -> bindInitialBrand("ㅈ")
-            9 -> bindInitialBrand("ㅊ")
-            10 -> bindInitialBrand("ㅋ")
-            11 -> bindInitialBrand("ㅌ")
-            12 -> bindInitialBrand("ㅍ")
-            13 -> bindInitialBrand("ㅎ")
-        }
+        val initial= tab?.position?.let { viewModel.brandTabOrders.value?.get(it) }
+        if(initial!=null) bindInitialBrand(initial)
     }
 
     fun bindInitialBrand(initial: String) {
@@ -130,6 +106,12 @@ class FilterBrandFragment : Fragment() {
             viewModel.blockClickBrandMoreThan5()
         })
     }
-
+    fun observeBrandTab(){
+        viewModel.brandMap.observe(viewLifecycleOwner, Observer {
+            initBrandTab()
+            setTabClickEvent()
+            initBrandRvItem(context)
+        })
+    }
 
 }

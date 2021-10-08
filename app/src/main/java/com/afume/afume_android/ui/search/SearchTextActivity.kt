@@ -26,7 +26,7 @@ class SearchTextActivity : AppCompatActivity() {
 
     private fun clickSearch(){
         binding.btnSearch.setOnClickListener {
-            Log.e("클릭했다",binding.edtSearch.text.toString())
+            Log.d("클릭했다",binding.edtSearch.text.toString())
             val intent= Intent(this, MainActivity::class.java)
             intent.putExtra("flag",3)
             intent.putExtra("searchText",binding.edtSearch.text.toString())

@@ -27,6 +27,11 @@ class FilterIncenseSeriesFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        observeBlockClickMoreThan5()
+    }
+
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?):View{
         binding = FragmentFilterIncenseSeriesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this

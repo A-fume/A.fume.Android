@@ -41,6 +41,7 @@ class FilterViewModel : ViewModel() {
     //brand List
     var brandMap: MutableLiveData<MutableMap<String, MutableList<BrandInfo>>> =
         MutableLiveData(mutableMapOf())
+    var brandTabOrders:MutableLiveData<MutableList<String>> = MutableLiveData(mutableListOf())
     val selectedBrandList: MutableLiveData<MutableList<BrandInfo>> = MutableLiveData()
 
     init {
@@ -53,7 +54,7 @@ class FilterViewModel : ViewModel() {
 
     fun blockClickSeriesMoreThan5() {
         val temp = _seriesList.value
-        Log.e("count badge 1 brand", badgeCount.value?.get(0).toString())
+        Log.d("count badge 1 brand", badgeCount.value?.get(0).toString())
         temp?.forEach {
             val ingredients = it.ingredients
             ingredients.forEach { ingredient ->
@@ -75,7 +76,7 @@ class FilterViewModel : ViewModel() {
     fun blockClickBrandMoreThan5() {
         val tempMap = brandMap.value
         if (badgeCount.value?.get(1)!! >= 5) {
-            Log.e("count badge 1 brand", badgeCount.value?.get(1).toString())
+            Log.d("count badge 1 brand", badgeCount.value?.get(1).toString())
             tempMap?.forEach {
                 val brandInitial = it
                 brandInitial.value.forEach { brand ->
@@ -129,7 +130,7 @@ class FilterViewModel : ViewModel() {
         tempMap[series] = idxList
 
         selectedSeriesMap.value = tempMap
-        Log.e("선택된 계열은", series + " 선택된 ingredient    " + selectedSeriesMap.value)
+        Log.d("선택된 계열은", series + " 선택된 ingredient    " + selectedSeriesMap.value)
     }
 
     fun setSelectedBrandListIdx(brand: BrandInfo, add: Boolean) {
@@ -143,7 +144,7 @@ class FilterViewModel : ViewModel() {
         else tempBrandList.remove(brand)
 
         selectedBrandList.value = tempBrandList
-        Log.e("선택된 브랜드 리스트는", selectedBrandList.value.toString())
+        Log.d("선택된 브랜드 리스트는", selectedBrandList.value.toString())
     }
 
     fun countBadges(index: Int, add: Boolean) {
@@ -153,7 +154,7 @@ class FilterViewModel : ViewModel() {
 
             if (add) tempBadgeCount[index] = tempBadgeCount[index] + 1
             else {
-                Log.e("뱃지 - 할거다 ", tempBadgeCount.toString())
+                Log.d("뱃지 - 할거다 ", tempBadgeCount.toString())
                 if (tempBadgeCount[index] >= 1) tempBadgeCount[index] = tempBadgeCount[index] - 1
             }
 
@@ -178,13 +179,13 @@ class FilterViewModel : ViewModel() {
             if (!tempSelectedKeywordList.contains(keyword)) tempSelectedKeywordList.add(keyword)
             selectedKeywordList.value = tempSelectedKeywordList
 
-            Log.e("index", keyword.toString())
-            Log.e("add keyword", selectedKeywordList.value.toString())
+            Log.d("index", keyword.toString())
+            Log.d("add keyword", selectedKeywordList.value.toString())
         } else {
             selectedKeywordList.value?.remove(keyword)
 
-            Log.e("index", keyword.toString())
-            Log.e("remove keyword", selectedKeywordList.value.toString())
+            Log.d("index", keyword.toString())
+            Log.d("remove keyword", selectedKeywordList.value.toString())
         }
     }
 
@@ -192,13 +193,18 @@ class FilterViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val initialBrand = filterRepository.getBrand()
-                Log.e("getBrand", initialBrand.toString())
+                Log.d("getBrand", initialBrand.toString())
 
                 val tempMap = mutableMapOf<String, MutableList<BrandInfo>>()
+                val mapOrders = mutableListOf<String>()
                 initialBrand.forEach {
                     tempMap.put(it.firstInitial, it.brands)
+                    mapOrders.add(it.firstInitial)
                 }
                 brandMap.value = tempMap
+                brandTabOrders.value= mapOrders.sorted().toMutableList()
+                Log.d("getBrand", brandMap.value.toString())
+                Log.d("getBrand", brandTabOrders.value.toString())
             } catch (e: HttpException) {
 
             }
@@ -222,9 +228,9 @@ class FilterViewModel : ViewModel() {
                         )
                     it.ingredients.add(0, entireIngredients)
                 }
-                Log.e("series 통신", series.toString())
+                Log.d("series 통신", series.toString())
                 _seriesList.value = series
-                Log.e("series 통신 후 라이브데이터에 전달", _seriesList.value.toString())
+                Log.d("series 통신 후 라이브데이터에 전달", _seriesList.value.toString())
             } catch (e: HttpException) {
 
             }
@@ -324,13 +330,13 @@ class FilterViewModel : ViewModel() {
                         if(s.ingredientIdx==selected.ingredientIdx){
                             s.checked=true
                             if(selected.ingredientIdx==-1) continue@loop
-                            Log.e("change filter s",s.toString())
+                            Log.d("change filter s",s.toString())
                         }
                     }
                 }
             }
         }
-        Log.e("change filter series",_seriesList.value.toString())
+        Log.d("change filter series",_seriesList.value.toString())
 
     }
 

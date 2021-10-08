@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentSurveyIncenseBinding
 
 class SurveyIncenseFragment : Fragment() {
@@ -34,6 +35,7 @@ class SurveyIncenseFragment : Fragment() {
     private fun initBinding(container: ViewGroup?): View {
         binding = FragmentSurveyIncenseBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = this
+        binding.listEmpty.text = String.format(getString(R.string.txt_list_empty),"계열")
         viewModel.setActiveButton(2)
         binding.vm = viewModel
         return binding.root

@@ -4,7 +4,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.afume.afume_android.data.vo.response.SeriesInfo
 import com.afume.afume_android.databinding.RvItemSurveyCircleBinding
@@ -78,6 +80,7 @@ class CirclePerfumeViewHolder(val binding:RvItemSurveyCircleBinding,val add:(Int
     fun bind(data:PerfumeInfo){
 
         binding.perfume=data
+        if(data.imageUrl==null) binding.rvItemImgSurveyCircle.setImageDrawable(ContextCompat.getDrawable(binding.root.context,R.drawable.icon_perfume_example))
         binding.root.setOnClickListener {
             Log.d("adapter",data.isLiked.toString())
             if(!data.isLiked) {
@@ -99,6 +102,7 @@ class CircleSeriesViewHolder(val binding:RvItemSurveySeriesBinding,val add:(Int)
     fun bind(data:SeriesInfo){
 
         binding.series=data
+        if(data.imageUrl==null) binding.rvItemImgSurveyCircle.setImageDrawable(ContextCompat.getDrawable(binding.root.context,R.drawable.dummy_example_3))
         binding.root.setOnClickListener {
             Log.d("adapter",data.isLiked.toString())
             if(!data.isLiked) {

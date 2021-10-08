@@ -16,7 +16,7 @@
         tools:context=".ui.survey.SurveyKeywordFragment">
 
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.afume.afume_android.util.RecyclerViewEmptySupport
             android:id="@+id/rv_survey_keyword"
             setKeywordList="@{vm.keywordList}"
             android:layout_width="match_parent"
@@ -24,6 +24,20 @@
             android:clipToPadding="false"
             android:overScrollMode="never"
             android:paddingTop="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/list_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/notosans_regular"
+            android:gravity="center"
+            android:textColor="@color/gray_cd"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
