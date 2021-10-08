@@ -19,7 +19,7 @@ import com.google.android.flexbox.FlexboxLayoutManager
 
 class FilterKeywordFragment : Fragment() {
     private lateinit var binding: FragmentFilterKeywordBinding
-    private val viewModel: FilterViewModel by activityViewModels(){
+    private val viewModel: FilterViewModel by activityViewModels() {
         FilterViewModelFactory.getInstance()
     }
 
@@ -37,35 +37,41 @@ class FilterKeywordFragment : Fragment() {
         observeBlockClickMoreThan5()
     }
 
-    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?):View{
+    override fun onResume() {
+        super.onResume()
+        initKeywordRv(context)
+        observeBlockClickMoreThan5()
+    }
+
+    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
         binding = FragmentFilterKeywordBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = viewModel
         return binding.root
     }
 
-    private fun initKeywordRv(ctx: Context?){
-        val flexboxLayoutManager= FlexboxLayoutManager(ctx).apply {
-            flexDirection= FlexDirection.ROW
-            flexWrap= FlexWrap.WRAP
+    private fun initKeywordRv(ctx: Context?) {
+        val flexboxLayoutManager = FlexboxLayoutManager(ctx).apply {
+            flexDirection = FlexDirection.ROW
+            flexWrap = FlexWrap.WRAP
             alignItems = AlignItems.STRETCH
         }
 
         val keywordAdapter = FlexboxRecyclerViewAdapter(
-                { index,add -> viewModel.addKeywordList(index,add) },
-                { index,add -> viewModel.countBadges(index,add) }
-            )
+            { index, add -> viewModel.addKeywordList(index, add) },
+            { index, add -> viewModel.countBadges(index, add) }
+        )
 
         binding.rvKeyword.apply {
-            layoutManager=flexboxLayoutManager
-            adapter=keywordAdapter
+            layoutManager = flexboxLayoutManager
+            adapter = keywordAdapter
         }
     }
 
-    fun observeBlockClickMoreThan5(){
+    fun observeBlockClickMoreThan5() {
         viewModel.badgeCount.observe(viewLifecycleOwner, Observer {
-                viewModel.blockClickKeywordMoreThan5()
-            })
+            viewModel.blockClickKeywordMoreThan5()
+        })
     }
 
 }
