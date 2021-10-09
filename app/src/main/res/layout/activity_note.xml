@@ -98,28 +98,31 @@
 
                 <TextView
                     android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="42dp"
+                    android:layout_marginEnd="18dp"
                     android:fontFamily="@font/nanummyeongjo_bold"
                     android:includeFontPadding="false"
-                    android:text="@{item.perfumeName}"
+                    android:text="@{item.brandName}"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
                 <TextView
                     android:id="@+id/textView19"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/notosans_bold"
                     android:includeFontPadding="false"
-                    android:text="@{item.brandName}"
+                    android:text="@{item.perfumeName}"
                     android:textColor="@color/black_1d"
                     android:textSize="24dp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView18"
                     app:layout_constraintStart_toStartOf="@+id/textView18"
                     app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
@@ -795,7 +798,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button"
             android:layout_width="0dp"
             android:layout_height="52dp"
@@ -841,7 +844,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_note_update"
                 android:layout_width="0dp"
                 android:layout_height="52dp"

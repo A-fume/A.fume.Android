@@ -247,6 +247,7 @@ class NoteViewModel : ViewModel() {
                     contentsTxt.value = it.content
                     selectedKeywordList.value = it.keyword
                     checkKeywordList()
+                    setCheckedKeyword()
                     _isValidShareBtn.value = it.access
                     _shareBtn.value = it.access
 
@@ -277,6 +278,12 @@ class NoteViewModel : ViewModel() {
                 }
             }
             addKeywordList(selectedKeywordInfo, true)
+        }
+    }
+
+    private fun setCheckedKeyword(){
+        selectedKeywordList.value?.forEach {
+            it.checked = true
         }
     }
 
