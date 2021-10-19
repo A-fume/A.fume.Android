@@ -10,7 +10,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityMyInfoEditBinding
+import com.afume.afume_android.util.CommonDialog
 import com.afume.afume_android.util.YearPickerDialog
+import com.afume.afume_android.util.toast
 
 class EditMyInfoActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMyInfoEditBinding
@@ -54,7 +56,50 @@ class EditMyInfoActivity : AppCompatActivity() {
         finish()
     }
 
+    override fun onBackPressed() {
+        backBtn()
+    }
+
     fun onClickBackBtn(view : View){
-        finish()
+        backBtn()
+    }
+
+    private fun backBtn(){
+        editViewModel.checkUpdateInfo()
+
+        editViewModel.showUpdateDialog.observe(this, Observer {
+            if(it){
+                val bundle = Bundle()
+                bundle.putString("title","save")
+                val dialog: CommonDialog = CommonDialog().CustomDialogBuilder()
+                    .setBtnClickListener(object : CommonDialog.CustomDialogListener {
+                        override fun onPositiveClicked() {
+                            editViewModel.putMyInfo()
+                            finish()
+                        }
+                        override fun onNegativeClicked() {
+                            finish()
+                        }
+                    })
+                    .getInstance()
+                dialog.arguments = bundle
+                dialog.show(this.supportFragmentManager, dialog.tag)
+            }
+            else{
+                finish()
+            }
+        })
+
+        setUpdateMyInfoToastObserve(editViewModel.isValidMyInfoUpdate, "내 정보가 수정되었습니다.", "내 정보 수정 실패")
+    }
+
+    private fun setUpdateMyInfoToastObserve(settingNetworkState: LiveData<Boolean>, success: String, fail: String){
+        settingNetworkState.observe(this, Observer {
+            if(it){
+                this.toast(success)
+            }else{
+                this.toast(fail)
+            }
+        })
     }
 }
