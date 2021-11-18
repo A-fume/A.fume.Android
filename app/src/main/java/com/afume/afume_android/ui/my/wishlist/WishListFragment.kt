@@ -40,10 +40,7 @@ class WishListFragment : Fragment() {
         super.onResume()
 
         if (AfumeApplication.prefManager.haveToken()) {
-
             myViewModel.getLikedPerfume()
-            myViewModel.getMyPerfume()
-
         }
     }
 

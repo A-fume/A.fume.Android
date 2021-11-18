@@ -61,10 +61,8 @@ class SearchViewModel : ViewModel() {
                 Log.e("search result", perfumeList.value.toString())
             }
         } catch (e: HttpException) {
-
+            Log.e("search fail", e.message())
         }
-
-
     }
 
     fun cancelBtnFilter(f: FilterInfoP?) {
@@ -113,6 +111,11 @@ class SearchViewModel : ViewModel() {
         perfumeList.value = tempList
     }
 
+    fun resetHeartPerfumeList() {
+        val tempList = perfumeList.value
+        tempList?.forEach { it.isLiked = false }
+        perfumeList.value = tempList
+    }
 
     companion object {
         private var instance: SearchViewModel? = null

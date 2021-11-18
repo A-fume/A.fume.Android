@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.databinding.FragmentSearchBinding
 import com.afume.afume_android.ui.filter.FilterActivity
 
@@ -35,6 +36,16 @@ class SearchHomeFragment : Fragment() {
 
         initToolbar()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (AfumeApplication.prefManager.haveToken()) {
+            viewModel.postSearchResultPerfume()
+        }else{
+            viewModel.resetHeartPerfumeList()
+        }
     }
 
     fun initToolbar(){
