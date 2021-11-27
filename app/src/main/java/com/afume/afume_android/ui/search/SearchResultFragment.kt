@@ -102,10 +102,16 @@ class SearchResultFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun observeFilter(){
+    private fun observeFilter() {
         viewModel.filter.observe(viewLifecycleOwner, Observer {
-            if(it.filterInfoPList!=null&& it.filterInfoPList!!.size==0){
-                binding.rvSearchFilter.visibility=View.GONE
+            Log.d("searchResultFragment", "searchResultFragment observer")
+            if (it.filterInfoPList == null || it.filterInfoPList!!.size == 0) {
+
+                var  activity = activity as MainActivity
+                activity.getBackSearchHome()
+            }
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                viewModel.postSearchResultPerfume()
             }
         })
     }

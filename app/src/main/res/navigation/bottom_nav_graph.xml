@@ -25,7 +25,11 @@
         android:id="@+id/searchResultFragment"
         android:name="com.afume.afume_android.ui.search.SearchResultFragment"
         android:label="searchResultFragment"
-        tools:layout="@layout/fragment_search"/>
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchResultFragment_to_searchHomeFragment"
+            app:destination="@id/searchHomeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/myPageFragment"

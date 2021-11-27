@@ -73,4 +73,7 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
         }
     }
+    fun getBackSearchHome(){
+        navController.navigate(R.id.action_searchResultFragment_to_searchHomeFragment)
+    }
 }

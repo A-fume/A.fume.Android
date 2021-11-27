@@ -27,10 +27,12 @@ class SearchViewModel : ViewModel() {
     val perfumeLike: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
-        postSearchResultPerfume()
+        viewModelScope.launch {
+            postSearchResultPerfume()
+        }
     }
 
-    fun postSearchResultPerfume() {
+    suspend fun postSearchResultPerfume() {
         try {
             val requestSearch =
                 RequestSearch("", mutableListOf<Int>(), mutableListOf<Int>(), mutableListOf<Int>())
@@ -65,20 +67,22 @@ class SearchViewModel : ViewModel() {
     }
 
     fun cancelBtnFilter(f: FilterInfoP?) {
-        if(f !=null) {
-            if (f.idx == -1) filter.value?.filterSeriesPMap?.get(f.name)?.clear()
+        var tmpFilter =filter.value;
+        if (f != null) {
+            if (f.idx == -1) tmpFilter?.filterSeriesPMap?.get(f.name)?.clear()
             else {
 
-                if(f.type==1) filter.value?.filterSeriesPMap?.values?.forEach{list->
-                    var index=-1
+                if (f.type == 1) tmpFilter?.filterSeriesPMap?.values?.forEach { list ->
+                    var index = -1
                     list.forEachIndexed { i, v ->
-                        if(v.ingredientIdx==f.idx) index=i
+                        if (v.ingredientIdx == f.idx) index = i
                     }
-                    if(index !=-1) list.removeAt(index)
+                    if (index != -1) list.removeAt(index)
                 }
 
             }
-            filter.value?.filterInfoPList?.remove(f)
+            tmpFilter?.filterInfoPList?.remove(f)
+            filter.value=tmpFilter;
         }
     }
 
