@@ -32,15 +32,15 @@ class FilterBrandFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initBrandTab()
+        setTabClickEvent()
+        initBrandRvItem(context)
         observeBlockClickMoreThan5()
-        observeBrandTab()
     }
 
     override fun onResume() {
         super.onResume()
         observeBlockClickMoreThan5()
-        observeBrandTab()
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
@@ -52,6 +52,7 @@ class FilterBrandFragment : Fragment() {
     }
 
     private fun initBrandTab() {
+        Log.d("viewModel tab 개수", viewModel.brandTabOrders.value?.size.toString())
         viewModel.brandTabOrders.value?.forEach { b->
             Log.d("frag brand",b)
 
@@ -104,13 +105,6 @@ class FilterBrandFragment : Fragment() {
     fun observeBlockClickMoreThan5(){
         viewModel.badgeCount.observe(viewLifecycleOwner, Observer {
             viewModel.blockClickBrandMoreThan5()
-        })
-    }
-    fun observeBrandTab(){
-        viewModel.brandMap.observe(viewLifecycleOwner, Observer {
-            initBrandTab()
-            setTabClickEvent()
-            initBrandRvItem(context)
         })
     }
 
