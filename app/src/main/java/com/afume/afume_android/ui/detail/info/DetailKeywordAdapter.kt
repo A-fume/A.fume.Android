@@ -8,7 +8,16 @@ import com.afume.afume_android.R
 import com.afume.afume_android.databinding.RvItemDetailKeywordBinding
 
 class DetailKeywordAdapter : RecyclerView.Adapter<DetailKeywordViewHolder>() {
-    var data = listOf<String>()
+    var data = mutableListOf<String>()
+
+    fun replaceAll(array: ArrayList<String>?) {
+        array?.let {
+            data.run {
+                clear()
+                addAll(it)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailKeywordViewHolder {
         val binding : RvItemDetailKeywordBinding = DataBindingUtil.inflate(
@@ -28,11 +37,6 @@ class DetailKeywordAdapter : RecyclerView.Adapter<DetailKeywordViewHolder>() {
     }
 
     override fun getItemCount() = data.size
-
-    internal fun setKeyword(data: List<String>?) {
-        if (data != null) this.data = data
-        notifyDataSetChanged()
-    }
 
 }
 class DetailKeywordViewHolder(val binding: RvItemDetailKeywordBinding) : RecyclerView.ViewHolder(binding.root){
