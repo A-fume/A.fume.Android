@@ -22,6 +22,11 @@ class PerfumeDetailViewModel: ViewModel() {
     private val _perfumeDetailData: MutableLiveData<PerfumeDetail> = MutableLiveData()
     val perfumeDetailData: LiveData<PerfumeDetail> get() = _perfumeDetailData
 
+    // keyword 영역
+    private val _isValidKeywordData = MutableLiveData<Boolean>(false)
+    val isValidKeywordData : LiveData<Boolean>
+        get() = _isValidKeywordData
+
     // note 영역
     private val _isValidNoteData = MutableLiveData<Boolean>(false)
     val isValidNoteData : LiveData<Boolean>
@@ -35,17 +40,19 @@ class PerfumeDetailViewModel: ViewModel() {
                 .subscribe({
                     _perfumeDetailData.postValue(it.data)
 
-                    if(it.data.noteType == 0){
-                        _isValidNoteData.postValue(true)
-                    }else{
-                        _isValidNoteData.postValue(false)
-                    }
+                    setDataVisible(it.data)
 
                     Log.d("getPerfumeInfo", it.toString())
                 }) {
                     Log.d("getPerfumeInfo error", it.toString())
 //                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 })
+    }
+
+    private fun setDataVisible(data: PerfumeDetail){
+        _isValidKeywordData.value = data.Keywords.isNotEmpty()
+
+        _isValidNoteData.value = data.noteType == 0
     }
 
     private val _perfumeDetailWithReviewData: MutableLiveData<List<PerfumeDetailWithReviews>> = MutableLiveData()

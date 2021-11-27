@@ -2,48 +2,44 @@ package com.afume.afume_android.ui.detail.info
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.R
-import com.afume.afume_android.data.vo.response.ResponseKeyword
 import com.afume.afume_android.databinding.RvItemDetailKeywordBinding
 
-class DetailKeywordAdapter : RecyclerView.Adapter<DetailKeywordAdapter.DetailKeywordViewHolder>() {
-
-    var viewType: Int = 0
-    var data = mutableListOf<String>()
-
-    fun replaceAll(array: ArrayList<String>?) {
-        array?.let {
-            data.run {
-                clear()
-                addAll(it)
-            }
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int = viewType
-
-    override fun getItemId(position: Int) = position.toLong()
-
-    override fun getItemCount() = data.size
+class DetailKeywordAdapter : RecyclerView.Adapter<DetailKeywordViewHolder>() {
+    var data = listOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailKeywordViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.rv_item_detail_keyword, parent, false)
-        return DetailKeywordViewHolder(RvItemDetailKeywordBinding.bind(view))
+        val binding : RvItemDetailKeywordBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.rv_item_detail_keyword,
+            parent,
+            false
+        )
+
+        return DetailKeywordViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: DetailKeywordViewHolder, position: Int) {
-        holder.binding.apply {
-            rvData = data[position]
-            executePendingBindings()
+        data[position].let{
+            holder.onBind(it)
         }
-
     }
 
-    class DetailKeywordViewHolder(
-        val binding: RvItemDetailKeywordBinding
-    ) : RecyclerView.ViewHolder(binding.root)
+    override fun getItemCount() = data.size
+
+    internal fun setKeyword(data: List<String>?) {
+        if (data != null) this.data = data
+        notifyDataSetChanged()
+    }
+
+}
+class DetailKeywordViewHolder(val binding: RvItemDetailKeywordBinding) : RecyclerView.ViewHolder(binding.root){
+    fun onBind(data: String){
+        binding.rvData = data
+        binding.executePendingBindings()
+    }
 }
 
 //class DetailKeywordViewHolder(
