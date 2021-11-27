@@ -17,6 +17,7 @@ import androidx.fragment.app.viewModels
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentMypageBinding
+import com.afume.afume_android.ui.MainActivity
 import com.afume.afume_android.ui.filter.AfumeViewPagerAdapter
 import com.afume.afume_android.ui.my.myperfume.MyPerfumeFragment
 import com.afume.afume_android.ui.my.wishlist.WishListFragment
@@ -63,6 +64,7 @@ class MyFragment : Fragment() {
                 }else{
                     // 백스택 구현
                     super.remove()
+                    (activity as MainActivity).onBackPressed()
                 }
             }
         }
