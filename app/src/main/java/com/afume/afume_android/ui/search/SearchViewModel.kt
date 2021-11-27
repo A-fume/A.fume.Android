@@ -53,13 +53,12 @@ class SearchViewModel : ViewModel() {
             filter.value?.filterInfoPList = tempFilterList
             Log.e("Request Search ", requestSearch.toString())
 
-            viewModelScope.launch {
-                perfumeList.value = searchRepository.postResultPerfume(
-                    AfumeApplication.prefManager.accessToken,
-                    requestSearch
-                )
-                Log.e("search result", perfumeList.value.toString())
-            }
+            perfumeList.value = searchRepository.postResultPerfume(
+                AfumeApplication.prefManager.accessToken,
+                requestSearch
+            )
+            Log.e("search result", perfumeList.value.toString())
+
         } catch (e: HttpException) {
             Log.e("search fail", e.message())
         }

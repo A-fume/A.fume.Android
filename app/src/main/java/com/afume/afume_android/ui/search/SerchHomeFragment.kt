@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.databinding.FragmentSearchBinding
 import com.afume.afume_android.ui.filter.FilterActivity
@@ -42,29 +43,36 @@ class SearchHomeFragment : Fragment() {
         super.onResume()
 
         if (AfumeApplication.prefManager.haveToken()) {
-            viewModel.postSearchResultPerfume()
-        }else{
+            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                viewModel.postSearchResultPerfume()
+            }
+        } else {
             viewModel.resetHeartPerfumeList()
         }
     }
 
-    fun initToolbar(){
+    fun initToolbar() {
         binding.toolbarBtnSearch.setOnClickListener {
             val intent = Intent(context, SearchTextActivity::class.java)
             startActivity(intent)
         }
         binding.toolbarSearchTxt.text = "검색"
-        binding.toolbarBtnBack.visibility=View.GONE
+        binding.toolbarBtnBack.visibility = View.GONE
     }
 
     private fun initRvPerfumeList() {
-        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx->viewModel.postPerfumeLike(idx,context)}
+        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx ->
+            viewModel.postPerfumeLike(
+                idx,
+                context
+            )
+        }
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
         rvPerfumeAdapter.notifyDataSetChanged()
     }
 
     private fun removeRvFilterList() {
-        binding.rvSearchFilter.visibility=View.GONE
+        binding.rvSearchFilter.visibility = View.GONE
     }
 
     private fun goToSelectFilters(ctx: Context) {

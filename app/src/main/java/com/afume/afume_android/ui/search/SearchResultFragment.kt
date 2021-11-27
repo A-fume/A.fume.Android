@@ -3,14 +3,17 @@ package com.afume.afume_android.ui.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.afume.afume_android.databinding.FragmentSearchBinding
+import com.afume.afume_android.ui.MainActivity
 import com.afume.afume_android.ui.filter.FilterActivity
 
 
@@ -22,7 +25,7 @@ class SearchResultFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        return initBinding(inflater,container)
+        return initBinding(inflater, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,26 +37,32 @@ class SearchResultFragment : Fragment() {
 
         binding.fabFilter.setOnClickListener { context?.let { it1 -> goToSelectFilters(it1) } }
 
-
-        viewModel.postSearchResultPerfume()
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.postSearchResultPerfume()
+        }
         observeFilter()
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.postSearchResultPerfume()
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.postSearchResultPerfume()
+        }
     }
 
 
-    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View{
+    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        viewModel = ViewModelProvider(requireActivity(), SingleViewModelFactory.getInstance())[SearchViewModel::class.java]
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            SingleViewModelFactory.getInstance()
+        )[SearchViewModel::class.java]
         binding.viewModel = viewModel
         return binding.root
     }
 
-    fun initToolbar(){
+    fun initToolbar() {
         binding.toolbarBtnSearch.setOnClickListener {
             val intent = Intent(context, SearchTextActivity::class.java)
             startActivity(intent)
@@ -66,15 +75,20 @@ class SearchResultFragment : Fragment() {
     }
 
     private fun initRvPerfumeList(context: Context?) {
-        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx->viewModel.postPerfumeLike(idx,context)}
+        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx ->
+            viewModel.postPerfumeLike(
+                idx,
+                context
+            )
+        }
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
         rvPerfumeAdapter.notifyDataSetChanged()
     }
 
     private fun initRvFilterList() {
-        rvFilterAdapter = SelectedFilterRecyclerViewAdapter (
-            {viewModel.postSearchResultPerfume()}, { filterInfoP->viewModel.cancelBtnFilter(filterInfoP)}
-        )
+        rvFilterAdapter = SelectedFilterRecyclerViewAdapter { filterInfoP ->
+            viewModel.cancelBtnFilter(filterInfoP)
+        }
 
         binding.rvSearchFilter.adapter = rvFilterAdapter
         rvFilterAdapter.notifyDataSetChanged()
@@ -82,8 +96,8 @@ class SearchResultFragment : Fragment() {
 
     private fun goToSelectFilters(ctx: Context) {
         val intent = Intent(ctx, FilterActivity::class.java)
-        intent.putExtra("flag",5000)
-        intent.putExtra("filter",viewModel.sendFilter())
+        intent.putExtra("flag", 5000)
+        intent.putExtra("filter", viewModel.sendFilter())
 
         startActivity(intent)
     }
