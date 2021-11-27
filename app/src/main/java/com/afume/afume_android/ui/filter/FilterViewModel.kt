@@ -52,6 +52,19 @@ class FilterViewModel : ViewModel() {
         badgeCount.value = mutableListOf(0, 0, 0)
     }
 
+    fun initFilterData(){
+        //여기 통신 말고 local에서 data click 해제 해야함.
+        getBrand()
+        getSeries()
+        getKeyword()
+
+        selectedKeywordList.value= mutableListOf()
+        selectedSeriesMap.value=mutableMapOf()
+        selectedBrandList.value=mutableListOf()
+
+        badgeCount.value = mutableListOf(0, 0, 0)
+    }
+
     fun blockClickSeriesMoreThan5() {
         val temp = _seriesList.value
         Log.d("count badge 1 brand", badgeCount.value?.get(0).toString())
@@ -189,7 +202,7 @@ class FilterViewModel : ViewModel() {
         }
     }
 
-    fun getBrand() {
+    fun getBrand()  {
         viewModelScope.launch {
             try {
                 val initialBrand = filterRepository.getBrand()
@@ -206,7 +219,7 @@ class FilterViewModel : ViewModel() {
                 Log.d("getBrand", brandMap.value.toString())
                 Log.d("getBrand", brandTabOrders.value.toString())
             } catch (e: HttpException) {
-
+                Log.d("getBrand exception", brandMap.value.toString())
             }
         }
 

@@ -77,8 +77,11 @@ class SearchHomeFragment : Fragment() {
 
     private fun goToSelectFilters(ctx: Context) {
         val intent = Intent(ctx, FilterActivity::class.java)
+        intent.putExtra("from",SEARCH_HOME)
         startActivity(intent)
     }
-
+    companion object{
+        const val SEARCH_HOME=100
+    }
 
 }

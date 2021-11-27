@@ -16,7 +16,7 @@ import com.afume.afume_android.ui.filter.FilterViewModelFactory
 import com.google.android.material.tabs.TabLayout
 
 class FilterBrandFragment : Fragment() {
-    private val viewModel: FilterViewModel by activityViewModels(){
+    private val viewModel: FilterViewModel by activityViewModels() {
         FilterViewModelFactory.getInstance()
     }
 
@@ -32,7 +32,8 @@ class FilterBrandFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initBrandTab()
+//        initBrandTab()
+        observeTab()
         setTabClickEvent()
         initBrandRvItem(context)
         observeBlockClickMoreThan5()
@@ -40,6 +41,8 @@ class FilterBrandFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+//        initBrandTab()
+//        observeTab()
         observeBlockClickMoreThan5()
     }
 
@@ -53,8 +56,8 @@ class FilterBrandFragment : Fragment() {
 
     private fun initBrandTab() {
         Log.d("viewModel tab 개수", viewModel.brandTabOrders.value?.size.toString())
-        viewModel.brandTabOrders.value?.forEach { b->
-            Log.d("frag brand",b)
+        viewModel.brandTabOrders.value?.forEach { b ->
+            Log.d("frag brand", b)
 
             binding.tabBrand.addTab(binding.tabBrand.newTab().setText(b))
         }
@@ -83,17 +86,19 @@ class FilterBrandFragment : Fragment() {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 selectInitial(tab)
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
+
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 selectInitial(tab)
             }
         })
     }
 
-    fun selectInitial(tab: TabLayout.Tab?){
-        val initial= tab?.position?.let { viewModel.brandTabOrders.value?.get(it) }
-        if(initial!=null) bindInitialBrand(initial)
+    fun selectInitial(tab: TabLayout.Tab?) {
+        val initial = tab?.position?.let { viewModel.brandTabOrders.value?.get(it) }
+        if (initial != null) bindInitialBrand(initial)
     }
 
     fun bindInitialBrand(initial: String) {
@@ -102,10 +107,15 @@ class FilterBrandFragment : Fragment() {
         brandAdapter.notifyDataSetChanged()
     }
 
-    fun observeBlockClickMoreThan5(){
+    fun observeBlockClickMoreThan5() {
         viewModel.badgeCount.observe(viewLifecycleOwner, Observer {
             viewModel.blockClickBrandMoreThan5()
         })
     }
 
+    fun observeTab() {
+        viewModel.brandTabOrders.observe(viewLifecycleOwner, Observer {
+            initBrandTab()
+        })
+    }
 }
