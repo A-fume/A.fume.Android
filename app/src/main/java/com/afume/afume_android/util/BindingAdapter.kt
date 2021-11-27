@@ -160,10 +160,10 @@ object BindingAdapter {
     @BindingAdapter("noteUserAge","noteUserGender")
     fun TextView.setNoteUserInfoText(age: String, gender: Int) {
         when (gender) {
-            0 -> {
+            1 -> {
                 this.text = "$age / 남자"
             }
-            1 -> {
+            2 -> {
                 this.text = "$age / 여자"
             }
         }
