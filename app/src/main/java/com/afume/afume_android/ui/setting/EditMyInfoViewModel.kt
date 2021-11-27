@@ -175,6 +175,10 @@ class EditMyInfoViewModel : ViewModel() {
                 && _isValidNickNotice.value == false)
     }
 
+    private val _isValidMyInfoUpdate = MutableLiveData<Boolean>()
+    val isValidMyInfoUpdate : LiveData<Boolean>
+        get() = _isValidMyInfoUpdate
+
     // 내 정보 수정
     fun putMyInfo(){
         viewModelScope.launch {
@@ -194,8 +198,10 @@ class EditMyInfoViewModel : ViewModel() {
                     AfumeApplication.prefManager.userNickname = nickTxt.value.toString()
                     AfumeApplication.prefManager.userGender = genderTxt
                     AfumeApplication.prefManager.userAge = ageTxt.value!!.toInt()
+                    _isValidMyInfoUpdate.postValue(true)
                 }
             }catch (e : HttpException){
+                _isValidMyInfoUpdate.postValue(false)
                 when(e.response()?.code()){
                     401 -> { // userIdx 일치 X 또는 토근 유효 X
                         Log.d("내 정보 수정 실패", e.message())
@@ -206,6 +212,15 @@ class EditMyInfoViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    private val _showUpdateDialog = MutableLiveData<Boolean>(false)
+    val showUpdateDialog : LiveData<Boolean>
+        get() = _showUpdateDialog
+
+    // 수정중인 내용 확인
+    fun checkUpdateInfo(){
+        _showUpdateDialog.value = _completeBtn.value == true
     }
 
     // 본인확인 검사 - 하단 안내문
