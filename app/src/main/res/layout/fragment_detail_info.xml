@@ -131,10 +131,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_notes">
 
                 <TextView
-                    android:id="@+id/textView31"
+                    android:id="@+id/txt_notes_single"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
+                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="Single"
@@ -147,7 +147,7 @@
                     android:id="@+id/txt_notes_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="Top"
@@ -160,7 +160,7 @@
                     android:id="@+id/txt_notes_middle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
@@ -168,13 +168,13 @@
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_notes_top" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_details_info_top_notes" />
 
                 <TextView
                     android:id="@+id/txt_notes_base"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
@@ -182,63 +182,71 @@
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_notes_middle" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_details_info_middle_notes" />
 
                 <TextView
                     android:id="@+id/txt_details_info_top_notes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:layout_marginStart="16dp"
                     android:fontFamily="@font/notosans_medium"
                     android:gravity="right|end"
                     android:includeFontPadding="false"
                     android:text="@{data.ingredients.top}"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
+                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txt_notes_top"
                     app:layout_constraintTop_toTopOf="@+id/txt_notes_top" />
 
                 <TextView
                     android:id="@+id/txt_details_info_middle_notes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:layout_marginStart="16dp"
                     android:fontFamily="@font/notosans_medium"
                     android:gravity="right|end"
                     android:includeFontPadding="false"
                     android:text="@{data.ingredients.middle}"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
+                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txt_notes_middle"
                     app:layout_constraintTop_toTopOf="@+id/txt_notes_middle" />
 
                 <TextView
                     android:id="@+id/txt_details_info_base_notes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:layout_marginStart="16dp"
                     android:fontFamily="@font/notosans_medium"
                     android:gravity="right|end"
                     android:includeFontPadding="false"
                     android:text="@{data.ingredients.base}"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
+                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txt_notes_base"
                     app:layout_constraintTop_toTopOf="@+id/txt_notes_base" />
 
                 <TextView
                     android:id="@+id/textView27"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
+                    android:layout_marginStart="16dp"
                     android:fontFamily="@font/notosans_medium"
                     android:gravity="right|end"
                     android:includeFontPadding="false"
                     android:text="@{data.ingredients.single}"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
+                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txt_notes_top" />
+                    app:layout_constraintStart_toEndOf="@+id/txt_notes_single"
+                    app:layout_constraintTop_toTopOf="@+id/txt_notes_single" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
