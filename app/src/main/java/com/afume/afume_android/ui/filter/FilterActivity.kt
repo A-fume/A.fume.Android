@@ -15,6 +15,7 @@ import com.afume.afume_android.ui.MainActivity
 import com.afume.afume_android.ui.filter.brand.FilterBrandFragment
 import com.afume.afume_android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.afume.afume_android.ui.filter.keyword.FilterKeywordFragment
+import com.afume.afume_android.ui.search.SearchHomeFragment.Companion.SEARCH_HOME
 import com.afume.afume_android.util.TabSelectedListener
 import com.afume.afume_android.util.changeTabsFont
 import com.google.android.material.badge.BadgeDrawable
@@ -32,8 +33,10 @@ class FilterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setFilterData()
         checkChangeFilter()
-        Log.e("filter act filter",filterViewModel.selectedKeywordList.value.toString())
+        Log.d("filter act filter",filterViewModel.selectedKeywordList.value.toString())
         initBinding()
 
         initViewPager()
@@ -54,16 +57,20 @@ class FilterActivity : AppCompatActivity() {
         binding.toolbarFilter.toolbar = R.drawable.icon_btn_cancel
         binding.toolbarFilter.toolbartxt = "필터"
 
-
-
     }
 
     override fun onResume() {
         super.onResume()
+        setFilterData()
         checkChangeFilter()
 
     }
-
+    private fun setFilterData(){
+        val fromHome = intent.getIntExtra("from",0)
+        if(fromHome==SEARCH_HOME){
+            filterViewModel.initFilterData()
+        }
+    }
     private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filter)
         binding.lifecycleOwner = this
