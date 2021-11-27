@@ -37,6 +37,9 @@ class SearchHomeFragment : Fragment() {
 
         initToolbar()
 
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.postSearchResultPerfume()
+        }
     }
 
     override fun onResume() {
@@ -62,10 +65,7 @@ class SearchHomeFragment : Fragment() {
 
     private fun initRvPerfumeList() {
         val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx ->
-            viewModel.postPerfumeLike(
-                idx,
-                context
-            )
+            viewModel.postPerfumeLike(idx, context)
         }
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
         rvPerfumeAdapter.notifyDataSetChanged()
