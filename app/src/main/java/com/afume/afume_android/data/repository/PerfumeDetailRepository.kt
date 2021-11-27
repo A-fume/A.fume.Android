@@ -11,8 +11,8 @@ import io.reactivex.Single
 class PerfumeDetailRepository {
     val remoteDataSource: RemoteDataSource = RemoteDataSourceImpl()
 
-    fun getPerfumeDetail(perfumeIdx: Int): Single<ResponsePerfumeDetail> =
-        AfumeServiceImpl.service.getPerfumeDetail(perfumeIdx).map { it }
+    fun getPerfumeDetail(token: String, perfumeIdx: Int): Single<ResponsePerfumeDetail> =
+        AfumeServiceImpl.service.getPerfumeDetail(token, perfumeIdx).map { it }
 
     fun getPerfumeDetailWithReviews(perfumeIdx: Int): Single<ResponsePerfumeDetailWithReviews> =
         AfumeServiceImpl.service.getPerfumeDetailWithReview(perfumeIdx).map { it }

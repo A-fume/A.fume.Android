@@ -241,12 +241,11 @@
                 app:srcCompat="@drawable/border_black_fill_2" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/btn_perfume_detail_note_write"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/notosans_bold"
                 android:includeFontPadding="false"
-                android:text="시향 노트 쓰기"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/act_perfume_detail_iv_write"

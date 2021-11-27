@@ -122,6 +122,7 @@ interface AfumeService {
 
     @GET("perfume/{perfumeIdx}")
     fun getPerfumeDetail(
+        @Header("x-access-token") token : String,
         @Path("perfumeIdx") perfumeIdx : Int
     ): Single<ResponsePerfumeDetail>
 

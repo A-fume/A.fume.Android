@@ -168,4 +168,17 @@ object BindingAdapter {
             }
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("setNoteBtnText")
+    fun TextView.setNoteBtnText(review: Int){
+        when(review){
+            0 -> {
+                this.text = "시향 노트 쓰기"
+            }
+            else -> {
+                this.text = "시향 노트 수정"
+            }
+        }
+    }
 }

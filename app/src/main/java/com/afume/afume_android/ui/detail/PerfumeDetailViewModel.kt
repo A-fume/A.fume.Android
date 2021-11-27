@@ -29,7 +29,7 @@ class PerfumeDetailViewModel: ViewModel() {
 
     fun getPerfumeInfo(perfumeIdx: Int) {
         compositeDisposable.add(
-            repo.getPerfumeDetail(perfumeIdx)
+            repo.getPerfumeDetail(AfumeApplication.prefManager.accessToken, perfumeIdx)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
