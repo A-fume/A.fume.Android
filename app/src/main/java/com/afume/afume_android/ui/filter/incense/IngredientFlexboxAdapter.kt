@@ -34,7 +34,7 @@ class IngredientFlexboxAdapter(
     internal fun setList(list: MutableList<SeriesIngredients>?) {
         submitList(list)
 
-        Log.e("submit list", list.toString())
+//        Log.e("submit list", list.toString())
     }
 
 
@@ -53,7 +53,7 @@ class IngredientFlexboxAdapter(
                 if(!data.clickable) Toast.makeText(it.context, "5개 이상 선택 할 수 없어요.", Toast.LENGTH_SHORT).show()
                 else {
                     data.checked = !data.checked
-                    if (data.ingredientIdx == -1) { //전체를 선택했을 경우
+                    if (data.ingredientIdx <= -1) { //전체를 선택했을 경우
 
                         // 전체선택 활성화, 모든 버튼 비활성화 후 인덱스 리스트에 추가
                         if (data.checked) {
@@ -97,7 +97,7 @@ class IngredientFlexboxAdapter(
             //계열 전체 버튼 비활성화
             changeList = currentList
             changeList[0].checked = false
-            setList(changeList)
+//            setList(changeList)
             countBadge(0, false)
             selectedIngredients.clear()
         }
@@ -110,7 +110,7 @@ class IngredientFlexboxAdapter(
                     countBadge(0,false)
                 }
             }
-            setList(changeList)
+//            setList(changeList)
             selectedIngredients.clear()
         }
 

@@ -22,7 +22,7 @@ data class SeriesInfo(
 data class SeriesIngredients(
     val ingredientIdx:Int=2,
     val name: String="베르가못",
-    val imageUrl: String=" ",
+//    val imageUrl: String=" ",
     var seriesName: String,
     var checked: Boolean= false,
     var clickable: Boolean=true

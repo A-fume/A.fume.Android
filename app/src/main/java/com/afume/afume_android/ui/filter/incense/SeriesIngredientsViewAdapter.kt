@@ -48,6 +48,7 @@ class SeriesIngredientsViewHolder(
 
     fun bind(item: SeriesInfo) {
         binding.series = item
+        Log.d("ingredients item", item.ingredients.toString())
         drawIngredients(item.ingredients)
         binding.btnShowIngredients.setOnClickListener {
             foldORUnfold(it)
@@ -74,7 +75,7 @@ class SeriesIngredientsViewHolder(
         }
 
         //ingredients data 연결넘기기
-        Log.d("ingredients", ingredients.toString())
+//        Log.d("ingredients", ingredients.toString())
         ingredientAdapter.submitList(ingredients)
 
     }
