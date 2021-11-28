@@ -23,9 +23,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        val flag = intent.getIntExtra("flag", 0)
         initBinding()
+//        getFilter()
         initNavigation()
-        searchViewModel= ViewModelProvider(this, SingleViewModelFactory.getInstance())[SearchViewModel::class.java]
+        searchViewModel = ViewModelProvider(
+            this,
+            SingleViewModelFactory.getInstance()
+        )[SearchViewModel::class.java]
     }
 
     override fun onResume() {
@@ -48,20 +53,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getFilter() {
-        if (intent.getIntExtra("flag", 0) == 1) {
+        val flag = intent.getIntExtra("flag", 0)
+        if (flag == 1) {
             val filter = intent?.getParcelableExtra<SendFilter>("filter")
             Log.e("서치 결과 프래그먼트", filter.toString())
 
-            searchViewModel.filter.value=filter
+            searchViewModel.filter.value = filter
 
             navController.navigate(R.id.searchHomeFragment)
             navController.navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
         }
-        if (intent.getIntExtra("flag", 0) == 3) {
+        if (flag == 3) {
 
             val searchText = intent?.getStringExtra("searchText")
 
-            if(searchText != ""&& searchText !=null) {
+            if (searchText != "" && searchText != null) {
 
                 searchViewModel.filter.value?.apply {
                     filterInfoPList?.clear()
@@ -73,7 +79,8 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
         }
     }
-    fun getBackSearchHome(){
+
+    fun getBackSearchHome() {
         navController.navigate(R.id.action_searchResultFragment_to_searchHomeFragment)
     }
 }

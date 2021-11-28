@@ -23,7 +23,7 @@ import com.google.android.material.badge.BadgeDrawable
 class FilterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilterBinding
     private lateinit var filterViewPagerAdapter: AfumeViewPagerAdapter
-    private val filterViewModel: FilterViewModel by viewModels(){
+    private val filterViewModel: FilterViewModel by viewModels() {
         FilterViewModelFactory.getInstance()
     }
 
@@ -36,7 +36,7 @@ class FilterActivity : AppCompatActivity() {
 
         setFilterData()
         checkChangeFilter()
-        Log.d("filter act filter",filterViewModel.selectedKeywordList.value.toString())
+        Log.d("filter act filter", filterViewModel.selectedKeywordList.value.toString())
         initBinding()
 
         initViewPager()
@@ -65,12 +65,14 @@ class FilterActivity : AppCompatActivity() {
         checkChangeFilter()
 
     }
-    private fun setFilterData(){
-        val fromHome = intent.getIntExtra("from",0)
-        if(fromHome==SEARCH_HOME){
+
+    private fun setFilterData() {
+        val fromHome = intent.getIntExtra("from", 0)
+        if (fromHome == SEARCH_HOME) {
             filterViewModel.initFilterData()
         }
     }
+
     private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filter)
         binding.lifecycleOwner = this
@@ -135,18 +137,18 @@ class FilterActivity : AppCompatActivity() {
         })
     }
 
-    private fun sendFilter(){
+    private fun sendFilter() {
+        Log.d("sendfilter_series", filterViewModel.selectedSeriesMap.value.toString())
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("flag",1)
-        intent.putExtra("filter",filterViewModel.sendSelectFilter())
+        intent.putExtra("flag", 1)
+        intent.putExtra("filter", filterViewModel.sendSelectFilter())
         startActivity(intent)
     }
 
-    private fun checkChangeFilter(){
-        if(intent.getIntExtra("flag",0)==5000){
-            val fromSearchResult=intent?.getParcelableExtra<SendFilter>("filter")
+    private fun checkChangeFilter() {
+        if (intent.getIntExtra("flag", 0) == 5000) {
+            val fromSearchResult = intent?.getParcelableExtra<SendFilter>("filter")
             filterViewModel.checkChangeFilter(fromSearchResult)
-
         }
     }
 

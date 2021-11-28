@@ -41,7 +41,7 @@ class FilterViewModel : ViewModel() {
     //brand List
     var brandMap: MutableLiveData<MutableMap<String, MutableList<BrandInfo>>> =
         MutableLiveData(mutableMapOf())
-    var brandTabOrders:MutableLiveData<MutableList<String>> = MutableLiveData(mutableListOf())
+    var brandTabOrders: MutableLiveData<MutableList<String>> = MutableLiveData(mutableListOf())
     val selectedBrandList: MutableLiveData<MutableList<BrandInfo>> = MutableLiveData()
 
     init {
@@ -52,15 +52,15 @@ class FilterViewModel : ViewModel() {
         badgeCount.value = mutableListOf(0, 0, 0)
     }
 
-    fun initFilterData(){
+    fun initFilterData() {
         //여기 통신 말고 local에서 data click 해제 해야함.
         getBrand()
         getSeries()
         getKeyword()
 
-        selectedKeywordList.value= mutableListOf()
-        selectedSeriesMap.value=mutableMapOf()
-        selectedBrandList.value=mutableListOf()
+        selectedKeywordList.value = mutableListOf()
+        selectedSeriesMap.value = mutableMapOf()
+        selectedBrandList.value = mutableListOf()
 
         badgeCount.value = mutableListOf(0, 0, 0)
     }
@@ -178,7 +178,7 @@ class FilterViewModel : ViewModel() {
 
     }
 
-    fun getTotalBadgeCount(){
+    fun getTotalBadgeCount() {
         var allCount = 0
         badgeCount.value?.forEach { allCount += it }
         applyBtn.value = allCount
@@ -202,7 +202,7 @@ class FilterViewModel : ViewModel() {
         }
     }
 
-    fun getBrand()  {
+    fun getBrand() {
         viewModelScope.launch {
             try {
                 val initialBrand = filterRepository.getBrand()
@@ -215,7 +215,7 @@ class FilterViewModel : ViewModel() {
                     mapOrders.add(it.firstInitial)
                 }
                 brandMap.value = tempMap
-                brandTabOrders.value= mapOrders.sorted().toMutableList()
+                brandTabOrders.value = mapOrders.sorted().toMutableList()
                 Log.d("getBrand", brandMap.value.toString())
                 Log.d("getBrand", brandTabOrders.value.toString())
             } catch (e: HttpException) {
@@ -230,12 +230,13 @@ class FilterViewModel : ViewModel() {
             try {
                 val series = filterRepository.getSeries().rows
                 series.forEach {
-                    it.ingredients.forEach { ingredients ->
-                        ingredients.seriesName = it.name
+                    it.ingredients.forEach { ingredient ->
+                        ingredient.seriesName = it.name
+                        ingredient.clickable = true
                     }
                     val entireIngredients =
                         SeriesIngredients(
-                            ingredientIdx = -1,
+                            ingredientIdx = -1*it.seriesIdx,
                             name = it.name + " 전체",
                             seriesName = it.name
                         )
@@ -264,11 +265,12 @@ class FilterViewModel : ViewModel() {
 
         val filterInfoPList = mutableListOf<FilterInfoP>()
         selectedSeriesMap.value?.mapValues {
-            if (it.value[0].ingredientIdx == -1) {
+            Log.d("명",it.toString())
+            if (it.value[0].ingredientIdx <= -1) {
                 val ingredientInfoP = FilterInfoP(it.value[0].ingredientIdx, it.value[0].name, 1)
                 filterInfoPList.add(ingredientInfoP)
             } else {
-                it.value.forEach { ingredient->
+                it.value.forEach { ingredient ->
                     val ingredientInfoP = FilterInfoP(ingredient.ingredientIdx, ingredient.name, 1)
                     filterInfoPList.add(ingredientInfoP)
                 }
@@ -284,72 +286,72 @@ class FilterViewModel : ViewModel() {
             val keywordInfoP = FilterInfoP(it.keywordIdx, it.name, 3)
             filterInfoPList.add(keywordInfoP)
         }
-        return SendFilter(filterInfoPList,selectedSeriesMap.value)
+        return SendFilter(filterInfoPList, selectedSeriesMap.value)
     }
 
-    fun checkChangeFilter(changeFilter: SendFilter?){
+    fun checkChangeFilter(changeFilter: SendFilter?) {
 
         val brand = mutableListOf<BrandInfo>()
         val keyword = mutableListOf<KeywordInfo>()
-        var seriesCount=0
+        var seriesCount = 0
 
         changeFilter?.filterInfoPList?.forEach {
-            when(it.type){
-                1-> seriesCount++
-                2-> brand.add(BrandInfo(it.idx,it.name,true))
-                3-> keyword.add(KeywordInfo(it.name,it.idx,true))
+            when (it.type) {
+                1 -> seriesCount++
+                2 -> brand.add(BrandInfo(it.idx, it.name, true))
+                3 -> keyword.add(KeywordInfo(it.name, it.idx, true))
             }
         }
-        selectedSeriesMap.value=changeFilter?.filterSeriesPMap
+        selectedSeriesMap.value = changeFilter?.filterSeriesPMap
 
         // change values of selected lists and badges from search result view
-        selectedSeriesMap.value=changeFilter?.filterSeriesPMap
-        badgeCount.value?.set(0,seriesCount)
-        selectedBrandList.value=brand
+        selectedSeriesMap.value = changeFilter?.filterSeriesPMap
+        badgeCount.value?.set(0, seriesCount)
+        selectedBrandList.value = brand
         badgeCount.value?.set(1, brand.size)
-        selectedKeywordList.value=keyword
+        selectedKeywordList.value = keyword
         badgeCount.value?.set(2, keyword.size)
 
-        Log.e("change filter",selectedSeriesMap.value.toString())
+        Log.e("change filter", selectedSeriesMap.value.toString())
 
         // 뱃지 카운트 재정비
         getTotalBadgeCount()
 
         // view에 표시하기 위한 리스트
         // 키워드
-        _keywordList.value?.forEach {k->
-            k.checked=false
+        _keywordList.value?.forEach { k ->
+            k.checked = false
             keyword.forEach {
-                if (it.keywordIdx==k.keywordIdx) k.checked=true
+                if (it.keywordIdx == k.keywordIdx) k.checked = true
             }
         }
 
         // 브랜드
         brandMap.value?.values?.forEach { list ->
-            list.forEach {b->
-                b.check=false
+            list.forEach { b ->
+                b.check = false
                 brand.forEach {
-                    if(b.brandIdx==it.brandIdx) b.check=true
+                    if (b.brandIdx == it.brandIdx) b.check = true
                 }
             }
         }
 
         // 계열
-        _seriesList.value?.forEach { series->
-            series.ingredients.forEach {s ->
-                s.checked=false
+        _seriesList.value?.forEach { series ->
+            series.ingredients.forEach { s ->
+                s.checked = false
                 changeFilter?.filterSeriesPMap?.values?.forEach { list ->
-                    loop@for (selected in list) {
-                        if(s.ingredientIdx==selected.ingredientIdx){
-                            s.checked=true
-                            if(selected.ingredientIdx==-1) continue@loop
-                            Log.d("change filter s",s.toString())
+                    loop@ for (selected in list) {
+                        if (s.ingredientIdx == selected.ingredientIdx) {
+                            s.checked = true
+                            if (selected.ingredientIdx <= -1) continue@loop
+                            Log.d("change filter s", s.toString())
                         }
                     }
                 }
             }
         }
-        Log.d("change filter series",_seriesList.value.toString())
+        Log.d("change filter series", _seriesList.value.toString())
 
     }
 
