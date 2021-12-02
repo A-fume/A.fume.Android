@@ -59,7 +59,7 @@
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="6sp"
                     android:textColor="@color/primary_black"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     android:text="@string/txt_home_title_null"
                     app:layout_constraintStart_toStartOf="@+id/btn_cancel"
                     app:layout_constraintTop_toBottomOf="@+id/btn_cancel" />
@@ -73,7 +73,7 @@
                     android:includeFontPadding="false"
                     android:text="어퓸을 사용할수록\n더 잘 맞는 향수를 보여드려요"
                     android:textColor="@color/dark_gray_7d"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     app:layout_constraintStart_toStartOf="@+id/txt_home_name_title"
                     app:layout_constraintTop_toBottomOf="@+id/txt_home_name_title" />
 
@@ -134,7 +134,7 @@
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="6sp"
                     android:textColor="@color/primary_black"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     android:text="@string/txt_home_age_null"
                     app:layout_constraintStart_toStartOf="@+id/btn_heart"
                     app:layout_constraintTop_toBottomOf="@+id/btn_heart" />
@@ -147,7 +147,7 @@
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:textColor="@color/dark_gray_7d"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     android:text="@string/txt_home_subtitle_null"
                     app:layout_constraintStart_toStartOf="@+id/txt_home_age_title"
                     app:layout_constraintTop_toBottomOf="@+id/txt_home_age_title" />
@@ -191,7 +191,7 @@
                         android:includeFontPadding="false"
                         android:text="최근 찾아본 향수"
                         android:textColor="@color/primary_black"
-                        android:textSize="18sp"
+                        android:textSize="18dp"
                         app:layout_constraintStart_toStartOf="@+id/cl_home_recent"
                         app:layout_constraintTop_toTopOf="@+id/cl_home_recent" />
 
@@ -234,7 +234,7 @@
                     android:lineSpacingExtra="6dp"
                     android:text="새로\n등록된 향수"
                     android:textColor="@color/primary_black"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     app:layout_constraintStart_toStartOf="@+id/imageView5"
                     app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
@@ -247,7 +247,7 @@
                     android:includeFontPadding="false"
                     android:text="기대하세요.  새로운 향수가 업데이트 됩니다."
                     android:textColor="@color/dark_gray_7d"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     app:layout_constraintStart_toStartOf="@+id/textView11"
                     app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
@@ -294,7 +294,7 @@
                     android:includeFontPadding="false"
                     android:text="더 보기"
                     android:textColor="@color/dark_gray_7d"
-                    android:textSize="15sp"
+                    android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="@+id/btn_home_more"
                     app:layout_constraintEnd_toEndOf="@+id/btn_home_more"
                     app:layout_constraintStart_toStartOf="@+id/btn_home_more"
