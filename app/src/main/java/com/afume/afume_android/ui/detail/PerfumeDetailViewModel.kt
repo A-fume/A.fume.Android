@@ -69,11 +69,7 @@ class PerfumeDetailViewModel: ViewModel() {
                 .subscribe({
                     _perfumeDetailWithReviewData.postValue(it.data)
 
-                    if(it.data.isNotEmpty()){
-                        _isValidNoteList.postValue(true)
-                    }else{
-                        _isValidNoteList.postValue(false)
-                    }
+                    _isValidNoteList.value = it.data.isNotEmpty()
 
                     Log.d("DETAILDATAWithReviews", it.toString())
                 }) {
