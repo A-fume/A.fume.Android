@@ -41,6 +41,16 @@ class DetailNoteFragment(val perfumeIdx: Int) : Fragment() {
             noteAdapter.replaceAll(ArrayList(it))
             noteAdapter.notifyDataSetChanged()
         })
+
+        viewModel.isValidNoteList.observe(requireActivity(), Observer {
+            if(it){
+                binding.rvDetailNote.visibility = View.VISIBLE
+                binding.txtDetailReviewList.visibility = View.GONE
+            }else{
+                binding.rvDetailNote.visibility = View.GONE
+                binding.txtDetailReviewList.visibility = View.VISIBLE
+            }
+        })
     }
 
     override fun onResume() {

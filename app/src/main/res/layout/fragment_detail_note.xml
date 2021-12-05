@@ -26,7 +26,6 @@
             android:layout_marginBottom="24dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:visibility="@{viewModel.isValidNoteList? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +34,7 @@
             tools:listitem="@layout/rv_item_detail_note" />
 
         <TextView
-            android:id="@+id/textView32"
+            android:id="@+id/txt_detail_review_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="82dp"
@@ -46,7 +45,6 @@
             android:textColor="@color/gray_b9"
             android:gravity="center"
             android:textSize="15dp"
-            android:visibility="@{viewModel.isValidNoteList? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
