@@ -248,7 +248,7 @@
                 android:includeFontPadding="false"
                 android:text="시향 노트 쓰기"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/act_perfume_detail_iv_write"
                 app:layout_constraintEnd_toEndOf="@+id/act_perfume_detail_iv_write"
                 app:layout_constraintStart_toStartOf="@+id/act_perfume_detail_iv_write"
