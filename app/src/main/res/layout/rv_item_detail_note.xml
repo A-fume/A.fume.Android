@@ -63,7 +63,7 @@
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
             android:textColor="@color/dark_gray_7d"
-            android:textSize="12sp"
+            android:textSize="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
@@ -76,7 +76,7 @@
             android:layout_marginRight="16dp"
             android:text="@{item.content}"
             android:fontFamily="@font/notosans_regular"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:includeFontPadding="false"
             android:textColor="@color/black_2a"
             app:layout_constraintEnd_toEndOf="parent"
@@ -108,7 +108,7 @@
             android:includeFontPadding="false"
             android:text="@{Float.toString(item.score)}"
             android:textColor="@color/primary_black"
-            android:textSize="12sp"
+            android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/rb_detail_note"
             app:layout_constraintStart_toEndOf="@+id/rb_detail_note"
             app:layout_constraintTop_toTopOf="@+id/rb_detail_note" />
@@ -123,7 +123,7 @@
             android:layout_marginBottom="16dp"
             android:text="@{`by. `+item.nickname}"
             android:fontFamily="@font/nanummyeongjo"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:includeFontPadding="false"
             android:textColor="@color/dark_gray_7d"
             app:layout_constraintBottom_toBottomOf="parent"
