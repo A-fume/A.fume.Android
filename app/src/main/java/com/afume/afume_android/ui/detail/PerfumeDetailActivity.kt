@@ -63,7 +63,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
             perfumeName = it.name
             brandName = it.brandName
-//            image = it.imageUrls.get(0)
+            image = it.imageUrls[0]
 
             reviewIdx = it.reviewIdx
             binding.btnPerfumeDetailNoteWrite.setNoteBtnText(reviewIdx)
