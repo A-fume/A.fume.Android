@@ -23,6 +23,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
     lateinit var viewPagerAdapter: ViewPagerAdapter
     private val viewModel: PerfumeDetailViewModel by viewModels()
     private var isLiked : Boolean = false
+    private var checkLiked : Boolean = false
     var perfumeIdx: Int = 0
     var reviewIdx: Int = 0
     var perfumeName = ""
@@ -46,7 +47,6 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.postPerfumeLike(perfumeIdx)
     }
 
     private fun initInfo(){
@@ -59,6 +59,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
             detailImageAdapter.data = it.imageUrls
             detailImageAdapter.notifyDataSetChanged()
 
+            checkLiked = it.isLiked
             isLiked = it.isLiked
 
             perfumeName = it.name
@@ -118,7 +119,21 @@ class PerfumeDetailActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        if(checkLiked != isLiked){
+            viewModel.postPerfumeLike(perfumeIdx)
+        }
+
+        finish()
+    }
+
     fun onClickBackBtn(view : View){
+        if(checkLiked != isLiked){
+            viewModel.postPerfumeLike(perfumeIdx)
+        }
+
         finish()
     }
 }
