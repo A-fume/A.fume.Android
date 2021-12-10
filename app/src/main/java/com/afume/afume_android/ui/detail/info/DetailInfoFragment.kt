@@ -19,8 +19,11 @@ import com.afume.afume_android.ui.detail.PerfumeDetailViewModel
 import com.afume.afume_android.ui.home.HomeViewModel
 import com.afume.afume_android.ui.home.adapter.PopularListAdapter
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -54,9 +57,6 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         initLastingPowerBarChart(0,0,0,0,0)
         initsillageBarChart(0,0,0)
         initRvSimilar(requireContext())
-
-        drawBubbleChartSeason(dummyBubbleDataSeason(0,0,0,0))
-
     }
 
     private fun initRv(ctx: Context?) {
@@ -102,7 +102,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         val pieDataColors = listOf<Int>(
             ContextCompat.getColor(requireContext(), R.color.point_beige_accent),
             ContextCompat.getColor(requireContext(), R.color.point_beige),
-            ContextCompat.getColor(requireContext(), R.color.dark_beige)
+            ContextCompat.getColor(requireContext(), R.color.point_dark_beige)
         )
         val pieValuesTextColors = listOf<Int>(
             ContextCompat.getColor(requireContext(), R.color.white),
@@ -125,7 +125,120 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 
         val pieData = PieData(pieDataSet)
 
-        binding.chartPieDetailsInfoGender.apply {
+        setPieChart(binding.chartPieDetailsInfoGender, pieData)
+        setPieLegend(binding.chartPieDetailsInfoGender.legend)
+    }
+
+    private fun setGenderPieData(female: Float, male: Float, middle: Float): PieDataSet {
+
+        val pieListData = mutableListOf(
+            PieEntry(female, "여성"),
+            PieEntry(male, "남성"),
+            PieEntry(middle, "중성"),
+        )
+
+        val iter = pieListData.iterator()
+        while(iter.hasNext()) {
+            if(iter.next().value == 0f){
+                iter.remove()
+            }
+        }
+
+        setGenderMaxLegend(female,male,middle)
+
+        return PieDataSet(pieListData, "")
+    }
+
+    private fun setGenderMaxLegend(female: Float, male: Float, middle: Float){
+        val pieData = listOf(female, male, middle)
+
+        when(pieData.maxOrNull()){
+            female -> {
+                setBoldLegend(binding.txtDetailGenderFemale)
+                setBoldLegend(binding.txtDetailGenderFemalePercent)
+            }
+            male -> {
+                setBoldLegend(binding.txtDetailGenderMale)
+                setBoldLegend(binding.txtDetailGenderMalePercent)
+            }
+            middle -> {
+                setBoldLegend(binding.txtDetailGenderMiddle)
+                setBoldLegend(binding.txtDetailGenderMiddlePercent)
+            }
+        }
+    }
+
+    private fun drawSeasonPieChart(pieDataSet: PieDataSet) {
+        val pieDataColors = listOf<Int>(
+            ContextCompat.getColor(requireContext(), R.color.point_beige_accent),
+            ContextCompat.getColor(requireContext(), R.color.point_beige),
+            ContextCompat.getColor(requireContext(), R.color.point_pinkish_grey),
+            ContextCompat.getColor(requireContext(), R.color.point_dark_beige)
+        )
+        val pieValuesTextColors = listOf<Int>(
+            ContextCompat.getColor(requireContext(), R.color.white),
+            ContextCompat.getColor(requireContext(), R.color.white),
+            ContextCompat.getColor(requireContext(), R.color.white),
+            ContextCompat.getColor(requireContext(), R.color.white),
+        )
+        pieDataSet.apply {
+            colors = pieDataColors
+
+            setValueTextColors(pieValuesTextColors)
+        }
+
+        val pieData = PieData(pieDataSet)
+
+        setPieChart(binding.chartPieDetailsInfoSeason, pieData)
+        setPieLegend(binding.chartPieDetailsInfoSeason.legend)
+    }
+
+    private fun setSeasonPieData(spring: Float, summer: Float, fall: Float, winter: Float): PieDataSet {
+
+        val pieListData = mutableListOf(
+            PieEntry(spring, "봄"),
+            PieEntry(summer, "여름"),
+            PieEntry(fall, "가을"),
+            PieEntry(winter, "겨울")
+        )
+
+        val iter = pieListData.iterator()
+        while(iter.hasNext()) {
+            if(iter.next().value == 0f){
+                iter.remove()
+            }
+        }
+
+        setSeasonMaxLegend(spring,summer,fall,winter)
+
+        return PieDataSet(pieListData, "")
+    }
+
+    private fun setSeasonMaxLegend(spring: Float, summer: Float, fall: Float, winter: Float){
+        val pieData = listOf(spring, summer, fall, winter)
+
+        when(pieData.maxOrNull()){
+            spring -> {
+                setBoldLegend(binding.txtDetailSeasonSpring)
+                setBoldLegend(binding.txtDetailSeasonSpringPercent)
+            }
+            summer -> {
+                setBoldLegend(binding.txtDetailSeasonSummer)
+                setBoldLegend(binding.txtDetailSeasonSummerPercent)
+            }
+            fall -> {
+                setBoldLegend(binding.txtDetailSeasonFall)
+                setBoldLegend(binding.txtDetailSeasonFallPercent)
+            }
+            winter -> {
+                setBoldLegend(binding.txtDetailSeasonWinter)
+                setBoldLegend(binding.txtDetailSeasonWinterPercent)
+            }
+        }
+    }
+
+    private fun setPieChart(pieChart: PieChart, pieData: PieData){
+        pieChart.apply {
 //            setEntryLabelColor(ContextCompat.getColor(requireContext(),R.color.dark_gray_7d))
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 //                setLeftTopRightBottom(0,5,10,5)
@@ -146,8 +259,9 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
             data.setDrawValues(false)
             invalidate()
         }
+    }
 
-        val pieLegend = binding.chartPieDetailsInfoGender.legend
+    private fun setPieLegend(pieLegend: Legend){
         pieLegend.isEnabled = false
         pieLegend.apply {
 //            yOffset=10f
@@ -166,171 +280,9 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         }
     }
 
-    private fun setGenderPieData(female: Float, male: Float, middle: Float): PieDataSet {
-
-        val pieListData = mutableListOf(
-            PieEntry(female, "여성"),
-            PieEntry(male, "남성"),
-            PieEntry(middle, "중성"),
-        )
-
-        val iter = pieListData.iterator()
-        while(iter.hasNext()) {
-            if(iter.next().value == 0f){
-                iter.remove()
-            }
-        }
-
-        setMaxLegend(female,male,middle)
-
-        return PieDataSet(pieListData, "")
-    }
-
-    private fun setMaxLegend(female: Float, male: Float, middle: Float){
-        val pieData = listOf(female, male, middle)
-
-        when(pieData.maxOrNull()){
-            female -> {
-                setBoldLegend(binding.txtDetailGenderFemale)
-                setBoldLegend(binding.txtDetailGenderFemalePercent)
-            }
-            male -> {
-                setBoldLegend(binding.txtDetailGenderMale)
-                setBoldLegend(binding.txtDetailGenderMalePercent)
-            }
-            middle -> {
-                setBoldLegend(binding.txtDetailGenderMiddle)
-                setBoldLegend(binding.txtDetailGenderMiddlePercent)
-            }
-        }
-    }
-
     private fun setBoldLegend(legend: TextView){
         legend.setTextColor(ResourcesCompat.getColor(this.resources, R.color.primary_black, null))
         legend.typeface = ResourcesCompat.getFont(requireContext(), R.font.notosans_bold)
-    }
-
-    private fun drawBubbleChartSeason(dataSet: List<BubbleDataSet>) {
-
-//        val yR = binding.chartBubbleDetailsInfoSeason.axisRight
-//        yR.apply {
-//            setDrawZeroLine(false)
-//            setDrawAxisLine(true)
-//            setDrawGridLines(false)
-//            setDrawLabels(true)
-//        }
-        val yL = binding.chartBubbleDetailsInfoSeason.axisLeft
-        yL.apply {
-            setDrawZeroLine(false)
-            setDrawAxisLine(false)
-            setDrawGridLines(false)
-            setDrawLabels(false)
-            axisMaximum = 100f
-            axisMinimum = -40f
-        }
-        val xl = binding.chartBubbleDetailsInfoSeason.xAxis
-        xl.apply {
-            setDrawAxisLine(false)
-            setDrawGridLines(false)
-            setDrawLabels(false)
-            granularity = 1f
-            axisMaximum = 5f
-            axisMinimum = 0f
-//            position = XAxis.XAxisPosition.BOTTOM
-//            valueFormatter = IndexAxisValueFormatter(listOf<String>("","봄","여름","가을","겨울",""))
-//            typeface = ResourcesCompat.getFont(requireContext(), R.font.notosans_regular)
-//            textColor = ContextCompat.getColor(requireContext(), R.color.primary_black)
-//            textSize = 14f
-        }
-
-        val bubbleData = BubbleData(dataSet)
-        bubbleData.apply {
-            setDrawValues(true)
-            setValueTypeface(ResourcesCompat.getFont(requireContext(), R.font.notosans_bold))
-            setValueTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            setValueTextSize(15f)
-            //setValueFormatter(IndexAxisValueFormatter(listOf<String>(dataSet[0].values.toString()+"%",dataSet[1].toString()+"%",dataSet[2].toString()+"%",dataSet[3].toString()+"%")))
-//            setValueFormatter(IndexAxisValueFormatter(listOf(dataSet[0].values[0].data.toString(), dataSet[1].values[0].data.toString(), dataSet[2].values[0].data.toString() , dataSet[3].values[0].data.toString())))
-        }
-
-        binding.chartBubbleDetailsInfoSeason.apply {
-            description.isEnabled = false
-            legend.isEnabled = false
-            setDrawGridBackground(false)
-            setTouchEnabled(false)
-            setScaleEnabled(false)
-            isDragXEnabled = false
-            isDragYEnabled = false
-            axisRight.isEnabled = false
-            data = bubbleData
-            invalidate()
-        }
-    }
-
-    private fun dummyBubbleDataSeason(sp: Int, sm: Int, fa: Int, wi: Int): List<BubbleDataSet> {
-        val springDataSet = BubbleDataSet(listOf(BubbleEntry(0.5f, sp.toFloat(), sp.toFloat())), "봄")
-        springDataSet.color =
-            ContextCompat.getColor(requireContext(), R.color.point_beige_accent)
-
-        val summerDataSet = BubbleDataSet(listOf(BubbleEntry(1.8f, sm.toFloat(), sm.toFloat())), "여름")
-        summerDataSet.color =
-            ContextCompat.getColor(requireContext(), R.color.point_beige)
-
-        val fallDataSet = BubbleDataSet(listOf(BubbleEntry(3.1f, fa.toFloat(), fa.toFloat())), "가을")
-        fallDataSet.color =
-            ContextCompat.getColor(requireContext(), R.color.point_beige)
-
-        val winterDataSet = BubbleDataSet(listOf(BubbleEntry(4.4f, wi.toFloat(), wi.toFloat())), "겨울")
-        winterDataSet.color =
-            ContextCompat.getColor(requireContext(), R.color.point_beige)
-
-        return listOf<BubbleDataSet>(
-            springDataSet,
-            summerDataSet,
-            fallDataSet,
-            winterDataSet
-        )
-
-//        val primarySeasonDataSet = BubbleDataSet(listOf(BubbleEntry(1f, 40f, sp.toFloat())), "primary")
-//        primarySeasonDataSet.color =
-//            ContextCompat.getColor(requireContext(), R.color.point_beige_accent)
-//
-//        val seasonDataEntryList = listOf<BubbleEntry>(
-//            BubbleEntry(3f, 40f, sm.toFloat()),
-//            BubbleEntry(5f, 40f, fa.toFloat()),
-//            BubbleEntry(7f, 40f, wi.toFloat())
-//        )
-//        val seasonDataSet = BubbleDataSet(seasonDataEntryList, "normal")
-//        seasonDataSet.color = ContextCompat.getColor(requireContext(), R.color.point_beige)
-//
-//        val set1 = BubbleDataSet(listOf(BubbleEntry(0f, 40f, sp.toFloat())), "봄")
-//        set1.setDrawValues(true)
-//
-//        val set2 = BubbleDataSet(listOf(BubbleEntry(2f, 40f, sm.toFloat())), "여름")
-//        set2.setDrawValues(true)
-//
-//        val set3 = BubbleDataSet(listOf(BubbleEntry(3f, 40f, fa.toFloat())), "가을")
-//        set3.setDrawValues(true)
-//
-//        val set4 = BubbleDataSet(listOf(BubbleEntry(4f, 40f, wi.toFloat())), "겨울")
-//        set3.setDrawValues(true)
-//
-//        val dataSets = ArrayList<IBubbleDataSet>()
-//        dataSets.add(set1)
-//        dataSets.add(set2)
-//        dataSets.add(set3)
-//        dataSets.add(set4)
-//        var data = BubbleData(dataSets)
-//        data.setDrawValues(true)
-//        data.setValueTextSize(14f)
-//        data.setValueTextColor(Color.BLACK)
-//        data.setHighlightCircleWidth(1.5f)
-//        return data
-//
-//        return listOf<BubbleDataSet>(
-//            springDataSet,
-//            seasonDataSet
-//        )
     }
 
     private fun observe(){
@@ -339,9 +291,8 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
                 data = it
                 initLastingPowerBarChart(it.longevity.veryWeak, it.longevity.weak, it.longevity.medium, it.longevity.strong, it.longevity.veryStrong)
                 initsillageBarChart(it.sillage.light, it.sillage.medium, it.sillage.heavy)
-//                drawBubbleChartSeason(dummyBubbleDataSeason(it.seasonal.spring,it.seasonal.summer,it.seasonal.fall,it.seasonal.winter))
                 drawGenderPieChart(setGenderPieData(it.gender.female.toFloat(), it.gender.male.toFloat(), it.gender.neutral.toFloat()))
-                drawBubbleChartSeason(dummyBubbleDataSeason(50,20,20,10))
+                drawSeasonPieChart(setSeasonPieData(it.seasonal.spring.toFloat(), it.seasonal.summer.toFloat(), it.seasonal.fall.toFloat(), it.seasonal.winter.toFloat()))
             }
 
             rvKeywordAdapter.run {
