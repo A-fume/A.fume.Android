@@ -1,5 +1,6 @@
 package com.afume.afume_android.ui.note
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -54,6 +55,7 @@ class NoteActivity : AppCompatActivity() {
         }else{ // 조회, 수정, 삭제일 경우
             wishList?.reviewIdx?.let {
                 noteViewModel.getReview(it)
+                perfumeIdx = wishList.perfumeIdx
                 reviewIdx = wishList.reviewIdx
             }
         }
@@ -225,7 +227,13 @@ class NoteActivity : AppCompatActivity() {
     }
 
     fun onClickDetailBtn(view : View){
-        this.startActivity(PerfumeDetailActivity::class.java)
+        val intent = Intent(this, PerfumeDetailActivity::class.java)
+
+        intent.run {
+            putExtra("perfumeIdx", perfumeIdx)
+        }
+
+        startActivity(intent)
     }
 
     fun onClickKeywordBtn(view : View){

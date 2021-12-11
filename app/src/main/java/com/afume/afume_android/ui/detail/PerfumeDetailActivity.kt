@@ -13,6 +13,7 @@ import com.afume.afume_android.databinding.ActivityPerfumeDetailBinding
 import com.afume.afume_android.ui.detail.info.DetailInfoFragment
 import com.afume.afume_android.ui.detail.note.DetailNoteFragment
 import com.afume.afume_android.ui.note.NoteActivity
+import com.afume.afume_android.util.BindingAdapter.setNoteBtnText
 import com.afume.afume_android.util.TabSelectedListener
 import com.afume.afume_android.util.changeTabsFont
 
@@ -22,7 +23,9 @@ class PerfumeDetailActivity : AppCompatActivity() {
     lateinit var viewPagerAdapter: ViewPagerAdapter
     private val viewModel: PerfumeDetailViewModel by viewModels()
     private var isLiked : Boolean = false
+    private var checkLiked : Boolean = false
     var perfumeIdx: Int = 0
+    var reviewIdx: Int = 0
     var perfumeName = ""
     var brandName = ""
     var image : String? = ""
@@ -44,7 +47,6 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.postPerfumeLike(perfumeIdx)
     }
 
     private fun initInfo(){
@@ -57,11 +59,15 @@ class PerfumeDetailActivity : AppCompatActivity() {
             detailImageAdapter.data = it.imageUrls
             detailImageAdapter.notifyDataSetChanged()
 
+            checkLiked = it.isLiked
             isLiked = it.isLiked
 
             perfumeName = it.name
             brandName = it.brandName
-//            image = it.imageUrls.get(0)
+            image = it.imageUrls[0]
+
+            reviewIdx = it.reviewIdx
+            binding.btnPerfumeDetailNoteWrite.setNoteBtnText(reviewIdx)
         })
 
         binding.indicatorPerfumeDetail.setViewPager(binding.vpPerfumeDetailImage)
@@ -103,15 +109,31 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
         binding.actPerfumeDetailIvWrite.setOnClickListener {
             val intent = Intent(this@PerfumeDetailActivity, NoteActivity::class.java)
-            val wishListPerfume = ParcelableWishList(perfumeIdx,0,perfumeName,brandName,image)
+
+            val wishListPerfume = ParcelableWishList(perfumeIdx,reviewIdx,perfumeName,brandName,image)
             intent.run {
                 putExtra("wishListPerfume", wishListPerfume)
             }
+
             startActivity(intent)
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        if(checkLiked != isLiked){
+            viewModel.postPerfumeLike(perfumeIdx)
+        }
+
+        finish()
+    }
+
     fun onClickBackBtn(view : View){
+        if(checkLiked != isLiked){
+            viewModel.postPerfumeLike(perfumeIdx)
+        }
+
         finish()
     }
 }

@@ -84,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 android:layout_marginEnd="18dp"
+                android:visibility="@{viewModel.isValidKeywordData? View.GONE : View.VISIBLE}"
                 android:overScrollMode="never"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -131,10 +132,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_notes">
 
                 <TextView
-                    android:id="@+id/textView31"
+                    android:id="@+id/txt_notes_single"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
+                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="Single"
@@ -147,7 +148,7 @@
                     android:id="@+id/txt_notes_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="Top"
@@ -160,7 +161,7 @@
                     android:id="@+id/txt_notes_middle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
@@ -168,13 +169,13 @@
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_notes_top" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_details_info_top_notes" />
 
                 <TextView
                     android:id="@+id/txt_notes_base"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
@@ -182,63 +183,71 @@
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_notes_middle" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_details_info_middle_notes" />
 
                 <TextView
                     android:id="@+id/txt_details_info_top_notes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:layout_marginStart="16dp"
                     android:fontFamily="@font/notosans_medium"
                     android:gravity="right|end"
                     android:includeFontPadding="false"
                     android:text="@{data.ingredients.top}"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
+                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txt_notes_top"
                     app:layout_constraintTop_toTopOf="@+id/txt_notes_top" />
 
                 <TextView
                     android:id="@+id/txt_details_info_middle_notes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:layout_marginStart="16dp"
                     android:fontFamily="@font/notosans_medium"
                     android:gravity="right|end"
                     android:includeFontPadding="false"
                     android:text="@{data.ingredients.middle}"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
+                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txt_notes_middle"
                     app:layout_constraintTop_toTopOf="@+id/txt_notes_middle" />
 
                 <TextView
                     android:id="@+id/txt_details_info_base_notes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:layout_marginStart="16dp"
                     android:fontFamily="@font/notosans_medium"
                     android:gravity="right|end"
                     android:includeFontPadding="false"
                     android:text="@{data.ingredients.base}"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
+                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txt_notes_base"
                     app:layout_constraintTop_toTopOf="@+id/txt_notes_base" />
 
                 <TextView
                     android:id="@+id/textView27"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
+                    android:layout_marginStart="16dp"
                     android:fontFamily="@font/notosans_medium"
                     android:gravity="right|end"
                     android:includeFontPadding="false"
                     android:text="@{data.ingredients.single}"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
+                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txt_notes_top" />
+                    app:layout_constraintStart_toEndOf="@+id/txt_notes_single"
+                    app:layout_constraintTop_toTopOf="@+id/txt_notes_single" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -353,18 +362,163 @@
                 android:background="@color/primary_black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txt_details_info_story"
-                app:layout_constraintTop_toBottomOf="@+id/chart_bubble_details_info_season" />
+                app:layout_constraintTop_toBottomOf="@+id/chart_pie_details_info_season" />
 
-            <com.github.mikephil.charting.charts.BubbleChart
-                android:id="@+id/chart_bubble_details_info_season"
-                android:layout_width="0dp"
-                android:layout_height="150dp"
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/chart_pie_details_info_season"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginStart="19dp"
                 android:layout_marginTop="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="62dp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView11"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_season">
+            </com.github.mikephil.charting.charts.PieChart>
 
-            </com.github.mikephil.charting.charts.BubbleChart>
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_spring"
+                app:layout_constraintEnd_toEndOf="@id/imageView10"
+                app:layout_constraintStart_toStartOf="@id/imageView10"
+                app:layout_constraintTop_toTopOf="@id/txt_detail_season_spring"
+                app:srcCompat="@color/point_beige_accent" />
+
+            <TextView
+                android:id="@+id/txt_detail_season_spring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="봄"
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_spring_percent"
+                app:layout_constraintStart_toStartOf="@id/txt_detail_season_summer" />
+
+            <TextView
+                android:id="@+id/txt_detail_season_spring_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@{@string/chartPercentFormat(data.seasonal.spring)}"
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toTopOf="@id/txt_detail_season_summer_percent"
+                app:layout_constraintEnd_toEndOf="@id/txt_detail_season_summer_percent" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_summer"
+                app:layout_constraintEnd_toEndOf="@id/imageView9"
+                app:layout_constraintStart_toStartOf="@id/imageView9"
+                app:layout_constraintTop_toTopOf="@id/txt_detail_season_summer"
+                app:srcCompat="@color/point_beige" />
+
+            <TextView
+                android:id="@+id/txt_detail_season_summer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="여름"
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_summer_percent"
+                app:layout_constraintEnd_toEndOf="@id/txt_detail_season_fall"
+                app:layout_constraintStart_toStartOf="@id/txt_detail_season_fall" />
+
+            <TextView
+                android:id="@+id/txt_detail_season_summer_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@{@string/chartPercentFormat(data.seasonal.summer)}"
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toTopOf="@id/txt_detail_season_fall_percent"
+                app:layout_constraintEnd_toEndOf="@id/txt_detail_season_fall_percent" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_fall"
+                app:layout_constraintEnd_toEndOf="@id/imageView8"
+                app:layout_constraintStart_toStartOf="@id/imageView8"
+                app:layout_constraintTop_toTopOf="@id/txt_detail_season_fall"
+                app:srcCompat="@color/point_pinkish_grey" />
+
+            <TextView
+                android:id="@+id/txt_detail_season_fall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="가을"
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_fall_percent"
+                app:layout_constraintEnd_toEndOf="@id/txt_detail_season_winter"
+                app:layout_constraintStart_toStartOf="@id/txt_detail_season_winter" />
+
+            <TextView
+                android:id="@+id/txt_detail_season_fall_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@{@string/chartPercentFormat(data.seasonal.fall)}"
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toTopOf="@id/txt_detail_season_winter_percent"
+                app:layout_constraintEnd_toEndOf="@id/txt_detail_season_winter_percent" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_winter"
+                app:layout_constraintEnd_toStartOf="@id/txt_detail_season_winter"
+                app:layout_constraintTop_toTopOf="@id/txt_detail_season_winter"
+                app:srcCompat="@color/point_dark_beige" />
+
+            <TextView
+                android:id="@+id/txt_detail_season_winter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="겨울"
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_winter_percent"
+                app:layout_constraintEnd_toStartOf="@id/txt_detail_season_winter_percent" />
+
+            <TextView
+                android:id="@+id/txt_detail_season_winter_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="1dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@{@string/chartPercentFormat(data.seasonal.winter)}"
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@+id/chart_pie_details_info_season"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/txt_lasting"
@@ -462,7 +616,7 @@
                 android:layout_height="160dp"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="19dp"
-                android:layout_marginEnd="64dp"
+                android:layout_marginEnd="62dp"
                 app:layout_constraintEnd_toStartOf="@+id/imageView3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_gender" />
@@ -593,7 +747,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/txt_detail_gender_middle"
                 app:layout_constraintEnd_toStartOf="@+id/txt_detail_gender_middle"
                 app:layout_constraintTop_toTopOf="@+id/txt_detail_gender_middle"
-                app:srcCompat="@color/dark_beige" />
+                app:srcCompat="@color/point_dark_beige" />
 
             <TextView
                 android:id="@+id/txt_detail_gender_middle"
@@ -613,17 +767,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="17dp"
-                android:layout_marginBottom="23dp"
-                android:text="@{@string/chartPercentFormat(data.gender.neutral)}"
+                android:layout_marginBottom="17dp"
                 android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@{@string/chartPercentFormat(data.gender.neutral)}"
                 android:textColor="@color/dark_gray_7d"
                 android:textSize="14dp"
-                android:includeFontPadding="false"
                 app:layout_constraintBottom_toBottomOf="@+id/chart_pie_details_info_gender"
                 app:layout_constraintEnd_toEndOf="parent" />
 
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
 </layout>

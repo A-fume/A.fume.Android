@@ -22,6 +22,11 @@ class PerfumeDetailViewModel: ViewModel() {
     private val _perfumeDetailData: MutableLiveData<PerfumeDetail> = MutableLiveData()
     val perfumeDetailData: LiveData<PerfumeDetail> get() = _perfumeDetailData
 
+    // keyword 영역
+    private val _isValidKeywordData = MutableLiveData<Boolean>(false)
+    val isValidKeywordData : LiveData<Boolean>
+        get() = _isValidKeywordData
+
     // note 영역
     private val _isValidNoteData = MutableLiveData<Boolean>(false)
     val isValidNoteData : LiveData<Boolean>
@@ -29,23 +34,25 @@ class PerfumeDetailViewModel: ViewModel() {
 
     fun getPerfumeInfo(perfumeIdx: Int) {
         compositeDisposable.add(
-            repo.getPerfumeDetail(perfumeIdx)
+            repo.getPerfumeDetail(AfumeApplication.prefManager.accessToken, perfumeIdx)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     _perfumeDetailData.postValue(it.data)
 
-                    if(it.data.noteType == 0){
-                        _isValidNoteData.postValue(true)
-                    }else{
-                        _isValidNoteData.postValue(false)
-                    }
+                    setDataVisible(it.data)
 
                     Log.d("getPerfumeInfo", it.toString())
                 }) {
                     Log.d("getPerfumeInfo error", it.toString())
 //                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 })
+    }
+
+    private fun setDataVisible(data: PerfumeDetail){
+        _isValidKeywordData.value = data.Keywords.isNotEmpty()
+
+        _isValidNoteData.value = data.noteType == 0
     }
 
     private val _perfumeDetailWithReviewData: MutableLiveData<List<PerfumeDetailWithReviews>> = MutableLiveData()
@@ -56,18 +63,15 @@ class PerfumeDetailViewModel: ViewModel() {
 
     fun getPerfumeInfoWithReview(perfumeIdx: Int) {
         compositeDisposable.add(
-            repo.getPerfumeDetailWithReviews(perfumeIdx)
+            repo.getPerfumeDetailWithReviews(AfumeApplication.prefManager.accessToken, perfumeIdx)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.d("DETAILDATAWithReviews", it.toString())
                     _perfumeDetailWithReviewData.postValue(it.data)
 
-                    if(it.data.isNotEmpty()){
-                        _isValidNoteList.postValue(true)
-                    }else{
-                        _isValidNoteList.postValue(false)
-                    }
+                    _isValidNoteList.value = it.data.isNotEmpty()
+
+                    Log.d("DETAILDATAWithReviews", it.toString())
                 }) {
                     _isValidNoteList.postValue(false)
                     Log.d("DETAILDATAWithReviews error", it.toString())
@@ -100,7 +104,7 @@ class PerfumeDetailViewModel: ViewModel() {
                 repo.postReviewLike(AfumeApplication.prefManager.accessToken, reviewIdx).let{
                     _reviewLike.postValue(it)
                     clickHeartNoteList(reviewIdx, it)
-                    Log.d("시향 노트 좋아요 성공 : ", it.toString())
+                    Log.d("시향 노트 좋아요 상태 : ", it.toString())
                 }
             }catch (e : HttpException){
                 when(e.response()?.code()){
@@ -119,8 +123,8 @@ class PerfumeDetailViewModel: ViewModel() {
         val tempList = _perfumeDetailWithReviewData.value
         tempList?.forEach {
             if(it.reviewIdx==reviewIdx) {
-                it.access= isSelected
-                if(it.access){
+                it.isLiked= isSelected
+                if(it.isLiked){
                     it.likeCount += 1
                 }else{
                     it.likeCount -= 1
