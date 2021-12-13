@@ -38,6 +38,10 @@ class PerfumeDetailActivity : AppCompatActivity() {
         binding.lifecycleOwner=this
         binding.viewModel = viewModel
 
+        binding.svDetail.run {
+            header = binding.tabPerfumeDetail
+        }
+
         initInfo()
         initViewPager()
         initTab()

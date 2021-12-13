@@ -19,10 +19,10 @@
         tools:context=".ui.detail.PerfumeDetailActivity"
         android:background="@color/light_gray_f9">
 
-        <com.amar.library.ui.StickyScrollView
+        <com.afume.afume_android.ui.detail.StickyScrollView
+            android:id="@+id/sv_detail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:stickyHeader="@+id/tab_perfume_detail"
             app:layout_constraintBottom_toTopOf="@+id/cl_details_bottom_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,16 +59,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="15dp"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vp_perfume_detail_image"
-                    app:ci_width="6dp"
+                    app:ci_animator="@anim/scale_indicator"
+                    app:ci_drawable="@drawable/indicator_selected"
+                    app:ci_drawable_unselected="@drawable/indicator_unselected"
+                    app:ci_gravity="center_vertical"
                     app:ci_height="6dp"
                     app:ci_margin="6dp"
-                    app:ci_animator="@anim/scale_indicator"
-                    app:ci_drawable_unselected="@drawable/indicator_unselected"
-                    app:ci_drawable="@drawable/indicator_selected"
-                    app:ci_gravity="center_vertical"/>
+                    app:ci_width="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vp_perfume_detail_image" />
 
                 <ImageView
                     android:id="@+id/btn_heart"
@@ -149,12 +149,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rb_perfume_detail"
                     app:tabIndicatorColor="@color/primary_black"
-                    app:tabIndicatorHeight="4dp"
                     app:tabIndicatorGravity="bottom"
+                    app:tabIndicatorHeight="4dp"
                     app:tabSelectedTextColor="@color/primary_black"
-                    app:tabTextColor="@color/dark_gray_7d"
-                    app:tabTextAppearance="@style/Theme.Afume.Tab">
-                </com.google.android.material.tabs.TabLayout>
+                    app:tabTextAppearance="@style/Theme.Afume.Tab"
+                    app:tabTextColor="@color/dark_gray_7d"></com.google.android.material.tabs.TabLayout>
 
                 <com.afume.afume_android.ui.detail.MeasuredViewPager
                     android:id="@+id/vp_perfume_detail"
@@ -163,12 +162,11 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tab_perfume_detail" >
-                </com.afume.afume_android.ui.detail.MeasuredViewPager>
+                    app:layout_constraintTop_toBottomOf="@+id/tab_perfume_detail"></com.afume.afume_android.ui.detail.MeasuredViewPager>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.amar.library.ui.StickyScrollView>
+        </com.afume.afume_android.ui.detail.StickyScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_details_bottom_button"
