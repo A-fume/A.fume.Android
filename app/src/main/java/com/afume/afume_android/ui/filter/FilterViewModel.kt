@@ -48,7 +48,6 @@ class FilterViewModel : ViewModel() {
         getBrand()
         getSeries()
         getKeyword()
-
         badgeCount.value = mutableListOf(0, 0, 0)
     }
 
@@ -110,7 +109,7 @@ class FilterViewModel : ViewModel() {
     fun blockClickKeywordMoreThan5() {
         val tempList = keywordList.value
         if (badgeCount.value?.get(2)!! >= 5) {
-            Log.e("count", badgeCount.value?.get(2).toString())
+            Log.d("count", badgeCount.value?.get(2).toString())
             tempList?.forEach {
                 val keyword = it
                 keyword.clickable = false
@@ -286,6 +285,7 @@ class FilterViewModel : ViewModel() {
             val keywordInfoP = FilterInfoP(it.keywordIdx, it.name, 3)
             filterInfoPList.add(keywordInfoP)
         }
+
         return SendFilter(filterInfoPList, selectedSeriesMap.value)
     }
 
@@ -312,7 +312,7 @@ class FilterViewModel : ViewModel() {
         selectedKeywordList.value = keyword
         badgeCount.value?.set(2, keyword.size)
 
-        Log.e("change filter", selectedSeriesMap.value.toString())
+        Log.d("change filter", selectedSeriesMap.value.toString())
 
         // 뱃지 카운트 재정비
         getTotalBadgeCount()
