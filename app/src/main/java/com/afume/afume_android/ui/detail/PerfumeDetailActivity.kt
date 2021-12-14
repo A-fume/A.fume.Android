@@ -60,8 +60,11 @@ class PerfumeDetailActivity : AppCompatActivity() {
         viewModel.getPerfumeInfo(perfumeIdx)
         viewModel.perfumeDetailData.observe(this, Observer {
             binding.item = it
-            detailImageAdapter.data = it.imageUrls
-            detailImageAdapter.notifyDataSetChanged()
+
+            detailImageAdapter.run {
+                replaceAll(ArrayList(it.imageUrls))
+                notifyDataSetChanged()
+            }
 
             checkLiked = it.isLiked
             isLiked = it.isLiked
@@ -71,10 +74,10 @@ class PerfumeDetailActivity : AppCompatActivity() {
             image = it.imageUrls[0]
 
             reviewIdx = it.reviewIdx
-            binding.btnPerfumeDetailNoteWrite.setNoteBtnText(reviewIdx)
-        })
 
-        binding.indicatorPerfumeDetail.setViewPager(binding.vpPerfumeDetailImage)
+            binding.btnPerfumeDetailNoteWrite.setNoteBtnText(reviewIdx)
+            binding.indicatorPerfumeDetail.setViewPager(binding.vpPerfumeDetailImage)
+        })
 
     }
 

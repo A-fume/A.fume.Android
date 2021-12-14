@@ -7,12 +7,20 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.R
-import com.afume.afume_android.data.vo.PerfumeDetailData
 import com.afume.afume_android.databinding.RvItemDetailImageBinding
 import com.bumptech.glide.Glide
 
 class DetailImageAdapter(val context: Context) : RecyclerView.Adapter<DetailImageViewHolder>() {
-    var data: List<String>? = listOf()
+    var data = mutableListOf<String>()
+
+    fun replaceAll(array: ArrayList<String>?) {
+        array?.let {
+            data.run {
+                clear()
+                addAll(it)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailImageViewHolder {
         val binding : RvItemDetailImageBinding = DataBindingUtil.inflate(
