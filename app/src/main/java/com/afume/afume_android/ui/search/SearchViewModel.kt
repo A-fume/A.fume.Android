@@ -40,7 +40,7 @@ class SearchViewModel : ViewModel() {
             tempFilterList?.forEach {
                 when (it.type) {
                     1 -> {
-                        if (it.idx != -1) requestSearch.ingredientList?.add(it.idx)
+                        if (it.idx > -1) requestSearch.ingredientList?.add(it.idx)
                         else {
                             filter.value?.filterSeriesPMap?.get(it.name)?.forEach {
                                 requestSearch.ingredientList?.add(it.ingredientIdx)
@@ -69,7 +69,7 @@ class SearchViewModel : ViewModel() {
     fun cancelBtnFilter(f: FilterInfoP?) {
         var tmpFilter =filter.value;
         if (f != null) {
-            if (f.idx == -1) tmpFilter?.filterSeriesPMap?.get(f.name)?.clear()
+            if (f.idx <= -1) tmpFilter?.filterSeriesPMap?.remove(f.name)
             else {
 
                 if (f.type == 1) tmpFilter?.filterSeriesPMap?.values?.forEach { list ->

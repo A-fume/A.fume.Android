@@ -40,7 +40,7 @@ class IngredientFlexboxAdapter(
 
     inner class IngredientFlexboxHolder(val binding: RvItemSeriesIngredientsFilterBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private lateinit var changeList :MutableList<SeriesIngredients>
+        private lateinit var changeList: MutableList<SeriesIngredients>
         var selectedIngredients = mutableListOf<SeriesIngredients>()
 
         fun bind(data: SeriesIngredients) {
@@ -48,9 +48,24 @@ class IngredientFlexboxAdapter(
             initSelectedIngredients()
             Log.d("ingredients data", data.toString())
 
+            // 그려줄때, 전체가 선택 되어있는 경우 다른 재료들 비활성화
+            if (data.checked && data.ingredientIdx <= -1) { //전체를 선택했을 경우
+//                    setInactiveAll()
+                changeList = currentList
+                for (i in 1..currentList.lastIndex) {
+                    if (changeList[i].checked) {
+                        changeList[i].checked = false
+                    }
+                }
+            }
+
             binding.root.setOnClickListener { it ->
-                Log.e("ingredientIdx",data.ingredientIdx.toString())
-                if(!data.clickable) Toast.makeText(it.context, "5개 이상 선택 할 수 없어요.", Toast.LENGTH_SHORT).show()
+                Log.e("ingredientIdx", data.ingredientIdx.toString())
+                if (!data.clickable) Toast.makeText(
+                    it.context,
+                    "5개 이상 선택 할 수 없어요.",
+                    Toast.LENGTH_SHORT
+                ).show()
                 else {
                     data.checked = !data.checked
                     if (data.ingredientIdx <= -1) { //전체를 선택했을 경우
@@ -58,42 +73,42 @@ class IngredientFlexboxAdapter(
                         // 전체선택 활성화, 모든 버튼 비활성화 후 인덱스 리스트에 추가
                         if (data.checked) {
                             setInactiveAll()
+                            Log.d("스파이시 전체", ingredientsList.toString())
                             ingredientsList.forEach { selectedIngredients.add(it) }
                             countBadge(0, true)
                         }
                         // 전체선택 비활성화
                         else setInactiveEntire()
-                    }
-                    else { // 전체가 아닌 하나의 ingredient를 선택했을 때 선택한 인덱스 추가
+                    } else { // 전체가 아닌 하나의 ingredient를 선택했을 때 선택한 인덱스 추가
                         if (data.checked) {
                             // 전체 선택이 되어 있는 경우, 전체 선택 비활성화
                             if (currentList[0].checked) setInactiveEntire()
 
                             selectedIngredients.add(data)
                             countBadge(0, true)
-                        }
-                        else {
+                        } else {
                             selectedIngredients.remove(data)
                             countBadge(0, false)
                         }
                     }
 
                     // viewModel로 selectedIngredients 넘기기
-                    setSelectedIngredients(data.seriesName+" 전체", selectedIngredients)
+                    setSelectedIngredients(data.seriesName + " 전체", selectedIngredients)
                     Log.e("selectedIngredients__", selectedIngredients.toString())
                 }
             }
 
         }
 
-        fun initSelectedIngredients(){
+        fun initSelectedIngredients() {
             selectedIngredients.clear()
-            changeList=currentList
+            changeList = currentList
             changeList.forEach {
-                if(it.checked) selectedIngredients.add(it)
+                if (it.checked) selectedIngredients.add(it)
             }
         }
-        fun setInactiveEntire(){
+
+        fun setInactiveEntire() {
             //계열 전체 버튼 비활성화
             changeList = currentList
             changeList[0].checked = false
@@ -101,13 +116,14 @@ class IngredientFlexboxAdapter(
             countBadge(0, false)
             selectedIngredients.clear()
         }
-        fun setInactiveAll(){
+
+        fun setInactiveAll() {
             //각 계열의 모든 버튼 비활성화
             changeList = currentList
             for (i in 1..currentList.lastIndex) {
-                if(changeList[i].checked) {
+                if (changeList[i].checked) {
                     changeList[i].checked = false
-                    countBadge(0,false)
+                    countBadge(0, false)
                 }
             }
 //            setList(changeList)
