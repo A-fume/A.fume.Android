@@ -26,6 +26,7 @@ class NoteViewModel : ViewModel() {
 
     val selectedKeywordList: MutableLiveData<MutableList<KeywordInfo>> = MutableLiveData()
     private var tempSelectedKeywordList = mutableListOf<KeywordInfo>()
+    private var checkSelectedKeywordList = mutableListOf<KeywordInfo>()
 
     var selectedKeywordIdxList = mutableListOf<Int>()
 
@@ -284,6 +285,7 @@ class NoteViewModel : ViewModel() {
     private fun setCheckedKeyword(){
         selectedKeywordList.value?.forEach {
             it.checked = true
+            checkSelectedKeywordList.add(it)
         }
     }
 
@@ -291,7 +293,7 @@ class NoteViewModel : ViewModel() {
         if(responseReview.perfume.perfumeIdx != 0){
             _updateBtn.value = (responseReview.score != rating.value || responseReview.longevity != longevityProgress.value || responseReview.sillage != reverbProgress.value
                     || responseReview.seasonal != getSeason() || responseReview.gender != genderProgress.value || responseReview.content != contentsTxt.value
-                    || responseReview.keyword != selectedKeywordList.value || responseReview.access != _shareBtn.value)
+                    || checkSelectedKeywordList != selectedKeywordList.value || responseReview.access != _shareBtn.value)
 
             if(type == 1){
                 _showUpdateDialog.value = _updateBtn.value
