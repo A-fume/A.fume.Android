@@ -345,6 +345,7 @@ class SignUpViewModel()  : ViewModel() {
                 )
                 signRepository.postRegisterInfo(registerInfo).let {
                     Log.d("회원 가입 통신 성공 : ", it.toString())
+                    AfumeApplication.prefManager.userIdx = it.userIdx
                     AfumeApplication.prefManager.accessToken = "Bearer "+it.token
                     AfumeApplication.prefManager.refreshToken = "Bearer "+it.refreshToken
                     _isValidRegister.postValue(true)
