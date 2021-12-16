@@ -16,6 +16,15 @@ class RecommendListAdapter(private val context: Context) :
     RecyclerView.Adapter<RecommendListViewHolder>() {
     var data = mutableListOf<RecommendPerfumeItem>()
 
+    fun replaceAll(array: ArrayList<RecommendPerfumeItem>?) {
+        array?.let {
+            data.run {
+                clear()
+                addAll(it)
+            }
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecommendListViewHolder {
         val binding: RvItemHomeRecommendBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),

@@ -47,6 +47,8 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        observe()
+
         initRecommendList()
         initPopularList()
         initRecentList()
@@ -91,8 +93,18 @@ class HomeFragment : Fragment() {
             )
 
         binding.vpHomeRecommend.adapter = recommendAdapter
+    }
 
-        binding.indicatorHome.setViewPager(binding.vpHomeRecommend)
+    private fun observe(){
+        homeViewModel.recommendPerfumeList.observe(requireActivity(), androidx.lifecycle.Observer {
+
+            recommendAdapter.run {
+                replaceAll(ArrayList(it))
+                notifyDataSetChanged()
+            }
+
+            binding.indicatorHome.setViewPager(binding.vpHomeRecommend)
+        })
     }
 
     private fun initPopularList(){
