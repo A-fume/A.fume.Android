@@ -42,24 +42,27 @@ class HomeViewModel : ViewModel(){
 
     init {
         viewModelScope.launch {
-            try{
-                _isValidRecentList.postValue(true)
-                _recommendPerfumeList.value = homeRepository.getRecommendPerfumeList(AfumeApplication.prefManager.accessToken)
-                _commonPerfumeList.value = homeRepository.getCommonPerfumeList(AfumeApplication.prefManager.accessToken)
-                _newPerfumeList.value = homeRepository.getNewPerfumeList()
-                _recentPerfumeList.value = homeRepository.getRecentPerfumeList(AfumeApplication.prefManager.accessToken)
+            getHomePerfumeList()
+        }
+    }
 
-                if(_recentPerfumeList.value!!.isEmpty()){
+    suspend fun getHomePerfumeList(){
+        try{
+            _isValidRecentList.postValue(true)
+            _recommendPerfumeList.value = homeRepository.getRecommendPerfumeList(AfumeApplication.prefManager.accessToken)
+            _commonPerfumeList.value = homeRepository.getCommonPerfumeList(AfumeApplication.prefManager.accessToken)
+            _newPerfumeList.value = homeRepository.getNewPerfumeList()
+            _recentPerfumeList.value = homeRepository.getRecentPerfumeList(AfumeApplication.prefManager.accessToken)
+
+            if(_recentPerfumeList.value!!.isEmpty()){
+                _isValidRecentList.postValue(false)
+            }
+        }catch (e : HttpException){
+            when(e.response()?.code()){
+                401 -> { // 최근 검색 향수 없음
                     _isValidRecentList.postValue(false)
                 }
-            }catch (e : HttpException){
-                when(e.response()?.code()){
-                    401 -> { // 최근 검색 향수 없음
-                        _isValidRecentList.postValue(false)
-                    }
-                }
             }
-
         }
     }
 
