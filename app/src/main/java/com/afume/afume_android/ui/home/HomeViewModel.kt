@@ -47,22 +47,51 @@ class HomeViewModel : ViewModel(){
     }
 
     suspend fun getHomePerfumeList(){
+        getRecommendPerfumeList()
+        getCommonPerfumeList()
+        getRecentPerfumeList()
+        getNewPerfumeList()
+    }
+
+    private suspend fun getRecommendPerfumeList(){
+        try{
+            _recommendPerfumeList.value = homeRepository.getRecommendPerfumeList(AfumeApplication.prefManager.accessToken)
+            Log.d("getRecommendPerfumeList", _recommendPerfumeList.value.toString())
+        }catch (e : HttpException){
+            Log.d("getRecommendPerfumeList error", e.message())
+        }
+    }
+
+    private suspend fun getCommonPerfumeList(){
+        try{
+            _commonPerfumeList.value = homeRepository.getCommonPerfumeList(AfumeApplication.prefManager.accessToken)
+            Log.d("getCommonPerfumeList", _commonPerfumeList.value.toString())
+        }catch (e : HttpException){
+            Log.d("getCommonPerfumeList error", e.message())
+        }
+    }
+
+    private suspend fun getRecentPerfumeList(){
         try{
             _isValidRecentList.postValue(true)
-            _recommendPerfumeList.value = homeRepository.getRecommendPerfumeList(AfumeApplication.prefManager.accessToken)
-            _commonPerfumeList.value = homeRepository.getCommonPerfumeList(AfumeApplication.prefManager.accessToken)
-            _newPerfumeList.value = homeRepository.getNewPerfumeList()
             _recentPerfumeList.value = homeRepository.getRecentPerfumeList(AfumeApplication.prefManager.accessToken)
+            Log.d("getRecentPerfumeList", _recentPerfumeList.value.toString())
 
             if(_recentPerfumeList.value!!.isEmpty()){
                 _isValidRecentList.postValue(false)
             }
         }catch (e : HttpException){
-            when(e.response()?.code()){
-                401 -> { // 최근 검색 향수 없음
-                    _isValidRecentList.postValue(false)
-                }
-            }
+            _isValidRecentList.postValue(false)
+            Log.d("getRecentPerfumeList error", e.message())
+        }
+    }
+
+    private suspend fun getNewPerfumeList(){
+        try{
+            _newPerfumeList.value = homeRepository.getNewPerfumeList()
+            Log.d("getNewPerfumeList", _newPerfumeList.value.toString())
+        }catch (e : HttpException){
+            Log.d("getNewPerfumeList error", e.message())
         }
     }
 
