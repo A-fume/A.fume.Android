@@ -1,6 +1,7 @@
 package com.afume.afume_android.ui.note
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -231,6 +232,7 @@ class NoteActivity : AppCompatActivity() {
 
         intent.run {
             putExtra("perfumeIdx", perfumeIdx)
+            addFlags(FLAG_ACTIVITY_CLEAR_TOP)
         }
 
         startActivity(intent)
