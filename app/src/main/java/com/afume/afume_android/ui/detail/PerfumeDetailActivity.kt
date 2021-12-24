@@ -1,6 +1,7 @@
 package com.afume.afume_android.ui.detail
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -120,6 +121,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
             val wishListPerfume = ParcelableWishList(perfumeIdx,reviewIdx,perfumeName,brandName,image)
             intent.run {
                 putExtra("wishListPerfume", wishListPerfume)
+                addFlags(FLAG_ACTIVITY_CLEAR_TOP)
             }
 
             startActivity(intent)
