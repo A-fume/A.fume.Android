@@ -11,6 +11,7 @@ import com.afume.afume_android.data.repository.EditMyInfoRepository
 import com.afume.afume_android.data.repository.SignRepository
 import com.afume.afume_android.data.vo.request.RequestEditMyInfo
 import com.afume.afume_android.data.vo.request.RequestEditPassword
+import com.afume.afume_android.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.regex.Pattern
@@ -373,6 +374,9 @@ class EditMyInfoViewModel : ViewModel() {
     val isValidEditPassword : LiveData<Boolean>
         get() = _isValidEditPassword
 
+    private val _showErrorToast = SingleLiveEvent<Void>()
+    val showErrorToast: LiveData<Void> = _showErrorToast
+
     // 비밀번호 수정
     fun putPassword(){
         viewModelScope.launch {
@@ -394,6 +398,10 @@ class EditMyInfoViewModel : ViewModel() {
                 _isValidEditPassword.postValue(false)
 
                 when(e.response()?.code()){
+                    400 -> { // 동일한 비밀번호 입력
+                        Log.d("비밀번호 수정 실패 ", e.message())
+                        _showErrorToast.call()
+                    }
                     401 -> { // 현재 비밀번호 잘못입력
                         Log.d("비밀번호 수정 실패 ", e.message())
                     }
