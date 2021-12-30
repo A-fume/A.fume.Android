@@ -349,7 +349,7 @@ class EditMyInfoViewModel : ViewModel() {
 
     private fun checkAgainForm(){
         when{
-            newPasswordTxt.value.toString() == againPasswordTxt.value.toString() -> {
+            newPasswordTxt.value?.length != 0 && newPasswordTxt.value.toString() == againPasswordTxt.value.toString() -> {
                 _isValidAgainPasswordNotice.postValue(false)
                 _isValidAgainPassword.postValue(true)
             }
