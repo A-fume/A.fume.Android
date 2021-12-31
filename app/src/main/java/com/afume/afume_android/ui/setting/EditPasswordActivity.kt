@@ -9,8 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivityPasswordEditBinding
-import com.afume.afume_android.util.closeKeyboard
-import com.afume.afume_android.util.toastLong
+import com.afume.afume_android.util.setKeyboard
 
 class EditPasswordActivity : AppCompatActivity() {
     lateinit var binding : ActivityPasswordEditBinding
@@ -31,8 +30,11 @@ class EditPasswordActivity : AppCompatActivity() {
     }
 
     private fun observer(){
-        editViewModel.showErrorToast.observe(this, Observer {
-            this.toastLong("현재 비밀번호와 다른 비밀번호를 입력하세요.")
+        editViewModel.isValidSamePassword.observe(this, Observer {
+            if(it){
+                binding.edtEditPasswordNew.requestFocus()
+                this.setKeyboard(true, binding.edtEditPasswordNew)
+            }
         })
     }
 
@@ -61,7 +63,7 @@ class EditPasswordActivity : AppCompatActivity() {
     private fun setKeyboard(){
         editViewModel.passwordEditCompleteBtn.observe(this, Observer { passwordEditCompleteBtn ->
             if(passwordEditCompleteBtn){
-                this.closeKeyboard()
+                this.setKeyboard(false,null)
             }
         })
     }
