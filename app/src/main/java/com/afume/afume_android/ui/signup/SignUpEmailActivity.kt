@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpEmailBinding
-import com.afume.afume_android.util.closeKeyboard
 import com.afume.afume_android.util.startActivity
+import com.afume.afume_android.util.setKeyboard
 
 class SignUpEmailActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpEmailBinding
@@ -54,7 +54,7 @@ class SignUpEmailActivity : AppCompatActivity() {
     private fun setKeyboard(){
         signUpViewModel.emailNextBtn.observe(this, Observer { emailNextBtn ->
             if(emailNextBtn){
-                this.closeKeyboard()
+                this.setKeyboard(false, null)
             }
         })
     }

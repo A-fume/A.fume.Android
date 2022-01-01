@@ -3,6 +3,7 @@ package com.afume.afume_android.util
 import android.content.Context
 import android.content.Intent
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 
 fun AppCompatActivity.startActivity(activity: Class<*>) {
@@ -14,12 +15,16 @@ fun AppCompatActivity.startActivityWithFinish(activity: Class<*>) {
     this.finishAffinity()
 }
 
-fun AppCompatActivity.closeKeyboard(){
+fun AppCompatActivity.setKeyboard(show: Boolean, editText: EditText?){
     val view = this.currentFocus
 
     if(view != null)
     {
         val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+
+        when(show){
+            true -> inputMethodManager.showSoftInput(editText, 0)
+            false -> inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 }
