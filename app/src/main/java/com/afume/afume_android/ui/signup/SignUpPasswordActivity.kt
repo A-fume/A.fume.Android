@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpPasswordBinding
-import com.afume.afume_android.util.closeKeyboard
+import com.afume.afume_android.util.setKeyboard
 import com.afume.afume_android.util.startActivity
 
 class SignUpPasswordActivity : AppCompatActivity() {
@@ -56,7 +56,7 @@ class SignUpPasswordActivity : AppCompatActivity() {
     private fun setKeyboard(){
         signUpViewModel.passwordNextBtn.observe(this, Observer { passwordNextBtn ->
             if(passwordNextBtn){
-                this.closeKeyboard()
+                this.setKeyboard(false, null)
             }
         })
     }

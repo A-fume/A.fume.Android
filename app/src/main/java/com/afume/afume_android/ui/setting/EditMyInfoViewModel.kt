@@ -38,7 +38,6 @@ class EditMyInfoViewModel : ViewModel() {
             checkGenderInfo(AfumeApplication.prefManager.userGender)
             ageTxt.postValue(AfumeApplication.prefManager.userAge.toString())
         }
-        Log.d("명", completeBtn.value.toString())
     }
 
     private fun checkGenderInfo(gender : String){
@@ -295,6 +294,11 @@ class EditMyInfoViewModel : ViewModel() {
         }
     }
 
+    // 새비밀번호 형식 검사 - 하단 안내문 내용
+    val _newPasswordNotice = MutableLiveData<String>()
+    val newPasswordNotice : LiveData<String>
+        get() = _newPasswordNotice
+
     // 새비밀번호 형식 검사 - 하단 안내문
     private val _isValidNewPasswordNotice = MutableLiveData<Boolean>(false)
     val isValidNewPasswordNotice : LiveData<Boolean>
@@ -313,6 +317,8 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 새비밀번호 자리수 확인
     private fun checkNewPasswordForm(){
+        _newPasswordNotice.value = "4자리 이상 입력해주세요."
+
         when(newPasswordTxt.value?.length){
             0 -> _isValidNewPasswordNotice.postValue(false)
             in 1..3 -> {
@@ -344,7 +350,7 @@ class EditMyInfoViewModel : ViewModel() {
 
     private fun checkAgainForm(){
         when{
-            newPasswordTxt.value.toString() == againPasswordTxt.value.toString() -> {
+            newPasswordTxt.value?.length != 0 && newPasswordTxt.value.toString() == againPasswordTxt.value.toString() -> {
                 _isValidAgainPasswordNotice.postValue(false)
                 _isValidAgainPassword.postValue(true)
             }
@@ -373,6 +379,10 @@ class EditMyInfoViewModel : ViewModel() {
     val isValidEditPassword : LiveData<Boolean>
         get() = _isValidEditPassword
 
+    private val _isValidSamePassword = MutableLiveData<Boolean>(false)
+    val isValidSamePassword : LiveData<Boolean>
+        get() = _isValidSamePassword
+
     // 비밀번호 수정
     fun putPassword(){
         viewModelScope.launch {
@@ -394,6 +404,15 @@ class EditMyInfoViewModel : ViewModel() {
                 _isValidEditPassword.postValue(false)
 
                 when(e.response()?.code()){
+                    400 -> { // 동일한 비밀번호 입력
+                        _isValidSamePassword.postValue(true)
+                        _newPasswordNotice.value = "최근 사용한 비밀번호입니다.\n다른 비밀번호를 입력해 주세요."
+                        _isValidNewPasswordNotice.postValue(true)
+                        _isValidNewPassword.postValue(false)
+                        againPasswordTxt.value = ""
+                        _isValidAgainPassword.postValue(false)
+                        Log.d("비밀번호 수정 실패 ", e.message())
+                    }
                     401 -> { // 현재 비밀번호 잘못입력
                         Log.d("비밀번호 수정 실패 ", e.message())
                     }

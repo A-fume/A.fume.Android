@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentHomeBinding
@@ -53,6 +54,14 @@ class HomeFragment : Fragment() {
         initPopularList()
         initRecentList()
         initNewList()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            homeViewModel.getHomePerfumeList()
+        }
     }
 
     @SuppressLint("SetTextI18n")
