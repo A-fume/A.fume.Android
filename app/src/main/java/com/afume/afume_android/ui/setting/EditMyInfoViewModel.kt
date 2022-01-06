@@ -246,6 +246,13 @@ class EditMyInfoViewModel : ViewModel() {
     val newPasswordForm : LiveData<Boolean>
         get() = _newPasswordForm
 
+    // 수정중인 내용 확인
+    fun checkUpdatePassword(){
+        if(_isValidPassword.value == true && _isValidAgainPassword.value == true){
+            _showUpdateDialog.value = true
+        }
+    }
+
     // 비밀번호 입력 실시간 확인
     fun inputPassword(s: CharSequence?, start: Int, before: Int, count: Int) {
         Handler().postDelayed({ checkPasswordForm() }, 0L)
