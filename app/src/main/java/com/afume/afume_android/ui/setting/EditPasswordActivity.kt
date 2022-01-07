@@ -55,6 +55,9 @@ class EditPasswordActivity : AppCompatActivity() {
     }
 
     private fun checkNextBtn(){
+        editViewModel.isValidPassword.observe(this, Observer {
+            editViewModel.checkPasswordNextBtn()
+        })
         editViewModel.isValidNewPassword.observe(this, Observer{
             editViewModel.checkPasswordNextBtn()
         })
