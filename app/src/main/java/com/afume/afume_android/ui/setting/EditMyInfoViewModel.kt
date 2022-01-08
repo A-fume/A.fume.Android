@@ -246,6 +246,36 @@ class EditMyInfoViewModel : ViewModel() {
     val newPasswordForm : LiveData<Boolean>
         get() = _newPasswordForm
 
+    // 기존 비밀번호와의 일치 검사
+    private val _isValidSamePassword = MutableLiveData<Boolean>(false)
+    val isValidSamePassword : LiveData<Boolean>
+        get() = _isValidSamePassword
+
+    // 수정중인 내용 확인
+    fun checkUpdatePassword(){
+        if(_isValidNewPassword.value == true && _isValidAgainPassword.value == true){
+            _showUpdateDialog.value = true
+        }
+    }
+
+    // 본인확인
+    fun checkValidPassword(){
+        passwordNotice.value = "비밀번호를 다시 입력해주세요."
+        if(passwordTxt.value == AfumeApplication.prefManager.userPassword){
+            _isValidPassword.postValue(true)
+            _isValidPasswordBtn.postValue(false)
+            _isValidPasswordNotice.postValue(false)
+            _isWarningUser.postValue(false)
+
+            if(!_newPasswordForm.value!!) _newPasswordForm.postValue(true)
+        }else{
+            _isValidPassword.postValue(false)
+            _isValidPasswordBtn.postValue(false)
+            _isValidPasswordNotice.postValue(true)
+            _isWarningUser.postValue(true)
+        }
+    }
+
     // 비밀번호 입력 실시간 확인
     fun inputPassword(s: CharSequence?, start: Int, before: Int, count: Int) {
         Handler().postDelayed({ checkPasswordForm() }, 0L)
@@ -265,32 +295,17 @@ class EditMyInfoViewModel : ViewModel() {
     // 비밀번호 자리수 확인
     private fun checkPasswordForm() {
         passwordNotice.value = "4자리 이상 입력해주세요."
+        _isValidPasswordBtn.postValue(false)
         when(passwordTxt.value?.length){
             0 -> _isValidPasswordNotice.postValue(false)
             in 1..3 -> {
                 _isValidPasswordNotice.postValue(true)
+                _isWarningUser.postValue(true)
             }
             else -> {
                 _isValidPasswordNotice.postValue(false)
                 _isValidPasswordBtn.postValue(true)
             }
-        }
-    }
-
-    fun checkValidPassword(){
-        passwordNotice.value = "비밀번호를 다시 입력해주세요."
-        if(passwordTxt.value == AfumeApplication.prefManager.userPassword){
-            _isValidPassword.postValue(true)
-            _isValidPasswordBtn.postValue(false)
-            _isValidPasswordNotice.postValue(false)
-            _isWarningUser.postValue(false)
-
-            if(!_newPasswordForm.value!!) _newPasswordForm.postValue(true)
-        }else{
-            _isValidPassword.postValue(false)
-            _isValidPasswordBtn.postValue(true)
-            _isValidPasswordNotice.postValue(true)
-            _isWarningUser.postValue(true)
         }
     }
 
@@ -328,9 +343,22 @@ class EditMyInfoViewModel : ViewModel() {
             else -> {
                 _isValidNewPasswordNotice.postValue(false)
                 _isValidNewPassword.postValue(true)
+                checkNewPassword()
             }
         }
         checkAgainForm()
+    }
+
+    // 기존 비밀번호와 일치 검사
+    private fun checkNewPassword(){
+        if(newPasswordTxt.value == AfumeApplication.prefManager.userPassword){
+            _isValidSamePassword.postValue(true)
+            _newPasswordNotice.value = "최근 사용한 비밀번호입니다.\n다른 비밀번호를 입력해 주세요."
+            _isValidNewPasswordNotice.postValue(true)
+            _isValidNewPassword.postValue(false)
+//            againPasswordTxt.value = ""
+//            _isValidAgainPassword.postValue(false)
+        }
     }
 
     // 새비밀번호 일치 검사 - 하단 안내문
@@ -371,17 +399,13 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 다음 버튼 노출 여부 검사 - 비밀번호
     fun checkPasswordNextBtn(){
-        _passwordEditCompleteBtn.postValue(_isValidNewPassword.value == true && _isValidAgainPassword.value == true)
+        _passwordEditCompleteBtn.postValue(_isValidPassword.value == true && _isValidNewPassword.value == true && _isValidAgainPassword.value == true)
     }
 
     // 비밀번호 수정
     private val _isValidEditPassword = MutableLiveData<Boolean>(false)
     val isValidEditPassword : LiveData<Boolean>
         get() = _isValidEditPassword
-
-    private val _isValidSamePassword = MutableLiveData<Boolean>(false)
-    val isValidSamePassword : LiveData<Boolean>
-        get() = _isValidSamePassword
 
     // 비밀번호 수정
     fun putPassword(){
@@ -405,12 +429,6 @@ class EditMyInfoViewModel : ViewModel() {
 
                 when(e.response()?.code()){
                     400 -> { // 동일한 비밀번호 입력
-                        _isValidSamePassword.postValue(true)
-                        _newPasswordNotice.value = "최근 사용한 비밀번호입니다.\n다른 비밀번호를 입력해 주세요."
-                        _isValidNewPasswordNotice.postValue(true)
-                        _isValidNewPassword.postValue(false)
-                        againPasswordTxt.value = ""
-                        _isValidAgainPassword.postValue(false)
                         Log.d("비밀번호 수정 실패 ", e.message())
                     }
                     401 -> { // 현재 비밀번호 잘못입력
