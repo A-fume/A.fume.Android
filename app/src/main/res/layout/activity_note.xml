@@ -353,8 +353,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:max="4"
-                    setNoteProgress="@={viewModel.longevityProgress}"
-                    android:progress="@={viewModel.longevityProgress}"
+                    android:progress="@{viewModel.longevityProgress}"
                     android:progressDrawable="@color/transparent"
                     android:thumb="@color/transparent"
                     android:tickMark="@drawable/seekbar_note_tick"
@@ -364,17 +363,16 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView22" />
 
                 <SeekBar
-                    android:id="@+id/seekBar"
+                    android:id="@+id/sb_note_txt_longevity"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:max="4"
-                    setNoteProgress="@={viewModel.longevityProgress}"
-                    android:progress="@={viewModel.longevityProgress}"
+                    android:progress="@{viewModel.longevityProgress}"
                     android:progressDrawable="@color/transparent"
                     android:thumb="@color/transparent"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_note_longevity_very_weak"
-                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_strong"
-                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_weak"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView22"
+                    app:layout_constraintStart_toStartOf="@+id/imageView22"
                     app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_very_weak" />
 
                 <TextView
@@ -390,7 +388,7 @@
                     android:textSize="14dp"
                     app:layout_constraintEnd_toStartOf="@+id/txt_note_longevity_weak"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="@+id/sb_note_longevity"
+                    app:layout_constraintStart_toStartOf="@+id/imageView22"
                     app:layout_constraintTop_toBottomOf="@+id/imageView22" />
 
                 <TextView
@@ -446,7 +444,7 @@
                     android:text="매우\n강함"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/sb_note_longevity"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView22"
                     app:layout_constraintStart_toEndOf="@+id/txt_note_longevity_strong"
                     app:layout_constraintTop_toBottomOf="@+id/imageView22" />
 
@@ -481,7 +479,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:max="2"
-                    android:progress="@={viewModel.reverbProgress}"
+                    android:progress="@{viewModel.reverbProgress}"
                     android:progressDrawable="@color/transparent"
                     android:thumb="@color/transparent"
                     android:tickMark="@drawable/seekbar_note_tick"
@@ -491,11 +489,11 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView27" />
 
                 <SeekBar
-                    android:id="@+id/seekBar2"
+                    android:id="@+id/sb_note_txt_reverb"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:max="2"
-                    android:progress="@={viewModel.reverbProgress}"
+                    android:progress="@{viewModel.reverbProgress}"
                     android:progressDrawable="@color/transparent"
                     android:thumb="@color/transparent"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_note_reverb_light"
@@ -684,7 +682,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:max="2"
-                    android:progress="@={viewModel.genderProgress}"
+                    android:progress="@{viewModel.genderProgress}"
                     android:progressDrawable="@color/transparent"
                     android:thumb="@color/transparent"
                     android:tickMark="@drawable/seekbar_note_tick"
@@ -694,11 +692,11 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView40" />
 
                 <SeekBar
-                    android:id="@+id/seekBar3"
+                    android:id="@+id/sb_note_txt_gender"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:max="2"
-                    android:progress="@={viewModel.genderProgress}"
+                    android:progress="@{viewModel.genderProgress}"
                     android:progressDrawable="@color/transparent"
                     android:thumb="@color/transparent"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_note_gender_man"

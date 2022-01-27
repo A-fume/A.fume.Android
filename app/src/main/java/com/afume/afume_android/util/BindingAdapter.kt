@@ -3,7 +3,10 @@ package com.afume.afume_android.util
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.*
+import android.widget.CheckedTextView
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
@@ -126,38 +129,6 @@ object BindingAdapter {
     @InverseBindingAdapter(attribute = "setNoteContentsText", event = "TextAttrChanged")
     fun getNoteContentsSizeText(view: EditText): String {
         return view.text.toString()
-    }
-
-    @JvmStatic
-    @InverseBindingAdapter(attribute = "setNoteProgress", event = "StartTrackingTouch")
-    fun getNoteProgress(view: SeekBar): Int{
-        return view.progress
-    }
-
-    @JvmStatic
-    @BindingAdapter("setNoteProgress")
-    fun setNoteProgress(view: SeekBar, progress : Int){
-        if(progress != view.progress){
-//            view.thumb = ContextCompat.getDrawable(view.context, R.drawable.seekbar_note_thumb)
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter("StartTrackingTouch")
-    fun onStartTrackingTouch(view: SeekBar, listener: InverseBindingListener){
-        view.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
-            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-
-            }
-
-            override fun onStartTrackingTouch(p0: SeekBar?) {
-                listener.onChange()
-            }
-
-            override fun onStopTrackingTouch(p0: SeekBar?) {
-            }
-
-        })
     }
 
     @JvmStatic
