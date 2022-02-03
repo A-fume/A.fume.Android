@@ -98,7 +98,7 @@ class SignInViewModel : ViewModel() {
                     AfumeApplication.prefManager.userEmail = emailTxt.value.toString()
                     AfumeApplication.prefManager.userPassword = passwordTxt.value.toString()
                     AfumeApplication.prefManager.userNickname = it.nickname
-                    AfumeApplication.prefManager.userGender = getGender(it.gender)
+                    AfumeApplication.prefManager.userGender = it.gender
                     AfumeApplication.prefManager.userAge = it.birth
                     AfumeApplication.prefManager.accessToken = "Bearer "+it.token
                     AfumeApplication.prefManager.refreshToken = "Bearer "+it.refreshToken
@@ -121,10 +121,5 @@ class SignInViewModel : ViewModel() {
                 }
             }
         }
-    }
-
-    private fun getGender(gender: Int) : String{
-        return if(gender==1) "MAN"
-        else "WOMAN"
     }
 }
