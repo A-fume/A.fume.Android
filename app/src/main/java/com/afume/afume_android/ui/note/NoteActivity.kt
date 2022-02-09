@@ -4,9 +4,11 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Bundle
 import android.view.View
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -40,9 +42,9 @@ class NoteActivity : AppCompatActivity() {
         binding.viewModel = noteViewModel
         initNote()
 
-        initObserver()
         setComponentList()
-        onSeekBarChangeListener()
+        initObserver()
+        initListener()
         initKeywordList()
     }
 
@@ -79,9 +81,9 @@ class NoteActivity : AppCompatActivity() {
             noteViewModel.checkUpdateInfo(0)
         })
 
-        setSeekBarObserve(noteViewModel.longevityProgress)
-        setSeekBarObserve(noteViewModel.reverbProgress)
-        setSeekBarObserve(noteViewModel.genderProgress)
+        setSeekBarObserve(noteViewModel.longevityProgress,binding.sbNoteLongevity,txtLongevityList)
+        setSeekBarObserve(noteViewModel.reverbProgress,binding.sbNoteReverb,txtReverbList)
+        setSeekBarObserve(noteViewModel.genderProgress,binding.sbNoteGender,txtGenderList)
 
         setSeasonBtnObserve(noteViewModel.springBtn)
         setSeasonBtnObserve(noteViewModel.summerBtn)
@@ -93,12 +95,17 @@ class NoteActivity : AppCompatActivity() {
         })
 
         noteViewModel.showErrorToast.observe(this, Observer {
-            this.toastLong("입력 칸을 모두 작성해야 공개가 가능합니다.")
+            this.toast("입력 칸을 모두 작성해야 공개가 가능합니다.")
         })
     }
 
-    private fun setSeekBarObserve(seekBar: LiveData<Int>){
-        seekBar.observe(this, Observer {
+    private fun setSeekBarObserve(progress: LiveData<Int>,seekBar: SeekBar, list: List<TextView>){
+        progress.observe(this, Observer {
+            if(it > -1){
+                seekBar.thumb = ContextCompat.getDrawable(this@NoteActivity, R.drawable.seekbar_note_thumb)
+                setSelectedSeekBarTxtBold(list,it)
+            }
+
             noteViewModel.checkShareBtn()
             noteViewModel.checkUpdateInfo(0)
         })
@@ -132,19 +139,16 @@ class NoteActivity : AppCompatActivity() {
         txtGenderList = listOf(binding.txtNoteGenderMan, binding.txtNoteGenderNeuter, binding.txtNoteGenderWoman)
     }
 
-    private fun onSeekBarChangeListener(){
+    private fun initListener(){
+        onSeekBarChangeListener(binding.sbNoteLongevity,binding.sbNoteTxtLongevity,txtLongevityList,"longevity")
+        onSeekBarChangeListener(binding.sbNoteReverb,binding.sbNoteTxtReverb,txtReverbList,"reverb")
+        onSeekBarChangeListener(binding.sbNoteGender,binding.sbNoteTxtGender,txtGenderList,"gender")
+    }
 
-        val longevityListener = SeekBarListener(this,binding.sbNoteLongevity,txtLongevityList,noteViewModel,"longevity")
-        binding.sbNoteLongevity.setOnSeekBarChangeListener(longevityListener)
-        binding.sbNoteTxtLongevity.setOnSeekBarChangeListener(longevityListener)
-
-        val reverbListener = SeekBarListener(this,binding.sbNoteReverb,txtReverbList,noteViewModel,"reverb")
-        binding.sbNoteReverb.setOnSeekBarChangeListener(reverbListener)
-        binding.sbNoteTxtReverb.setOnSeekBarChangeListener(reverbListener)
-
-        val genderListener = SeekBarListener(this,binding.sbNoteGender,txtGenderList,noteViewModel,"gender")
-        binding.sbNoteGender.setOnSeekBarChangeListener(genderListener)
-        binding.sbNoteTxtGender.setOnSeekBarChangeListener(genderListener)
+    private fun onSeekBarChangeListener(seekBar: SeekBar,txtSeekBar: SeekBar, list: List<TextView>,type: String){
+        val listener = SeekBarListener(this,seekBar,list,noteViewModel,type)
+        seekBar.setOnSeekBarChangeListener(listener)
+        txtSeekBar.setOnSeekBarChangeListener(listener)
     }
 
     fun onClickBackBtn(view : View){
