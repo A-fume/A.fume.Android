@@ -1,5 +1,6 @@
 package com.afume.afume_android.ui.signup
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -9,8 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpEmailBinding
-import com.afume.afume_android.util.startActivity
 import com.afume.afume_android.util.setKeyboard
+import com.afume.afume_android.util.startActivity
 
 class SignUpEmailActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpEmailBinding
@@ -24,9 +25,14 @@ class SignUpEmailActivity : AppCompatActivity() {
 
         binding.edtSignUpEmail.requestFocus()
 
-        nickAnimation()
+//        nickAnimation()
         checkNextButton()
         setKeyboard()
+
+        binding.txtPrivacyPolicy.setOnClickListener {
+            val intent = Intent(this, PrivacyPolicyActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun nickAnimation(){

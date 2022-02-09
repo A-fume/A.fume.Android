@@ -28,7 +28,7 @@
             app:srcCompat="@drawable/btn_back" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/txt_back_to_sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -53,7 +53,7 @@
             android:textColor="@color/dark_gray_7d"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_back_to_sign_up" />
 
         <EditText
             android:id="@+id/edt_sign_up_email"
@@ -142,10 +142,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:visibility="@{viewModel.nickForm? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView16">
+            <!--            android:visibility="@{viewModel.nickForm? View.VISIBLE : View.INVISIBLE}"-->
 
             <TextView
                 android:id="@+id/textView19"
@@ -172,10 +173,10 @@
                 android:includeFontPadding="false"
                 android:inputType="textPersonName"
                 android:maxLength="30"
+                android:onTextChanged="@{viewModel::inputNick}"
                 android:paddingLeft="0dp"
                 android:paddingTop="0dp"
                 android:singleLine="true"
-                android:onTextChanged="@{viewModel::inputNick}"
                 android:text="@={viewModel.nickTxt}"
                 android:textColor="@color/dark"
                 android:textColorHint="@color/gray_cd"
@@ -207,12 +208,12 @@
                 android:includeFontPadding="false"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
+                android:onClick="@{() -> viewModel.getValidateNickname()}"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="6dp"
                 android:text="중복 확인"
                 android:textColor="@color/white"
                 android:textSize="14dp"
-                android:onClick="@{() -> viewModel.getValidateNickname()}"
                 android:visibility="@{viewModel.isValidNickBtn? View.VISIBLE : View.INVISIBLE}"
                 app:cornerRadius="2dp"
                 app:layout_constraintBottom_toTopOf="@+id/imageView18"
@@ -236,9 +237,9 @@
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="@{viewModel.nickNotice}"
-                android:visibility="@{viewModel.isValidNickNotice? View.VISIBLE : View.INVISIBLE}"
                 android:textColor="@color/brick"
                 android:textSize="12dp"
+                android:visibility="@{viewModel.isValidNickNotice? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintStart_toStartOf="@+id/imageView18"
                 app:layout_constraintTop_toBottomOf="@+id/imageView18" />
 
@@ -279,6 +280,29 @@
                 app:layout_constraintEnd_toStartOf="@+id/imageView21"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <CheckBox
+            android:id="@+id/checkBox_privacy"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:theme="@style/CheckBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_sign_up_nick" />
+
+        <TextView
+            android:id="@+id/txt_privacy_policy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/txt_privacy"
+            android:fontFamily="@font/notosans_bold"
+            android:includeFontPadding="false"
+            android:textColor="@color/primary_black"
+            app:layout_constraintBottom_toBottomOf="@+id/checkBox_privacy"
+            app:layout_constraintEnd_toStartOf="@+id/checkBox_privacy"
+            app:layout_constraintTop_toTopOf="@+id/checkBox_privacy" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
