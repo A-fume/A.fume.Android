@@ -7,6 +7,7 @@ import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySignUpEmailBinding
@@ -26,8 +27,7 @@ class SignUpEmailActivity : AppCompatActivity() {
         binding.edtSignUpEmail.requestFocus()
 
 //        nickAnimation()
-        checkNextButton()
-        setKeyboard()
+        initObserve()
 
         binding.txtPrivacyPolicy.setOnClickListener {
             val intent = Intent(this, PrivacyPolicyActivity::class.java)
@@ -48,18 +48,24 @@ class SignUpEmailActivity : AppCompatActivity() {
         })
     }
 
-    private fun checkNextButton(){
-        signUpViewModel.isValidEmail.observe(this, Observer {
-            signUpViewModel.checkNextBtn()
-        })
-        signUpViewModel.isValidNick.observe(this, Observer{
+    private fun initObserve(){
+        checkNextButton(signUpViewModel.isValidEmail)
+        checkNextButton(signUpViewModel.isValidNick)
+        checkNextButton(signUpViewModel.privacyBtn)
+
+        setKeyboard(signUpViewModel.isValidNick)
+        setKeyboard(signUpViewModel.emailNextBtn)
+    }
+
+    private fun checkNextButton(isValid: LiveData<Boolean>){
+        isValid.observe(this, Observer {
             signUpViewModel.checkNextBtn()
         })
     }
 
-    private fun setKeyboard(){
-        signUpViewModel.emailNextBtn.observe(this, Observer { emailNextBtn ->
-            if(emailNextBtn){
+    private fun setKeyboard(isValid: LiveData<Boolean>){
+        isValid.observe(this, Observer {
+            if(it){
                 this.setKeyboard(false, null)
             }
         })
@@ -73,5 +79,9 @@ class SignUpEmailActivity : AppCompatActivity() {
 
     fun onClickBackBtn(view : View){
         finish()
+    }
+
+    fun onClickPrivacyBtn(view: View){
+        this.startActivity(PrivacyPolicyActivity::class.java)
     }
 }
