@@ -181,6 +181,15 @@ class SignUpViewModel()  : ViewModel() {
         }
     }
 
+    // 개인정보 수집 버튼 체크
+    private val _privacyBtn = MutableLiveData<Boolean>(false)
+    val privacyBtn : LiveData<Boolean>
+        get() = _privacyBtn
+
+    fun setPrivacyBtn(){
+        _privacyBtn.value = !_privacyBtn.value!!
+    }
+
     // 다음 버튼 노출 - 이메일
     private val _emailNextBtn = MutableLiveData<Boolean>(false)
     val emailNextBtn : LiveData<Boolean>
@@ -188,7 +197,7 @@ class SignUpViewModel()  : ViewModel() {
 
     // 다음 버튼 노출 여부 검사 - 이메일
     fun checkNextBtn(){
-        _emailNextBtn.postValue(isValidEmail.value == true && _isValidNick.value == true)
+        _emailNextBtn.postValue(isValidEmail.value == true && _isValidNick.value == true && _privacyBtn.value == true)
     }
 
     // 비밀번호 형식 검사 - 하단 안내문
