@@ -61,6 +61,9 @@ class PerfumeDetailViewModel: ViewModel() {
     private val _isValidNoteList = MutableLiveData<Boolean>(false)
     val isValidNoteList: LiveData<Boolean> get() = _isValidNoteList
 
+    private val _isValidReport = MutableLiveData<Boolean>(false)
+    val isValidReport: LiveData<Boolean> get() = _isValidReport
+
     fun getPerfumeInfoWithReview(perfumeIdx: Int) {
         compositeDisposable.add(
             repo.getPerfumeDetailWithReviews(AfumeApplication.prefManager.accessToken, perfumeIdx)

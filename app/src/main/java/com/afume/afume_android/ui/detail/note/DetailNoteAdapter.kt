@@ -12,6 +12,7 @@ import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.response.PerfumeDetailWithReviews
 import com.afume.afume_android.databinding.RvItemDetailNoteBinding
 import com.afume.afume_android.util.CommonDialog
+import com.afume.afume_android.util.ReportDialog
 
 class DetailNoteAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<DetailNoteAdapter.DetailNoteViewHolder>() {
     var data = mutableListOf<PerfumeDetailWithReviews>()
@@ -51,17 +52,37 @@ class DetailNoteAdapter(private val context: Context, private val fragmentManage
             binding.item = item
 
             binding.btnLike.setOnClickListener {
-                if (!AfumeApplication.prefManager.haveToken()) createDialog()
+                if (!AfumeApplication.prefManager.haveToken()) createLoginDialog()
                 else {
                     clickBtnLike(item.reviewIdx)
                 }
             }
+
+            binding.txtRvDetailNoteReport.setOnClickListener {
+                createReportDialog()
+            }
         }
 
-        private fun createDialog() {
+        private fun createLoginDialog() {
             val bundle = Bundle()
             bundle.putString("title", "login")
             val dialog: CommonDialog = CommonDialog().CustomDialogBuilder().getInstance()
+            dialog.arguments = bundle
+            dialog.show(fragmentManager, dialog.tag)
+        }
+
+        private fun createReportDialog(){
+            val bundle = Bundle()
+            val dialog: ReportDialog = ReportDialog().ReportDialogBuilder()
+                .setBtnClickListener(object : ReportDialog.ReportDialogListener {
+                    override fun onPositiveClicked() {
+//                        noteViewModel.deleteReview(reviewIdx)
+//                        finish()
+                    }
+                    override fun onNegativeClicked() {
+                    }
+                })
+                .getInstance()
             dialog.arguments = bundle
             dialog.show(fragmentManager, dialog.tag)
         }
