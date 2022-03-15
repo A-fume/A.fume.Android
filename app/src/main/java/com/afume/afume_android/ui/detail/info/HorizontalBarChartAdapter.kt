@@ -31,9 +31,9 @@ class HorizontalBarChartAdapter(val type: Int, val context: Context?) :
     override fun getItemCount(): Int = chartData.size
 
     override fun onBindViewHolder(holder: HorizontalBarChartHolder, position: Int) {
-        maxIndex= chartData.indexOf(chartData.maxOrNull())
+//        maxIndex= chartData.indexOf(chartData.maxOrNull())
 
-        holder.bind(chartData[position], type, position, context,maxIndex)
+        holder.bind(chartData[position], type, position, context, chartData.maxOrNull())
         holder.binding.rvItemChartBarHorizontal.invalidate()
     }
 
@@ -54,9 +54,9 @@ class HorizontalBarChartHolder(val binding: RvItemDetailsInfoHorizontalBarChartB
         "무거움"
     )
 
-    fun bind(data: Float, type: Int, position: Int, context: Context?, maxIndex:Int?) {
+    fun bind(data: Float, type: Int, position: Int, context: Context?, maxData:Float?) {
         var isMax=false
-        if(position==maxIndex){
+        if(data==maxData){
             val notosansBold=ResourcesCompat.getFont(context!!,R.font.notosans_bold)
             binding.rvItemLabel.apply {
                 typeface = notosansBold
