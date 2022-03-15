@@ -144,27 +144,20 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
             }
         }
 
-        setGenderMaxLegend(female,male,middle)
+        val pieData = listOf(female, male, middle)
+        val maxPieData = pieData.maxOrNull()
+
+        setGenderMaxLegend(female,maxPieData,binding.txtDetailGenderFemale,binding.txtDetailGenderFemalePercent)
+        setGenderMaxLegend(male,maxPieData,binding.txtDetailGenderMale,binding.txtDetailGenderMalePercent)
+        setGenderMaxLegend(middle,maxPieData,binding.txtDetailGenderMiddle,binding.txtDetailGenderMiddlePercent)
 
         return PieDataSet(pieListData, "")
     }
 
-    private fun setGenderMaxLegend(female: Float, male: Float, middle: Float){
-        val pieData = listOf(female, male, middle)
-
-        when(pieData.maxOrNull()){
-            female -> {
-                setBoldLegend(binding.txtDetailGenderFemale)
-                setBoldLegend(binding.txtDetailGenderFemalePercent)
-            }
-            male -> {
-                setBoldLegend(binding.txtDetailGenderMale)
-                setBoldLegend(binding.txtDetailGenderMalePercent)
-            }
-            middle -> {
-                setBoldLegend(binding.txtDetailGenderMiddle)
-                setBoldLegend(binding.txtDetailGenderMiddlePercent)
-            }
+    private fun setGenderMaxLegend(data: Float, maxData: Float?, legend: TextView, percent: TextView){
+        if(data == maxData){
+            setBoldLegend(legend)
+            setBoldLegend(percent)
         }
     }
 
@@ -209,32 +202,15 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
             }
         }
 
-        setSeasonMaxLegend(spring,summer,fall,winter)
+        val pieData = listOf(spring,summer,fall,winter)
+        val maxPieData = pieData.maxOrNull()
+
+        setGenderMaxLegend(spring,maxPieData,binding.txtDetailSeasonSpring,binding.txtDetailSeasonSpringPercent)
+        setGenderMaxLegend(summer,maxPieData,binding.txtDetailSeasonSummer,binding.txtDetailSeasonSummerPercent)
+        setGenderMaxLegend(fall,maxPieData,binding.txtDetailSeasonFall,binding.txtDetailSeasonFallPercent)
+        setGenderMaxLegend(winter,maxPieData,binding.txtDetailSeasonWinter,binding.txtDetailSeasonWinterPercent)
 
         return PieDataSet(pieListData, "")
-    }
-
-    private fun setSeasonMaxLegend(spring: Float, summer: Float, fall: Float, winter: Float){
-        val pieData = listOf(spring, summer, fall, winter)
-
-        when(pieData.maxOrNull()){
-            spring -> {
-                setBoldLegend(binding.txtDetailSeasonSpring)
-                setBoldLegend(binding.txtDetailSeasonSpringPercent)
-            }
-            summer -> {
-                setBoldLegend(binding.txtDetailSeasonSummer)
-                setBoldLegend(binding.txtDetailSeasonSummerPercent)
-            }
-            fall -> {
-                setBoldLegend(binding.txtDetailSeasonFall)
-                setBoldLegend(binding.txtDetailSeasonFallPercent)
-            }
-            winter -> {
-                setBoldLegend(binding.txtDetailSeasonWinter)
-                setBoldLegend(binding.txtDetailSeasonWinterPercent)
-            }
-        }
     }
 
     private fun setPieChart(pieChart: PieChart, pieData: PieData){
