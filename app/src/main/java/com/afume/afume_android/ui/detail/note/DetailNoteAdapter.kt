@@ -11,9 +11,11 @@ import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.response.PerfumeDetailWithReviews
 import com.afume.afume_android.databinding.RvItemDetailNoteBinding
+import com.afume.afume_android.ui.detail.PerfumeDetailViewModel
 import com.afume.afume_android.util.CommonDialog
+import com.afume.afume_android.util.ReportDialog
 
-class DetailNoteAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<DetailNoteAdapter.DetailNoteViewHolder>() {
+class DetailNoteAdapter(private val context: Context, private val vm: PerfumeDetailViewModel, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<DetailNoteAdapter.DetailNoteViewHolder>() {
     var data = mutableListOf<PerfumeDetailWithReviews>()
 
     fun replaceAll(array: ArrayList<PerfumeDetailWithReviews>?) {
@@ -51,17 +53,39 @@ class DetailNoteAdapter(private val context: Context, private val fragmentManage
             binding.item = item
 
             binding.btnLike.setOnClickListener {
-                if (!AfumeApplication.prefManager.haveToken()) createDialog()
+                if (!AfumeApplication.prefManager.haveToken()) createLoginDialog()
                 else {
                     clickBtnLike(item.reviewIdx)
                 }
             }
+
+            binding.txtRvDetailNoteReport.setOnClickListener {
+                if (!AfumeApplication.prefManager.haveToken()) createLoginDialog()
+                else {
+                    createReportDialog(item.reviewIdx)
+                }
+            }
         }
 
-        private fun createDialog() {
+        private fun createLoginDialog() {
             val bundle = Bundle()
             bundle.putString("title", "login")
             val dialog: CommonDialog = CommonDialog().CustomDialogBuilder().getInstance()
+            dialog.arguments = bundle
+            dialog.show(fragmentManager, dialog.tag)
+        }
+
+        private fun createReportDialog(reviewIdx : Int){
+            val bundle = Bundle()
+            val dialog: ReportDialog = ReportDialog(vm).ReportDialogBuilder()
+                .setBtnClickListener(object : ReportDialog.ReportDialogListener {
+                    override fun onPositiveClicked() {
+                        vm.reportReview(reviewIdx)
+                    }
+                    override fun onNegativeClicked() {
+                    }
+                })
+                .getInstance()
             dialog.arguments = bundle
             dialog.show(fragmentManager, dialog.tag)
         }

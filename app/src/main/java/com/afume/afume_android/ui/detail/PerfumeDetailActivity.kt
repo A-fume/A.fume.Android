@@ -17,6 +17,7 @@ import com.afume.afume_android.ui.note.NoteActivity
 import com.afume.afume_android.util.BindingAdapter.setNoteBtnText
 import com.afume.afume_android.util.TabSelectedListener
 import com.afume.afume_android.util.changeTabsFont
+import com.afume.afume_android.util.toast
 
 class PerfumeDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityPerfumeDetailBinding
@@ -47,7 +48,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
         initViewPager()
         initTab()
         setClick()
-
+        initObserve()
     }
 
     override fun onDestroy() {
@@ -102,6 +103,15 @@ class PerfumeDetailActivity : AppCompatActivity() {
         }
         binding.tabPerfumeDetail.addOnTabSelectedListener(TabSelectedListener(binding.tabPerfumeDetail))
         binding.tabPerfumeDetail.changeTabsFont(0)
+    }
+
+    private fun initObserve(){
+        viewModel.isValidReport.observe(this, Observer {
+            if(it)
+                this.toast("신고가 접수되었습니다.")
+            else
+                this.toast("시향 노트 신고 실패")
+        })
     }
 
     private fun setClick(){

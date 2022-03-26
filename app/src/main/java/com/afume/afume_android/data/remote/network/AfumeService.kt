@@ -173,4 +173,12 @@ interface AfumeService {
         @Header("x-access-token") token : String,
         @Path("reviewIdx") reviewIdx : Int
     ):ResponseMessage
+
+    // note - report
+    @POST("review/{reviewIdx}/report")
+    suspend fun reportReview(
+        @Header("x-access-token") token : String,
+        @Path("reviewIdx") reviewIdx : Int,
+        @Body body : RequestReportReview
+    ):ResponseMessage
 }

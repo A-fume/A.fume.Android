@@ -3,6 +3,7 @@ package com.afume.afume_android.data.repository
 import com.afume.afume_android.data.remote.RemoteDataSource
 import com.afume.afume_android.data.remote.RemoteDataSourceImpl
 import com.afume.afume_android.data.remote.network.AfumeServiceImpl
+import com.afume.afume_android.data.vo.request.RequestReportReview
 import com.afume.afume_android.data.vo.response.ResponseBase
 import com.afume.afume_android.data.vo.response.ResponsePerfumeDetail
 import com.afume.afume_android.data.vo.response.ResponsePerfumeDetailWithReviews
@@ -21,4 +22,5 @@ class PerfumeDetailRepository {
         AfumeServiceImpl.service.postPerfumeLike(token, perfumeIdx).map { it }
 
     suspend fun postReviewLike(token: String, reviewIdx: Int) = remoteDataSource.postReviewLike(token, reviewIdx)
+    suspend fun reportReview(token: String, reviewIdx: Int, body: RequestReportReview) = remoteDataSource.reportReview(token, reviewIdx, body)
 }
