@@ -111,4 +111,8 @@ class RemoteDataSourceImpl : RemoteDataSource{
     override suspend fun postReviewLike(token: String, reviewIdx: Int): Boolean {
         return api.postReviewLike(token, reviewIdx).data
     }
+
+    override suspend fun reportReview(token: String, reviewIdx: Int, body: RequestReportReview): String {
+        return api.reportReview(token, reviewIdx, body).message
+    }
 }

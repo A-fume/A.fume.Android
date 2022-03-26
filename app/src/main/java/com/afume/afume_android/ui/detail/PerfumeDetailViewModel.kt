@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.repository.PerfumeDetailRepository
+import com.afume.afume_android.data.vo.request.RequestReportReview
 import com.afume.afume_android.data.vo.response.PerfumeDetail
 import com.afume.afume_android.data.vo.response.PerfumeDetailWithReviews
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -60,9 +61,6 @@ class PerfumeDetailViewModel: ViewModel() {
 
     private val _isValidNoteList = MutableLiveData<Boolean>(false)
     val isValidNoteList: LiveData<Boolean> get() = _isValidNoteList
-
-    private val _isValidReport = MutableLiveData<Boolean>(false)
-    val isValidReport: LiveData<Boolean> get() = _isValidReport
 
     fun getPerfumeInfoWithReview(perfumeIdx: Int) {
         compositeDisposable.add(
@@ -135,5 +133,28 @@ class PerfumeDetailViewModel: ViewModel() {
             }
         }
         _perfumeDetailWithReviewData.value=tempList
+    }
+
+    var reportTxt = MutableLiveData<String>("")
+
+    fun setReportTxt(txt:String){
+        reportTxt.value = txt
+    }
+
+    private val _isValidReport: MutableLiveData<Boolean> = MutableLiveData()
+    val isValidReport: LiveData<Boolean> get() = _isValidReport
+
+    fun reportReview(reviewIdx: Int){
+        viewModelScope.launch {
+            try{
+                repo.reportReview(AfumeApplication.prefManager.accessToken, reviewIdx, RequestReportReview(reportTxt.value!!) ).let {
+                    _isValidReport.postValue(true)
+                    Log.d("시향 노트 신고 성공",it)
+                }
+            }catch (e : HttpException){
+                _isValidReport.postValue(false)
+                Log.d("시향 노트 신고 실패 : ", e.message())
+            }
+        }
     }
 }

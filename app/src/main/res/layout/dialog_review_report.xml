@@ -29,6 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <RadioGroup
+            android:id="@+id/rg_review_report"
             android:layout_width="30dp"
             android:layout_height="364dp"
             android:layout_marginTop="8dp"
@@ -37,36 +38,43 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <RadioButton
+                android:id="@+id/rb_1_ad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <RadioButton
+                android:id="@+id/rb_2_swear_word"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <RadioButton
+                android:id="@+id/rb_3_typo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <RadioButton
+                android:id="@+id/rb_4_personal_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <RadioButton
+                android:id="@+id/rb_5_irrelevant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <RadioButton
+                android:id="@+id/rb_6_cyberlivel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <RadioButton
+                android:id="@+id/rb_7_etc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -233,7 +241,7 @@
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:background="@drawable/selector_declare_yes"
-            android:enabled="@{viewModel.isValidDeclare}"
+            android:enabled="false"
             android:fontFamily="@font/notosans_bold"
             android:includeFontPadding="false"
             android:insetTop="0dp"
