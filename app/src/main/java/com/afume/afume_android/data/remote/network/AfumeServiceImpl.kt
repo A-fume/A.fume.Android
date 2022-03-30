@@ -5,7 +5,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object AfumeServiceImpl {
-    private const val BASE_URL = "http://13.124.104.53:3001/A.fume/api/0.0.1/"
+    private const val BASE_URL = "http://13.124.104.53:3000/A.fume/api/0.0.1/"
 
 //    private val okHttpClient: OkHttpClient =
 //        OkHttpClient.Builder().addInterceptor(NetworkInterceptor())
