@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion ConfigData.compileSdkVersion
 
     defaultConfig {
         applicationId "com.afume.afume_ui_sample"
-        minSdkVersion 23
-        targetSdkVersion 30
+        minSdkVersion ConfigData.minSdkVersion
+        targetSdkVersion ConfigData.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -34,13 +34,13 @@ android {
 dependencies {
     implementation project(path: ':afume-ui')
 
-    implementation "androidx.core:core-ktx:$ktx_version"
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "com.google.android.material:material:$material_version"
+    implementation Dependencies.coreKtx
+    implementation Dependencies.appcompat
+    implementation Dependencies.material
 
-    implementation "com.google.android:flexbox:$flexbox_version"
+    implementation Dependencies.flexbox
 
-    testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "androidx.test.ext:junit:$anroidx_junt_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.testExt
+    androidTestImplementation Dependencies.espresso
 }

@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.0"
+    compileSdkVersion ConfigData.compileSdkVersion
+    buildToolsVersion ConfigData.buildToolsVersion
 
     defaultConfig {
         applicationId "com.afume.afume_android"
-        minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion ConfigData.minSdkVersion
+        targetSdkVersion ConfigData.targetSdkVersion
+        versionCode ConfigData.versionCode
+        versionName ConfigData.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,77 +42,74 @@ android {
 dependencies {
     implementation project(path: ':afume-ui')
 
-    implementation "androidx.legacy:legacy-support-v4:$legacy_support_v4_version"
+    implementation Dependencies.supportV4
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "androidx.core:core-ktx:$ktx_version"
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "com.google.android.material:material:$material_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation Dependencies.kotlinStdlib
+    implementation Dependencies.coreKtx
+    implementation Dependencies.appcompat
+    implementation Dependencies.material
+    implementation Dependencies.constraint
 
-    testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "androidx.test.ext:junit:$anroidx_junt_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.testExt
+    androidTestImplementation Dependencies.espresso
 
     //bottom navigation
-    implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_ktx_version"
-    implementation "android.arch.navigation:navigation-ui-ktx:$navigation_ktx_version"
+    implementation Dependencies.navigationFragmentKtx
+    implementation Dependencies.navigationUiKtx
 
     //Recycler View
     //flexible layouts with flexLayout (recycler view integration)
-    implementation "com.google.android:flexbox:$flexbox_version"
+    implementation Dependencies.flexbox
     //selectionTracker - recycler view multi click
-    implementation "androidx.recyclerview:recyclerview-selection:$recyclerview_selection_version"
+    implementation Dependencies.recyclerviewSelection
 
     //ViewModel - Android-KTX
-    implementation "androidx.fragment:fragment-ktx:$fragment_ktx_version"
+    implementation Dependencies.fragmentKtx
 
     //생명주기를 공유하기 위한 라이브러리
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation Dependencies.appcompat
     //LiveData
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel_ktx_version"
+    implementation Dependencies.lifecycleViewModelKtx
 
-    // https://github.com/square/retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
-    // Retrofit 라이브러리 응답으로 가짜 객체를 만들기 위함
-    implementation "com.squareup.retrofit2:retrofit-mock:$retrofit2_version"
-    // https://github.com/google/gson
-    implementation "com.google.code.gson:gson:$gson_version"
-    // Retrofit에서 Gson을 사용하기 위한 라이브러리
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_adapter_rxjava2_version"
+    implementation Dependencies.retrofit2
+    implementation Dependencies.retrofit2Mock
+    implementation Dependencies.gson
+
+    implementation Dependencies.retrofit2ConverterGson
+    implementation Dependencies.retrofit2AdapterRxJava
 
     //Okhttp
-    implementation "com.squareup.okhttp3:okhttp:$okhttp3_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okttp3_logging_interceptor_version"
+    implementation Dependencies.okhttp3
+    implementation Dependencies.okhttp3LoggingInterceptor
 
     //CircleIndicator
-    implementation "com.github.chahine:pageindicator:$pageindicator_version"
-    implementation "me.relex:circleindicator:$circleindicator_version"
-    
+    implementation Dependencies.pageIndicator
+    implementation Dependencies.circleIndicator
+
     //RatingBar
-    implementation "com.hedgehog.ratingbar:app:$ratingbar_version"
+    implementation Dependencies.ratingBar
     //Gilde-loadImage
-    implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation Dependencies.glide
     //CircleImageView
-    implementation "de.hdodenhof:circleimageview:$circleimageview_version"
+    implementation Dependencies.circleImageView
     //Chart
-    implementation "com.github.PhilJay:MPAndroidChart:$chart_version"
+    implementation Dependencies.chart
 
     //StickyScrollView
-    implementation "com.github.amarjain07:StickyScrollView:$stickyscrollview_version"
+    implementation Dependencies.stickyScrollView
 
     //Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+    implementation Dependencies.coroutines
 
     //Viewpager2
-    implementation "androidx.viewpager2:viewpager2:$viewpager2_version"
+    implementation Dependencies.viewpager2
 
     // rxjava
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava2_version"
-    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+    implementation Dependencies.rxjava
+    implementation Dependencies.rxandroid
+    implementation Dependencies.rxkotlin
 
     // Lottie
-    implementation "com.airbnb.android:lottie:$lottie_version"
+    implementation Dependencies.lottie
 }
