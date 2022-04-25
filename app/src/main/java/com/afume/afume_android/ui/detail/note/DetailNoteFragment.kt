@@ -59,7 +59,7 @@ class DetailNoteFragment(val perfumeIdx: Int) : Fragment() {
     }
 
     private fun initNoteList(){
-        noteAdapter = DetailNoteAdapter(requireContext(),viewModel,parentFragmentManager){idx -> viewModel.postReviewLike(idx)}
+        noteAdapter = DetailNoteAdapter(requireContext(),viewModel,parentFragmentManager,perfumeIdx){idx -> viewModel.postReviewLike(idx)}
         binding.rvDetailNote.adapter = noteAdapter
 
         noteAdapter.notifyDataSetChanged()

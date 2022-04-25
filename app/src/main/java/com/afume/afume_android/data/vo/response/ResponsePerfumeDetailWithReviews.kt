@@ -15,5 +15,6 @@ data class PerfumeDetailWithReviews(
     val userGender: Int,
     val age: String,
     val nickname: String,
-    val createTime: String
+    val createTime: String,
+    val isReported: Boolean
 )
