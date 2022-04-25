@@ -4,19 +4,23 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afume.afume_android.AfumeApplication
-import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.response.PerfumeDetailWithReviews
 import com.afume.afume_android.databinding.RvItemDetailNoteBinding
+import com.afume.afume_android.databinding.RvItemDetailNoteReportBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailViewModel
 import com.afume.afume_android.util.CommonDialog
 import com.afume.afume_android.util.ReportDialog
 
-class DetailNoteAdapter(private val context: Context, private val vm: PerfumeDetailViewModel, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<DetailNoteAdapter.DetailNoteViewHolder>() {
+class DetailNoteAdapter(private val context: Context, private val vm: PerfumeDetailViewModel, private val fragmentManager: FragmentManager, val perfumeIdx: Int, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var data = mutableListOf<PerfumeDetailWithReviews>()
+
+    companion object{
+        const val Default_TYPE = 0
+        const val Report_TYPE = 1
+    }
 
     fun replaceAll(array: ArrayList<PerfumeDetailWithReviews>?) {
         array?.let {
@@ -27,22 +31,47 @@ class DetailNoteAdapter(private val context: Context, private val vm: PerfumeDet
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailNoteViewHolder {
-        val binding: RvItemDetailNoteBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            R.layout.rv_item_detail_note,
-            parent,
-            false
-        )
-
-        return DetailNoteViewHolder(
-            binding
-        )
+    override fun getItemViewType(position: Int): Int {
+        return if(data[position].isReported) 1 else 0
     }
 
-    override fun onBindViewHolder(holder: DetailNoteViewHolder, position: Int) {
-        data[position].let{
-            holder.bind(it)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when(viewType) {
+            Default_TYPE -> {
+                val binding = RvItemDetailNoteBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                return DetailNoteViewHolder(
+                    binding
+                )
+            }
+            Report_TYPE -> {
+                val binding = RvItemDetailNoteReportBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                return DetailNoteReportViewHolder(
+                    binding
+                )
+            }
+            else -> { throw RuntimeException("알 수 없는 뷰타입 에러")}
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when(getItemViewType(position)){
+            Default_TYPE -> {
+                holder as DetailNoteViewHolder
+                data[position].let{
+                    holder.bind(it)
+                }
+            }
+            Report_TYPE -> {
+                holder as DetailNoteReportViewHolder
+            }
         }
     }
 
@@ -81,6 +110,7 @@ class DetailNoteAdapter(private val context: Context, private val vm: PerfumeDet
                 .setBtnClickListener(object : ReportDialog.ReportDialogListener {
                     override fun onPositiveClicked() {
                         vm.reportReview(reviewIdx)
+                        vm.getPerfumeInfoWithReview(perfumeIdx)
                     }
                     override fun onNegativeClicked() {
                     }
@@ -89,5 +119,9 @@ class DetailNoteAdapter(private val context: Context, private val vm: PerfumeDet
             dialog.arguments = bundle
             dialog.show(fragmentManager, dialog.tag)
         }
+    }
+
+    inner class DetailNoteReportViewHolder(val binding: RvItemDetailNoteReportBinding):RecyclerView.ViewHolder(binding.root){
+
     }
 }
