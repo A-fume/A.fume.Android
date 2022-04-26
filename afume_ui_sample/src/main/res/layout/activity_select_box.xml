@@ -108,7 +108,7 @@
             <com.afume.afume_ui.widget.SelectBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="#시트러스 전체"
+                android:text="#시트러스"
                 tools:text="#키워드" />
 
             <com.afume.afume_ui.widget.SelectBox
