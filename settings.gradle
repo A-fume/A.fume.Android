@@ -1,2 +1,4 @@
-include ':app'
 rootProject.name = "Afume-Android"
+include ':app'
+include ':afume-ui'
+include ':afume_ui_sample'

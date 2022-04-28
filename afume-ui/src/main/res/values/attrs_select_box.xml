@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="SelectBox">
+        <attr name="toggleAble" format="boolean"/>
+    </declare-styleable>
+</resources>
