@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.ParcelableWishList
 import com.afume.afume_android.databinding.ActivityPerfumeDetailBinding
@@ -15,13 +16,14 @@ import com.afume.afume_android.ui.detail.info.DetailInfoFragment
 import com.afume.afume_android.ui.detail.note.DetailNoteFragment
 import com.afume.afume_android.ui.note.NoteActivity
 import com.afume.afume_android.util.BindingAdapter.setNoteBtnText
+import com.afume.afume_android.util.CommonDialog
 import com.afume.afume_android.util.TabSelectedListener
 import com.afume.afume_android.util.changeTabsFont
 import com.afume.afume_android.util.toast
+import com.bumptech.glide.Glide
 
 class PerfumeDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityPerfumeDetailBinding
-    lateinit var detailImageAdapter: DetailImageAdapter
     lateinit var viewPagerAdapter: ViewPagerAdapter
     private val viewModel: PerfumeDetailViewModel by viewModels()
     private var isLiked : Boolean = false
@@ -56,29 +58,20 @@ class PerfumeDetailActivity : AppCompatActivity() {
     }
 
     private fun initInfo(){
-        detailImageAdapter = DetailImageAdapter(baseContext)
-        binding.vpPerfumeDetailImage.adapter = detailImageAdapter
-
         viewModel.getPerfumeInfo(perfumeIdx)
         viewModel.perfumeDetailData.observe(this, Observer {
             binding.item = it
 
-            detailImageAdapter.run {
-                replaceAll(ArrayList(it.imageUrls))
-                notifyDataSetChanged()
-            }
-
             checkLiked = it.isLiked
             isLiked = it.isLiked
 
-            perfumeName = it.name
-            brandName = it.brandName
-            image = it.imageUrls[0]
+            Glide.with(this)
+                .load(it.imageUrls[0])
+                .into(binding.imgPerfumeDetail)
 
             reviewIdx = it.reviewIdx
 
             binding.btnPerfumeDetailNoteWrite.setNoteBtnText(reviewIdx)
-            binding.indicatorPerfumeDetail.setViewPager(binding.vpPerfumeDetailImage)
         })
 
     }
