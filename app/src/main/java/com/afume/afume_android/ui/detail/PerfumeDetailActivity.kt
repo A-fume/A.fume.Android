@@ -119,15 +119,20 @@ class PerfumeDetailActivity : AppCompatActivity() {
         }
 
         binding.actPerfumeDetailIvWrite.setOnClickListener {
-            val intent = Intent(this@PerfumeDetailActivity, NoteActivity::class.java)
+            if(AfumeApplication.prefManager.haveToken()){
+                val intent = Intent(this@PerfumeDetailActivity, NoteActivity::class.java)
 
-            val wishListPerfume = ParcelableWishList(perfumeIdx,reviewIdx,perfumeName,brandName,image)
-            intent.run {
-                putExtra("wishListPerfume", wishListPerfume)
-                addFlags(FLAG_ACTIVITY_CLEAR_TOP)
+                val wishListPerfume = ParcelableWishList(perfumeIdx,reviewIdx,perfumeName,brandName,image)
+                intent.run {
+                    putExtra("wishListPerfume", wishListPerfume)
+                    addFlags(FLAG_ACTIVITY_CLEAR_TOP)
+                }
+
+                startActivity(intent)
+            }else{
+                createDialog()
             }
 
-            startActivity(intent)
         }
     }
 
@@ -147,5 +152,13 @@ class PerfumeDetailActivity : AppCompatActivity() {
         }
 
         finish()
+    }
+
+    private fun createDialog() {
+        val bundle = Bundle()
+        bundle.putString("title", "login")
+        val dialog: CommonDialog = CommonDialog().CustomDialogBuilder().getInstance()
+        dialog.arguments = bundle
+        dialog.show(supportFragmentManager, dialog.tag)
     }
 }
