@@ -36,13 +36,11 @@ class SelectedFilterRecyclerViewAdapter(val btnCancel:(FilterInfoP?)->Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: FilterInfoP?) {
             binding.filter = data
-            binding.btnCancel.setOnClickListener {
+            binding.searchResultChip.setOnCloseIconClickListener {
                 btnCancel(data)
                 notifyDataSetChanged()
             }
-
         }
-
     }
 }
 
