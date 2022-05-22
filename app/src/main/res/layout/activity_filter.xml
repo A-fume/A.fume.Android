@@ -38,17 +38,17 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="계열" />
+            android:text="@string/series" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="브랜드" />
+            android:text="@string/brand" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="키워드" />
+            android:text="@string/keyword" />
     </com.google.android.material.tabs.TabLayout>
 
     <com.afume.afume_android.util.NonSwipeViewPager
@@ -66,7 +66,7 @@
         android:layout_height="51dp"
         android:background="@color/gray_cd"
         android:gravity="center"
-        android:text="적용"
+        android:text="@string/apply"
         android:textColor="@color/white"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"

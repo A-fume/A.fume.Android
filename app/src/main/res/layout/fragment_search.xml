@@ -93,7 +93,7 @@
             android:layout_marginBottom="26dp"
             android:clickable="true"
             android:gravity="center"
-            android:text="필터"
+            android:text="@string/filter"
             android:textColor="@color/white"
             app:backgroundTint="@color/primary_black"
             app:layout_constraintBottom_toBottomOf="parent"

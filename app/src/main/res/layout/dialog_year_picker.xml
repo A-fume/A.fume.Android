@@ -32,7 +32,7 @@
             android:layout_marginTop="24dp"
             android:fontFamily="@font/notosans_bold"
             android:includeFontPadding="false"
-            android:text="완료"
+            android:text="@string/complete"
             android:textColor="@color/white"
             android:textSize="15dp"
             android:backgroundTint="@color/black_1d"

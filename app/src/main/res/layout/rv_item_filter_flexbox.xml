@@ -14,10 +14,10 @@
         <TextView
             style="@style/SelectTextBox.Medium"
             android:id="@+id/rv_item_txt_flexbox"
-            android:text="@{@string/ingredientFormat(rvData.name)}"
+            android:text="@{@string/hash_tag_format(rvData.name)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="keyworkd" />
+            tools:text="@string/keyword" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -104,8 +104,9 @@ class MyFragment : Fragment() {
     private fun setUpTabWithViewPager() {
         binding.tabMypage.setupWithViewPager(binding.vpMypage)
         binding.tabMypage.apply {
-            getTabAt(0)?.text = "마이 퍼퓸"
-            getTabAt(1)?.text = "위시 리스트"
+            // TODO Remove below code because it can be replaced with xml
+            getTabAt(0)?.text = resources.getString(R.string.my_perfume)
+            getTabAt(1)?.text = resources.getString(R.string.wishlist)
         }
         binding.tabMypage.addOnTabSelectedListener(TabSelectedListener(binding.tabMypage))
         binding.tabMypage.changeTabsFont(0)

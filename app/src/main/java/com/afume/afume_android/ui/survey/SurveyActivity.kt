@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
@@ -46,9 +47,10 @@ class SurveyActivity : AppCompatActivity() {
         binding.vpSurvey.adapter = surveyViewPagerAdapter
         binding.tabSurvey.setupWithViewPager(binding.vpSurvey)
         binding.tabSurvey.apply {
-            getTabAt(0)?.text = "향수"
-            getTabAt(1)?.text = "키워드"
-            getTabAt(2)?.text = "계열"
+            // TODO Remove this code. it can be replace with xml declaration
+            getTabAt(0)?.text = resources.getString(R.string.perfume)
+            getTabAt(1)?.text = resources.getString(R.string.keyword)
+            getTabAt(2)?.text = resources.getString(R.string.series)
         }
         val tabListener = TabSelectedListener(binding.tabSurvey)
         binding.tabSurvey.addOnTabSelectedListener(tabListener)

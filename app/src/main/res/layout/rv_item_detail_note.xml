@@ -70,7 +70,7 @@
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
-            android:text="신고"
+            android:text="@string/report"
             android:textColor="@color/dark_gray_7d"
             android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="parent"
