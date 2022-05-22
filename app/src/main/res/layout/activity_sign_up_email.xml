@@ -80,23 +80,12 @@
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
         <com.google.android.material.button.MaterialButton
+            style="@style/CommonButton.Validate"
             android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
             android:layout_marginBottom="6dp"
-            android:backgroundTint="@color/primary_black"
-            android:fontFamily="@font/notosans_regular"
-            android:includeFontPadding="false"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="6dp"
             android:text="중복 확인"
             android:visibility="@{viewModel.isValidEmailBtn? View.VISIBLE : View.INVISIBLE}"
             android:onClick="@{() -> viewModel.getValidateEmail()}"
-            android:textColor="@color/white"
-            android:textSize="14dp"
-            app:cornerRadius="2dp"
             app:layout_constraintBottom_toTopOf="@+id/imageView16"
             app:layout_constraintEnd_toEndOf="@+id/imageView16" />
 
@@ -199,23 +188,12 @@
                 app:srcCompat="@color/primary_black" />
 
             <com.google.android.material.button.MaterialButton
+                style="@style/CommonButton.Validate"
                 android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
                 android:layout_marginBottom="6dp"
-                android:backgroundTint="@color/primary_black"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
                 android:onClick="@{() -> viewModel.getValidateNickname()}"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
                 android:text="중복 확인"
-                android:textColor="@color/white"
-                android:textSize="14dp"
                 android:visibility="@{viewModel.isValidNickBtn? View.VISIBLE : View.INVISIBLE}"
-                app:cornerRadius="2dp"
                 app:layout_constraintBottom_toTopOf="@+id/imageView18"
                 app:layout_constraintEnd_toEndOf="@+id/imageView18" />
 
