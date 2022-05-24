@@ -351,4 +351,11 @@
 
     <!-- unclassified -->
     <string name="one_hundred_percent">100%</string>
+    <string name="action_like">좋아요</string>
+    <string name="action_back">뒤로가기</string>
+    <string name="checked">확인 됨</string>
+    <string name="txt_wish_short">위시</string>
+    <string name="description_perfume_image">perfume_image</string>
+    <string name="description_warning">warning</string>
+    <string name="description_open_and_close">열기/닫기</string>
 </resources>

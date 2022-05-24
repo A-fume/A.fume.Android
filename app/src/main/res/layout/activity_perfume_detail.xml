@@ -38,12 +38,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:onClick="onClickBackBtn"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/btn_back" />
+                    app:srcCompat="@drawable/btn_back"
+                    android:contentDescription="@string/action_back" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vp_perfume_detail_image"
@@ -79,7 +79,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/indicator_perfume_detail"
-                    app:srcCompat="@drawable/border_white_fill_20" />
+                    app:srcCompat="@drawable/border_white_fill_20"
+                    android:contentDescription="@string/action_like" />
 
                 <TextView
                     android:id="@+id/act_perfume_detail_tv_brand"
@@ -153,7 +154,7 @@
                     app:tabIndicatorHeight="4dp"
                     app:tabSelectedTextColor="@color/primary_black"
                     app:tabTextAppearance="@style/Theme.Afume.Tab"
-                    app:tabTextColor="@color/dark_gray_7d"></com.google.android.material.tabs.TabLayout>
+                    app:tabTextColor="@color/dark_gray_7d" />
 
                 <com.afume.afume_android.ui.detail.MeasuredViewPager
                     android:id="@+id/vp_perfume_detail"
@@ -162,7 +163,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tab_perfume_detail"></com.afume.afume_android.ui.detail.MeasuredViewPager>
+                    app:layout_constraintTop_toBottomOf="@+id/tab_perfume_detail" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -176,26 +177,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <ImageView
-                android:id="@+id/act_perfume_detail_iv_bottom"
+            <View
+                android:id="@+id/act_perfume_detail_bottom"
                 android:layout_width="0dp"
                 android:layout_height="72dp"
+                android:background="@drawable/border_gray_f9_fill_square"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/border_gray_f9_fill_square" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/act_perfume_detail_cl_like"
                 android:layout_width="90dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="18dp"
-                android:layout_marginLeft="18dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/act_perfume_detail_iv_bottom"
+                app:layout_constraintTop_toTopOf="@+id/act_perfume_detail_bottom"
                 android:background="@drawable/border_white_f6_line_2">
 
                 <ImageView
@@ -206,7 +206,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    setPerfumeLike="@{item.isLiked}"/>
+                    setPerfumeLike="@{item.isLiked}"
+                    android:contentDescription="@string/action_like" />
 
                 <TextView
                     android:id="@+id/act_perfume_detail_tv_like"
@@ -215,7 +216,7 @@
                     android:layout_marginTop="3dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
-                    android:text="위시"
+                    android:text="@string/txt_wish_short"
                     android:textColor="@color/primary_black"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -224,32 +225,24 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/act_perfume_detail_iv_write"
+            <TextView
+                android:id="@+id/btn_perfume_detail_note_write"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="17dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="18dp"
                 android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/act_perfume_detail_cl_like"
-                app:layout_constraintTop_toTopOf="@+id/act_perfume_detail_iv_bottom"
-                app:srcCompat="@drawable/border_black_fill_2" />
-
-            <TextView
-                android:id="@+id/btn_perfume_detail_note_write"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:background="@drawable/border_black_fill_2"
+                android:gravity="center"
                 android:fontFamily="@font/notosans_bold"
                 android:includeFontPadding="false"
                 android:textColor="@color/white"
                 android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/act_perfume_detail_iv_write"
-                app:layout_constraintEnd_toEndOf="@+id/act_perfume_detail_iv_write"
-                app:layout_constraintStart_toStartOf="@+id/act_perfume_detail_iv_write"
-                app:layout_constraintTop_toTopOf="@+id/act_perfume_detail_iv_write" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/act_perfume_detail_cl_like"
+                app:layout_constraintTop_toTopOf="@+id/act_perfume_detail_bottom" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

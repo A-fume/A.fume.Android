@@ -23,7 +23,8 @@
             android:src="@drawable/icon_heart_favorite_inactive"
             app:layout_constraintBottom_toTopOf="@+id/txt_wishlist_null"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/action_like" />
 
         <TextView
             android:id="@+id/txt_wishlist_null"

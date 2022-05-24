@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/notosans_medium"
-            android:gravity="right|end"
+            android:gravity="end"
             android:text="@{price}"
             android:includeFontPadding="false"
             tools:text="200,000/100ml "

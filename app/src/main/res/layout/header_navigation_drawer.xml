@@ -12,12 +12,14 @@
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginEnd="2dp"
-        android:paddingLeft="30dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
         android:paddingTop="18dp"
         android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_btn_cancel" />
+        app:srcCompat="@drawable/icon_btn_cancel"
+        android:contentDescription="@string/cancel" />
 
     <TextView
         android:id="@+id/txt_setting"

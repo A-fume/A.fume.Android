@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable name="toolbar" type="int"/>
         <variable name="toolbartxt" type="String"/>
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar_txt_with_btn"
     android:background="@color/white"
@@ -34,7 +34,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/toolbar__search_txt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar__search_txt"
-        setImage="@{toolbar}" />
+        setImage="@{toolbar}"
+        android:contentDescription="@string/menu_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

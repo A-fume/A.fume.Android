@@ -20,7 +20,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/sign_bg" />
+            app:srcCompat="@drawable/sign_bg"
+            tools:ignore="ContentDescription" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/CommonButton.Login"

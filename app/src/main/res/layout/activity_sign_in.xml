@@ -25,7 +25,8 @@
             android:onClick="onClickBackBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/btn_back" />
+            app:srcCompat="@drawable/btn_back"
+            android:contentDescription="@string/action_back" />
 
         <TextView
             android:id="@+id/textView16"
@@ -69,7 +70,8 @@
             android:includeFontPadding="false"
             android:inputType="textWebEmailAddress|textEmailAddress"
             android:nextFocusDown="@id/edt_sing_in_password"
-            android:paddingLeft="0dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
             android:paddingTop="0dp"
             android:singleLine="true"
             android:textColor="@color/dark"
@@ -79,18 +81,18 @@
             app:layout_constraintStart_toStartOf="@+id/textView17"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-        <ImageView
+        <View
             android:id="@+id/imageView16"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="18dp"
+            android:background="@color/primary_black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_sign_in_email"
-            app:srcCompat="@color/primary_black" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_sign_in_email" />
 
         <TextView
             android:id="@+id/textView18"
@@ -118,7 +120,8 @@
             android:hint="@string/txt_enter_more_than_four"
             android:includeFontPadding="false"
             android:inputType="textWebPassword"
-            android:paddingLeft="0dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
             android:paddingTop="0dp"
             android:singleLine="true"
             android:textColor="@color/dark"
@@ -128,17 +131,17 @@
             app:layout_constraintStart_toStartOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
-        <ImageView
+        <View
             android:id="@+id/imageView17"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="18dp"
+            android:background="@drawable/border_black_fill_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_sing_in_password"
-            app:srcCompat="@drawable/border_black_fill_2" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_sing_in_password" />
 
         <TextView
             android:id="@+id/textView48"

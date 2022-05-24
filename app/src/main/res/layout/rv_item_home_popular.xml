@@ -26,7 +26,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/dummy_perfume_image" />
+            app:srcCompat="@drawable/dummy_perfume_image"
+            android:contentDescription="@string/description_perfume_image" />
 
         <TextView
             android:id="@+id/textView6"
@@ -71,6 +72,7 @@
             android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView6"
             app:layout_constraintEnd_toEndOf="@+id/imageView6"
-            bind:srcCompat="@drawable/favorite_inactive" />
+            bind:srcCompat="@drawable/favorite_inactive"
+            android:contentDescription="@string/action_like" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

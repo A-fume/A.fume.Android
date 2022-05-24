@@ -53,7 +53,7 @@
                 app:layout_constraintStart_toStartOf="@+id/textView46"
                 app:layout_constraintTop_toBottomOf="@+id/textView46" />
 
-            <ImageView
+            <View
                 android:id="@+id/img_bar_story"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -94,7 +94,7 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <ImageView
+            <View
                 android:id="@+id/img_bar_keyword"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -191,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/notosans_medium"
-                    android:gravity="right|end"
+                    android:gravity="end"
                     android:includeFontPadding="false"
                     android:text="@{data.ingredients.top}"
                     android:textColor="@color/primary_black"
@@ -207,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/notosans_medium"
-                    android:gravity="right|end"
+                    android:gravity="end"
                     android:includeFontPadding="false"
                     android:text="@{data.ingredients.middle}"
                     android:textColor="@color/primary_black"
@@ -223,7 +223,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/notosans_medium"
-                    android:gravity="right|end"
+                    android:gravity="end"
                     android:includeFontPadding="false"
                     android:text="@{data.ingredients.base}"
                     android:textColor="@color/primary_black"
@@ -239,7 +239,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/notosans_medium"
-                    android:gravity="right|end"
+                    android:gravity="end"
                     android:includeFontPadding="false"
                     android:text="@{data.ingredients.single}"
                     android:textColor="@color/primary_black"
@@ -251,7 +251,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
+            <View
                 android:id="@+id/img_bar_notes"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -283,7 +283,7 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="18dp"
                 android:fontFamily="@font/notosans_medium"
-                android:gravity="right|end"
+                android:gravity="end"
                 tools:text="@{data.abundanceRate}"
                 android:includeFontPadding="false"
                 android:textColor="@color/primary_black"
@@ -291,7 +291,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_category_title" />
 
-            <ImageView
+            <View
                 android:id="@+id/img_bar_category"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -328,7 +328,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textView54" />
 
-            <ImageView
+            <View
                 android:id="@+id/img_bar_price"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -353,7 +353,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/img_bar_price" />
 
-            <ImageView
+            <View
                 android:id="@+id/img_bar_season"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -376,7 +376,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_season">
             </com.github.mikephil.charting.charts.PieChart>
 
-            <ImageView
+            <View
                 android:id="@+id/imageView11"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -411,15 +411,15 @@
                 app:layout_constraintBottom_toTopOf="@id/txt_detail_season_summer_percent"
                 app:layout_constraintEnd_toEndOf="@id/txt_detail_season_summer_percent" />
 
-            <ImageView
+            <View
                 android:id="@+id/imageView10"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
+                android:background="@color/point_beige"
                 app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_summer"
                 app:layout_constraintEnd_toEndOf="@id/imageView9"
                 app:layout_constraintStart_toStartOf="@id/imageView9"
-                app:layout_constraintTop_toTopOf="@id/txt_detail_season_summer"
-                app:srcCompat="@color/point_beige" />
+                app:layout_constraintTop_toTopOf="@id/txt_detail_season_summer"/>
 
             <TextView
                 android:id="@+id/txt_detail_season_summer"
@@ -447,15 +447,15 @@
                 app:layout_constraintBottom_toTopOf="@id/txt_detail_season_fall_percent"
                 app:layout_constraintEnd_toEndOf="@id/txt_detail_season_fall_percent" />
 
-            <ImageView
+            <View
                 android:id="@+id/imageView9"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
+                android:background="@color/point_pinkish_grey"
                 app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_fall"
                 app:layout_constraintEnd_toEndOf="@id/imageView8"
                 app:layout_constraintStart_toStartOf="@id/imageView8"
-                app:layout_constraintTop_toTopOf="@id/txt_detail_season_fall"
-                app:srcCompat="@color/point_pinkish_grey" />
+                app:layout_constraintTop_toTopOf="@id/txt_detail_season_fall" />
 
             <TextView
                 android:id="@+id/txt_detail_season_fall"
@@ -483,15 +483,15 @@
                 app:layout_constraintBottom_toTopOf="@id/txt_detail_season_winter_percent"
                 app:layout_constraintEnd_toEndOf="@id/txt_detail_season_winter_percent" />
 
-            <ImageView
+            <View
                 android:id="@+id/imageView8"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginEnd="12dp"
+                android:background="@color/point_dark_beige"
                 app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_winter"
                 app:layout_constraintEnd_toStartOf="@id/txt_detail_season_winter"
-                app:layout_constraintTop_toTopOf="@id/txt_detail_season_winter"
-                app:srcCompat="@color/point_dark_beige" />
+                app:layout_constraintTop_toTopOf="@id/txt_detail_season_winter"/>
 
             <TextView
                 android:id="@+id/txt_detail_season_winter"
@@ -534,7 +534,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_bar_season" />
 
-            <ImageView
+            <View
                 android:id="@+id/img_bar_lasting"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -585,7 +585,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_sillage"
                 tools:listitem="@layout/rv_item_details_info_horizontal_bar_chart" />
 
-            <ImageView
+            <View
                 android:id="@+id/img_bar_sillage"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -621,7 +621,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_gender" />
 
-            <ImageView
+            <View
                 android:id="@+id/img_bar_gender"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -662,16 +662,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_similar"
                 tools:listitem="@layout/rv_item_home_popular" />
 
-            <ImageView
+            <View
                 android:id="@+id/imageView3"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginTop="1dp"
+                android:background="@color/point_beige_accent"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_detail_gender_female"
                 app:layout_constraintEnd_toEndOf="@+id/imageView4"
                 app:layout_constraintStart_toStartOf="@+id/imageView4"
-                app:layout_constraintTop_toTopOf="@+id/txt_detail_gender_female"
-                app:srcCompat="@color/point_beige_accent" />
+                app:layout_constraintTop_toTopOf="@+id/txt_detail_gender_female"/>
 
             <TextView
                 android:id="@+id/txt_detail_gender_female"
@@ -700,16 +700,16 @@
                 app:layout_constraintBottom_toTopOf="@+id/txt_detail_gender_male_percent"
                 app:layout_constraintEnd_toEndOf="@+id/txt_detail_gender_male_percent" />
 
-            <ImageView
+            <View
                 android:id="@+id/imageView4"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginTop="2dp"
+                android:background="@color/point_beige"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_detail_gender_male"
                 app:layout_constraintEnd_toEndOf="@+id/imageView7"
                 app:layout_constraintStart_toStartOf="@+id/imageView7"
-                app:layout_constraintTop_toTopOf="@+id/txt_detail_gender_male"
-                app:srcCompat="@color/point_beige" />
+                app:layout_constraintTop_toTopOf="@+id/txt_detail_gender_male"/>
 
             <TextView
                 android:id="@+id/txt_detail_gender_male"
@@ -738,16 +738,16 @@
                 app:layout_constraintBottom_toTopOf="@+id/txt_detail_gender_middle_percent"
                 app:layout_constraintEnd_toEndOf="@+id/txt_detail_gender_middle_percent" />
 
-            <ImageView
+            <View
                 android:id="@+id/imageView7"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginEnd="12dp"
+                android:background="@color/point_dark_beige"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_detail_gender_middle"
                 app:layout_constraintEnd_toStartOf="@+id/txt_detail_gender_middle"
-                app:layout_constraintTop_toTopOf="@+id/txt_detail_gender_middle"
-                app:srcCompat="@color/point_dark_beige" />
+                app:layout_constraintTop_toTopOf="@+id/txt_detail_gender_middle"/>
 
             <TextView
                 android:id="@+id/txt_detail_gender_middle"
@@ -775,9 +775,6 @@
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="@+id/chart_pie_details_info_gender"
                 app:layout_constraintEnd_toEndOf="parent" />
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

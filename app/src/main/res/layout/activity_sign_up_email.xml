@@ -25,7 +25,8 @@
             android:onClick="onClickBackBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/btn_back" />
+            app:srcCompat="@drawable/btn_back"
+            android:contentDescription="@string/action_back" />
 
         <TextView
             android:id="@+id/txt_back_to_sign_up"
@@ -68,7 +69,8 @@
             android:hint="@string/hint_email"
             android:includeFontPadding="false"
             android:inputType="textWebEmailAddress|textEmailAddress"
-            android:paddingLeft="0dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
             android:paddingTop="0dp"
             android:textColor="@color/dark"
             android:textColorHint="@color/gray_cd"
@@ -89,18 +91,18 @@
             app:layout_constraintBottom_toTopOf="@+id/imageView16"
             app:layout_constraintEnd_toEndOf="@+id/imageView16" />
 
-        <ImageView
+        <View
             android:id="@+id/imageView16"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_marginStart="26dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="26dp"
+            android:background="@color/primary_black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.388"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_sign_up_email"
-            app:srcCompat="@color/primary_black" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_sign_up_email" />
 
         <TextView
             android:id="@+id/txt_sign_up_check_email"
@@ -124,7 +126,8 @@
             android:visibility="@{viewModel.isValidEmail? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/imageView16"
             app:layout_constraintEnd_toEndOf="@+id/imageView16"
-            app:srcCompat="@drawable/ic_check" />
+            app:srcCompat="@drawable/ic_check"
+            android:contentDescription="@string/checked" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_sign_up_nick"
@@ -163,7 +166,8 @@
                 android:inputType="textPersonName"
                 android:maxLength="30"
                 android:onTextChanged="@{viewModel::inputNick}"
-                android:paddingLeft="0dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
                 android:paddingTop="0dp"
                 android:singleLine="true"
                 android:text="@={viewModel.nickTxt}"
@@ -174,18 +178,18 @@
                 app:layout_constraintStart_toStartOf="@+id/textView19"
                 app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
-            <ImageView
+            <View
                 android:id="@+id/imageView18"
                 android:layout_width="0dp"
                 android:layout_height="2dp"
                 android:layout_marginStart="26dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="26dp"
+                android:background="@color/primary_black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.38"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_sign_up_nick"
-                app:srcCompat="@color/primary_black" />
+                app:layout_constraintTop_toBottomOf="@+id/edt_sign_up_nick" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/CommonButton.Validate"
@@ -205,7 +209,8 @@
                 android:visibility="@{viewModel.isValidNick? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView18"
                 app:layout_constraintEnd_toEndOf="@+id/imageView18"
-                app:srcCompat="@drawable/ic_check" />
+                app:srcCompat="@drawable/ic_check"
+                android:contentDescription="@string/checked" />
 
             <TextView
                 android:id="@+id/textView47"
@@ -239,10 +244,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="18dp"
+                android:contentDescription="@string/next"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/btn_next" />
+                app:srcCompat="@drawable/btn_next"/>
 
             <TextView
                 android:id="@+id/textView20"

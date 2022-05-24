@@ -42,19 +42,22 @@
                 android:src="@drawable/icon_btn_search"
                 app:layout_constraintBottom_toBottomOf="@+id/toolbar__search_txt"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/toolbar__search_txt" />
+                app:layout_constraintTop_toTopOf="@+id/toolbar__search_txt"
+                android:contentDescription="@string/menu_search" />
 
             <ImageView
                 android:id="@+id/toolbar_btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/btn_back" />
+                app:srcCompat="@drawable/btn_back"
+                android:contentDescription="@string/action_back" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -92,6 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="26dp"
             android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
             android:text="@string/filter"
             android:textColor="@color/white"
@@ -99,7 +103,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_heart_favorite_active" />
+            app:srcCompat="@drawable/ic_heart_favorite_active"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

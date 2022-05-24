@@ -53,7 +53,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_white_heart" />
+            app:srcCompat="@drawable/icon_white_heart"
+            android:contentDescription="@string/action_like" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

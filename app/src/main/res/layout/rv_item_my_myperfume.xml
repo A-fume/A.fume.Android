@@ -23,7 +23,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/dummy_perfume_image" />
+            app:srcCompat="@drawable/dummy_perfume_image"
+            android:contentDescription="@string/description_perfume_image" />
 
         <TextView
             android:id="@+id/rv_item_txt_my_perfume_brand"

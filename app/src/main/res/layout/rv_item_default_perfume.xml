@@ -23,7 +23,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_perfume_example" />
+            app:srcCompat="@drawable/icon_perfume_example"
+            android:contentDescription="@string/description_perfume_image" />
 
 
         <ImageView
@@ -31,7 +32,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
             android:layout_marginBottom="4dp"
             checked="@{perfume.isLiked}"
             app:layout_constraintBottom_toBottomOf="@+id/img_perfume"

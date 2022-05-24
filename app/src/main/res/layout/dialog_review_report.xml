@@ -149,15 +149,15 @@
             app:layout_constraintStart_toStartOf="@+id/textView32"
             app:layout_constraintTop_toBottomOf="@+id/imageView33" />
 
-        <ImageView
+        <View
             android:id="@+id/imageView34"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="14dp"
+            android:background="@color/light_gray_f0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView33"
-            app:srcCompat="@color/light_gray_f0" />
+            app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
         <TextView
             android:id="@+id/textView35"
@@ -172,15 +172,15 @@
             app:layout_constraintStart_toStartOf="@+id/textView33"
             app:layout_constraintTop_toBottomOf="@+id/imageView34" />
 
-        <ImageView
+        <View
             android:id="@+id/imageView35"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="14dp"
+            android:background="@color/light_gray_f0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView35"
-            app:srcCompat="@color/light_gray_f0" />
+            app:layout_constraintTop_toBottomOf="@+id/textView35"/>
 
         <TextView
             android:id="@+id/textView36"
@@ -195,15 +195,15 @@
             app:layout_constraintStart_toStartOf="@+id/textView35"
             app:layout_constraintTop_toBottomOf="@+id/imageView35" />
 
-        <ImageView
+        <View
             android:id="@+id/imageView36"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="14dp"
+            android:background="@color/light_gray_f0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView36"
-            app:srcCompat="@color/light_gray_f0" />
+            app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
         <TextView
             android:id="@+id/textView37"

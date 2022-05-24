@@ -125,7 +125,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
             }
         }
 
-        binding.actPerfumeDetailIvWrite.setOnClickListener {
+        binding.btnPerfumeDetailNoteWrite.setOnClickListener {
             val intent = Intent(this@PerfumeDetailActivity, NoteActivity::class.java)
 
             val wishListPerfume = ParcelableWishList(perfumeIdx,reviewIdx,perfumeName,brandName,image)

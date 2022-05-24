@@ -24,7 +24,8 @@
             android:onClick="onClickBackBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_btn_back" />
+            app:srcCompat="@drawable/icon_btn_back"
+            android:contentDescription="@string/action_back" />
 
         <TextView
             android:id="@+id/textView28"

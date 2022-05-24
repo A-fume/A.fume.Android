@@ -21,7 +21,8 @@
         android:background="@drawable/border_light_gray_f9_fill_square"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_le_labo_13_sample" />
+        app:srcCompat="@drawable/img_le_labo_13_sample"
+        android:contentDescription="@string/description_perfume_image" />
 
     <TextView
         android:id="@+id/rv_item_txt_wishlist_brand_name"
@@ -72,16 +73,17 @@
         android:id="@+id/rv_jtem_img_wishlist_write"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:paddingTop="10dp"
-        android:paddingRight="8dp"
+        android:paddingEnd="8dp"
         android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/rv_jtem_btn_wishlist_write"
         app:layout_constraintEnd_toStartOf="@+id/rv_jtem_btn_wishlist_write"
         app:layout_constraintTop_toTopOf="@+id/rv_jtem_btn_wishlist_write"
-        app:srcCompat="@drawable/icon_write" />
+        app:srcCompat="@drawable/icon_write"
+        android:contentDescription="@string/write_note" />
 
-    <ImageView
+    <View
         android:id="@+id/imageView17"
         android:layout_width="0dp"
         android:layout_height="1dp"

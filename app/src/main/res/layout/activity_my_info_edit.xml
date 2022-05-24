@@ -26,7 +26,8 @@
             android:onClick="onClickBackBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_btn_back" />
+            app:srcCompat="@drawable/icon_btn_back"
+            android:contentDescription="@string/action_back" />
 
         <TextView
             android:id="@+id/textView49"
@@ -91,7 +92,7 @@
                 android:fontFamily="@font/nanummyeongjo_extrabold"
                 android:includeFontPadding="false"
                 android:inputType="textPersonName"
-                android:paddingLeft="0dp"
+                android:paddingStart="0dp"
                 android:paddingTop="0dp"
                 android:singleLine="true"
                 android:text="@={viewModel.nickTxt}"

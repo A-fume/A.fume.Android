@@ -27,7 +27,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            setImage="@{item.imageUrl}" />
+            setImage="@{item.imageUrl}"
+            android:contentDescription="@string/description_perfume_image" />
 
         <ImageView
             android:id="@+id/btn_like"
@@ -38,7 +39,8 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView10"
             app:layout_constraintEnd_toEndOf="@+id/imageView10"
-            app:srcCompat="@drawable/favorite_inactive" />
+            app:srcCompat="@drawable/favorite_inactive"
+            android:contentDescription="@string/action_like" />
 
         <TextView
             android:id="@+id/textView13"

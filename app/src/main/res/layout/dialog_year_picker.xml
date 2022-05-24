@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
+        <!-- TODO selectionDividerHeight is minSdk 29 but current minSDK is 23 -->
         <NumberPicker
             android:id="@+id/np_year_picker"
             android:layout_width="0dp"
