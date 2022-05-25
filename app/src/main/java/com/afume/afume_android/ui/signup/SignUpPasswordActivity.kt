@@ -27,8 +27,6 @@ class SignUpPasswordActivity : AppCompatActivity() {
         passwordAnimation()
         checkNextButton()
         setKeyboard()
-
-
     }
 
     private fun passwordAnimation(){
@@ -37,8 +35,6 @@ class SignUpPasswordActivity : AppCompatActivity() {
                 if(isValidPassword){
                     val animation = AnimationUtils.loadAnimation(this, R.anim.alpha_up)
                     binding.clSignUpAgain.startAnimation(animation)
-
-                    binding.clSignUpAgain.requestFocus()
                 }
             }
         })

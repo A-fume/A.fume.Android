@@ -226,7 +226,7 @@ class SignUpViewModel()  : ViewModel() {
         get() = _againPasswordForm
     // 비밀번호 입력 실시간 확인
     fun inputPassword(s: CharSequence?, start: Int, before: Int, count: Int) {
-        Handler().postDelayed({ checkPasswordForm() }, 0L)
+        Handler().postDelayed({ checkPasswordForm() }, 2000L)
     }
 
     // 비밀번호 자리수 확인
