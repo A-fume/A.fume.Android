@@ -71,6 +71,10 @@ class PerfumeDetailActivity : AppCompatActivity() {
             checkLiked = it.isLiked
             isLiked = it.isLiked
 
+            perfumeName = it.name
+            brandName = it.brandName
+            image = it.imageUrls[0]
+
             Glide.with(this)
                 .load(it.imageUrls[0])
                 .into(binding.imgPerfumeDetail)
