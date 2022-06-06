@@ -45,8 +45,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/btn_back" />
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vp_perfume_detail_image"
+                <ImageView
+                    android:id="@+id/img_perfume_detail"
                     android:layout_width="360dp"
                     android:layout_height="360dp"
                     android:layout_marginTop="34dp"
@@ -62,13 +62,14 @@
                     app:ci_animator="@anim/scale_indicator"
                     app:ci_drawable="@drawable/indicator_selected"
                     app:ci_drawable_unselected="@drawable/indicator_unselected"
+                    android:visibility="invisible"
                     app:ci_gravity="center_vertical"
                     app:ci_height="6dp"
                     app:ci_margin="3dp"
                     app:ci_width="6dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vp_perfume_detail_image" />
+                    app:layout_constraintTop_toBottomOf="@+id/img_perfume_detail" />
 
                 <ImageView
                     android:id="@+id/btn_heart"
