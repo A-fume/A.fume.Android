@@ -80,6 +80,7 @@
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="상품 자세히 보기"
+                    android:onClick="onClickDetailBtn"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/imageView16"
