@@ -126,12 +126,10 @@ class FilterActivity : AppCompatActivity() {
 
         filterViewModel.applyBtn.observe(this, Observer {
             binding.btnFilterApply.apply {
-                if (it == 0) {
-                    text = "적용"
-                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+                text = if (it == 0) {
+                    "적용"
                 } else {
-                    text = "적용($it)"
-                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.black))
+                    "적용($it)"
                 }
             }
         })
