@@ -14,11 +14,6 @@
             type="com.afume.afume_android.data.vo.response.PerfumeDetail" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:background="@color/white"
             android:layout_width="match_parent"
@@ -775,9 +770,5 @@
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="@+id/chart_pie_details_info_gender"
                 app:layout_constraintEnd_toEndOf="parent" />
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
 </layout>
