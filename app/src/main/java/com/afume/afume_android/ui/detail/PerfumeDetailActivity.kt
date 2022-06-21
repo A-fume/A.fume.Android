@@ -53,14 +53,11 @@ class PerfumeDetailActivity : AppCompatActivity() {
         initObserve()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     override fun onResume() {
         super.onResume()
 
         viewModel.getPerfumeInfo(perfumeIdx)
+        viewModel.getPerfumeInfoWithReview(perfumeIdx)
     }
 
     private fun initInfo(){
