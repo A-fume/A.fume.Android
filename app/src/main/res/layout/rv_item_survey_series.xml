@@ -9,7 +9,7 @@
             type="com.afume.afume_android.data.vo.response.SeriesInfo" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
 
