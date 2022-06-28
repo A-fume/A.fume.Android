@@ -45,6 +45,18 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("setKeywordList")
+    fun TextView.setKeywordList(status: Boolean) {
+        if (!status) {
+            background = ContextCompat.getDrawable(this.context, R.drawable.border_gray_cd_line_square)
+            setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+        } else {
+            setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
+            setTextColor(ContextCompat.getColor(this.context, R.color.white))
+        }
+    }
+
+    @JvmStatic
     @BindingAdapter("setImage")
     fun setImage(view: ImageView, res: Int?) {
         Glide.with(view.context)

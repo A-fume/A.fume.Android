@@ -3,12 +3,10 @@ package com.afume.afume_android.util
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.response.KeywordInfo
 import com.afume.afume_android.databinding.RvItemFilterFlexboxBinding
 
@@ -55,34 +53,17 @@ class FlexboxRecyclerViewAdapter(internal val select:(KeywordInfo, Boolean)->Uni
         fun bind(data: KeywordInfo) {
             binding.rvData = data
 
-            if(data.checked){
-                binding.rvItemTxtFlexbox.apply {
-                    setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
-                    setTextColor(ContextCompat.getColor(this.context, R.color.white))
-                }
-            }
-
             binding.root.setOnClickListener {
                 if(data.clickable) {
                     if (!data.checked) {
                         binding.rvItemTxtFlexbox.apply {
-                            setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
-                            setTextColor(ContextCompat.getColor(this.context, R.color.white))
                             select(data, true)
                             countBadge(2, true)
-                            data.checked = true
-
                         }
                     } else {
                         binding.rvItemTxtFlexbox.apply {
-                            background = ContextCompat.getDrawable(
-                                this.context,
-                                R.drawable.border_gray_cd_line_square
-                            )
-                            setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
                             select(data, false)
                             countBadge(2, false)
-                            data.checked = false
                         }
 
                     }
