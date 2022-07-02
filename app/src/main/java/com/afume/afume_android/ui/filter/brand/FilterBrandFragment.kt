@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.afume.afume_android.databinding.FragmentFilterBrandBinding
 import com.afume.afume_android.ui.filter.FilterViewModel
 import com.afume.afume_android.ui.filter.FilterViewModelFactory
+import com.afume.afume_android.util.TabSelectedListener
+import com.afume.afume_android.util.changeTabsFont
 import com.google.android.material.tabs.TabLayout
 
 class FilterBrandFragment : Fragment() {
@@ -63,7 +65,7 @@ class FilterBrandFragment : Fragment() {
         }
         Log.d("frag getBrand", viewModel.brandMap.value.toString())
         Log.d("frag getBrand", viewModel.brandTabOrders.value.toString())
-
+        binding.tabBrand.changeTabsFont(0)
     }
 
     private fun initBrandRvItem(ctx: Context?) {
@@ -77,12 +79,12 @@ class FilterBrandFragment : Fragment() {
             layoutManager = LinearLayoutManager(ctx)
         }
 
-        binding.tabBrand.getTabAt(0)?.select()
+//        binding.tabBrand.getTabAt(0)?.select()
     }
 
     private fun setTabClickEvent() {
-        val tab = binding.tabBrand
-        tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        val tabBrand = binding.tabBrand
+        tabBrand.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 selectInitial(tab)
             }
@@ -92,6 +94,9 @@ class FilterBrandFragment : Fragment() {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 selectInitial(tab)
+                tab?.position?.let{
+                    tabBrand.changeTabsFont(it)
+                }
             }
         })
     }

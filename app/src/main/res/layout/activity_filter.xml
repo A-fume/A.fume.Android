@@ -69,6 +69,8 @@
         android:text="적용"
         android:textColor="@color/white"
         android:textSize="15dp"
+        android:fontFamily="@font/notosans_bold"
+        android:includeFontPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
