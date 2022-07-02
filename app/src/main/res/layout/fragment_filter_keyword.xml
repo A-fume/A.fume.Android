@@ -21,6 +21,8 @@
             android:gravity="center"
             android:text="@string/filter_max_5"
             android:textColor="@color/dark_gray_7d"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
             android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,13 +33,14 @@
             setKeywordList="@{vm.keywordList}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:clipToPadding="false"
-            android:paddingTop="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_filter_desc" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_filter_desc"
+            tools:listitem="@layout/rv_item_filter_flexbox" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
