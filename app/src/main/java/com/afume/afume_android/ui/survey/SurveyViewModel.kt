@@ -97,6 +97,13 @@ class SurveyViewModel : ViewModel() {
             Log.d("index", index.toString())
             Log.d("remove keyword", selectedKeywordList.value.toString())
         }
+        clickSurveyKeywordList(_keywordList,index,boolean)
+    }
+
+    private fun clickSurveyKeywordList(keywordList: MutableLiveData<MutableList<KeywordInfo>>, keywordIdx: Int, isSelected:Boolean){
+        val tempList = keywordList.value
+        tempList?.forEach { if(it.keywordIdx==keywordIdx) it.checked= isSelected}
+        keywordList.value=tempList
     }
 
     fun addSeriesList(index: Int) {
