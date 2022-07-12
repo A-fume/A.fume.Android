@@ -33,8 +33,7 @@ class MyViewModel : ViewModel() {
             _wishList.value = myRepository.getLikedPerfume(
                 AfumeApplication.prefManager.accessToken, AfumeApplication.prefManager.userIdx
             )
-            Log.d("명",AfumeApplication.prefManager.accessToken+" "+AfumeApplication.prefManager.userIdx.toString()+" "+_wishList.value.toString())
-
+            Log.d("getLikedPerfume", _wishList.value.toString())
         } catch (e: HttpException) {
 //                when(e.response()?.code()){}
         }
@@ -45,7 +44,7 @@ class MyViewModel : ViewModel() {
             _myPerfumeList.value = myRepository.getMyPerfume(
                 AfumeApplication.prefManager.accessToken
             )
-
+            Log.d("getMyPerfume", _myPerfumeList.value.toString())
         } catch (e: HttpException) {
 //                when(e.response()?.code()){}
         }
