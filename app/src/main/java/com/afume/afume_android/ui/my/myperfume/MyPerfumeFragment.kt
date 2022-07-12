@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.databinding.FragmentMyPerfumeBinding
 import com.afume.afume_android.databinding.LayoutPleaseLoginBinding
@@ -43,16 +42,6 @@ class MyPerfumeFragment : Fragment() {
         else setMyPerfumeView(perfumeBinding)
 
     }
-
-    override fun onResume() {
-        super.onResume()
-        if (AfumeApplication.prefManager.haveToken()) {
-            viewLifecycleOwner.lifecycleScope.launchWhenCreated{
-                myViewModel.getMyPerfume()
-            }
-        }
-    }
-
 
     private fun inflateView(container: ViewGroup?): View {
         return if (AfumeApplication.prefManager.accessToken == "") {

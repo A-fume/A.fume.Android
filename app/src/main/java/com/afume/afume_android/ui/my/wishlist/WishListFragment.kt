@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.databinding.FragmentWishListBinding
 import com.afume.afume_android.databinding.LayoutPleaseLoginBinding
@@ -34,17 +33,6 @@ class WishListFragment : Fragment() {
 
         if (AfumeApplication.prefManager.haveToken()) setMyWishListView(wishListBinding)
         else setPleaseLoginView(loginBinding)
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        if (AfumeApplication.prefManager.haveToken()) {
-            viewLifecycleOwner.lifecycleScope.launchWhenCreated{
-                myViewModel.getLikedPerfume()
-            }
-        }
     }
 
     private fun inflateView(container: ViewGroup?): View {
