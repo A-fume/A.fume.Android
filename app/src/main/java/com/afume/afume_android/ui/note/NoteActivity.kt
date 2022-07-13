@@ -40,8 +40,8 @@ class NoteActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_note)
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
-        initNote()
 
+        initNote()
         setComponentList()
         initObserver()
         initListener()
