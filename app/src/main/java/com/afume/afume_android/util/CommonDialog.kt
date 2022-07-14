@@ -80,6 +80,19 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
                     listener?.onNegativeClicked()
                 }
             }
+            "survey" -> {
+                setContents(R.string.dialog_survey, "계속 진행", "종료")
+
+                binding.btnCommonDialogYes.setOnClickListener {
+                    dismiss()
+                    listener?.onPositiveClicked()
+                }
+
+                binding.btnCommonDialogNo.setOnClickListener {
+                    dismiss()
+                    listener?.onNegativeClicked()
+                }
+            }
         }
     }
 
