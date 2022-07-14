@@ -75,7 +75,7 @@ class SearchResultFragment : Fragment() {
     }
 
     private fun initRvPerfumeList(context: Context?) {
-        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(parentFragmentManager) { idx ->
+        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(requireContext(),parentFragmentManager) { idx ->
             viewModel.postPerfumeLike(
                 idx,
                 context

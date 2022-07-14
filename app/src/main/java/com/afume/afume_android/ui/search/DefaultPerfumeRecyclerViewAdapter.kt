@@ -1,7 +1,7 @@
 package com.afume.afume_android.ui.search
 
+import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +11,10 @@ import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.data.vo.response.PerfumeInfo
 import com.afume.afume_android.databinding.RvItemDefaultPerfumeBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
-import com.afume.afume_android.util.CommonDialog
+import com.afume.afume_android.util.createDialog
 
 
-class DefaultPerfumeRecyclerViewAdapter(val fragmentManager: FragmentManager, val clickBtnHeart:(Int)->Unit) :
+class DefaultPerfumeRecyclerViewAdapter(val context: Context, val fragmentManager: FragmentManager, val clickBtnHeart:(Int)->Unit) :
     RecyclerView.Adapter<DefaultPerfumeRecyclerViewAdapter.DefaultPerfumeRecyclerViewHolder>() {
     var data = listOf<PerfumeInfo>()
 
@@ -50,7 +50,7 @@ class DefaultPerfumeRecyclerViewAdapter(val fragmentManager: FragmentManager, va
 
             binding.btnHeart.setOnClickListener {
                 // 좋아요 누르면 로그인 하게 유도
-                if (!AfumeApplication.prefManager.haveToken()) createDialog()
+                if (!AfumeApplication.prefManager.haveToken()) context.createDialog(fragmentManager, "login")
                 else {
                     clickBtnHeart(data.perfumeIdx)
                     it.isSelected = !it.isSelected
@@ -62,14 +62,6 @@ class DefaultPerfumeRecyclerViewAdapter(val fragmentManager: FragmentManager, va
             val intent = Intent(view.context, PerfumeDetailActivity::class.java)
             intent.putExtra("perfumeIdx", perfumeIdx)
             view.context.startActivity(intent)
-        }
-
-        private fun createDialog() {
-            val bundle = Bundle()
-            bundle.putString("title", "login")
-            val dialog: CommonDialog = CommonDialog().CustomDialogBuilder().getInstance()
-            dialog.arguments = bundle
-            dialog.show(fragmentManager, dialog.tag)
         }
     }
 }

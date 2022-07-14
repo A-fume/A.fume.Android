@@ -79,7 +79,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
     }
 
     private fun initRvSimilar(ctx: Context) {
-        rvSimilarAdapter = PopularListAdapter(parentFragmentManager){ idx -> homeViewModel.postPerfumeLike(0,idx)}
+        rvSimilarAdapter = PopularListAdapter(requireContext(),parentFragmentManager){ idx -> homeViewModel.postPerfumeLike(0,idx)}
         binding.rvDetailsInfoSimilar.adapter = rvSimilarAdapter
         rvSimilarAdapter.notifyDataSetChanged()
     }
