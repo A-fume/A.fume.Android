@@ -172,21 +172,15 @@ class NoteActivity : AppCompatActivity() {
 
         noteViewModel.showUpdateDialog.observe(this, Observer {
             if(it){
-                val bundle = Bundle()
-                bundle.putString("title","save")
-                val dialog: CommonDialog = CommonDialog().CustomDialogBuilder()
-                    .setBtnClickListener(object : CommonDialog.CustomDialogListener {
-                        override fun onPositiveClicked() {
-                            noteViewModel.updateReview(reviewIdx)
-                            finish()
-                        }
-                        override fun onNegativeClicked() {
-                            finish()
-                        }
-                    })
-                    .getInstance()
-                dialog.arguments = bundle
-                dialog.show(this.supportFragmentManager, dialog.tag)
+                this.createListenerDialog(supportFragmentManager, "save",
+                    {
+                        noteViewModel.updateReview(reviewIdx)
+                        finish()
+                    },
+                    {
+                        finish()
+                    }
+                )
             }
             else{
                 finish()

@@ -1,7 +1,7 @@
 package com.afume.afume_android.ui.home.adapter
 
+import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +13,9 @@ import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.response.HomePerfumeItem
 import com.afume.afume_android.databinding.RvItemHomeRecentBinding
 import com.afume.afume_android.ui.detail.PerfumeDetailActivity
-import com.afume.afume_android.util.CommonDialog
+import com.afume.afume_android.util.createDialog
 
-class RecentListAdapter(private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<RecentListAdapter.RecentListViewHolder>() {
+class RecentListAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<RecentListAdapter.RecentListViewHolder>() {
     var data = mutableListOf<HomePerfumeItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentListViewHolder {
@@ -54,7 +54,7 @@ class RecentListAdapter(private val fragmentManager: FragmentManager, val clickB
             }
 
             binding.btnLike.setOnClickListener {
-                if (!AfumeApplication.prefManager.haveToken()) createDialog()
+                if (!AfumeApplication.prefManager.haveToken()) context.createDialog(fragmentManager, "login")
                 else {
                     clickBtnLike(item.perfumeIdx)
                 }
@@ -65,14 +65,6 @@ class RecentListAdapter(private val fragmentManager: FragmentManager, val clickB
             val intent = Intent(view.context, PerfumeDetailActivity::class.java)
             intent.putExtra("perfumeIdx", perfumeIdx)
             view.context.startActivity(intent)
-        }
-
-        private fun createDialog() {
-            val bundle = Bundle()
-            bundle.putString("title", "login")
-            val dialog: CommonDialog = CommonDialog().CustomDialogBuilder().getInstance()
-            dialog.arguments = bundle
-            dialog.show(fragmentManager, dialog.tag)
         }
     }
 }
