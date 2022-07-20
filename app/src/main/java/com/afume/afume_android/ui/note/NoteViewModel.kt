@@ -291,7 +291,7 @@ class NoteViewModel : ViewModel() {
 
     fun checkUpdateInfo(type:Int){
         if(responseReview.perfume.perfumeIdx != 0){
-            _updateBtn.value = (responseReview.score != rating.value || responseReview.longevity != longevityProgress.value || responseReview.sillage != reverbProgress.value
+            _updateBtn.value = (responseReview.score != rating.value && rating.value != 0f || responseReview.longevity != longevityProgress.value || responseReview.sillage != reverbProgress.value
                     || responseReview.seasonal != getSeason() || responseReview.gender != genderProgress.value || responseReview.content != contentsTxt.value && contentsTxt.value?.isNotEmpty() == true
                     || checkSelectedKeywordList != selectedKeywordList.value || responseReview.access != _shareBtn.value)
 
