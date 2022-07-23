@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
         }
         if (flag == 3) {
-
             val searchText = intent?.getStringExtra("searchText")
 
             if (searchText != "" && searchText != null) {
@@ -89,6 +88,7 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.searchHomeFragment)
             navController.navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
         }
+        intent.removeExtra("flag")
     }
 
     fun getBackSearchHome() {
