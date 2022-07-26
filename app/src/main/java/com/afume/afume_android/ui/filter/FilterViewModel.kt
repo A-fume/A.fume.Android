@@ -264,7 +264,6 @@ class FilterViewModel : ViewModel() {
 
         val filterInfoPList = mutableListOf<FilterInfoP>()
         selectedSeriesMap.value?.mapValues {
-            Log.d("명",it.toString())
             if (it.value[0].ingredientIdx <= -1) {
                 val ingredientInfoP = FilterInfoP(it.value[0].ingredientIdx, it.value[0].name, 1)
                 filterInfoPList.add(ingredientInfoP)

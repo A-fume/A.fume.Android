@@ -1,7 +1,6 @@
 package com.afume.afume_android.data.vo.request
 
 import android.os.Parcelable
-import com.afume.afume_android.data.vo.response.BrandInfo
 import com.afume.afume_android.data.vo.response.SeriesIngredients
 import kotlinx.parcelize.Parcelize
 
