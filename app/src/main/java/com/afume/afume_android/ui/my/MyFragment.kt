@@ -162,6 +162,7 @@ class MyFragment : Fragment() {
                     refreshFragment(myPagePagerAdapter.fragments[1],childFragmentManager)
                     binding.drawerLayout.closeDrawers()
                 }
+                R.id.feedback -> intent(MyInquiryActivity::class.java)
             }
             true
         }

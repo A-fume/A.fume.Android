@@ -25,6 +25,22 @@
             android:checked="false"/>
     </group>
     <group
+        android:id="@+id/group_feedback"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/feedback"
+            android:title="@string/feedback"
+            android:checked="false"/>
+    </group>
+    <group
+        android:id="@+id/group_withdrawal"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/withdrawal"
+            android:title="@string/withdrawal"
+            android:checked="false"/>
+    </group>
+    <group
         android:id="@+id/group_divider"
         android:checkableBehavior="single">
         <item

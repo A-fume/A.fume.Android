@@ -16,24 +16,38 @@
         android:theme="@style/Theme.AfumeAndroid"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup,android:theme">
-        <activity android:name=".ui.splash.SplashActivity" android:theme="@style/SplashTheme">
+        <activity android:name=".ui.my.MyInquiryActivity"></activity>
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.search.SearchTextActivity" />
         <activity android:name=".ui.setting.EditMyInfoActivity" />
-        <activity android:name=".ui.setting.EditPasswordActivity" android:windowSoftInputMode="stateAlwaysVisible" />
-        <activity android:name=".ui.ButtonActivity"/>
+        <activity
+            android:name=".ui.setting.EditPasswordActivity"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity android:name=".ui.ButtonActivity" />
         <activity android:name=".ui.signin.SignHomeActivity" />
-        <activity android:name=".ui.signin.SignInActivity" android:windowSoftInputMode="stateAlwaysVisible" />
-        <activity android:name=".ui.signup.SignUpEmailActivity" android:windowSoftInputMode="stateVisible" />
-        <activity android:name=".ui.signup.SignUpPasswordActivity" android:windowSoftInputMode="stateVisible"/>
+        <activity
+            android:name=".ui.signin.SignInActivity"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity
+            android:name=".ui.signup.SignUpEmailActivity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".ui.signup.SignUpPasswordActivity"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".ui.signup.SignUpGenderActivity" />
         <activity android:name=".ui.signup.SignUpAgeActivity" />
         <activity android:name=".ui.survey.SurveyActivity" />
-        <activity android:name=".ui.note.NoteActivity" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".ui.note.NoteActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".ui.filter.FilterActivity" />
         <activity android:name=".ui.detail.PerfumeDetailActivity" />
         <activity android:name=".ui.signup.PrivacyPolicyActivity" />
