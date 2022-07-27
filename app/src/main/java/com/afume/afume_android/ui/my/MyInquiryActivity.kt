@@ -16,12 +16,13 @@ class MyInquiryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_my_inquiry)
 
+        val url = getUrl()
+
         binding.wvMyInquiry.apply {
             webViewClient = WebViewClient()
             settings.javaScriptEnabled = true
+            loadUrl(url)
         }
-
-        binding.wvMyInquiry.loadUrl("https://forms.gle/XDxCLKGAkzmqGcjR7")
     }
 
     override fun onBackPressed() {
@@ -32,6 +33,15 @@ class MyInquiryActivity : AppCompatActivity() {
         else
         {
             finish()
+        }
+    }
+
+    fun getUrl() : String{
+        val url = intent.getStringExtra("url")
+        return if(url == "feedback"){
+            "https://docs.google.com/forms/d/e/1FAIpQLSfnvvc2O3_1X59lL243vsVXAjy-PIcq6-cgDgrhPph9mCAI1g/viewform"
+        }else{
+            "https://docs.google.com/forms/d/e/1FAIpQLSeZL-aslJd_YDgX2kLx31Gra1CXjG6ivaHqyAlko_iDQEVzYg/viewform"
         }
     }
 }

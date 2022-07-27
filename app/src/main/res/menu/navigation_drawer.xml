@@ -17,19 +17,19 @@
             android:checked="false"/>
     </group>
     <group
-        android:id="@+id/group_logout"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/logout"
-            android:title="@string/logout"
-            android:checked="false"/>
-    </group>
-    <group
         android:id="@+id/group_feedback"
         android:checkableBehavior="single">
         <item
             android:id="@+id/feedback"
             android:title="@string/feedback"
+            android:checked="false"/>
+    </group>
+    <group
+        android:id="@+id/group_logout"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/logout"
+            android:title="@string/logout"
             android:checked="false"/>
     </group>
     <group
