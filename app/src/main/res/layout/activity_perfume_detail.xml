@@ -218,7 +218,7 @@
                     android:includeFontPadding="false"
                     android:text="위시"
                     android:textColor="@color/primary_black"
-                    android:textSize="11sp"
+                    android:textSize="11dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/act_perfume_detail_iv_like" />

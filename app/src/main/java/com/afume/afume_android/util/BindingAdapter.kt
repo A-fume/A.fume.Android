@@ -3,6 +3,7 @@ package com.afume.afume_android.util
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.CheckedTextView
 import android.widget.EditText
 import android.widget.ImageView
@@ -12,6 +13,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
 import com.bumptech.glide.Glide
 
@@ -41,6 +43,18 @@ object BindingAdapter {
             setImageResource(R.drawable.favorite_inactive)
         } else {
             setImageResource(R.drawable.favorite_active)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setKeywordList")
+    fun TextView.setKeywordList(status: Boolean) {
+        if (!status) {
+            background = ContextCompat.getDrawable(this.context, R.drawable.border_gray_cd_line_square)
+            setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+        } else {
+            setBackgroundColor(ContextCompat.getColor(this.context, R.color.point_beige))
+            setTextColor(ContextCompat.getColor(this.context, R.color.white))
         }
     }
 
@@ -179,6 +193,26 @@ object BindingAdapter {
             else -> {
                 this.text = "시향 노트 수정"
             }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setNoteReportVisible")
+    fun ImageView.setNoteReportVisible(nickname: String){
+        if(nickname == AfumeApplication.prefManager.userNickname){
+            this.visibility = View.INVISIBLE
+        }else{
+            this.visibility = View.VISIBLE
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setNoteReportVisible")
+    fun TextView.setNoteReportVisible(nickname: String){
+        if(nickname == AfumeApplication.prefManager.userNickname){
+            this.visibility = View.GONE
+        }else{
+            this.visibility = View.VISIBLE
         }
     }
 }

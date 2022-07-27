@@ -53,11 +53,6 @@ class DetailNoteFragment(val perfumeIdx: Int) : Fragment() {
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getPerfumeInfoWithReview(perfumeIdx)
-    }
-
     private fun initNoteList(){
         noteAdapter = DetailNoteAdapter(requireContext(),viewModel,parentFragmentManager,perfumeIdx){idx -> viewModel.postReviewLike(idx)}
         binding.rvDetailNote.adapter = noteAdapter

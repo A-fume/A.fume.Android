@@ -15,11 +15,8 @@ import com.afume.afume_android.databinding.ActivityPerfumeDetailBinding
 import com.afume.afume_android.ui.detail.info.DetailInfoFragment
 import com.afume.afume_android.ui.detail.note.DetailNoteFragment
 import com.afume.afume_android.ui.note.NoteActivity
+import com.afume.afume_android.util.*
 import com.afume.afume_android.util.BindingAdapter.setNoteBtnText
-import com.afume.afume_android.util.CommonDialog
-import com.afume.afume_android.util.TabSelectedListener
-import com.afume.afume_android.util.changeTabsFont
-import com.afume.afume_android.util.toast
 import com.bumptech.glide.Glide
 
 class PerfumeDetailActivity : AppCompatActivity() {
@@ -53,14 +50,11 @@ class PerfumeDetailActivity : AppCompatActivity() {
         initObserve()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     override fun onResume() {
         super.onResume()
 
         viewModel.getPerfumeInfo(perfumeIdx)
+        viewModel.getPerfumeInfoWithReview(perfumeIdx)
     }
 
     private fun initInfo(){
@@ -119,12 +113,16 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
     private fun setClick(){
         binding.actPerfumeDetailClLike.setOnClickListener{
-            if(isLiked) {
-                isLiked = false
-                binding.actPerfumeDetailIvLike.setImageResource(R.drawable.favorite_inactive)
+            if(AfumeApplication.prefManager.haveToken()){
+                if(isLiked) {
+                    isLiked = false
+                    binding.actPerfumeDetailIvLike.setImageResource(R.drawable.favorite_inactive)
+                }else{
+                    isLiked = true
+                    binding.actPerfumeDetailIvLike.setImageResource(R.drawable.favorite_active)
+                }
             }else{
-                isLiked = true
-                binding.actPerfumeDetailIvLike.setImageResource(R.drawable.favorite_active)
+                this.createDialog(supportFragmentManager,"login")
             }
         }
 
@@ -140,7 +138,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
                 startActivity(intent)
             }else{
-                createDialog()
+                this.createDialog(supportFragmentManager,"login")
             }
 
         }
@@ -162,13 +160,5 @@ class PerfumeDetailActivity : AppCompatActivity() {
         }
 
         finish()
-    }
-
-    private fun createDialog() {
-        val bundle = Bundle()
-        bundle.putString("title", "login")
-        val dialog: CommonDialog = CommonDialog().CustomDialogBuilder().getInstance()
-        dialog.arguments = bundle
-        dialog.show(supportFragmentManager, dialog.tag)
     }
 }

@@ -33,9 +33,9 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginEnd="5dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintEnd_toStartOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="@+id/imageView5"
             app:srcCompat="@drawable/favorite_inactive" />
 
         <TextView
@@ -48,33 +48,35 @@
             android:text="@{Integer.toString(item.likeCount)}"
             android:textColor="@color/gray_cd"
             android:textSize="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView15"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_like"
             app:layout_constraintEnd_toEndOf="@+id/imageView15"
-            app:layout_constraintTop_toTopOf="@+id/imageView15" />
+            app:layout_constraintTop_toTopOf="@+id/btn_like" />
 
         <ImageView
             android:id="@+id/imageView15"
             android:layout_width="1dp"
             android:layout_height="12dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_rv_detail_note_report"
+            setNoteReportVisible="@{item.nickname}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView6"
             app:layout_constraintEnd_toStartOf="@+id/txt_rv_detail_note_report"
-            app:layout_constraintTop_toTopOf="@+id/txt_rv_detail_note_report"
+            app:layout_constraintTop_toTopOf="@+id/textView6"
             app:srcCompat="@color/gray_cd" />
 
         <TextView
             android:id="@+id/txt_rv_detail_note_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
             android:text="신고"
+            setNoteReportVisible="@{item.nickname}"
             android:textColor="@color/dark_gray_7d"
             android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView15"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/imageView15" />
 
         <TextView
             android:id="@+id/textView7"

@@ -28,6 +28,7 @@
     <color name="primary_black">#282725</color>
     <color name="black_1d">#1d1d1d</color>
     <color name="black_2a">#2a2a2a</color>
+    <color name="black_text">#282725</color>
 
     <color name="light_beige">#efebe9</color>
     <color name="point_beige_90">#e6c8bbb6</color>

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="item"
             type="com.afume.afume_android.data.vo.response.BrandInfo" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <CheckedTextView
             android:id="@+id/rv_item_txt_brand"
@@ -20,12 +21,24 @@
             android:layout_marginEnd="19dp"
             android:layout_marginBottom="15dp"
             android:checkMark="@drawable/selector_icon_check"
+            android:fontFamily="@font/notosans_regular"
+            android:textSize="15dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/black_text"
             android:text="@{item.name}"
             android:checked="@{item.check}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:src="@color/light_gray_f0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/rv_item_txt_brand"
+            app:layout_constraintStart_toStartOf="@+id/rv_item_txt_brand" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

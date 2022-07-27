@@ -10,13 +10,13 @@ import com.afume.afume_android.R
 import com.afume.afume_android.databinding.ActivitySurveyBinding
 import com.afume.afume_android.ui.MainActivity
 import com.afume.afume_android.ui.filter.AfumeViewPagerAdapter
-import com.afume.afume_android.util.TabSelectedListener
-import com.afume.afume_android.util.changeTabsFont
-import com.afume.afume_android.util.startActivityWithFinish
+import com.afume.afume_android.util.*
+import java.util.*
 
 class SurveyActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySurveyBinding
     private val viewModel: SurveyViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBinding()
@@ -24,7 +24,7 @@ class SurveyActivity : AppCompatActivity() {
 
         initTabWithVp()
         binding.toolbarSurvey.toolbarBtn.setOnClickListener {
-            finish()
+            backClickListener()
         }
         clickBtnComplete()
     }
@@ -57,7 +57,6 @@ class SurveyActivity : AppCompatActivity() {
 
     private fun clickBtnComplete(){
         binding.btnSurveyApply.setOnClickListener {
-            Log.e("버튼 눌리나","버튼 눌린다")
             binding.vpSurvey.apply {
                 when (currentItem) {
                     0 -> currentItem = 1
@@ -70,5 +69,22 @@ class SurveyActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        if(binding.vpSurvey.currentItem == 0){
+            backClickListener()
+        }else{
+            binding.vpSurvey.currentItem -= 1
+        }
+    }
+
+    private fun backClickListener(){
+        this.createListenerDialog(supportFragmentManager, "survey",
+            {
+                this@SurveyActivity.startActivityWithFinish(MainActivity::class.java)
+            },
+            {}
+        )
     }
 }

@@ -2,24 +2,29 @@ package com.afume.afume_android.ui
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
+import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
 import com.afume.afume_android.data.vo.request.FilterInfoP
 import com.afume.afume_android.data.vo.request.SendFilter
 import com.afume.afume_android.databinding.ActivityMainBinding
+import com.afume.afume_android.ui.my.MyViewModel
 import com.afume.afume_android.ui.search.SearchViewModel
 import com.afume.afume_android.ui.search.SingleViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var searchViewModel: SearchViewModel
+    private val myViewModel: MyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +42,12 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         getFilter()
+        if(AfumeApplication.prefManager.haveToken()){
+            lifecycleScope.launch {
+                myViewModel.getLikedPerfume()
+                myViewModel.getMyPerfume()
+            }
+        }
     }
 
     private fun initBinding() {
@@ -64,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
         }
         if (flag == 3) {
-
             val searchText = intent?.getStringExtra("searchText")
 
             if (searchText != "" && searchText != null) {
@@ -78,6 +88,7 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.searchHomeFragment)
             navController.navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
         }
+        intent.removeExtra("flag")
     }
 
     fun getBackSearchHome() {

@@ -15,16 +15,24 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/rv_item_img_survey_circle"
-        bindingDrawable="@{perfume.imageUrl}"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginStart="9dp"
         android:layout_marginEnd="9dp"
         android:background="@drawable/border_white_circle_fill"
-        android:src="@drawable/img_le_labo_13_sample"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        bindingDrawable="@{perfume.imageUrl}"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
+        android:src="@drawable/img_le_labo_13_sample"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_item_img_survey_circle"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_img_survey_circle"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_img_survey_circle"
+        app:layout_constraintTop_toTopOf="@+id/rv_item_img_survey_circle" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rv_item_survey_click"

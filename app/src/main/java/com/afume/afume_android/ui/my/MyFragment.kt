@@ -11,9 +11,6 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.viewModels
 import com.afume.afume_android.AfumeApplication
 import com.afume.afume_android.R
 import com.afume.afume_android.databinding.FragmentMypageBinding
@@ -26,12 +23,12 @@ import com.afume.afume_android.ui.setting.EditPasswordActivity
 import com.afume.afume_android.ui.signin.SignHomeActivity
 import com.afume.afume_android.util.TabSelectedListener
 import com.afume.afume_android.util.changeTabsFont
+import com.afume.afume_android.util.refreshFragment
 import com.afume.afume_android.util.toastLong
 
 class MyFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
     private lateinit var myPagePagerAdapter: AfumeViewPagerAdapter
-    private val myViewModel: MyViewModel by viewModels()
     private lateinit var callback: OnBackPressedCallback
     var isDrawerOpen = true
 
@@ -52,7 +49,6 @@ class MyFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.drawerLayout.closeDrawers()
-
     }
 
     override fun onAttach(context: Context) {
@@ -98,7 +94,6 @@ class MyFragment : Fragment() {
             WishListFragment()
         )
         binding.vpMypage.adapter = myPagePagerAdapter
-
     }
 
     private fun setUpTabWithViewPager() {
@@ -167,12 +162,6 @@ class MyFragment : Fragment() {
             true
         }
     }
-
-    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
-        var ft: FragmentTransaction = fragmentManager.beginTransaction()
-        ft.detach(fragment).attach(fragment).commit()
-    }
-
 
     fun intent(activity: Class<*>) {
         val intent = Intent(requireContext(), activity)

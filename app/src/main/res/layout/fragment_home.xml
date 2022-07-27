@@ -230,7 +230,7 @@
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/nanummyeongjo_extrabold"
                     android:includeFontPadding="false"
-                    android:lineSpacingExtra="6dp"
+                    android:lineSpacingExtra="6sp"
                     android:text="새로\n등록된 향수"
                     android:textColor="@color/primary_black"
                     android:textSize="18dp"
