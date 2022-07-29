@@ -157,6 +157,15 @@ class MyFragment : Fragment() {
                     refreshFragment(myPagePagerAdapter.fragments[1],childFragmentManager)
                     binding.drawerLayout.closeDrawers()
                 }
+                else->{
+                    val intent = Intent(requireContext(), MyInquiryActivity::class.java)
+                    if(menuItem.itemId == R.id.feedback){
+                        intent.putExtra("url", "feedback")
+                    }else{
+                        intent.putExtra("url", "withdrawal")
+                    }
+                    startActivity(intent)
+                }
             }
             true
         }
