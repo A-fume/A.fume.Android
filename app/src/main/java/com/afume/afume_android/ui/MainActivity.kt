@@ -78,7 +78,9 @@ class MainActivity : AppCompatActivity() {
             val searchText = intent?.getStringExtra("searchText")
 
             if (searchText != "" && searchText != null) {
-
+                if(searchViewModel.filter.value == null) {
+                    searchViewModel.filter.value = SendFilter(mutableListOf(FilterInfoP(idx = 0, name = "", type = 4)),null)
+                }
                 searchViewModel.filter.value?.apply {
                     filterInfoPList?.clear()
                     filterSeriesPMap?.clear()

@@ -2,7 +2,6 @@ package com.afume.afume_android.ui.search
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.afume.afume_android.R
@@ -26,7 +25,6 @@ class SearchTextActivity : AppCompatActivity() {
 
     private fun clickSearch(){
         binding.btnSearch.setOnClickListener {
-            Log.d("클릭했다",binding.edtSearch.text.toString())
             val intent= Intent(this, MainActivity::class.java)
             intent.putExtra("flag",3)
             intent.putExtra("searchText",binding.edtSearch.text.toString())
