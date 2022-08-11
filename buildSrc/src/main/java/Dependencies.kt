@@ -19,9 +19,9 @@ object Dependencies {
 
     /* android.arch */
     const val navigationFragmentKtx =
-        "android.arch.navigation:navigation-fragment-ktx:${Versions.navigationKtx}"
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationKtx}"
     const val navigationUiKtx =
-        "android.arch.navigation:navigation-ui-ktx:${Versions.navigationKtx}"
+        "androidx.navigation:navigation-ui-ktx:${Versions.navigationKtx}"
 
     /* retrofit2 : https://github.com/square/retrofit */
     const val retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.retrofit2}"

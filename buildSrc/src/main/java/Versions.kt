@@ -37,7 +37,7 @@ object Versions {
     const val glide = "4.11.0"
 
     // navigation
-    const val navigationKtx = "2.2.2"
+    const val navigationKtx = "2.5.1"
 
     // flexbox
     const val flexbox = "2.0.1"
