@@ -11,6 +11,7 @@
     <string name="dialog_note_delete">정말로 삭제하실건가요?</string>
     <string name="dialog_note_save">수정된 내용이 있습니다.\n저장하시겠습니까?</string>
     <string name="dialog_survey">나에게 꼭 맞는 향수를 추천받고 싶다면\n설문을 완료해주세요.\n그래도 설문을 종료하시겠습니까?</string>
+    <string name="dialog_app_update">더욱 좋아진 서비스를 사용하시기 위해서\n새로운 버전으로 업데이트가 필요합니다.</string>
     <string name="do_login">로그인 하기</string>
 
     <!--my - navigation drawer-->

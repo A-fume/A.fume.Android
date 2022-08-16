@@ -181,4 +181,10 @@ interface AfumeService {
         @Path("reviewIdx") reviewIdx : Int,
         @Body body : RequestReportReview
     ):ResponseMessage
+
+    // system - apk
+    @GET("system/supportable")
+    suspend fun getVersion(
+        @Query("apkversion") apkVersion : String
+    ):ResponseBase<Boolean>
 }
