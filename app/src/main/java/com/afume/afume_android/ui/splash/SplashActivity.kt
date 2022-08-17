@@ -16,10 +16,15 @@ import com.afume.afume_android.ui.survey.SurveyActivity
 import com.afume.afume_android.util.AppUpdateDialog
 import com.afume.afume_android.util.startActivityWithFinish
 import com.afume.afume_android.util.toast
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class SplashActivity : AppCompatActivity() {
     private val splashViewModel: SplashViewModel by viewModels()
+    private val time : Long = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,34 +35,46 @@ class SplashActivity : AppCompatActivity() {
         )
         binding.lifecycleOwner=this
 
-        startAnimation(binding)
-        setLottieListener(binding)
+        setDelayed()
+//        startAnimation(binding)
+//        setLottieListener(binding)
     }
 
-    private fun startAnimation(binding: ActivitySplashBinding){
-        binding.lottieSplash.playAnimation()
+    private fun setDelayed(){
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(time)
+            if (splashViewModel.isValidVersion.value == true) {
+                goToNextActivity()
+            } else {
+                createDialog()
+            }
+        }
     }
 
-    private fun setLottieListener(binding: ActivitySplashBinding){
-        binding.lottieSplash.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(p0: Animator?) {
-            }
-
-            override fun onAnimationEnd(p0: Animator?) {
-                if (splashViewModel.isValidVersion.value == true) {
-                    goToNextActivity()
-                } else {
-                    createDialog()
-                }
-            }
-
-            override fun onAnimationCancel(p0: Animator?) {
-            }
-
-            override fun onAnimationStart(p0: Animator?) {
-            }
-        })
-    }
+//    private fun startAnimation(binding: ActivitySplashBinding){
+//        binding.lottieSplash.playAnimation()
+//    }
+//
+//    private fun setLottieListener(binding: ActivitySplashBinding){
+//        binding.lottieSplash.addAnimatorListener(object : Animator.AnimatorListener {
+//            override fun onAnimationRepeat(p0: Animator?) {
+//            }
+//
+//            override fun onAnimationEnd(p0: Animator?) {
+//                if (splashViewModel.isValidVersion.value == true) {
+//                    goToNextActivity()
+//                } else {
+//                    createDialog()
+//                }
+//            }
+//
+//            override fun onAnimationCancel(p0: Animator?) {
+//            }
+//
+//            override fun onAnimationStart(p0: Animator?) {
+//            }
+//        })
+//    }
 
     private fun goToNextActivity(){
         if(AfumeApplication.prefManager.haveToken() && AfumeApplication.prefManager.userSurvey){
