@@ -101,7 +101,6 @@ class SplashActivity : AppCompatActivity() {
                 }
             })
             .getInstance()
-        dialog.isCancelable = false
         dialog.arguments = bundle
         dialog.show(supportFragmentManager, dialog.tag)
     }

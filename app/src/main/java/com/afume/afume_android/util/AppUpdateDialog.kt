@@ -1,5 +1,6 @@
 package com.afume.afume_android.util
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -46,6 +47,11 @@ class AppUpdateDialog: DialogFragment(), View.OnClickListener {
 
     override fun onClick(p0: View?) {
         dismiss()
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+        listener?.onNegativeClicked()
     }
 
     inner class AppUpdateDialogBuilder {
