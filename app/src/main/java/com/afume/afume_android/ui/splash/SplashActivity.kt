@@ -1,9 +1,9 @@
 package com.afume.afume_android.ui.splash
 
-import android.animation.Animator
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -16,10 +16,6 @@ import com.afume.afume_android.ui.survey.SurveyActivity
 import com.afume.afume_android.util.AppUpdateDialog
 import com.afume.afume_android.util.startActivityWithFinish
 import com.afume.afume_android.util.toast
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 class SplashActivity : AppCompatActivity() {
@@ -29,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding :ActivitySplashBinding = DataBindingUtil.setContentView(
+        val binding : ActivitySplashBinding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_splash
         )
@@ -41,14 +37,24 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setDelayed(){
-        CoroutineScope(Dispatchers.IO).launch {
-            delay(time)
-            if (splashViewModel.isValidVersion.value == true) {
-                goToNextActivity()
-            } else {
-                createDialog()
-            }
-        }
+        val handler = Handler()
+        handler.postDelayed({
+            goToNextActivity()
+//            if (splashViewModel.isValidVersion.value == true) {
+//                goToNextActivity()
+//            } else {
+//                createDialog()
+//            }
+        }, 2000)
+
+//        CoroutineScope(Dispatchers.IO).launch {
+//            delay(time)
+//            if (splashViewModel.isValidVersion.value == true) {
+//                goToNextActivity()
+//            } else {
+//                createDialog()
+//            }
+//        }
     }
 
 //    private fun startAnimation(binding: ActivitySplashBinding){
