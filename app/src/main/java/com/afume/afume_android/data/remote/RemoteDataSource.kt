@@ -22,6 +22,7 @@ interface RemoteDataSource {
     suspend fun deleteReview(token: String, reviewIdx: Int) : String
     suspend fun postReviewLike(token: String, reviewIdx: Int) : Boolean
     suspend fun reportReview(token: String,reviewIdx: Int, body: RequestReportReview) : String
+    suspend fun getVersion(apkVersion: String): Boolean
 
     // filter
     suspend fun getFilterSeries():ResponseSeries

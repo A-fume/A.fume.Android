@@ -55,17 +55,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_white" />
+            app:srcCompat="@drawable/logo_sign_home" />
 
         <TextView
             android:id="@+id/textView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="더욱 즐거운 향수 라이프의 시작"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/notosans_regular"
-            android:textSize="14dp"
             android:includeFontPadding="false"
+            android:text="더욱 즐거운 향수 라이프의 시작"
             android:textColor="@color/white"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="@+id/imageView19"
             app:layout_constraintStart_toStartOf="@+id/imageView19"
             app:layout_constraintTop_toBottomOf="@+id/imageView19" />

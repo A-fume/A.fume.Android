@@ -115,4 +115,8 @@ class RemoteDataSourceImpl : RemoteDataSource{
     override suspend fun reportReview(token: String, reviewIdx: Int, body: RequestReportReview): String {
         return api.reportReview(token, reviewIdx, body).message
     }
+
+    override suspend fun getVersion(apkVersion: String): Boolean {
+        return api.getVersion(apkVersion).data
+    }
 }
