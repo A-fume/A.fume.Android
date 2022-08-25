@@ -77,13 +77,17 @@ class EditPasswordActivity : AppCompatActivity() {
     fun onClickCompleteBtn(view: View){
         editViewModel.putPassword()
 
-        editViewModel.isValidEditPassword.observe(this, Observer{ isValidEditPassword ->
-            isValidEditPassword?.let{
-                if(isValidEditPassword){
-                    finish()
-                }
-            }
-        })
+//        editViewModel.isValidEditPassword.observe(this, Observer{ isValidEditPassword ->
+//            isValidEditPassword?.let{
+//                if(isValidEditPassword){
+//                    finish()
+//                }
+//            }
+//        })
+
+        finish()
+
+        setUpdatePasswordToastObserve(editViewModel.isValidMyInfoUpdate.value!!, "비밀번호가 변경되었습니다.", "비밀번호 변경 실패")
     }
 
     override fun onBackPressed() {
@@ -106,6 +110,7 @@ class EditPasswordActivity : AppCompatActivity() {
                         override fun onPositiveClicked() {
                             editViewModel.putPassword()
                             finish()
+                            setUpdatePasswordToastObserve(editViewModel.isValidMyInfoUpdate.value!!, "비밀번호가 변경되었습니다.", "비밀번호 변경 실패")
                         }
                         override fun onNegativeClicked() {
                             finish()
@@ -119,17 +124,13 @@ class EditPasswordActivity : AppCompatActivity() {
                 finish()
             }
         })
-
-        setUpdatePasswordToastObserve(editViewModel.isValidMyInfoUpdate, "비밀번호가 변경되었습니다.", "비밀번호 변경 실패")
     }
 
-    private fun setUpdatePasswordToastObserve(settingNetworkState: LiveData<Boolean>, success: String, fail: String){
-        settingNetworkState.observe(this, Observer {
-            if(it){
-                this.toast(success)
-            }else{
-                this.toast(fail)
-            }
-        })
+    private fun setUpdatePasswordToastObserve(settingNetworkState: Boolean, success: String, fail: String){
+        if(settingNetworkState){
+            this.toast(success)
+        }else{
+            this.toast(fail)
+        }
     }
 }
