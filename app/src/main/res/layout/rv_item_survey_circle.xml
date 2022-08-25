@@ -8,9 +8,10 @@
             name="perfume"
             type="com.afume.afume_android.data.vo.response.PerfumeInfo" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
     <de.hdodenhof.circleimageview.CircleImageView

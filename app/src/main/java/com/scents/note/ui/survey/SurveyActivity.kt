@@ -82,6 +82,7 @@ class SurveyActivity : AppCompatActivity() {
     private fun backClickListener(){
         this.createListenerDialog(supportFragmentManager, "survey",
             {
+                ScentsNoteApplication.prefManager.userSurvey = false
                 this@SurveyActivity.startActivityWithFinish(MainActivity::class.java)
             },
             {}
