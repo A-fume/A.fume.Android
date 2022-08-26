@@ -183,8 +183,8 @@ class FilterViewModel : ViewModel() {
         applyBtn.value = allCount
     }
 
-    fun addKeywordList(keyword: KeywordInfo, add: Boolean) {
-        if (add) {
+    fun addKeywordList(keyword: KeywordInfo, boolean: Boolean) {
+        if (boolean) {
             if (selectedKeywordList.value != null) tempSelectedKeywordList =
                 selectedKeywordList.value!!
 
@@ -199,6 +199,13 @@ class FilterViewModel : ViewModel() {
             Log.d("index", keyword.toString())
             Log.d("remove keyword", selectedKeywordList.value.toString())
         }
+        clickFilterKeywordList(_keywordList,keyword.keywordIdx,boolean)
+    }
+
+    private fun clickFilterKeywordList(keywordList: MutableLiveData<MutableList<KeywordInfo>>, keywordIdx: Int, isSelected:Boolean){
+        val tempList = keywordList.value
+        tempList?.forEach { if(it.keywordIdx==keywordIdx) it.checked= isSelected}
+        keywordList.value=tempList
     }
 
     fun getBrand() {
