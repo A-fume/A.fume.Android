@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.afume.afume_android">
+    package="com.scents.note">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".AfumeApplication"
+        android:name="com.scents.note.ScentsNoteApplication"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AfumeAndroid"
+        android:theme="@style/Theme.ScentsNoteAndroid"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup,android:theme">
-        <activity android:name=".ui.my.MyInquiryActivity"></activity>
+        <activity android:name="com.scents.note.ui.my.MyInquiryActivity" />
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name="com.scents.note.ui.splash.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.search.SearchTextActivity" />
-        <activity android:name=".ui.setting.EditMyInfoActivity" />
-        <activity android:name=".ui.setting.EditPasswordActivity" android:windowSoftInputMode="stateAlwaysVisible" />
-        <activity android:name=".ui.ButtonActivity"/>
-        <activity android:name=".ui.signin.SignHomeActivity" />
-        <activity android:name=".ui.signin.SignInActivity" android:windowSoftInputMode="stateAlwaysVisible" />
-        <activity android:name=".ui.signup.SignUpEmailActivity" android:windowSoftInputMode="stateVisible" />
-        <activity android:name=".ui.signup.SignUpPasswordActivity" android:windowSoftInputMode="stateVisible"/>
-        <activity android:name=".ui.signup.SignUpGenderActivity" />
-        <activity android:name=".ui.signup.SignUpAgeActivity" />
-        <activity android:name=".ui.survey.SurveyActivity" />
-        <activity android:name=".ui.note.NoteActivity" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.filter.FilterActivity" />
-        <activity android:name=".ui.detail.PerfumeDetailActivity" />
-        <activity android:name=".ui.signup.PrivacyPolicyActivity" />
-        <activity android:name=".ui.home.MoreNewPerfumeActivity" />
-        <activity android:name=".ui.MainActivity" />
+        <activity android:name="com.scents.note.ui.search.SearchTextActivity" />
+        <activity android:name="com.scents.note.ui.setting.EditMyInfoActivity" />
+        <activity android:name="com.scents.note.ui.setting.EditPasswordActivity" android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity android:name="com.scents.note.ui.ButtonActivity"/>
+        <activity android:name="com.scents.note.ui.signin.SignHomeActivity" />
+        <activity android:name="com.scents.note.ui.signin.SignInActivity" android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity android:name="com.scents.note.ui.signup.SignUpEmailActivity" android:windowSoftInputMode="stateVisible" />
+        <activity android:name="com.scents.note.ui.signup.SignUpPasswordActivity" android:windowSoftInputMode="stateVisible"/>
+        <activity android:name="com.scents.note.ui.signup.SignUpGenderActivity" />
+        <activity android:name="com.scents.note.ui.signup.SignUpAgeActivity" />
+        <activity android:name="com.scents.note.ui.survey.SurveyActivity" />
+        <activity android:name="com.scents.note.ui.note.NoteActivity" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name="com.scents.note.ui.filter.FilterActivity" />
+        <activity android:name="com.scents.note.ui.detail.PerfumeDetailActivity" />
+        <activity android:name="com.scents.note.ui.signup.PrivacyPolicyActivity" />
+        <activity android:name="com.scents.note.ui.home.MoreNewPerfumeActivity" />
+        <activity android:name="com.scents.note.ui.MainActivity" />
     </application>
 
 </manifest>

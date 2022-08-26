@@ -1,0 +1,27 @@
+<resources>
+    <style name="ScentsNoteUI.SelectBox" parent="android:Widget">
+        <item name="android:background">@drawable/scents_note_ui_select_box_background</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textColor">@color/scents_note_ui_select_box_text_color</item>
+
+        <item name="android:minHeight">@dimen/scents_note_ui_select_box_medium_minHeight</item>
+        <item name="android:paddingStart">@dimen/scents_note_ui_select_box_medium_paddingHorizontal</item>
+        <item name="android:paddingEnd">@dimen/scents_note_ui_select_box_medium_paddingHorizontal</item>
+        <item name="android:paddingTop">@dimen/scents_note_ui_select_box_medium_paddingVertical</item>
+        <item name="android:paddingBottom">@dimen/scents_note_ui_select_box_medium_paddingVertical</item>
+        <item name="android:textSize">@dimen/scents_note_ui_select_box_medium_textSize</item>
+    </style>
+
+    <style name="ScentsNoteUI.SelectBox.Medium" parent="ScentsNoteUI.SelectBox"/>
+
+    <style name="ScentsNoteUI.SelectBox.Small" parent="ScentsNoteUI.SelectBox">
+        <item name="android:minHeight">@dimen/scents_note_ui_select_box_small_minHeight</item>
+        <item name="android:paddingStart">@dimen/scents_note_ui_select_box_small_paddingHorizontal</item>
+        <item name="android:paddingEnd">@dimen/scents_note_ui_select_box_small_paddingHorizontal</item>
+        <item name="android:paddingTop">@dimen/scents_note_ui_select_box_small_paddingTop</item>
+        <item name="android:paddingBottom">@dimen/scents_note_ui_select_box_small_paddingBottom</item>
+        <item name="android:textSize">@dimen/scents_note_ui_select_box_small_textSize</item>
+    </style>
+</resources>

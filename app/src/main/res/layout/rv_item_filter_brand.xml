@@ -4,7 +4,7 @@
     <data>
         <variable
             name="item"
-            type="com.afume.afume_android.data.vo.response.BrandInfo" />
+            type="com.scents.note.data.vo.response.BrandInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

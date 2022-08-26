@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".selectbox.SelectBoxActivity">
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="3dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="type: medium(default)" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#Keyword"
+                tools:text="#키워드" />
+
+            <CheckedTextView
+                style="@style/ScentsNoteUI.SelectBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#Keyword"
+                tools:text="#키워드" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="type: small" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                style="@style/ScentsNoteUI.SelectBox.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#Keyword"
+                tools:text="#키워드" />
+
+            <CheckedTextView
+                style="@style/ScentsNoteUI.SelectBox.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#Keyword"
+                tools:text="#키워드" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="toggleAble: false / enabled:false" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="#Keyword"
+                app:toggleAble="false"
+                tools:text="#키워드" />
+
+            <CheckedTextView
+                style="@style/ScentsNoteUI.SelectBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="#Keyword"
+                tools:text="#키워드" />
+        </LinearLayout>
+
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="21dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="15dp"
+            app:alignContent="stretch"
+            app:alignItems="stretch"
+            app:dividerDrawable="@drawable/divider"
+            app:flexWrap="wrap"
+            app:showDivider="middle">
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#시트러스"
+                tools:text="#키워드" />
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#네롤리"
+                tools:text="#키워드" />
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#레몬"
+                tools:text="#키워드" />
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#레몬"
+                tools:text="#키워드" />
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#베르가못"
+                tools:text="#키워드" />
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#블러드오렌지"
+                tools:text="#키워드" />
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#Keyword"
+                tools:text="#키워드" />
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#레몬그라스"
+                tools:text="#키워드" />
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#Keyword"
+                tools:text="#키워드" />
+
+            <com.scents.scents_note_ui.widget.SelectBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#Keyword"
+                tools:text="#키워드" />
+        </com.google.android.flexbox.FlexboxLayout>
+    </LinearLayout>
+</ScrollView>

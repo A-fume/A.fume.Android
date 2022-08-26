@@ -1,16 +1,15 @@
-package com.afume.afume_android.ui.survey
+package com.scents.note.ui.survey
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.afume.afume_android.AfumeApplication
-import com.afume.afume_android.R
-import com.afume.afume_android.databinding.ActivitySurveyBinding
-import com.afume.afume_android.ui.MainActivity
-import com.afume.afume_android.ui.filter.AfumeViewPagerAdapter
-import com.afume.afume_android.util.*
+import com.scents.note.ScentsNoteApplication
+import com.scents.note.R
+import com.scents.note.databinding.ActivitySurveyBinding
+import com.scents.note.ui.MainActivity
+import com.scents.note.ui.filter.ScentsNoteViewPagerAdapter
+import com.scents.note.util.*
 import java.util.*
 
 class SurveyActivity : AppCompatActivity() {
@@ -37,7 +36,7 @@ class SurveyActivity : AppCompatActivity() {
     }
 
     private fun initTabWithVp() {
-        val surveyViewPagerAdapter = AfumeViewPagerAdapter(supportFragmentManager)
+        val surveyViewPagerAdapter = ScentsNoteViewPagerAdapter(supportFragmentManager)
         surveyViewPagerAdapter.fragments = listOf(
             SurveyPerfumeFragment(),
             SurveyKeywordFragment(),
@@ -62,8 +61,8 @@ class SurveyActivity : AppCompatActivity() {
                     0 -> currentItem = 1
                     1 -> currentItem = 2
                     2 -> {
-                        AfumeApplication.prefManager.userSurvey = false
-                        viewModel.postSurvey(AfumeApplication.prefManager.accessToken)
+                        ScentsNoteApplication.prefManager.userSurvey = false
+                        viewModel.postSurvey(ScentsNoteApplication.prefManager.accessToken)
                         this@SurveyActivity.startActivityWithFinish(MainActivity::class.java)
                     }
                 }

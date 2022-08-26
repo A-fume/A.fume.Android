@@ -1,8 +1,0 @@
-<resources>
-    <color name="afume_ui_color_gray_cd">#cdcdcd</color>
-    <color name="afume_ui_color_light_gray_f0">#f0f0f0</color>
-    <color name="afume_ui_color_white">#ffffff</color>
-    <color name="afume_ui_color_point_beige">#c8bbb6</color>
-    <color name="afume_ui_color_point_beige_80">#ccc8bbb6</color>
-    <color name="afume_ui_primary_black">#282725</color>
-</resources>

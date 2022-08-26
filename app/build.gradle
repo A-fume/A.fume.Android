@@ -10,7 +10,7 @@ android {
     buildToolsVersion ConfigData.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.afume.afume_android"
+        applicationId "com.scents.note"
         minSdkVersion ConfigData.minSdkVersion
         targetSdkVersion ConfigData.targetSdkVersion
         versionCode ConfigData.versionCode
@@ -40,7 +40,7 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':afume-ui')
+    implementation project(path: ':scents-note-ui')
 
     implementation Dependencies.supportV4
 

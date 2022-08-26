@@ -1,4 +1,4 @@
-rootProject.name = "Afume-Android"
+rootProject.name = "ScentsNote-Android"
 include ':app'
-include ':afume-ui'
-include ':afume_ui_sample'
+include ':scents-note-ui'
+include ':scents_note_ui_sample'

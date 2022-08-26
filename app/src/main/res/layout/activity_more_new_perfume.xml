@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.afume.afume_android.ui.home.HomeViewModel" />
+            type="com.scents.note.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

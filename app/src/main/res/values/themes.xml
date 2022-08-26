@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.AfumeAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.ScentsNoteAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary_black</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -26,7 +26,7 @@
         <item name="colorControlNormal">@color/point_beige</item>
     </style>
 
-    <style name="Theme.AfumeAndroid.Tabtext" parent="TextAppearance.MaterialComponents.Button">
+    <style name="Theme.ScentsNoteAndroid.Tabtext" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:fontFamily">@font/notosans_regular</item>
         <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/dark_gray_7d</item>
@@ -53,7 +53,7 @@
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/keyword_dialog_back</item>
     </style>
-    <style name="Theme.AfumeAndroid.NavigationDrawerText" parent="android:Widget.TextView">
+    <style name="Theme.ScentsNoteAndroid.NavigationDrawerText" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/notosans_regular</item>
         <item name="android:textSize">15dp</item>
     </style>
@@ -62,13 +62,13 @@
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
 
-    <style name="Theme.Afume.Tab" parent="@android:style/TextAppearance.Widget.TabWidget">
+    <style name="Theme.ScentsNote.Tab" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:textSize">14dp</item>
         <item name="android:lineSpacingExtra">6sp</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
-    <style name="Theme.Afume.Tab.Filter.Brand" parent="@android:style/TextAppearance.Widget.TabWidget">
+    <style name="Theme.ScentsNote.Tab.Filter.Brand" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:textSize">15dp</item>
         <item name="android:includeFontPadding">false</item>
     </style>

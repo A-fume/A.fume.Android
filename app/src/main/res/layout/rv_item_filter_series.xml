@@ -6,7 +6,7 @@
     <data>
         <variable
             name="series"
-            type="com.afume.afume_android.data.vo.response.SeriesInfo" />
+            type="com.scents.note.data.vo.response.SeriesInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

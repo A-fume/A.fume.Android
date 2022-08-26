@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="com.afume.afume_android.ui.filter.FilterViewModel" />
+            type="com.scents.note.ui.filter.FilterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

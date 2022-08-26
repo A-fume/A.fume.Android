@@ -42,7 +42,7 @@
                     app:tabIndicatorColor="@color/primary_black"
                     app:tabSelectedTextColor="@color/primary_black"
                     app:tabTextColor="@color/dark_gray_7d"
-                    app:tabTextAppearance="@style/Theme.Afume.Tab">
+                    app:tabTextAppearance="@style/Theme.ScentsNote.Tab">
 
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
@@ -56,7 +56,7 @@
 
                 </com.google.android.material.tabs.TabLayout>
 
-                <com.afume.afume_android.util.NonSwipeViewPager
+                <com.scents.note.util.NonSwipeViewPager
                     android:id="@+id/vp_mypage"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -64,7 +64,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tab_mypage">
-                </com.afume.afume_android.util.NonSwipeViewPager>
+                </com.scents.note.util.NonSwipeViewPager>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -76,7 +76,7 @@
             android:paddingHorizontal="16dp"
             app:itemTextColor="@color/black"
             app:itemHorizontalPadding="0dp"
-            app:itemTextAppearance="@style/Theme.AfumeAndroid.NavigationDrawerText"
+            app:itemTextAppearance="@style/Theme.ScentsNoteAndroid.NavigationDrawerText"
             app:headerLayout="@layout/header_navigation_drawer"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

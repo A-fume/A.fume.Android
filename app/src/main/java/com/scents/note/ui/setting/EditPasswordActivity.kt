@@ -1,4 +1,4 @@
-package com.afume.afume_android.ui.setting
+package com.scents.note.ui.setting
 
 import android.os.Bundle
 import android.view.View
@@ -8,11 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.afume.afume_android.R
-import com.afume.afume_android.databinding.ActivityPasswordEditBinding
-import com.afume.afume_android.util.CommonDialog
-import com.afume.afume_android.util.setKeyboard
-import com.afume.afume_android.util.toast
+import com.scents.note.R
+import com.scents.note.databinding.ActivityPasswordEditBinding
+import com.scents.note.util.CommonDialog
+import com.scents.note.util.setKeyboard
+import com.scents.note.util.toast
 
 class EditPasswordActivity : AppCompatActivity() {
     lateinit var binding : ActivityPasswordEditBinding

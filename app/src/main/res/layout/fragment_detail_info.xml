@@ -7,11 +7,11 @@
         <import type="android.view.View" />
         <variable
             name="viewModel"
-            type="com.afume.afume_android.ui.detail.PerfumeDetailViewModel" />
+            type="com.scents.note.ui.detail.PerfumeDetailViewModel" />
 
         <variable
             name="data"
-            type="com.afume.afume_android.data.vo.response.PerfumeDetail" />
+            type="com.scents.note.data.vo.response.PerfumeDetail" />
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout
