@@ -65,7 +65,7 @@
             android:text="@={viewModel.emailTxt}"
             android:onTextChanged="@{viewModel::inputEmail}"
             android:fontFamily="@font/nanummyeongjo_extrabold"
-            android:hint="Afume@kakao.com"
+            android:hint="scents@email.com"
             android:includeFontPadding="false"
             android:inputType="textWebEmailAddress|textEmailAddress"
             android:nextFocusDown="@id/edt_sing_in_password"
