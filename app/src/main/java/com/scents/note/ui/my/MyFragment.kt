@@ -125,7 +125,9 @@ class MyFragment : Fragment() {
 
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_my_info)
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_password)
+            binding.myNavigationDrawer.menu.removeGroup(R.id.group_feedback)
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_logout)
+            binding.myNavigationDrawer.menu.removeGroup(R.id.group_withdrawal)
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_divider)
 
             binding.myNavigationDrawer.inflateMenu(R.menu.navigation_drawer_login)
