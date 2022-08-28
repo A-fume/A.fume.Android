@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.afume.afume_android.ui.survey.SurveyViewModel" />
+            type="com.scentsnote.android.ui.survey.SurveyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,7 @@
         tools:context=".ui.survey.SurveyKeywordFragment">
 
 
-        <com.afume.afume_android.util.RecyclerViewEmptySupport
+        <com.scentsnote.android.util.RecyclerViewEmptySupport
             android:id="@+id/rv_survey_keyword"
             setKeywordList="@{vm.keywordList}"
             android:layout_width="match_parent"

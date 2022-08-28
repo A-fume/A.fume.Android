@@ -7,7 +7,7 @@
     <data>
         <variable
             name="item"
-            type="com.afume.afume_android.data.vo.response.RecommendPerfumeItem" />
+            type="com.scentsnote.android.data.vo.response.RecommendPerfumeItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

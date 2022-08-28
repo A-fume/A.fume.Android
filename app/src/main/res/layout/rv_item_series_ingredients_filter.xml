@@ -5,7 +5,7 @@
     <data>
         <variable
             name="ingredient"
-            type="com.afume.afume_android.data.vo.response.SeriesIngredients" />
+            type="com.scentsnote.android.data.vo.response.SeriesIngredients" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"

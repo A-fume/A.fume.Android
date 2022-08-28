@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.afume.afume_android.ui.survey.SurveyViewModel" />
+            type="com.scentsnote.android.ui.survey.SurveyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,7 +67,7 @@
             app:tabIndicatorGravity="bottom"
             app:tabIndicatorHeight="3dp"
             app:tabSelectedTextColor="@color/primary_black"
-            app:tabTextAppearance="@style/Theme.AfumeAndroid.Tabtext"
+            app:tabTextAppearance="@style/Theme.ScentsNoteAndroid.Tabtext"
             app:tabTextColor="@color/dark_gray_7d">
 
             <com.google.android.material.tabs.TabItem

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="perfume"
-            type="com.afume.afume_android.data.vo.response.PerfumeInfo"/>
+            type="com.scentsnote.android.data.vo.response.PerfumeInfo"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

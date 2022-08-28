@@ -6,7 +6,7 @@
 
         <variable
             name="filter"
-            type="com.afume.afume_android.data.vo.request.FilterInfoP" />
+            type="com.scentsnote.android.data.vo.request.FilterInfoP" />
     </data>
 
     <com.google.android.material.chip.Chip
