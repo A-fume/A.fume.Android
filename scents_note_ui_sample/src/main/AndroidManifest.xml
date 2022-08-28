@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.scents.scents_note_ui_sample">
+    package="com.scentsnote.scents_note_ui_sample">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:theme="@style/Theme.ScentsNoteAndroid">
 
         <activity
-            android:name="com.scents.scents_note_ui_sample.MainActivity"
+            android:name="com.scentsnote.scents_note_ui_sample.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +19,7 @@
         </activity>
 
         <activity
-            android:name="com.scents.scents_note_ui_sample.selectbox.SelectBoxActivity"
+            android:name="com.scentsnote.scents_note_ui_sample.selectbox.SelectBoxActivity"
             android:exported="false" />
     </application>
 

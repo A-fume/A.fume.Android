@@ -10,7 +10,7 @@ android {
     buildToolsVersion ConfigData.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.scents.note"
+        applicationId "com.scentsnote.android"
         minSdkVersion ConfigData.minSdkVersion
         targetSdkVersion ConfigData.targetSdkVersion
         versionCode ConfigData.versionCode

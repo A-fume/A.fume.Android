@@ -5,7 +5,7 @@
     <data>
         <variable
             name="filterVm"
-            type="com.scents.note.ui.filter.FilterViewModel" />
+            type="com.scentsnote.android.ui.filter.FilterViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -51,7 +51,7 @@
             android:text="키워드" />
     </com.google.android.material.tabs.TabLayout>
 
-    <com.scents.note.util.NonSwipeViewPager
+    <com.scentsnote.android.util.NonSwipeViewPager
         android:id="@+id/vp_filter"
         android:layout_width="match_parent"
         android:layout_height="0dp"

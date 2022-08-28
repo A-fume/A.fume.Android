@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.scents.note.ui.survey.SurveyViewModel" />
+            type="com.scentsnote.android.ui.survey.SurveyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

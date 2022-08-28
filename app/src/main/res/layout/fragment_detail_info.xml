@@ -7,11 +7,11 @@
         <import type="android.view.View" />
         <variable
             name="viewModel"
-            type="com.scents.note.ui.detail.PerfumeDetailViewModel" />
+            type="com.scentsnote.android.ui.detail.PerfumeDetailViewModel" />
 
         <variable
             name="data"
-            type="com.scents.note.data.vo.response.PerfumeDetail" />
+            type="com.scentsnote.android.data.vo.response.PerfumeDetail" />
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -8,10 +8,10 @@
         <import type="android.view.View" />
         <variable
             name="viewModel"
-            type="com.scents.note.ui.note.NoteViewModel" />
+            type="com.scentsnote.android.ui.note.NoteViewModel" />
         <variable
             name="item"
-            type="com.scents.note.data.vo.ParcelableWishList" />
+            type="com.scentsnote.android.data.vo.ParcelableWishList" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

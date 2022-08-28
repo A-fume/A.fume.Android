@@ -5,7 +5,7 @@
     <data>
         <variable
             name="rvData"
-            type="com.scents.note.data.vo.response.KeywordInfo" />
+            type="com.scentsnote.android.data.vo.response.KeywordInfo" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"

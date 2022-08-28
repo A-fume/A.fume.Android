@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="perfume"
-            type="com.scents.note.data.vo.response.PerfumeInfo" />
+            type="com.scentsnote.android.data.vo.response.PerfumeInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

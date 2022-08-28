@@ -7,7 +7,7 @@
     <data>
         <variable
             name="item"
-            type="com.scents.note.data.vo.response.HomePerfumeItem" />
+            type="com.scentsnote.android.data.vo.response.HomePerfumeItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

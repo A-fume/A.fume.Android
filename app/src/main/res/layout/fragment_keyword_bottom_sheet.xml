@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.scents.note.ui.note.NoteViewModel" />
+            type="com.scentsnote.android.ui.note.NoteViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

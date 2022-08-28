@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="series"
-            type="com.scents.note.data.vo.response.SeriesInfo" />
+            type="com.scentsnote.android.data.vo.response.SeriesInfo" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
