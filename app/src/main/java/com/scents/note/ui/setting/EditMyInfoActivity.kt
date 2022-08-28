@@ -26,6 +26,7 @@ class EditMyInfoActivity : AppCompatActivity() {
 
         editViewModel.checkMyInfo()
         setCompleteBtn()
+        setUpdateMyInfoToastObserve("내 정보가 수정되었습니다.", "내 정보 수정 실패")
     }
 
     private fun setCompleteBtn(){
@@ -89,13 +90,11 @@ class EditMyInfoActivity : AppCompatActivity() {
                 finish()
             }
         })
-
-        setUpdateMyInfoToastObserve(editViewModel.isValidMyInfoUpdate, "내 정보가 수정되었습니다.", "내 정보 수정 실패")
     }
 
-    private fun setUpdateMyInfoToastObserve(settingNetworkState: LiveData<Boolean>, success: String, fail: String){
-        settingNetworkState.observe(this, Observer {
-            if(it){
+    private fun setUpdateMyInfoToastObserve(success: String, fail: String){
+        editViewModel.showMyInfoUpdateToast.observe(this, Observer{
+            if(editViewModel.isValidMyInfoUpdate.value!!){
                 this.toast(success)
             }else{
                 this.toast(fail)

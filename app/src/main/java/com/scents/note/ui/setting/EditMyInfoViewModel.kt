@@ -11,6 +11,7 @@ import com.scents.note.data.repository.EditMyInfoRepository
 import com.scents.note.data.repository.SignRepository
 import com.scents.note.data.vo.request.RequestEditMyInfo
 import com.scents.note.data.vo.request.RequestEditPassword
+import com.scents.note.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.regex.Pattern
@@ -178,6 +179,9 @@ class EditMyInfoViewModel : ViewModel() {
     val isValidMyInfoUpdate : LiveData<Boolean>
         get() = _isValidMyInfoUpdate
 
+    private val _showMyInfoUpdateToast = SingleLiveEvent<Void>()
+    val showMyInfoUpdateToast: LiveData<Void> = _showMyInfoUpdateToast
+
     // 내 정보 수정
     fun putMyInfo(){
         viewModelScope.launch {
@@ -197,10 +201,11 @@ class EditMyInfoViewModel : ViewModel() {
                     ScentsNoteApplication.prefManager.userNickname = nickTxt.value.toString()
                     ScentsNoteApplication.prefManager.userGender = genderTxt
                     ScentsNoteApplication.prefManager.userAge = ageTxt.value!!.toInt()
-                    _isValidMyInfoUpdate.postValue(true)
+                    _isValidMyInfoUpdate.value = true
+                    _showMyInfoUpdateToast.call()
                 }
             }catch (e : HttpException){
-                _isValidMyInfoUpdate.postValue(false)
+                _isValidMyInfoUpdate.value = false
                 when(e.response()?.code()){
                     401 -> { // userIdx 일치 X 또는 토근 유효 X
                         Log.d("내 정보 수정 실패", e.message())
@@ -407,6 +412,9 @@ class EditMyInfoViewModel : ViewModel() {
     val isValidEditPassword : LiveData<Boolean>
         get() = _isValidEditPassword
 
+    private val _showPasswordUpdateToast = SingleLiveEvent<Void>()
+    val showPasswordUpdateToast: LiveData<Void> = _showPasswordUpdateToast
+
     // 비밀번호 수정
     fun putPassword(){
         viewModelScope.launch {
@@ -422,10 +430,11 @@ class EditMyInfoViewModel : ViewModel() {
                     Log.d("비밀번호 수정 성공 : ", it)
                     ScentsNoteApplication.prefManager.userPassword = passwordInfo.newPassword
 
-                    _isValidEditPassword.postValue(true)
+                    _isValidEditPassword.value = true
+                    _showPasswordUpdateToast.call()
                 }
             }catch (e : HttpException){
-                _isValidEditPassword.postValue(false)
+                _isValidEditPassword.value = false
 
                 when(e.response()?.code()){
                     400 -> { // 동일한 비밀번호 입력

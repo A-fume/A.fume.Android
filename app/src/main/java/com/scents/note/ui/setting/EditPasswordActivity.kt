@@ -27,6 +27,7 @@ class EditPasswordActivity : AppCompatActivity() {
         binding.edtEditPasswordCheck.requestFocus()
 
         observer()
+        setUpdatePasswordToastObserve("비밀번호가 변경되었습니다.", "비밀번호 변경 실패")
         passwordAnimation()
         checkNextBtn()
         setKeyboard()
@@ -77,17 +78,7 @@ class EditPasswordActivity : AppCompatActivity() {
     fun onClickCompleteBtn(view: View){
         editViewModel.putPassword()
 
-//        editViewModel.isValidEditPassword.observe(this, Observer{ isValidEditPassword ->
-//            isValidEditPassword?.let{
-//                if(isValidEditPassword){
-//                    finish()
-//                }
-//            }
-//        })
-
         finish()
-
-        setUpdatePasswordToastObserve(editViewModel.isValidMyInfoUpdate.value!!, "비밀번호가 변경되었습니다.", "비밀번호 변경 실패")
     }
 
     override fun onBackPressed() {
@@ -110,7 +101,6 @@ class EditPasswordActivity : AppCompatActivity() {
                         override fun onPositiveClicked() {
                             editViewModel.putPassword()
                             finish()
-                            setUpdatePasswordToastObserve(editViewModel.isValidMyInfoUpdate.value!!, "비밀번호가 변경되었습니다.", "비밀번호 변경 실패")
                         }
                         override fun onNegativeClicked() {
                             finish()
@@ -126,11 +116,13 @@ class EditPasswordActivity : AppCompatActivity() {
         })
     }
 
-    private fun setUpdatePasswordToastObserve(settingNetworkState: Boolean, success: String, fail: String){
-        if(settingNetworkState){
-            this.toast(success)
-        }else{
-            this.toast(fail)
-        }
+    private fun setUpdatePasswordToastObserve(success: String, fail: String){
+        editViewModel.showPasswordUpdateToast.observe(this, Observer{
+            if(editViewModel.isValidEditPassword.value!!){
+                this.toast(success)
+            }else{
+                this.toast(fail)
+            }
+        })
     }
 }
