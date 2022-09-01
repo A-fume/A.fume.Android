@@ -19,6 +19,7 @@
         <activity android:name="com.scentsnote.android.ui.my.MyInquiryActivity" />
         <activity
             android:name="com.scentsnote.android.ui.splash.SplashActivity"
+            android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
