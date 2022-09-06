@@ -11,13 +11,10 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentDetailInfoBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
-import com.scentsnote.android.ui.home.HomeViewModel
-import com.scentsnote.android.ui.home.adapter.PopularListAdapter
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
@@ -34,23 +31,26 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
     lateinit var binding: FragmentDetailInfoBinding
     lateinit var rvKeywordAdapter: DetailKeywordAdapter
     private val rvPriceAdapter = PriceRvAdapter()
-    private lateinit var rvSimilarAdapter: PopularListAdapter
+    private lateinit var rvSimilarAdapter: SimilarListAdapter
     lateinit var chartLastingPowerAdapter: HorizontalBarChartAdapter
-    private val viewModel: PerfumeDetailViewModel by activityViewModels()
-    private val homeViewModel : HomeViewModel by viewModels()
+    private val detailViewModel: PerfumeDetailViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_info, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = detailViewModel
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getPerfumeInfo(perfumeIdx)
+        detailViewModel.getPerfumeInfo(perfumeIdx)
+        detailViewModel.getSimilarPerfumeList(perfumeIdx)
         observe()
 
         initRv(context)
@@ -79,7 +79,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
     }
 
     private fun initRvSimilar(ctx: Context) {
-        rvSimilarAdapter = PopularListAdapter(requireContext(),parentFragmentManager){ idx -> homeViewModel.postPerfumeLike(0,idx)}
+        rvSimilarAdapter = SimilarListAdapter(requireContext(),parentFragmentManager){ idx -> detailViewModel.postSimilarPerfumeLike(0,idx)}
         binding.rvDetailsInfoSimilar.adapter = rvSimilarAdapter
         rvSimilarAdapter.notifyDataSetChanged()
     }
@@ -262,7 +262,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
     }
 
     private fun observe(){
-        viewModel.perfumeDetailData.observe(requireActivity(), Observer {
+        detailViewModel.perfumeDetailData.observe(requireActivity(), Observer {
             binding.run {
                 data = it
                 initLastingPowerBarChart(it.longevity.veryWeak, it.longevity.weak, it.longevity.medium, it.longevity.strong, it.longevity.veryStrong)

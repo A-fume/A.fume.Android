@@ -108,6 +108,10 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return api.deleteReview(token, reviewIdx).message
     }
 
+    override suspend fun getSimilarPerfumeList(perfumeIdx: Int): MutableList<RecommendPerfumeItem> {
+        return api.getSimilarPerfumeList(perfumeIdx).data.rows
+    }
+
     override suspend fun postReviewLike(token: String, reviewIdx: Int): Boolean {
         return api.postReviewLike(token, reviewIdx).data
     }

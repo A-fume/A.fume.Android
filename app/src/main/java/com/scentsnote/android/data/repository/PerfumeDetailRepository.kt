@@ -23,4 +23,5 @@ class PerfumeDetailRepository {
 
     suspend fun postReviewLike(token: String, reviewIdx: Int) = remoteDataSource.postReviewLike(token, reviewIdx)
     suspend fun reportReview(token: String, reviewIdx: Int, body: RequestReportReview) = remoteDataSource.reportReview(token, reviewIdx, body)
+    suspend fun getSimilarPerfumeList(perfumeIdx: Int) = remoteDataSource.getSimilarPerfumeList(perfumeIdx)
 }

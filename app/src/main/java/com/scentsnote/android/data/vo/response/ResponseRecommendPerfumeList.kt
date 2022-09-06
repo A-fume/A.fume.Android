@@ -10,6 +10,6 @@ data class RecommendPerfumeItem(
     val name : String,
     val imageUrl : String,
     val brandName : String,
-    val isLiked : Boolean,
+    var isLiked : Boolean,
     val keywordList : List<String>?
 )
