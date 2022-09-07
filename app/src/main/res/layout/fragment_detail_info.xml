@@ -50,7 +50,7 @@
                 android:id="@+id/img_bar_story"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="18dp"
                 android:background="@color/primary_black"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -71,33 +71,59 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_bar_story" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_details_info_keyword"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_detail_keyword"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
                 android:layout_marginTop="13dp"
                 android:layout_marginEnd="18dp"
-                android:visibility="@{viewModel.isValidKeywordData? View.GONE : View.VISIBLE}"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/txt_story"
-                app:layout_constraintTop_toBottomOf="@+id/txt_story"
-                tools:listitem="@layout/rv_item_detail_keyword">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_story">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_details_info_keyword"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:visibility="@{viewModel.isValidKeywordData? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/rv_item_detail_keyword">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:id="@+id/textView43"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="정보 없음"
+                    android:textColor="@color/gray_cd"
+                    android:textSize="14dp"
+                    android:visibility="@{viewModel.isValidKeywordData? View.GONE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/img_bar_keyword"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="18dp"
                 android:background="@color/primary_black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/txt_details_info_story"
-                app:layout_constraintTop_toBottomOf="@+id/rv_details_info_keyword" />
+                app:layout_constraintTop_toBottomOf="@+id/cl_detail_keyword" />
 
             <TextView
                 android:id="@+id/txt_notes"
