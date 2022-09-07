@@ -25,6 +25,7 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.scentsnote.android.util.BindingAdapter.setDetailStoryText
 
 class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 
@@ -265,6 +266,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         detailViewModel.perfumeDetailData.observe(requireActivity(), Observer {
             binding.run {
                 data = it
+                txtDetailsInfoStory.setDetailStoryText(it.story)
                 initLastingPowerBarChart(it.longevity.veryWeak, it.longevity.weak, it.longevity.medium, it.longevity.strong, it.longevity.veryStrong)
                 initsillageBarChart(it.sillage.light, it.sillage.medium, it.sillage.heavy)
                 drawGenderPieChart(setGenderPieData(it.gender.female.toFloat(), it.gender.male.toFloat(), it.gender.neutral.toFloat()))
