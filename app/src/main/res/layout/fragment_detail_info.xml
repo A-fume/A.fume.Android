@@ -37,11 +37,11 @@
                 android:id="@+id/txt_details_info_story"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginEnd="18dp"
-                android:textSize="14dp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
+                android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView46"
                 app:layout_constraintTop_toBottomOf="@+id/textView46" />
@@ -336,16 +336,42 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_bar_category" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/frag_detail_rv_price"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_detail_price"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="18dp"
-                tools:listitem="@layout/rv_item_detail_price"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView54" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView54">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/frag_detail_rv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.isValidPriceData? View.VISIBLE : View.GONE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/rv_perfume_detail_price" />
+
+                <TextView
+                    android:id="@+id/textView44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="정보 없음"
+                    android:textColor="@color/gray_cd"
+                    android:textSize="14dp"
+                    android:visibility="@{viewModel.isValidPriceData? View.GONE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/img_bar_price"
@@ -356,7 +382,7 @@
                 android:background="@color/primary_black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txt_details_info_story"
-                app:layout_constraintTop_toBottomOf="@+id/frag_detail_rv_price" />
+                app:layout_constraintTop_toBottomOf="@+id/cl_detail_price" />
 
             <TextView
                 android:id="@+id/txt_season"

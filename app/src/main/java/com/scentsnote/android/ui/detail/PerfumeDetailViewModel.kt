@@ -41,6 +41,11 @@ class PerfumeDetailViewModel: ViewModel() {
     val isValidNoteData : LiveData<Boolean>
         get() = _isValidNoteData
 
+    // price 영역
+    private val _isValidPriceData = MutableLiveData<Boolean>(false)
+    val isValidPriceData : LiveData<Boolean>
+        get() = _isValidPriceData
+
     fun getPerfumeInfo(perfumeIdx: Int) {
         compositeDisposable.add(
             detailRepo.getPerfumeDetail(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
@@ -60,6 +65,8 @@ class PerfumeDetailViewModel: ViewModel() {
 
     private fun setDataVisible(data: PerfumeDetail){
         _isValidKeywordData.value = data.Keywords.isNotEmpty()
+
+        _isValidPriceData.value = data.volumeAndPrice.isNotEmpty()
 
         _isValidNoteData.value = data.noteType == 0
     }
