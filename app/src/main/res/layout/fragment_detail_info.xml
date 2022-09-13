@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="24dp"
                 android:fontFamily="@font/nanummyeongjo"
                 android:includeFontPadding="true"
                 android:text="키워드."
@@ -125,68 +125,85 @@
                 app:layout_constraintStart_toStartOf="@+id/txt_details_info_story"
                 app:layout_constraintTop_toBottomOf="@+id/cl_detail_keyword" />
 
-            <TextView
-                android:id="@+id/txt_notes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/nanummyeongjo"
-                android:includeFontPadding="true"
-                android:text="노트."
-                android:textColor="@color/dark_gray_7d"
-                android:textSize="14dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_bar_keyword" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_detail_info_notes"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="18dp"
+                android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_notes">
+                app:layout_constraintTop_toBottomOf="@+id/img_bar_keyword">
+
+                <TextView
+                    android:id="@+id/txt_notes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanummyeongjo"
+                    android:includeFontPadding="true"
+                    android:text="노트."
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/txt_notes_single"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+                    android:layout_marginTop="18dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="Single"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
+                    android:visibility="@{viewModel.noteDataType? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_notes" />
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/notosans_medium"
+                    android:gravity="right|end"
+                    android:includeFontPadding="false"
+                    android:text="@{data.ingredients.single}"
+                    android:textColor="@color/primary_black"
+                    android:textSize="14dp"
+                    android:visibility="@{viewModel.noteDataType? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txt_notes_single"
+                    app:layout_constraintTop_toTopOf="@+id/txt_notes_single" />
 
                 <TextView
                     android:id="@+id/txt_notes_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
+                    android:layout_marginTop="18dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="Top"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
+                    android:visibility="@{viewModel.noteDataType? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_notes" />
 
                 <TextView
                     android:id="@+id/txt_notes_middle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="Middle"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
+                    android:visibility="@{viewModel.noteDataType? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_details_info_top_notes" />
 
@@ -194,13 +211,13 @@
                     android:id="@+id/txt_notes_base"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="Base"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
+                    android:visibility="@{viewModel.noteDataType? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_details_info_middle_notes" />
 
@@ -215,7 +232,7 @@
                     android:text="@{data.ingredients.top}"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
-                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
+                    android:visibility="@{viewModel.noteDataType? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/txt_notes_top"
                     app:layout_constraintTop_toTopOf="@+id/txt_notes_top" />
@@ -231,7 +248,7 @@
                     android:text="@{data.ingredients.middle}"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
-                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
+                    android:visibility="@{viewModel.noteDataType? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/txt_notes_middle"
                     app:layout_constraintTop_toTopOf="@+id/txt_notes_middle" />
@@ -247,27 +264,10 @@
                     android:text="@{data.ingredients.base}"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
-                    android:visibility="@{viewModel.isValidNoteData? View.GONE : View.VISIBLE}"
+                    android:visibility="@{viewModel.noteDataType? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/txt_notes_base"
                     app:layout_constraintTop_toTopOf="@+id/txt_notes_base" />
-
-                <TextView
-                    android:id="@+id/textView27"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="@font/notosans_medium"
-                    android:gravity="right|end"
-                    android:includeFontPadding="false"
-                    android:text="@{data.ingredients.single}"
-                    android:textColor="@color/primary_black"
-                    android:textSize="14dp"
-                    android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/txt_notes_single"
-                    app:layout_constraintTop_toTopOf="@+id/txt_notes_single" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
@@ -276,6 +276,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="18dp"
+                android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
                 android:background="@color/primary_black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txt_details_info_story"
@@ -341,7 +342,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginEnd="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -594,10 +595,10 @@
                 android:id="@+id/chart_bar_details_info_lasting_power"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                app:layoutManager="LinearLayoutManager"
-                android:overScrollMode="never"
+                android:layout_marginTop="18dp"
                 android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                app:layoutManager="LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_season"
                 app:layout_constraintStart_toStartOf="@+id/txt_lasting"
                 app:layout_constraintTop_toBottomOf="@+id/txt_lasting"
@@ -621,10 +622,10 @@
                 android:id="@+id/chart_bar_details_info_sillage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                app:layoutManager="LinearLayoutManager"
-                android:overScrollMode="never"
+                android:layout_marginTop="18dp"
                 android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                app:layoutManager="LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="@+id/img_bar_lasting"
                 app:layout_constraintStart_toStartOf="@+id/txt_sillage"
                 app:layout_constraintTop_toBottomOf="@+id/txt_sillage"
@@ -660,7 +661,7 @@
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:layout_marginStart="19dp"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="62dp"
                 app:layout_constraintEnd_toStartOf="@+id/imageView3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -782,7 +783,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="17dp"
-                android:layout_marginBottom="17dp"
+                android:layout_marginBottom="3dp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="@{@string/chartPercentFormat(data.gender.neutral)}"

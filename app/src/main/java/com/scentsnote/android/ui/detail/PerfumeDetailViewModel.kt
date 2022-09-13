@@ -37,9 +37,13 @@ class PerfumeDetailViewModel: ViewModel() {
         get() = _isValidKeywordData
 
     // note 영역
-    private val _isValidNoteData = MutableLiveData<Boolean>(false)
+    private val _isValidNoteData = MutableLiveData<Boolean>(true)
     val isValidNoteData : LiveData<Boolean>
         get() = _isValidNoteData
+
+    private val _noteDataType = MutableLiveData<Boolean>(false)
+    val noteDataType : LiveData<Boolean>
+        get() = _noteDataType
 
     // price 영역
     private val _isValidPriceData = MutableLiveData<Boolean>(false)
@@ -68,7 +72,9 @@ class PerfumeDetailViewModel: ViewModel() {
 
         _isValidPriceData.value = data.volumeAndPrice.isNotEmpty()
 
-        _isValidNoteData.value = data.noteType == 0
+        _noteDataType.value = data.noteType == 1
+
+        if(data.noteType == 0 && data.ingredients.top.isEmpty() && data.ingredients.middle.isEmpty() && data.ingredients.base.isEmpty()) _isValidNoteData.value = false
     }
 
     @SuppressLint("LongLogTag")
