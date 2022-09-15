@@ -63,6 +63,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_survey_desc"
             app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabMaxWidth="0dp"
             app:tabIndicatorColor="@color/primary_black"
             app:tabIndicatorGravity="bottom"
             app:tabIndicatorHeight="3dp"

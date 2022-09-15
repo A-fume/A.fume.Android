@@ -152,9 +152,13 @@
                     app:tabIndicatorColor="@color/primary_black"
                     app:tabIndicatorGravity="bottom"
                     app:tabIndicatorHeight="4dp"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed"
+                    app:tabMaxWidth="0dp"
                     app:tabSelectedTextColor="@color/primary_black"
                     app:tabTextAppearance="@style/Theme.ScentsNote.Tab"
-                    app:tabTextColor="@color/dark_gray_7d"></com.google.android.material.tabs.TabLayout>
+                    app:tabTextColor="@color/dark_gray_7d">
+                </com.google.android.material.tabs.TabLayout>
 
                 <com.scentsnote.android.ui.detail.MeasuredViewPager
                     android:id="@+id/vp_perfume_detail"
