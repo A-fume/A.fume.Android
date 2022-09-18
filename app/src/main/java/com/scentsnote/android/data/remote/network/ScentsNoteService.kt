@@ -145,6 +145,12 @@ interface ScentsNoteService {
         @Path("reviewIdx") reviewIdx : Int
     ):ResponseBase<Boolean>
 
+    // detail - similar
+    @GET("perfume/{perfumeIdx}/similar")
+    suspend fun getSimilarPerfumeList(
+        @Path("perfumeIdx") perfumeIdx : Int
+    ):ResponseBase<ResponseRecommendPerfumeList>
+
     // note - get
     @GET("review/{reviewIdx}")
     suspend fun getReview(

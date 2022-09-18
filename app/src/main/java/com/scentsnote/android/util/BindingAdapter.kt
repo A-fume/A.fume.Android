@@ -215,4 +215,16 @@ object BindingAdapter {
             this.visibility = View.VISIBLE
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("setDetailStoryText")
+    fun TextView.setDetailStoryText(story: String){
+        if(story.isNotEmpty()){
+            this.text = story
+            setTextColor(ContextCompat.getColor(this.context, R.color.black_2a))
+        }else{
+            this.text = "정보 없음"
+            setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+        }
+    }
 }

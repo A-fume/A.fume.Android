@@ -1,15 +1,18 @@
 package com.scentsnote.android.ui.detail
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scentsnote.android.ScentsNoteApplication
+import com.scentsnote.android.data.repository.HomeRepository
 import com.scentsnote.android.data.repository.PerfumeDetailRepository
 import com.scentsnote.android.data.vo.request.RequestReportReview
 import com.scentsnote.android.data.vo.response.PerfumeDetail
 import com.scentsnote.android.data.vo.response.PerfumeDetailWithReviews
+import com.scentsnote.android.data.vo.response.RecommendPerfumeItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -17,11 +20,16 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class PerfumeDetailViewModel: ViewModel() {
-    private val repo = PerfumeDetailRepository()
+    private val homeRepo = HomeRepository()
+    private val detailRepo = PerfumeDetailRepository()
     private val compositeDisposable = CompositeDisposable()
 
     private val _perfumeDetailData: MutableLiveData<PerfumeDetail> = MutableLiveData()
     val perfumeDetailData: LiveData<PerfumeDetail> get() = _perfumeDetailData
+
+    private val _similarPerfumeList : MutableLiveData<MutableList<RecommendPerfumeItem>> = MutableLiveData()
+    val similarPerfumeList : LiveData<MutableList<RecommendPerfumeItem>>
+        get() = _similarPerfumeList
 
     // keyword 영역
     private val _isValidKeywordData = MutableLiveData<Boolean>(false)
@@ -29,13 +37,22 @@ class PerfumeDetailViewModel: ViewModel() {
         get() = _isValidKeywordData
 
     // note 영역
-    private val _isValidNoteData = MutableLiveData<Boolean>(false)
+    private val _isValidNoteData = MutableLiveData<Boolean>(true)
     val isValidNoteData : LiveData<Boolean>
         get() = _isValidNoteData
 
+    private val _noteDataType = MutableLiveData<Boolean>(false)
+    val noteDataType : LiveData<Boolean>
+        get() = _noteDataType
+
+    // price 영역
+    private val _isValidPriceData = MutableLiveData<Boolean>(false)
+    val isValidPriceData : LiveData<Boolean>
+        get() = _isValidPriceData
+
     fun getPerfumeInfo(perfumeIdx: Int) {
         compositeDisposable.add(
-            repo.getPerfumeDetail(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
+            detailRepo.getPerfumeDetail(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -53,7 +70,43 @@ class PerfumeDetailViewModel: ViewModel() {
     private fun setDataVisible(data: PerfumeDetail){
         _isValidKeywordData.value = data.Keywords.isNotEmpty()
 
-        _isValidNoteData.value = data.noteType == 0
+        _isValidPriceData.value = data.volumeAndPrice.isNotEmpty()
+
+        _noteDataType.value = data.noteType == 1
+
+        if(data.noteType == 0 && data.ingredients.top.isEmpty() && data.ingredients.middle.isEmpty() && data.ingredients.base.isEmpty()) _isValidNoteData.value = false
+    }
+
+    @SuppressLint("LongLogTag")
+    fun getSimilarPerfumeList(perfumeIdx: Int){
+        viewModelScope.launch {
+            try{
+                _similarPerfumeList.value = detailRepo.getSimilarPerfumeList(perfumeIdx)
+                Log.d("getSimilarPerfumeList", _similarPerfumeList.value.toString())
+            }catch (e : HttpException){
+                Log.d("getSimilarPerfumeList error", _similarPerfumeList.value.toString())
+            }
+        }
+    }
+
+    @SuppressLint("LongLogTag")
+    fun postSimilarPerfumeLike(type: Int, perfumeIdx: Int) {
+        compositeDisposable.add(
+            homeRepo.postPerfumeLike(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    clickHeartPerfumeList(_similarPerfumeList, perfumeIdx,it.data)
+                }) {
+                    Log.d("postSimilarPerfumeLike error", it.toString())
+//                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
+                })
+    }
+
+    private fun clickHeartPerfumeList(perfumeList: MutableLiveData<MutableList<RecommendPerfumeItem>>, perfumeIdx: Int, isSelected:Boolean){
+        val tempList = perfumeList.value
+        tempList?.forEach { if(it.perfumeIdx==perfumeIdx) it.isLiked= isSelected}
+        perfumeList.value=tempList
     }
 
     private val _perfumeDetailWithReviewData: MutableLiveData<List<PerfumeDetailWithReviews>> = MutableLiveData()
@@ -62,9 +115,10 @@ class PerfumeDetailViewModel: ViewModel() {
     private val _isValidNoteList = MutableLiveData<Boolean>(false)
     val isValidNoteList: LiveData<Boolean> get() = _isValidNoteList
 
+    @SuppressLint("LongLogTag")
     fun getPerfumeInfoWithReview(perfumeIdx: Int) {
         compositeDisposable.add(
-            repo.getPerfumeDetailWithReviews(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
+            detailRepo.getPerfumeDetailWithReviews(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -85,7 +139,7 @@ class PerfumeDetailViewModel: ViewModel() {
 
     fun postPerfumeLike(perfumeIdx: Int) {
         compositeDisposable.add(
-            repo.postPerfumeLike(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
+            detailRepo.postPerfumeLike(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -102,7 +156,7 @@ class PerfumeDetailViewModel: ViewModel() {
     fun postReviewLike(reviewIdx: Int){
         viewModelScope.launch {
             try{
-                repo.postReviewLike(ScentsNoteApplication.prefManager.accessToken, reviewIdx).let{
+                detailRepo.postReviewLike(ScentsNoteApplication.prefManager.accessToken, reviewIdx).let{
                     _reviewLike.postValue(it)
                     clickHeartNoteList(reviewIdx, it)
                     Log.d("시향 노트 좋아요 상태 : ", it.toString())
@@ -147,7 +201,7 @@ class PerfumeDetailViewModel: ViewModel() {
     fun reportReview(reviewIdx: Int){
         viewModelScope.launch {
             try{
-                repo.reportReview(ScentsNoteApplication.prefManager.accessToken, reviewIdx, RequestReportReview(reportTxt.value!!) ).let {
+                detailRepo.reportReview(ScentsNoteApplication.prefManager.accessToken, reviewIdx, RequestReportReview(reportTxt.value!!) ).let {
                     _isValidReport.postValue(true)
                     Log.d("시향 노트 신고 성공",it)
                 }
