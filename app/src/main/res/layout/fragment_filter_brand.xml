@@ -17,7 +17,7 @@
             android:id="@+id/tab_brand"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-            style="@style/Theme.ScentsNote.Tab.Filter.Brand"
+            app:tabTextAppearance="@style/Theme.ScentsNote.Tab.Filter.Brand"
             app:tabTextColor="@color/gray_cd"
             android:background="@color/light_gray_f0"
             app:layout_constraintEnd_toEndOf="parent"

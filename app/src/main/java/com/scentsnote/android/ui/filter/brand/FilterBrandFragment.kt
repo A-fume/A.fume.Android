@@ -57,6 +57,7 @@ class FilterBrandFragment : Fragment() {
 
     private fun initBrandTab() {
         Log.d("viewModel tab 개수", viewModel.brandTabOrders.value?.size.toString())
+        binding.tabBrand.removeAllTabs()
         viewModel.brandTabOrders.value?.forEach { b ->
             Log.d("frag brand", b)
 
