@@ -16,6 +16,7 @@
 
         <com.google.android.material.chip.Chip
             style="@style/KeywordChipStyle.Detail"
+            android:textAppearance="@style/KeywordChipStyle.Detail"
             android:id="@+id/rv_item_detail_keyword"
             android:text="@{@string/ingredientFormat(rvData)}"
             app:layout_constraintBottom_toBottomOf="parent"
