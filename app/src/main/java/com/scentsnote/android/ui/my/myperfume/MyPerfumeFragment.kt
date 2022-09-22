@@ -51,7 +51,7 @@ class MyPerfumeFragment : Fragment() {
         } else {
             perfumeBinding = FragmentMyPerfumeBinding.inflate(layoutInflater, container, false)
             perfumeBinding.lifecycleOwner = this
-            perfumeBinding.vm = myViewModel
+            perfumeBinding.viewModel = myViewModel
             perfumeBinding.root
         }
     }
@@ -70,12 +70,6 @@ class MyPerfumeFragment : Fragment() {
 
     }
 
-    private fun setInvisible(binding: FragmentMyPerfumeBinding) {
-        //시향 노트가 있을 때 사용
-        binding.imgMypurfumeNull.visibility = View.INVISIBLE
-        binding.txtMyperfumeNull.visibility = View.INVISIBLE
-    }
-
     private fun initRvMyPerfume(binding: FragmentMyPerfumeBinding) {
         myPerfumeAdapter = MyPerfumeRecyclerViewAdapter()
         binding.rvMyPerfume.adapter = myPerfumeAdapter
@@ -85,7 +79,6 @@ class MyPerfumeFragment : Fragment() {
     }
 
     private fun initShelf(binding: FragmentMyPerfumeBinding) {
-        if (myPerfumeAdapter.data.isNotEmpty()) setInvisible(binding)
         Log.e("adapter", myPerfumeAdapter.data.toString())
         binding.txtCountMyPerfume.text = "기록된 향수 ${myPerfumeAdapter.data.size}개"
         val shelfRecyclerViewAdapter = ShelfRecyclerViewAdapter(myPerfumeAdapter.data.size)

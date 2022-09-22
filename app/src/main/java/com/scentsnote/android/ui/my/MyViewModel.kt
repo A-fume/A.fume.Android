@@ -18,8 +18,16 @@ class MyViewModel : ViewModel() {
     private val _wishList: MutableLiveData<MutableList<PerfumeInfo>> = MutableLiveData()
     val wishList: LiveData<MutableList<PerfumeInfo>> get() = _wishList
 
+    private val _isValidWishList = MutableLiveData<Boolean>(false)
+    val isValidWishList : LiveData<Boolean>
+        get() = _isValidWishList
+
     private val _myPerfumeList: MutableLiveData<MutableList<ResponseMyPerfume>> = MutableLiveData()
     val myPerfumeList: LiveData<MutableList<ResponseMyPerfume>> get() = _myPerfumeList
+
+    private val _isValidMyList = MutableLiveData<Boolean>(false)
+    val isValidMyList : LiveData<Boolean>
+        get() = _isValidMyList
 
     init {
         viewModelScope.launch {
@@ -33,6 +41,8 @@ class MyViewModel : ViewModel() {
             _wishList.value = myRepository.getLikedPerfume(
                 ScentsNoteApplication.prefManager.accessToken, ScentsNoteApplication.prefManager.userIdx
             )
+            _isValidWishList.value = _wishList.value?.isNotEmpty()
+
             Log.d("getLikedPerfume", _wishList.value.toString())
         } catch (e: HttpException) {
 //                when(e.response()?.code()){}
@@ -44,6 +54,8 @@ class MyViewModel : ViewModel() {
             _myPerfumeList.value = myRepository.getMyPerfume(
                 ScentsNoteApplication.prefManager.accessToken
             )
+            _isValidMyList.value = _myPerfumeList.value?.isNotEmpty()
+
             Log.d("getMyPerfume", _myPerfumeList.value.toString())
         } catch (e: HttpException) {
 //                when(e.response()?.code()){}

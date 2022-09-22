@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -30,7 +29,6 @@ class MyFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
     private lateinit var myPagePagerAdapter: ScentsNoteViewPagerAdapter
     private lateinit var callback: OnBackPressedCallback
-    var isDrawerOpen = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -119,10 +117,6 @@ class MyFragment : Fragment() {
     private fun inflateMenu() {
         if (ScentsNoteApplication.prefManager.haveToken()) binding.myNavigationDrawer.inflateMenu(R.menu.navigation_drawer)
         else {
-            val textView = TextView(context)
-            textView.text = "                        "
-            textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.btn_more, 0, 0, 0)
-
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_my_info)
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_password)
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_feedback)
@@ -131,7 +125,7 @@ class MyFragment : Fragment() {
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_divider)
 
             binding.myNavigationDrawer.inflateMenu(R.menu.navigation_drawer_login)
-            binding.myNavigationDrawer.menu.getItem(0).actionView = textView
+            binding.myNavigationDrawer.menu.getItem(0).setActionView(R.layout.menu_item_login)
         }
 
     }

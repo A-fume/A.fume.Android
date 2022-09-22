@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.databinding.FragmentWishListBinding
 import com.scentsnote.android.databinding.LayoutPleaseLoginBinding
@@ -31,7 +30,7 @@ class WishListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (ScentsNoteApplication.prefManager.haveToken()) setMyWishListView(wishListBinding)
+        if (ScentsNoteApplication.prefManager.haveToken()) initRvWishList(wishListBinding)
         else setPleaseLoginView(loginBinding)
     }
 
@@ -43,7 +42,7 @@ class WishListFragment : Fragment() {
         } else {
             wishListBinding = FragmentWishListBinding.inflate(layoutInflater, container, false)
             wishListBinding.lifecycleOwner = this
-            wishListBinding.vm = myViewModel
+            wishListBinding.viewModel = myViewModel
             wishListBinding.root
         }
     }
@@ -55,35 +54,10 @@ class WishListFragment : Fragment() {
         }
     }
 
-    private fun setMyWishListView(binding: FragmentWishListBinding) {
-        initRvWishList(binding)
-        observeWishList(binding)
-    }
-
     private fun initRvWishList(binding: FragmentWishListBinding) {
         wishListAdapter = WishListAdapter()
         binding.rvWishlist.adapter = wishListAdapter
         wishListAdapter.notifyDataSetChanged()
-    }
-
-    private fun setInvisible(binding: FragmentWishListBinding) {
-        //위시리스트가 있을 때 사용
-        if (wishListAdapter.data.isNotEmpty()) {
-            binding.imgWishlistNull.visibility = View.INVISIBLE
-            binding.txtWishlistNull.visibility = View.INVISIBLE
-            binding.rvWishlist.visibility=View.VISIBLE
-        }
-        else{
-
-            binding.imgWishlistNull.visibility = View.VISIBLE
-            binding.txtWishlistNull.visibility = View.VISIBLE
-            binding.rvWishlist.visibility=View.INVISIBLE
-        }
-    }
-    private fun observeWishList(binding: FragmentWishListBinding) {
-        myViewModel.wishList.observe(viewLifecycleOwner, Observer { list ->
-            setInvisible(binding)
-        })
     }
 
 }
