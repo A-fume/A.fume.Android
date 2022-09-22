@@ -7,24 +7,37 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.databinding.FragmentWishListBinding
 import com.scentsnote.android.databinding.LayoutPleaseLoginBinding
 import com.scentsnote.android.ui.my.MyViewModel
 import com.scentsnote.android.ui.signin.SignHomeActivity
+import kotlinx.coroutines.launch
 
 
 class WishListFragment : Fragment() {
     private lateinit var loginBinding: LayoutPleaseLoginBinding
     private lateinit var wishListBinding: FragmentWishListBinding
     private lateinit var wishListAdapter: WishListAdapter
-    private val myViewModel: MyViewModel by activityViewModels()
+    private val myViewModel: MyViewModel by viewModels({requireParentFragment()})
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflateView(container)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if(ScentsNoteApplication.prefManager.haveToken()){
+            lifecycleScope.launch {
+                myViewModel.getLikedPerfume()
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
