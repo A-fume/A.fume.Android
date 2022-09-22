@@ -63,6 +63,7 @@
         android:layout_marginEnd="18dp"
         android:fontFamily="@font/notosans_bold"
         android:text="시향 노트 쓰기"
+        android:includeFontPadding="false"
         android:textColor="@color/point_beige_accent"
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/rv_item_img_wishlist_perfume"

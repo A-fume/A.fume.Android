@@ -7,14 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentMypageBinding
-import com.scentsnote.android.databinding.MenuItemLoginBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.ScentsNoteViewPagerAdapter
 import com.scentsnote.android.ui.my.myperfume.MyPerfumeFragment
@@ -29,10 +27,8 @@ import com.scentsnote.android.util.toastLong
 
 class MyFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
-    private lateinit var bindMenuItemLoginBinding: MenuItemLoginBinding
     private lateinit var myPagePagerAdapter: ScentsNoteViewPagerAdapter
     private lateinit var callback: OnBackPressedCallback
-    var isDrawerOpen = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

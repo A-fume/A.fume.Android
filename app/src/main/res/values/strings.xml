@@ -30,8 +30,8 @@
     <string name="chartPercentFormat" formatted="false">%d%%</string>
 
     <!--my -->
-    <string name="txt_my_perfume_null">아직 시향 노트가 비어 있어요. 그동안 사용했던 향수 혹은 시향해봤던 향수를 기록해보세요.</string>
-    <string name="txt_wish_list_null">아직 시향해보고 싶은 향수가 없군요! \n평소에 관심 있었던 향수를 \n 위시리스트에 추가해보세요!</string>
+    <string name="txt_my_perfume_null">아직 시향 노트가 비어 있어요.\n그동안 사용했던 향수\n혹은 시향해봤던 향수를\n기록해보세요.</string>
+    <string name="txt_wish_list_null">아직 시향해보고 싶은 향수가 없군요!\n평소에 관심 있었던 향수를\n위시리스트에 추가해보세요!</string>
 
     <!--search-->
     <string name="txt_search">무엇을 찾으시나요?</string>
