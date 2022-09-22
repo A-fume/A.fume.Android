@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="dialog_width">302dp</dimen>
     <dimen name="dialog_height">150dp</dimen>
+
+    <dimen name="design_bottom_navigation_height" tools:override="true">58dp</dimen>
 </resources>
