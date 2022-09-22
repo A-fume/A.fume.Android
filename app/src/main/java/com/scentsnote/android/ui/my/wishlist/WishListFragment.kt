@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.databinding.FragmentWishListBinding
 import com.scentsnote.android.databinding.LayoutPleaseLoginBinding
@@ -20,7 +18,7 @@ class WishListFragment : Fragment() {
     private lateinit var loginBinding: LayoutPleaseLoginBinding
     private lateinit var wishListBinding: FragmentWishListBinding
     private lateinit var wishListAdapter: WishListAdapter
-    private val myViewModel: MyViewModel by viewModels()
+    private val myViewModel: MyViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
