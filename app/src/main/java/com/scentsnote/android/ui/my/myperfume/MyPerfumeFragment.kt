@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.databinding.FragmentMyPerfumeBinding
 import com.scentsnote.android.databinding.LayoutPleaseLoginBinding
 import com.scentsnote.android.ui.my.MyViewModel
 import com.scentsnote.android.ui.signin.SignHomeActivity
+import kotlinx.coroutines.launch
 
 
 class MyPerfumeFragment : Fragment() {
@@ -33,6 +35,16 @@ class MyPerfumeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflateView(container)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if(ScentsNoteApplication.prefManager.haveToken()){
+            lifecycleScope.launch {
+                myViewModel.getMyPerfume()
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

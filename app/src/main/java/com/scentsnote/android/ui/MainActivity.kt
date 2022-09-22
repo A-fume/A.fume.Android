@@ -42,12 +42,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         getFilter()
-        if(ScentsNoteApplication.prefManager.haveToken()){
-            lifecycleScope.launch {
-                myViewModel.getLikedPerfume()
-                myViewModel.getMyPerfume()
-            }
-        }
     }
 
     private fun initBinding() {
