@@ -267,6 +267,8 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
             binding.run {
                 data = it
                 txtDetailsInfoStory.setDetailStoryText(it.story)
+                setVisibilityMore()
+
                 initLastingPowerBarChart(it.longevity.veryWeak, it.longevity.weak, it.longevity.medium, it.longevity.strong, it.longevity.veryStrong)
                 initsillageBarChart(it.sillage.light, it.sillage.medium, it.sillage.heavy)
                 drawGenderPieChart(setGenderPieData(it.gender.female.toFloat(), it.gender.male.toFloat(), it.gender.neutral.toFloat()))
@@ -282,5 +284,19 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
                 notifyDataSetChanged()
             }
         })
+    }
+
+    private fun setVisibilityMore(){
+        val lineCount = binding.txtDetailsInfoStory.layout.lineCount
+        if (lineCount > 0) {
+            if (binding.txtDetailsInfoStory.layout.getEllipsisCount(lineCount - 1) > 0) {
+                binding.txtDetailsMore.visibility = View.VISIBLE
+
+                binding.txtDetailsMore.setOnClickListener {
+                    binding.txtDetailsInfoStory.maxLines = Int.MAX_VALUE
+                    binding.txtDetailsMore.visibility = View.GONE
+                }
+            }
+        }
     }
 }
