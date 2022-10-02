@@ -38,10 +38,14 @@ class MyInquiryActivity : AppCompatActivity() {
 
     fun getUrl() : String{
         val url = intent.getStringExtra("url")
-        return if(url == "feedback"){
-            "https://docs.google.com/forms/d/e/1FAIpQLSfnvvc2O3_1X59lL243vsVXAjy-PIcq6-cgDgrhPph9mCAI1g/viewform"
-        }else{
-            "https://docs.google.com/forms/d/e/1FAIpQLSeZL-aslJd_YDgX2kLx31Gra1CXjG6ivaHqyAlko_iDQEVzYg/viewform"
+        return when (url) {
+            "feedback" -> "https://docs.google.com/forms/d/e/1FAIpQLSfnvvc2O3_1X59lL243vsVXAjy-PIcq6-cgDgrhPph9mCAI1g/viewform"
+
+            "withdrawal" -> "https://docs.google.com/forms/d/e/1FAIpQLSeZL-aslJd_YDgX2kLx31Gra1CXjG6ivaHqyAlko_iDQEVzYg/viewform"
+
+            "tipOff" -> "https://docs.google.com/forms/d/e/1FAIpQLSc9vyuQY9OvrcjCjyWqbhbEmkVi3FyEnoYt2uaBdgmOXsRj4g/viewform"
+
+            else -> ""
         }
     }
 }
