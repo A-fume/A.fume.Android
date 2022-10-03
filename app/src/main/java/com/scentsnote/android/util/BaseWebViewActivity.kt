@@ -1,4 +1,4 @@
-package com.scentsnote.android.ui.my
+package com.scentsnote.android.util
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,15 +6,15 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.R
-import com.scentsnote.android.databinding.ActivityMyInquiryBinding
+import com.scentsnote.android.databinding.ActivityWebGoogleFormBinding
 
-class MyInquiryActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMyInquiryBinding
+class BaseWebViewActivity : AppCompatActivity() {
+    lateinit var binding: ActivityWebGoogleFormBinding
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_my_inquiry)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_web_google_form)
 
         val url = getUrl()
 
@@ -36,9 +36,8 @@ class MyInquiryActivity : AppCompatActivity() {
         }
     }
 
-    fun getUrl() : String{
-        val url = intent.getStringExtra("url")
-        return when (url) {
+    private fun getUrl() : String{
+        return when (intent.getStringExtra("url")) {
             "feedback" -> "https://docs.google.com/forms/d/e/1FAIpQLSfnvvc2O3_1X59lL243vsVXAjy-PIcq6-cgDgrhPph9mCAI1g/viewform"
 
             "withdrawal" -> "https://docs.google.com/forms/d/e/1FAIpQLSeZL-aslJd_YDgX2kLx31Gra1CXjG6ivaHqyAlko_iDQEVzYg/viewform"

@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.FilterActivity
-import com.scentsnote.android.ui.my.MyInquiryActivity
+import com.scentsnote.android.util.BaseWebViewActivity
 
 
 class SearchResultFragment : Fragment() {
@@ -119,7 +119,7 @@ class SearchResultFragment : Fragment() {
     }
 
     fun onClickTipOffBtn(view: View){
-        val intent = Intent(requireContext(), MyInquiryActivity::class.java)
+        val intent = Intent(requireContext(), BaseWebViewActivity::class.java)
         intent.putExtra("url", "tipOff")
         startActivity(intent)
     }
