@@ -5,22 +5,17 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.R
+import com.scentsnote.android.databinding.ActivityNoteBinding
 import com.scentsnote.android.databinding.ActivitySearchTextBinding
 import com.scentsnote.android.ui.MainActivity
+import com.scentsnote.android.util.BaseActivity
 
-class SearchTextActivity : AppCompatActivity() {
-    private lateinit var binding : ActivitySearchTextBinding
+class SearchTextActivity : BaseActivity<ActivitySearchTextBinding>(R.layout.activity_search_text)  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initBinding()
         clickSearch()
         clickBack()
-    }
-
-    private fun initBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_search_text)
-        binding.lifecycleOwner = this
     }
 
     private fun clickSearch(){

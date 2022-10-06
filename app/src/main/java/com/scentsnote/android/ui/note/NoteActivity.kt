@@ -21,9 +21,9 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.scentsnote.android.databinding.ActivityFilterBinding
 
-class NoteActivity : AppCompatActivity() {
-    lateinit var binding: ActivityNoteBinding
+class NoteActivity : BaseActivity<ActivityNoteBinding>(R.layout.activity_note) {
     lateinit var noteKeywordAdapter : NoteKeywordAdapter
     private val noteViewModel : NoteViewModel by viewModels()
     private val keywordBottomSheetFragment = KeywordBottomSheetFragment()
@@ -37,9 +37,9 @@ class NoteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_note)
-        binding.lifecycleOwner = this
-        binding.viewModel = noteViewModel
+        binding.apply {
+            viewModel = noteViewModel
+        }
 
         initNote()
         setComponentList()

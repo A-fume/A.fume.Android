@@ -18,10 +18,11 @@ import com.scentsnote.android.ui.filter.keyword.FilterKeywordFragment
 import com.scentsnote.android.ui.search.SearchHomeFragment.Companion.SEARCH_HOME
 import com.scentsnote.android.util.TabSelectedListener
 import com.google.android.material.badge.BadgeDrawable
+import com.scentsnote.android.databinding.ActivityPerfumeDetailBinding
+import com.scentsnote.android.util.BaseActivity
 import com.scentsnote.android.util.changeTabsFont
 
-class FilterActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityFilterBinding
+class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter) {
     private lateinit var filterViewPagerAdapter: ScentsNoteViewPagerAdapter
     private val filterViewModel: FilterViewModel by viewModels() {
         FilterViewModelFactory.getInstance()
@@ -33,16 +34,17 @@ class FilterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.apply {
+            filterVm = filterViewModel
+        }
 
         setFilterData()
         checkChangeFilter()
         Log.d("filter act filter", filterViewModel.selectedKeywordList.value.toString())
-        initBinding()
 
         initViewPager()
         setUpTabWithViewPager()
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
-
 
         observeViewModel()
 
@@ -71,13 +73,6 @@ class FilterActivity : AppCompatActivity() {
         if (fromHome == SEARCH_HOME) {
             filterViewModel.initFilterData()
         }
-    }
-
-    private fun initBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_filter)
-        binding.lifecycleOwner = this
-        binding.filterVm = filterViewModel
-
     }
 
     private fun initViewPager() {

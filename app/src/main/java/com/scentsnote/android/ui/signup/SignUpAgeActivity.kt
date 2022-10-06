@@ -8,21 +8,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
+import com.scentsnote.android.databinding.ActivitySignInBinding
 import com.scentsnote.android.databinding.ActivitySignUpAgeBinding
 import com.scentsnote.android.ui.survey.SurveyActivity
+import com.scentsnote.android.util.BaseActivity
 import com.scentsnote.android.util.YearPickerDialog
 import com.scentsnote.android.util.startActivityWithFinish
 
-class SignUpAgeActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySignUpAgeBinding
+class SignUpAgeActivity : BaseActivity<ActivitySignUpAgeBinding>(R.layout.activity_sign_up_age) {
     private val signUpViewModel : SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_sign_up_age)
-        binding.lifecycleOwner = this
-        binding.viewModel = signUpViewModel
-
+        binding.apply {
+            viewModel = signUpViewModel
+        }
     }
 
      fun showYearPicker(view: View){

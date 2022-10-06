@@ -6,19 +6,19 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.R
+import com.scentsnote.android.databinding.ActivitySignInBinding
 import com.scentsnote.android.databinding.ActivitySignUpGenderBinding
+import com.scentsnote.android.util.BaseActivity
 import com.scentsnote.android.util.startActivity
 
-class SignUpGenderActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySignUpGenderBinding
+class SignUpGenderActivity : BaseActivity<ActivitySignUpGenderBinding>(R.layout.activity_sign_up_gender) {
     private val signUpViewModel : SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_sign_up_gender)
-        binding.lifecycleOwner = this
-        binding.viewModel = signUpViewModel
-
+        binding.apply {
+            viewModel = signUpViewModel
+        }
     }
 
     fun onClickNextBtn(view: View){

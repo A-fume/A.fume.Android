@@ -18,10 +18,11 @@ import com.scentsnote.android.ui.my.MyViewModel
 import com.scentsnote.android.ui.search.SearchViewModel
 import com.scentsnote.android.ui.search.SingleViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.scentsnote.android.databinding.ActivitySurveyBinding
+import com.scentsnote.android.util.BaseActivity
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)  {
     private lateinit var navController: NavController
     private lateinit var searchViewModel: SearchViewModel
     private val myViewModel: MyViewModel by viewModels()
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        val flag = intent.getIntExtra("flag", 0)
-        initBinding()
 //        getFilter()
         initNavigation()
         searchViewModel = ViewModelProvider(
@@ -42,12 +42,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         getFilter()
-    }
-
-    private fun initBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.lifecycleOwner = this
-
     }
 
     private fun initNavigation() {

@@ -2,7 +2,6 @@ package com.scentsnote.android.ui.survey
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
@@ -12,13 +11,15 @@ import com.scentsnote.android.ui.filter.ScentsNoteViewPagerAdapter
 import com.scentsnote.android.util.*
 import java.util.*
 
-class SurveyActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySurveyBinding
+class SurveyActivity : BaseActivity<ActivitySurveyBinding>(R.layout.activity_survey)  {
     private val viewModel: SurveyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initBinding()
+        binding.apply {
+            vm = viewModel
+            toolbarSurvey.toolbar = R.drawable.icon_btn_cancel
+        }
         overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
 
         initTabWithVp()
@@ -26,13 +27,6 @@ class SurveyActivity : AppCompatActivity() {
             backClickListener()
         }
         clickBtnComplete()
-    }
-
-    private fun initBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_survey)
-        binding.lifecycleOwner = this
-        binding.vm = viewModel
-        binding.toolbarSurvey.toolbar = R.drawable.icon_btn_cancel
     }
 
     private fun initTabWithVp() {

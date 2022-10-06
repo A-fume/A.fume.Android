@@ -10,19 +10,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityMyInfoEditBinding
+import com.scentsnote.android.databinding.ActivitySearchTextBinding
+import com.scentsnote.android.util.BaseActivity
 import com.scentsnote.android.util.CommonDialog
 import com.scentsnote.android.util.YearPickerDialog
 import com.scentsnote.android.util.toast
 
-class EditMyInfoActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMyInfoEditBinding
+class EditMyInfoActivity : BaseActivity<ActivityMyInfoEditBinding>(R.layout.activity_my_info_edit) {
     private val editViewModel : EditMyInfoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_info_edit)
-        binding.lifecycleOwner = this
-        binding.viewModel = editViewModel
+        binding.apply {
+            viewModel = editViewModel
+        }
 
         editViewModel.checkMyInfo()
         setCompleteBtn()

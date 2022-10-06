@@ -5,7 +5,6 @@ import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.scentsnote.android.ScentsNoteApplication
@@ -19,10 +18,9 @@ import com.scentsnote.android.util.*
 import com.bumptech.glide.Glide
 import com.scentsnote.android.util.BindingAdapter.setNoteBtnText
 
-class PerfumeDetailActivity : AppCompatActivity() {
-    lateinit var binding: ActivityPerfumeDetailBinding
+class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layout.activity_perfume_detail) {
     lateinit var viewPagerAdapter: ViewPagerAdapter
-    private val viewModel: PerfumeDetailViewModel by viewModels()
+    private val detailViewModel: PerfumeDetailViewModel by viewModels()
     private var isLiked : Boolean = false
     private var checkLiked : Boolean = false
     var perfumeIdx: Int = 0
@@ -33,11 +31,11 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        perfumeIdx = intent.getIntExtra("perfumeIdx", 1)
+        binding.apply {
+            viewModel = detailViewModel
+        }
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_perfume_detail)
-        binding.lifecycleOwner=this
-        binding.viewModel = viewModel
+        perfumeIdx = intent.getIntExtra("perfumeIdx", 1)
 
         binding.svDetail.run {
             header = binding.tabPerfumeDetail
@@ -53,13 +51,13 @@ class PerfumeDetailActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        viewModel.getPerfumeInfo(perfumeIdx)
-        viewModel.getPerfumeInfoWithReview(perfumeIdx)
+        detailViewModel.getPerfumeInfo(perfumeIdx)
+        detailViewModel.getPerfumeInfoWithReview(perfumeIdx)
     }
 
     private fun initInfo(){
-        viewModel.getPerfumeInfo(perfumeIdx)
-        viewModel.perfumeDetailData.observe(this, Observer {
+        detailViewModel.getPerfumeInfo(perfumeIdx)
+        detailViewModel.perfumeDetailData.observe(this, Observer {
             binding.item = it
 
             checkLiked = it.isLiked
@@ -103,7 +101,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
     }
 
     private fun initObserve(){
-        viewModel.isValidReport.observe(this, Observer {
+        detailViewModel.isValidReport.observe(this, Observer {
             if(it)
                 this.toast("신고가 접수되었습니다.")
             else
@@ -148,7 +146,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
         super.onBackPressed()
 
         if(checkLiked != isLiked){
-            viewModel.postPerfumeLike(perfumeIdx)
+            detailViewModel.postPerfumeLike(perfumeIdx)
         }
 
         finish()
@@ -156,7 +154,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
     fun onClickBackBtn(view : View){
         if(checkLiked != isLiked){
-            viewModel.postPerfumeLike(perfumeIdx)
+            detailViewModel.postPerfumeLike(perfumeIdx)
         }
 
         finish()

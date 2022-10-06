@@ -7,14 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityMyInquiryBinding
+import com.scentsnote.android.databinding.ActivityPerfumeDetailBinding
+import com.scentsnote.android.util.BaseActivity
 
-class MyInquiryActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMyInquiryBinding
+class MyInquiryActivity : BaseActivity<ActivityMyInquiryBinding>(R.layout.activity_my_inquiry) {
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_my_inquiry)
 
         val url = getUrl()
 

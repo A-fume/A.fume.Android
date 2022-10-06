@@ -10,19 +10,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
+import com.scentsnote.android.databinding.ActivitySignInBinding
 import com.scentsnote.android.databinding.ActivitySignUpEmailBinding
+import com.scentsnote.android.util.BaseActivity
 import com.scentsnote.android.util.setKeyboard
 import com.scentsnote.android.util.startActivity
 
-class SignUpEmailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySignUpEmailBinding
+class SignUpEmailActivity : BaseActivity<ActivitySignUpEmailBinding>(R.layout.activity_sign_up_email) {
     private val signUpViewModel : SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_sign_up_email)
-        binding.lifecycleOwner = this
-        binding.viewModel = signUpViewModel
+        binding.apply {
+            viewModel = signUpViewModel
+        }
 
         binding.edtSignUpEmail.requestFocus()
 

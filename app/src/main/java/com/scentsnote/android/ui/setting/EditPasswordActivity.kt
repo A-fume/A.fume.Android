@@ -8,20 +8,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
+import com.scentsnote.android.databinding.ActivityMyInfoEditBinding
 import com.scentsnote.android.databinding.ActivityPasswordEditBinding
+import com.scentsnote.android.util.BaseActivity
 import com.scentsnote.android.util.CommonDialog
 import com.scentsnote.android.util.setKeyboard
 import com.scentsnote.android.util.toast
 
-class EditPasswordActivity : AppCompatActivity() {
-    lateinit var binding : ActivityPasswordEditBinding
+class EditPasswordActivity : BaseActivity<ActivityPasswordEditBinding>(R.layout.activity_password_edit) {
     private val editViewModel : EditMyInfoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_password_edit)
-        binding.lifecycleOwner = this
-        binding.viewModel = editViewModel
+        binding.apply {
+            viewModel = editViewModel
+        }
 
         binding.edtEditPasswordCheck.requestFocus()
 
