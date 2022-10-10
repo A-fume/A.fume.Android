@@ -7,9 +7,7 @@ import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
@@ -21,7 +19,10 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.scentsnote.android.databinding.ActivityFilterBinding
+import com.scentsnote.android.util.view.BaseActivity
+import com.scentsnote.android.util.view.CommonDialog
+import com.scentsnote.android.util.view.SeekBarListener
+import com.scentsnote.android.util.view.setSelectedSeekBarTxtBold
 
 class NoteActivity : BaseActivity<ActivityNoteBinding>(R.layout.activity_note) {
     lateinit var noteKeywordAdapter : NoteKeywordAdapter
@@ -43,8 +44,8 @@ class NoteActivity : BaseActivity<ActivityNoteBinding>(R.layout.activity_note) {
 
         initNote()
         setComponentList()
-        initObserver()
-        initListener()
+        initObservers()
+        initListeners()
         initKeywordList()
     }
 
@@ -63,7 +64,7 @@ class NoteActivity : BaseActivity<ActivityNoteBinding>(R.layout.activity_note) {
         }
     }
 
-    private fun initObserver(){
+    private fun initObservers(){
         noteViewModel.rating.observe(this, Observer {
             noteViewModel.checkShareBtn()
             noteViewModel.checkCompleteBtn()
@@ -139,7 +140,7 @@ class NoteActivity : BaseActivity<ActivityNoteBinding>(R.layout.activity_note) {
         txtGenderList = listOf(binding.txtNoteGenderMan, binding.txtNoteGenderNeuter, binding.txtNoteGenderWoman)
     }
 
-    private fun initListener(){
+    private fun initListeners(){
         onSeekBarChangeListener(binding.sbNoteLongevity,binding.sbNoteTxtLongevity,txtLongevityList,"longevity")
         onSeekBarChangeListener(binding.sbNoteReverb,binding.sbNoteTxtReverb,txtReverbList,"reverb")
         onSeekBarChangeListener(binding.sbNoteGender,binding.sbNoteTxtGender,txtGenderList,"gender")

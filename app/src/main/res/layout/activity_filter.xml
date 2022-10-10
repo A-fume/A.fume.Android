@@ -51,7 +51,7 @@
             android:text="키워드" />
     </com.google.android.material.tabs.TabLayout>
 
-    <com.scentsnote.android.util.NonSwipeViewPager
+    <com.scentsnote.android.util.view.NonSwipeViewPager
         android:id="@+id/vp_filter"
         android:layout_width="match_parent"
         android:layout_height="0dp"

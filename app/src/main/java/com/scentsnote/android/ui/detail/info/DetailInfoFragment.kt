@@ -1,15 +1,9 @@
 package com.scentsnote.android.ui.detail.info
 
 import android.content.Context
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
@@ -25,39 +19,41 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.scentsnote.android.util.BindingAdapter.setDetailStoryText
+import com.scentsnote.android.util.view.BaseFragment
+import com.scentsnote.android.util.databinding.BindingAdapter.setDetailStoryText
 
-class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
+class DetailInfoFragment(val perfumeIdx: Int) : BaseFragment<FragmentDetailInfoBinding>(R.layout.fragment_detail_info){
 
-    lateinit var binding: FragmentDetailInfoBinding
     lateinit var rvKeywordAdapter: DetailKeywordAdapter
     private val rvPriceAdapter = PriceRvAdapter()
     private lateinit var rvSimilarAdapter: SimilarListAdapter
     lateinit var chartLastingPowerAdapter: HorizontalBarChartAdapter
     private val detailViewModel: PerfumeDetailViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_info, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = detailViewModel
+    override fun onBindData() {
+        super.onBindData()
 
-        return binding.root
+        binding.apply {
+            viewModel = detailViewModel
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
+        super.initView()
 
         detailViewModel.getPerfumeInfo(perfumeIdx)
         detailViewModel.getSimilarPerfumeList(perfumeIdx)
-        observe()
 
         initRv(context)
         initLastingPowerBarChart(0,0,0,0,0)
         initsillageBarChart(0,0,0)
         initRvSimilar(requireContext())
+    }
+
+    override fun initObserver() {
+        super.initObserver()
+
+        observe()
     }
 
     private fun initRv(ctx: Context?) {

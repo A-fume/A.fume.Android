@@ -3,6 +3,7 @@ package com.scentsnote.android.util
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
+import com.scentsnote.android.util.view.CommonDialog
 
 fun Context.createDialog(fragmentManager: FragmentManager, title: String) {
     val bundle = Bundle()

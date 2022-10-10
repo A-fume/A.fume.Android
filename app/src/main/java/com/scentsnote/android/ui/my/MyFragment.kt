@@ -20,8 +20,8 @@ import com.scentsnote.android.ui.my.wishlist.WishListFragment
 import com.scentsnote.android.ui.setting.EditMyInfoActivity
 import com.scentsnote.android.ui.setting.EditPasswordActivity
 import com.scentsnote.android.ui.signin.SignHomeActivity
-import com.scentsnote.android.util.TabSelectedListener
-import com.scentsnote.android.util.changeTabsFont
+import com.scentsnote.android.util.extension.TabSelectedListener
+import com.scentsnote.android.util.extension.changeTabsFont
 import com.scentsnote.android.util.refreshFragment
 import com.scentsnote.android.util.toastLong
 

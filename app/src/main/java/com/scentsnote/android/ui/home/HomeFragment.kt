@@ -16,6 +16,7 @@ import com.scentsnote.android.ui.home.adapter.NewListAdapter
 import com.scentsnote.android.ui.home.adapter.PopularListAdapter
 import com.scentsnote.android.ui.home.adapter.RecentListAdapter
 import com.scentsnote.android.ui.home.adapter.RecommendListAdapter
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 import java.util.*
 
 
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
 
         initInfo()
 
-        binding.btnHomeMore.setOnClickListener {
+        binding.btnHomeMore.setOnSafeClickListener {
             val moreNewPerfumeIntent = Intent(context,MoreNewPerfumeActivity::class.java)
 
             startActivity(moreNewPerfumeIntent)

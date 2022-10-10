@@ -2,13 +2,15 @@ package com.scentsnote.android.ui.survey
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySurveyBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.ScentsNoteViewPagerAdapter
 import com.scentsnote.android.util.*
+import com.scentsnote.android.util.extension.TabSelectedListener
+import com.scentsnote.android.util.extension.changeTabsFont
+import com.scentsnote.android.util.view.BaseActivity
 import java.util.*
 
 class SurveyActivity : BaseActivity<ActivitySurveyBinding>(R.layout.activity_survey)  {

@@ -13,7 +13,7 @@ import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySplashBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.survey.SurveyActivity
-import com.scentsnote.android.util.AppUpdateDialog
+import com.scentsnote.android.util.view.AppUpdateDialog
 import com.scentsnote.android.util.startActivityWithFinish
 import com.scentsnote.android.util.toast
 

@@ -1,9 +1,10 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.util.extension
 
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.forEachIndexed
 import com.google.android.material.tabs.TabLayout
+import com.scentsnote.android.util.setTextNotoSansBold
 
 fun TabLayout.changeTabsFont(selectPosition:Int){
     val vg = this. getChildAt(0) as ViewGroup

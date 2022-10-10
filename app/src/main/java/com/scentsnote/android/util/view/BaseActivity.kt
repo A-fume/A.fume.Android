@@ -1,4 +1,4 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.util.view
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes

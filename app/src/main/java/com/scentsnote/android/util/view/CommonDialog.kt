@@ -1,4 +1,4 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.util.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,8 @@ import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.DialogCommonBinding
 import com.scentsnote.android.ui.signin.SignHomeActivity
+import com.scentsnote.android.util.setDrawable
+import com.scentsnote.android.util.setHeight
 
 class CommonDialog : DialogFragment(), View.OnClickListener {
     lateinit var binding : DialogCommonBinding

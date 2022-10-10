@@ -5,7 +5,6 @@ import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
@@ -16,7 +15,10 @@ import com.scentsnote.android.ui.detail.note.DetailNoteFragment
 import com.scentsnote.android.ui.note.NoteActivity
 import com.scentsnote.android.util.*
 import com.bumptech.glide.Glide
-import com.scentsnote.android.util.BindingAdapter.setNoteBtnText
+import com.scentsnote.android.util.databinding.BindingAdapter.setNoteBtnText
+import com.scentsnote.android.util.extension.TabSelectedListener
+import com.scentsnote.android.util.extension.changeTabsFont
+import com.scentsnote.android.util.view.BaseActivity
 
 class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layout.activity_perfume_detail) {
     lateinit var viewPagerAdapter: ViewPagerAdapter

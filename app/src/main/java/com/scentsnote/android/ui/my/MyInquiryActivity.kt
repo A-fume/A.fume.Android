@@ -3,12 +3,9 @@ package com.scentsnote.android.ui.my
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.webkit.WebViewClient
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityMyInquiryBinding
-import com.scentsnote.android.databinding.ActivityPerfumeDetailBinding
-import com.scentsnote.android.util.BaseActivity
+import com.scentsnote.android.util.view.BaseActivity
 
 class MyInquiryActivity : BaseActivity<ActivityMyInquiryBinding>(R.layout.activity_my_inquiry) {
 

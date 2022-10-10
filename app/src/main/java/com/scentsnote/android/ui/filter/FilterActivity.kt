@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.request.SendFilter
@@ -16,11 +14,10 @@ import com.scentsnote.android.ui.filter.brand.FilterBrandFragment
 import com.scentsnote.android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.scentsnote.android.ui.filter.keyword.FilterKeywordFragment
 import com.scentsnote.android.ui.search.SearchHomeFragment.Companion.SEARCH_HOME
-import com.scentsnote.android.util.TabSelectedListener
 import com.google.android.material.badge.BadgeDrawable
-import com.scentsnote.android.databinding.ActivityPerfumeDetailBinding
-import com.scentsnote.android.util.BaseActivity
-import com.scentsnote.android.util.changeTabsFont
+import com.scentsnote.android.util.view.BaseActivity
+import com.scentsnote.android.util.extension.TabSelectedListener
+import com.scentsnote.android.util.extension.changeTabsFont
 
 class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter) {
     private lateinit var filterViewPagerAdapter: ScentsNoteViewPagerAdapter

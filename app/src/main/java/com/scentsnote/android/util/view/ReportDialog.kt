@@ -1,4 +1,4 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.util.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.DialogReviewReportBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
+import com.scentsnote.android.util.setDrawable
+import com.scentsnote.android.util.setHeight
 
 class ReportDialog(val vm : PerfumeDetailViewModel) : DialogFragment(), View.OnClickListener {
     lateinit var binding : DialogReviewReportBinding
@@ -70,7 +72,7 @@ class ReportDialog(val vm : PerfumeDetailViewModel) : DialogFragment(), View.OnC
 
         private val dialog = ReportDialog(vm)
 
-        fun setBtnClickListener(listener: ReportDialogListener): ReportDialog.ReportDialogBuilder {
+        fun setBtnClickListener(listener: ReportDialogListener): ReportDialogBuilder {
             dialog.listener = listener
             return this
         }

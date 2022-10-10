@@ -3,18 +3,15 @@ package com.scentsnote.android.ui.setting
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityMyInfoEditBinding
-import com.scentsnote.android.databinding.ActivitySearchTextBinding
-import com.scentsnote.android.util.BaseActivity
-import com.scentsnote.android.util.CommonDialog
-import com.scentsnote.android.util.YearPickerDialog
+import com.scentsnote.android.util.view.BaseActivity
+import com.scentsnote.android.util.view.CommonDialog
 import com.scentsnote.android.util.toast
+import com.scentsnote.android.util.view.YearPickerDialog
 
 class EditMyInfoActivity : BaseActivity<ActivityMyInfoEditBinding>(R.layout.activity_my_info_edit) {
     private val editViewModel : EditMyInfoViewModel by viewModels()

@@ -11,8 +11,8 @@ import com.scentsnote.android.data.vo.response.PerfumeDetailWithReviews
 import com.scentsnote.android.databinding.RvItemDetailNoteBinding
 import com.scentsnote.android.databinding.RvItemDetailNoteReportBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
-import com.scentsnote.android.util.CommonDialog
-import com.scentsnote.android.util.ReportDialog
+import com.scentsnote.android.util.view.CommonDialog
+import com.scentsnote.android.util.view.ReportDialog
 
 class DetailNoteAdapter(private val context: Context, private val vm: PerfumeDetailViewModel, private val fragmentManager: FragmentManager, val perfumeIdx: Int, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var data = mutableListOf<PerfumeDetailWithReviews>()

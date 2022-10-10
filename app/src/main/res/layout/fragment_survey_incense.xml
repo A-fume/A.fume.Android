@@ -17,7 +17,7 @@
         tools:context=".ui.survey.SurveyIncenseFragment">
 
 
-        <com.scentsnote.android.util.RecyclerViewEmptySupport
+        <com.scentsnote.android.util.view.RecyclerViewEmptySupport
             android:id="@+id/rv_survey_incense"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

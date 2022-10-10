@@ -3,12 +3,9 @@ package com.scentsnote.android.ui.signup
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.R
-import com.scentsnote.android.databinding.ActivitySignInBinding
 import com.scentsnote.android.databinding.ActivitySignUpGenderBinding
-import com.scentsnote.android.util.BaseActivity
+import com.scentsnote.android.util.view.BaseActivity
 import com.scentsnote.android.util.startActivity
 
 class SignUpGenderActivity : BaseActivity<ActivitySignUpGenderBinding>(R.layout.activity_sign_up_gender) {

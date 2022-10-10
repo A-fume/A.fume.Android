@@ -3,13 +3,10 @@ package com.scentsnote.android.ui
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
-import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.SendFilter
@@ -18,9 +15,7 @@ import com.scentsnote.android.ui.my.MyViewModel
 import com.scentsnote.android.ui.search.SearchViewModel
 import com.scentsnote.android.ui.search.SingleViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.scentsnote.android.databinding.ActivitySurveyBinding
-import com.scentsnote.android.util.BaseActivity
-import kotlinx.coroutines.launch
+import com.scentsnote.android.util.view.BaseActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)  {
     private lateinit var navController: NavController

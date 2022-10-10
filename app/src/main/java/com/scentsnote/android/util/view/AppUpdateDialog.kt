@@ -1,4 +1,4 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.util.view
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.databinding.DialogAppUpdateBinding
+import com.scentsnote.android.util.setDrawable
+import com.scentsnote.android.util.setHeight
 
 class AppUpdateDialog: DialogFragment(), View.OnClickListener {
     lateinit var binding : DialogAppUpdateBinding

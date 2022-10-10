@@ -1,48 +1,48 @@
 package com.scentsnote.android.ui.detail.note
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentDetailNoteBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
+import com.scentsnote.android.util.view.BaseFragment
 
-class DetailNoteFragment(val perfumeIdx: Int) : Fragment() {
+class DetailNoteFragment(val perfumeIdx: Int) : BaseFragment<FragmentDetailNoteBinding>(R.layout.fragment_detail_note){
 
-    lateinit var binding: FragmentDetailNoteBinding
     lateinit var noteAdapter: DetailNoteAdapter
-    private val viewModel: PerfumeDetailViewModel by activityViewModels()
+    private val detailViewModel: PerfumeDetailViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_note, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
+    override fun onBindData() {
+        super.onBindData()
 
-        return binding.root
+        binding.apply {
+            viewModel = detailViewModel
+        }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onResume() {
+        super.onResume()
+
+        detailViewModel.getPerfumeInfoWithReview(perfumeIdx)
+    }
+
+    override fun initView() {
+        super.initView()
 
         initNoteList()
+        detailViewModel.getPerfumeInfoWithReview(perfumeIdx)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.getPerfumeInfoWithReview(perfumeIdx)
-        viewModel.perfumeDetailWithReviewData.observe(requireActivity(), Observer {
+    override fun initObserver() {
+        super.initObserver()
+
+        detailViewModel.perfumeDetailWithReviewData.observe(requireActivity(), Observer {
             noteAdapter.replaceAll(ArrayList(it))
             noteAdapter.notifyDataSetChanged()
         })
 
-        viewModel.isValidNoteList.observe(requireActivity(), Observer {
+        detailViewModel.isValidNoteList.observe(requireActivity(), Observer {
             if(it){
                 binding.rvDetailNote.visibility = View.VISIBLE
                 binding.txtDetailReviewList.visibility = View.GONE
@@ -54,7 +54,7 @@ class DetailNoteFragment(val perfumeIdx: Int) : Fragment() {
     }
 
     private fun initNoteList(){
-        noteAdapter = DetailNoteAdapter(requireContext(),viewModel,parentFragmentManager,perfumeIdx){idx -> viewModel.postReviewLike(idx)}
+        noteAdapter = DetailNoteAdapter(requireContext(),detailViewModel,parentFragmentManager,perfumeIdx){ idx -> detailViewModel.postReviewLike(idx)}
         binding.rvDetailNote.adapter = noteAdapter
 
         noteAdapter.notifyDataSetChanged()

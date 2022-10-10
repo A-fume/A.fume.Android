@@ -11,11 +11,11 @@ import androidx.lifecycle.Observer
 import com.scentsnote.android.databinding.FragmentFilterKeywordBinding
 import com.scentsnote.android.ui.filter.FilterViewModel
 import com.scentsnote.android.ui.filter.FilterViewModelFactory
-import com.scentsnote.android.util.FlexboxRecyclerViewAdapter
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.scentsnote.android.util.view.FlexboxRecyclerViewAdapter
 
 class FilterKeywordFragment : Fragment() {
     private lateinit var binding: FragmentFilterKeywordBinding

@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
-import com.scentsnote.android.databinding.ActivitySignInBinding
 import com.scentsnote.android.databinding.ActivitySignUpPasswordBinding
-import com.scentsnote.android.util.BaseActivity
+import com.scentsnote.android.util.view.BaseActivity
 import com.scentsnote.android.util.setKeyboard
 import com.scentsnote.android.util.startActivity
 
