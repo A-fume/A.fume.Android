@@ -48,30 +48,44 @@
                     android:id="@+id/txt_details_info_story"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
+                    android:ellipsize="none"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:maxLines="5"
                     android:textColor="@color/black_2a"
                     android:textSize="14dp"
+                    android:paddingBottom="35dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/txt_details_more"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_details_more"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:onClick="onClick"
-                    android:text="더보기"
-                    android:fontFamily="@font/notosans_regular"
-                    android:includeFontPadding="false"
-                    android:textSize="14dp"
-                    android:textColor="@color/gray_cd"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="@+id/txt_details_info_story"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_details_info_story" />
+                    android:background="@drawable/background_btn_details_more"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_details_info_story"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/txt_details_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="4dp"
+                        android:fontFamily="@font/notosans_regular"
+                        android:includeFontPadding="false"
+                        android:onClick="onClick"
+                        android:paddingTop="40dp"
+                        android:text="더보기"
+                        android:textColor="@color/dark_gray_7d"
+                        android:textSize="15dp"
+                        android:visibility="gone"
+                        app:drawableRightCompat="@drawable/icon_btn_down"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -80,7 +94,7 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="18dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="18dp"
                 android:background="@color/primary_black"
                 app:layout_constraintEnd_toEndOf="parent"
