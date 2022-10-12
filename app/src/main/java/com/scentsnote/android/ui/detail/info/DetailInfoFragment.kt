@@ -370,12 +370,12 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 
     private fun setVisibilityMore() {
         val lineCount = binding.txtDetailsInfoStory.layout.lineCount
-        if (lineCount > 5) {
+        if (lineCount > 3) {
             binding.txtDetailsMore.visibility = View.VISIBLE
 
             binding.txtDetailsMore.setOnClickListener {
-                if (binding.txtDetailsInfoStory.maxLines > 5) {
-                    binding.txtDetailsInfoStory.maxLines = 5
+                if (binding.txtDetailsInfoStory.maxLines > 3) {
+                    binding.txtDetailsInfoStory.maxLines = 3
                     binding.clDetailsMore.background = ContextCompat.getDrawable(
                         requireContext(),
                         R.drawable.background_btn_details_more
