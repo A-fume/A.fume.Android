@@ -3,6 +3,7 @@ package com.scentsnote.android.ui.search
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,6 +26,10 @@ class SearchViewModel : ViewModel() {
     var filter = MutableLiveData<SendFilter>()
     val perfumeList = MutableLiveData(mutableListOf<PerfumeInfo>())
     val perfumeLike: MutableLiveData<Boolean> = MutableLiveData()
+
+    private val _isValidResultData = MutableLiveData<Boolean>(false)
+    val isValidResultData : LiveData<Boolean>
+        get() = _isValidResultData
 
     init {
         viewModelScope.launch {
@@ -59,6 +64,7 @@ class SearchViewModel : ViewModel() {
                 ScentsNoteApplication.prefManager.accessToken,
                 requestSearch
             )
+            setDataVisible()
             Log.e("search result", perfumeList.value.toString())
 
         } catch (e: HttpException) {
@@ -66,8 +72,12 @@ class SearchViewModel : ViewModel() {
         }
     }
 
+    private fun setDataVisible(){
+        _isValidResultData.value = perfumeList.value?.isNotEmpty()==true
+    }
+
     fun cancelBtnFilter(f: FilterInfoP?) {
-        var tmpFilter =filter.value;
+        var tmpFilter =filter.value
         if (f != null) {
             if (f.idx <= -1) tmpFilter?.filterSeriesPMap?.remove(f.name)
             else {
@@ -82,7 +92,7 @@ class SearchViewModel : ViewModel() {
 
             }
             tmpFilter?.filterInfoPList?.remove(f)
-            filter.value=tmpFilter;
+            filter.value=tmpFilter
         }
     }
 
