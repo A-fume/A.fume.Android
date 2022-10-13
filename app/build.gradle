@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -112,4 +113,8 @@ dependencies {
 
     // Lottie
     implementation Dependencies.lottie
+
+    // Firebase SDK
+    implementation platform(Dependencies.firebaseBom)
+    implementation Dependencies.firebaseKtx
 }
