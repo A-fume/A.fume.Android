@@ -17,6 +17,14 @@
             android:checked="false"/>
     </group>
     <group
+        android:id="@+id/group_tip_off"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/tip_off"
+            android:title="@string/tip_off"
+            android:checked="false"/>
+    </group>
+    <group
         android:id="@+id/group_feedback"
         android:checkableBehavior="single">
         <item
@@ -30,14 +38,6 @@
         <item
             android:id="@+id/logout"
             android:title="@string/logout"
-            android:checked="false"/>
-    </group>
-    <group
-        android:id="@+id/group_withdrawal"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/withdrawal"
-            android:title="@string/withdrawal"
             android:checked="false"/>
     </group>
     <group
