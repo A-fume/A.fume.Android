@@ -1,5 +1,6 @@
 package com.scentsnote.android.ui.setting
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -10,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityMyInfoEditBinding
+import com.scentsnote.android.util.BaseWebViewActivity
 import com.scentsnote.android.util.CommonDialog
 import com.scentsnote.android.util.YearPickerDialog
 import com.scentsnote.android.util.toast
@@ -55,6 +57,12 @@ class EditMyInfoActivity : AppCompatActivity() {
         editViewModel.putMyInfo()
 
         finish()
+    }
+
+    fun onClickWithdrawalBtn(view: View){
+        val intent = Intent(this, BaseWebViewActivity::class.java)
+        intent.putExtra("url", "withdrawal")
+        startActivity(intent)
     }
 
     override fun onBackPressed() {
