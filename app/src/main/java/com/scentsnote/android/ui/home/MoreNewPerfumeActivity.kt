@@ -1,5 +1,6 @@
 package com.scentsnote.android.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -8,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityMoreNewPerfumeBinding
 import com.scentsnote.android.ui.home.adapter.MoreNewListAdapter
+import com.scentsnote.android.util.BaseWebViewActivity
 
 class MoreNewPerfumeActivity : AppCompatActivity() {
     lateinit var binding: ActivityMoreNewPerfumeBinding
@@ -30,5 +32,11 @@ class MoreNewPerfumeActivity : AppCompatActivity() {
 
     fun onClickBackBtn(view : View){
         finish()
+    }
+
+    fun onClickWithdrawalBtn(view: View){
+        val intent = Intent(this, BaseWebViewActivity::class.java)
+        intent.putExtra("url", "tipOff")
+        startActivity(intent)
     }
 }
