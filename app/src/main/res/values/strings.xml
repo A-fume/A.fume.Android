@@ -13,6 +13,13 @@
     <string name="dialog_survey">나에게 꼭 맞는 향수를 추천받고 싶다면\n설문을 완료해주세요.\n그래도 설문을 종료하시겠습니까?</string>
     <string name="dialog_app_update">더욱 좋아진 서비스를 사용하시기 위해서\n새로운 버전으로 업데이트가 필요합니다.</string>
     <string name="do_login">로그인 하기</string>
+    
+    <!--new perfume-->
+    <string name="txt_want_perfume_null">원하는 향수가 없으신가요?</string>
+    <string name="txt_perfume_update_day">매주 수요일 업데이트</string>
+
+    <!--filter - brand-->
+    <string name="txt_find_brand_null">찾는 브랜드가 없으신가요?</string>
 
     <!--my - navigation drawer-->
     <string name="go_to_login">로그인 후 사용해주세요</string>
