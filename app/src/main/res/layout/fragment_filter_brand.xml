@@ -6,6 +6,9 @@
         <variable
             name="vm"
             type="com.scentsnote.android.ui.filter.FilterViewModel" />
+        <variable
+            name="fm"
+            type="com.scentsnote.android.ui.filter.brand.FilterBrandFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,15 +49,62 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tab_brand" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_brand"
-            setInitialBrandList="@{vm.brandMap}"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:fillViewport="true"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_filter_desc"
-            tools:listitem="@layout/rv_item_filter_brand" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_filter_desc">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_brand"
+                    setInitialBrandList="@{vm.brandMap}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/rv_item_filter_brand" />
+
+                <TextView
+                    android:id="@+id/textView68"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/txt_find_brand_null"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView69"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_brand" />
+
+                <TextView
+                    android:id="@+id/textView69"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/notosans_medium"
+                    android:includeFontPadding="false"
+                    android:text="제보하기"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="12dp"
+                    android:onClick="@{fm::onClickWithdrawalBtn}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView68"
+                    app:layout_constraintTop_toTopOf="@+id/textView68" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

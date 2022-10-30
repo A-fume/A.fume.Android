@@ -1,6 +1,7 @@
 package com.scentsnote.android.ui.filter.brand
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.scentsnote.android.databinding.FragmentFilterBrandBinding
 import com.scentsnote.android.ui.filter.FilterViewModel
 import com.scentsnote.android.ui.filter.FilterViewModelFactory
 import com.google.android.material.tabs.TabLayout
+import com.scentsnote.android.util.BaseWebViewActivity
 import com.scentsnote.android.util.changeTabsFont
 
 class FilterBrandFragment : Fragment() {
@@ -51,6 +53,7 @@ class FilterBrandFragment : Fragment() {
         binding = FragmentFilterBrandBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = viewModel
+        binding.fm = this
 
         return binding.root
     }
@@ -122,5 +125,11 @@ class FilterBrandFragment : Fragment() {
         viewModel.brandTabOrders.observe(viewLifecycleOwner, Observer {
             initBrandTab()
         })
+    }
+
+    fun onClickWithdrawalBtn(view: View){
+        val intent = Intent(requireContext(), BaseWebViewActivity::class.java)
+        intent.putExtra("url", "tipOff")
+        startActivity(intent)
     }
 }
