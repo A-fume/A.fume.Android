@@ -373,7 +373,7 @@
                     android:progress="@{viewModel.longevityProgress}"
                     android:progressDrawable="@color/transparent"
                     android:thumb="@color/transparent"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView70"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_note_time_very_weak"
                     app:layout_constraintEnd_toEndOf="@+id/imageView22"
                     app:layout_constraintStart_toStartOf="@+id/imageView22"
                     app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_very_weak" />
@@ -796,7 +796,7 @@
                     app:layout_constraintTop_toTopOf="@+id/textView45" />
 
                 <TextView
-                    android:id="@+id/textView70"
+                    android:id="@+id/txt_note_time_very_weak"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
@@ -810,7 +810,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_very_weak" />
 
                 <TextView
-                    android:id="@+id/textView71"
+                    android:id="@+id/txt_note_time_weak"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
@@ -824,7 +824,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_weak" />
 
                 <TextView
-                    android:id="@+id/textView72"
+                    android:id="@+id/txt_note_time_usual"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
@@ -838,7 +838,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_usual" />
 
                 <TextView
-                    android:id="@+id/textView73"
+                    android:id="@+id/txt_note_time_strong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
@@ -852,7 +852,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_strong" />
 
                 <TextView
-                    android:id="@+id/textView74"
+                    android:id="@+id/txt_note_time_very_strong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
