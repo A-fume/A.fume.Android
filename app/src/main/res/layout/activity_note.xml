@@ -374,8 +374,8 @@
                     android:progressDrawable="@color/transparent"
                     android:thumb="@color/transparent"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_note_time_very_weak"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView22"
-                    app:layout_constraintStart_toStartOf="@+id/imageView22"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_strong"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_weak"
                     app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_very_weak" />
 
                 <TextView
@@ -412,6 +412,8 @@
                     android:id="@+id/txt_note_longevity_usual"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="14dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="보통"
@@ -438,7 +440,7 @@
                     android:id="@+id/txt_note_longevity_very_strong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
+                    android:layout_marginEnd="14dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="매우 강함"
