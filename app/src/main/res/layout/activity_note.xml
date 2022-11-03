@@ -451,6 +451,72 @@
                     app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_strong" />
 
                 <TextView
+                    android:id="@+id/txt_note_time_very_weak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="1시간 이내"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_weak"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_weak"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_very_weak" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_weak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="1~3시간"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_weak"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_weak"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_time_very_weak" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_usual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="3~5시간"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_usual"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_usual"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_time_weak" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_strong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="5~7시간"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_strong"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_strong"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_time_usual" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_very_strong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="7시간 이상"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_strong"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_strong"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_time_strong" />
+
+                <TextView
                     android:id="@+id/textView29"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -796,77 +862,6 @@
                     app:layout_constraintBottom_toBottomOf="@+id/textView45"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textView45" />
-
-                <TextView
-                    android:id="@+id/txt_note_time_very_weak"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:includeFontPadding="false"
-                    android:text="1시간 이내"
-                    android:textColor="@color/dark_gray_7d"
-                    android:textSize="11dp"
-                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_weak"
-                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_weak"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_very_weak" />
-
-                <TextView
-                    android:id="@+id/txt_note_time_weak"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:includeFontPadding="false"
-                    android:text="1~3시간"
-                    android:textColor="@color/dark_gray_7d"
-                    android:textSize="11dp"
-                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_weak"
-                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_weak"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_weak" />
-
-                <TextView
-                    android:id="@+id/txt_note_time_usual"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:includeFontPadding="false"
-                    android:text="3~5시간"
-                    android:textColor="@color/dark_gray_7d"
-                    android:textSize="11dp"
-                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_usual"
-                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_usual"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_usual" />
-
-                <TextView
-                    android:id="@+id/txt_note_time_strong"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:includeFontPadding="false"
-                    android:text="5~7시간"
-                    android:textColor="@color/dark_gray_7d"
-                    android:textSize="11dp"
-                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_strong"
-                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_strong"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_strong" />
-
-                <TextView
-                    android:id="@+id/txt_note_time_very_strong"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:includeFontPadding="false"
-                    android:text="7시간 이상"
-                    android:textColor="@color/dark_gray_7d"
-                    android:textSize="11dp"
-                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_strong"
-                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_strong"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_very_strong" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
