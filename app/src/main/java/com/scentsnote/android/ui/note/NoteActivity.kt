@@ -29,6 +29,7 @@ class NoteActivity : AppCompatActivity() {
     private val keywordBottomSheetFragment = KeywordBottomSheetFragment()
 
     lateinit var txtLongevityList : List<TextView>
+    lateinit var txtLongevityTimeList : List<TextView>
     lateinit var txtReverbList : List<TextView>
     lateinit var txtGenderList : List<TextView>
 
@@ -135,12 +136,14 @@ class NoteActivity : AppCompatActivity() {
 
     private fun setComponentList(){
         txtLongevityList = listOf(binding.txtNoteLongevityVeryWeak, binding.txtNoteLongevityWeak, binding.txtNoteLongevityUsual, binding.txtNoteLongevityStrong, binding.txtNoteLongevityVeryStrong)
+        txtLongevityTimeList = listOf(binding.txtNoteTimeVeryWeak, binding.txtNoteTimeWeak, binding.txtNoteTimeUsual, binding.txtNoteTimeStrong, binding.txtNoteTimeVeryStrong)
         txtReverbList = listOf(binding.txtNoteReverbLight, binding.txtNoteReverbUsual, binding.txtNoteReverbHeavy)
         txtGenderList = listOf(binding.txtNoteGenderMan, binding.txtNoteGenderNeuter, binding.txtNoteGenderWoman)
     }
 
     private fun initListener(){
         onSeekBarChangeListener(binding.sbNoteLongevity,binding.sbNoteTxtLongevity,txtLongevityList,"longevity")
+        onSeekBarChangeListener(binding.sbNoteLongevity,binding.sbNoteTxtLongevity,txtLongevityTimeList,"longevity")
         onSeekBarChangeListener(binding.sbNoteReverb,binding.sbNoteTxtReverb,txtReverbList,"reverb")
         onSeekBarChangeListener(binding.sbNoteGender,binding.sbNoteTxtGender,txtGenderList,"gender")
     }
