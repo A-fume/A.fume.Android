@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "792361201139",
+    "project_id": "scentsnote-1aa9f",
+    "storage_bucket": "scentsnote-1aa9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792361201139:android:29bdcb85be71761bb47686",
+        "android_client_info": {
+          "package_name": "com.scentsnote.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792361201139-nphkm4k878hfabclfpe27e0crrlkfj6u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scentsnote.android",
+            "certificate_hash": "833380be66b9f63b0715ca0af124bf1de2bce17f"
+          }
+        },
+        {
+          "client_id": "792361201139-ps963es10uqoqkhsemf8mp5u53ofj99j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5ANMzXquLTIWA01oII1F7ceUxFUmCAYQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792361201139-ps963es10uqoqkhsemf8mp5u53ofj99j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
