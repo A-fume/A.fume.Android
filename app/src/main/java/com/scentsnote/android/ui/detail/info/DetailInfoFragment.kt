@@ -1,9 +1,7 @@
 package com.scentsnote.android.ui.detail.info
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +25,7 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.scentsnote.android.util.BindingAdapter.setDetailStoryText
-import com.scentsnote.android.util.BindingAdapter.setKeywordList
+import com.scentsnote.android.util.BindingAdapter.setDetailInfoText
 
 class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 
@@ -329,7 +326,8 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         detailViewModel.perfumeDetailData.observe(requireActivity(), Observer {
             binding.run {
                 data = it
-                txtDetailsInfoStory.setDetailStoryText(it.story)
+                txtDetailsInfoStory.setDetailInfoText(it.story)
+                txtCategory.setDetailInfoText(it.abundanceRate)
                 setVisibilityMore()
 
                 initLastingPowerBarChart(

@@ -29,6 +29,8 @@
 
     <!--perfume detail -->
     <string name="chartPercentFormat" formatted="false">%d%%</string>
+    <string name="txt_perfume_info_null">정보를 준비 중입니다.</string>
+    <string name="txt_perfume_keyword_null">향수에 딱 맞는 키워드를\n수집하고 있습니다.</string>
 
     <!--my -->
     <string name="txt_my_perfume_null">아직 시향 노트가 비어 있어요.\n그동안 사용했던 향수\n혹은 시향해봤던 향수를\n기록해보세요.</string>
