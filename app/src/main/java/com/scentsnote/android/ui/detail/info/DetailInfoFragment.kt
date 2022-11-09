@@ -163,19 +163,19 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         val pieData = listOf(female, male, middle)
         val maxPieData = pieData.maxOrNull()
 
-        setGenderMaxLegend(
+        setMaxLegendBold(
             female,
             maxPieData,
             binding.txtDetailGenderFemale,
             binding.txtDetailGenderFemalePercent
         )
-        setGenderMaxLegend(
+        setMaxLegendBold(
             male,
             maxPieData,
             binding.txtDetailGenderMale,
             binding.txtDetailGenderMalePercent
         )
-        setGenderMaxLegend(
+        setMaxLegendBold(
             middle,
             maxPieData,
             binding.txtDetailGenderMiddle,
@@ -185,7 +185,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         return PieDataSet(pieListData, "")
     }
 
-    private fun setGenderMaxLegend(
+    private fun setMaxLegendBold(
         data: Float,
         maxData: Float?,
         legend: TextView,
@@ -246,25 +246,25 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         val pieData = listOf(spring, summer, fall, winter)
         val maxPieData = pieData.maxOrNull()
 
-        setGenderMaxLegend(
+        setMaxLegendBold(
             spring,
             maxPieData,
             binding.txtDetailSeasonSpring,
             binding.txtDetailSeasonSpringPercent
         )
-        setGenderMaxLegend(
+        setMaxLegendBold(
             summer,
             maxPieData,
             binding.txtDetailSeasonSummer,
             binding.txtDetailSeasonSummerPercent
         )
-        setGenderMaxLegend(
+        setMaxLegendBold(
             fall,
             maxPieData,
             binding.txtDetailSeasonFall,
             binding.txtDetailSeasonFallPercent
         )
-        setGenderMaxLegend(
+        setMaxLegendBold(
             winter,
             maxPieData,
             binding.txtDetailSeasonWinter,
