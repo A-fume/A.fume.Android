@@ -196,11 +196,25 @@
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/nanummyeongjo_bold"
                     android:includeFontPadding="false"
-                    android:text="향에 대한 기록."
+                    android:text="향울 자유롭게 표현해보세요."
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/imageView19"
                     app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/nanummyeongjo"
+                    android:includeFontPadding="false"
+                    android:text="(필수 사항)"
+                    android:textColor="@color/primary_black"
+                    android:textSize="11dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView22"
+                    app:layout_constraintStart_toEndOf="@+id/textView22"
+                    app:layout_constraintTop_toTopOf="@+id/textView22" />
 
                 <EditText
                     android:id="@+id/imageView20"
@@ -213,7 +227,7 @@
                     android:layout_marginEnd="18dp"
                     android:fontFamily="@font/notosans_regular"
                     android:gravity="top"
-                    android:hint="향을 자유롭게 표현해보세요.\n\n"
+                    android:hint="@string/text_note_hint"
                     android:includeFontPadding="false"
                     android:maxLines="10"
                     android:paddingHorizontal="18dp"
@@ -244,7 +258,7 @@
                     android:layout_marginTop="26dp"
                     android:fontFamily="@font/nanummyeongjo_bold"
                     android:includeFontPadding="false"
-                    android:text="향에 대한 키워드."
+                    android:text="향을 맡았을 때 어떤 단어가 떠오르나요?"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/imageView21"
@@ -316,25 +330,13 @@
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/nanummyeongjo_bold"
                     android:includeFontPadding="false"
-                    android:text="지속력."
+                    android:text="향이 얼마나 지속되나요?"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/imageView53"
                     app:layout_constraintTop_toBottomOf="@+id/imageView53" />
 
-                <TextView
-                    android:id="@+id/textView24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:fontFamily="@font/nanummyeongjo"
-                    android:includeFontPadding="false"
-                    android:text="(필수 사항)"
-                    android:textColor="@color/primary_black"
-                    android:textSize="11dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView22"
-                    app:layout_constraintStart_toEndOf="@+id/textView22"
-                    app:layout_constraintTop_toTopOf="@+id/textView22" />
+
 
                 <ImageView
                     android:id="@+id/imageView22"
@@ -371,32 +373,32 @@
                     android:progress="@{viewModel.longevityProgress}"
                     android:progressDrawable="@color/transparent"
                     android:thumb="@color/transparent"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_note_longevity_very_weak"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView22"
-                    app:layout_constraintStart_toStartOf="@+id/imageView22"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_note_time_very_weak"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_strong"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_weak"
                     app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_very_weak" />
 
                 <TextView
                     android:id="@+id/txt_note_longevity_very_weak"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
+                    android:layout_marginStart="12dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
-                    android:text="매우\n약함"
+                    android:text="매우 약함"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
                     app:layout_constraintEnd_toStartOf="@+id/txt_note_longevity_weak"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="@+id/imageView22"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView22" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView22"
+                    app:layout_constraintVertical_chainStyle="spread" />
 
                 <TextView
                     android:id="@+id/txt_note_longevity_weak"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="약함"
@@ -404,13 +406,14 @@
                     android:textSize="14dp"
                     app:layout_constraintEnd_toStartOf="@+id/txt_note_longevity_usual"
                     app:layout_constraintStart_toEndOf="@+id/txt_note_longevity_very_weak"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView22" />
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_very_weak" />
 
                 <TextView
                     android:id="@+id/txt_note_longevity_usual"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="14dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="보통"
@@ -418,13 +421,12 @@
                     android:textSize="14dp"
                     app:layout_constraintEnd_toStartOf="@+id/txt_note_longevity_strong"
                     app:layout_constraintStart_toEndOf="@+id/txt_note_longevity_weak"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView22" />
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_weak" />
 
                 <TextView
                     android:id="@+id/txt_note_longevity_strong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="강함"
@@ -432,22 +434,87 @@
                     android:textSize="14dp"
                     app:layout_constraintEnd_toStartOf="@+id/txt_note_longevity_very_strong"
                     app:layout_constraintStart_toEndOf="@+id/txt_note_longevity_usual"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView22" />
+                    app:layout_constraintTop_toTopOf="@+id/sb_note_txt_longevity" />
 
                 <TextView
                     android:id="@+id/txt_note_longevity_very_strong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="2dp"
+                    android:layout_marginEnd="14dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
-                    android:text="매우\n강함"
+                    android:text="매우 강함"
                     android:textColor="@color/dark_gray_7d"
                     android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView22"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/txt_note_longevity_strong"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView22" />
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_strong" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_very_weak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="1시간 이내"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_weak"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_weak"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_very_weak" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_weak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="1~3시간"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_weak"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_weak"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_time_very_weak" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_usual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="3~5시간"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_usual"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_usual"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_time_weak" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_strong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="5~7시간"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_strong"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_strong"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_time_usual" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_very_strong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="7시간 이상"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_strong"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_strong"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_time_strong" />
 
                 <TextView
                     android:id="@+id/textView29"
@@ -456,7 +523,7 @@
                     android:layout_marginTop="52dp"
                     android:fontFamily="@font/nanummyeongjo_bold"
                     android:includeFontPadding="false"
-                    android:text="잔향감."
+                    android:text="잔향의 느낌이 어떤가요?"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/textView23"
@@ -564,7 +631,7 @@
                     android:layout_marginTop="27dp"
                     android:fontFamily="@font/nanummyeongjo_bold"
                     android:includeFontPadding="false"
-                    android:text="계절감"
+                    android:text="어느 계절에 뿌리고 싶나요?"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/textView29"
@@ -659,7 +726,7 @@
                     android:layout_marginTop="37dp"
                     android:fontFamily="@font/nanummyeongjo_bold"
                     android:includeFontPadding="false"
-                    android:text="성별"
+                    android:text="누가 뿌리면 좋을까요?"
                     android:textColor="@color/primary_black"
                     android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@+id/textView34"
@@ -795,7 +862,6 @@
                     app:layout_constraintBottom_toBottomOf="@+id/textView45"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textView45" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
