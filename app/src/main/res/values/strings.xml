@@ -36,6 +36,8 @@
 
     <!--perfume detail -->
     <string name="chartPercentFormat" formatted="false">%d%%</string>
+    <string name="txt_perfume_info_null">정보를 준비 중입니다.</string>
+    <string name="txt_perfume_keyword_null">향수에 딱 맞는 키워드를\n수집하고 있습니다.</string>
 
     <!--note-->
     <string name="text_note_hint">향을 맡고 어떤 생각이 떠올랐나요?\n좋은지 나쁜지, 어떤 느낌인지, 떠오른 단어 등\n자유롭게 작성해보세요.</string>

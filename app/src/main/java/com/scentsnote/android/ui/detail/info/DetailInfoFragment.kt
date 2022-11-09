@@ -1,9 +1,7 @@
 package com.scentsnote.android.ui.detail.info
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +25,7 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.scentsnote.android.util.BindingAdapter.setDetailStoryText
-import com.scentsnote.android.util.BindingAdapter.setKeywordList
+import com.scentsnote.android.util.BindingAdapter.setDetailInfoText
 
 class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 
@@ -166,19 +163,19 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         val pieData = listOf(female, male, middle)
         val maxPieData = pieData.maxOrNull()
 
-        setGenderMaxLegend(
+        setMaxLegendBold(
             female,
             maxPieData,
             binding.txtDetailGenderFemale,
             binding.txtDetailGenderFemalePercent
         )
-        setGenderMaxLegend(
+        setMaxLegendBold(
             male,
             maxPieData,
             binding.txtDetailGenderMale,
             binding.txtDetailGenderMalePercent
         )
-        setGenderMaxLegend(
+        setMaxLegendBold(
             middle,
             maxPieData,
             binding.txtDetailGenderMiddle,
@@ -188,7 +185,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         return PieDataSet(pieListData, "")
     }
 
-    private fun setGenderMaxLegend(
+    private fun setMaxLegendBold(
         data: Float,
         maxData: Float?,
         legend: TextView,
@@ -249,25 +246,25 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         val pieData = listOf(spring, summer, fall, winter)
         val maxPieData = pieData.maxOrNull()
 
-        setGenderMaxLegend(
+        setMaxLegendBold(
             spring,
             maxPieData,
             binding.txtDetailSeasonSpring,
             binding.txtDetailSeasonSpringPercent
         )
-        setGenderMaxLegend(
+        setMaxLegendBold(
             summer,
             maxPieData,
             binding.txtDetailSeasonSummer,
             binding.txtDetailSeasonSummerPercent
         )
-        setGenderMaxLegend(
+        setMaxLegendBold(
             fall,
             maxPieData,
             binding.txtDetailSeasonFall,
             binding.txtDetailSeasonFallPercent
         )
-        setGenderMaxLegend(
+        setMaxLegendBold(
             winter,
             maxPieData,
             binding.txtDetailSeasonWinter,
@@ -329,7 +326,8 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         detailViewModel.perfumeDetailData.observe(requireActivity(), Observer {
             binding.run {
                 data = it
-                txtDetailsInfoStory.setDetailStoryText(it.story)
+                txtDetailsInfoStory.setDetailInfoText(it.story)
+                txtCategory.setDetailInfoText(it.abundanceRate)
                 setVisibilityMore()
 
                 initLastingPowerBarChart(
