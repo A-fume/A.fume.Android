@@ -117,4 +117,7 @@ dependencies {
     // Firebase SDK
     implementation platform(Dependencies.firebaseBom)
     implementation Dependencies.firebaseKtx
+
+    // EncryptedSharedPreferences
+    implementation Dependencies.encryptedSharedPreferences
 }
