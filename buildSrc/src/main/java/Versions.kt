@@ -70,4 +70,7 @@ object Versions {
     // firebase
     const val gms = "4.3.13"
     const val firebase = "30.4.1"
+
+    // encryptedSharedPreferences
+    const val encryptedSharedPreferences = "1.1.0-alpha03"
 }
