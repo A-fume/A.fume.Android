@@ -50,6 +50,16 @@ class PerfumeDetailViewModel: ViewModel() {
     val isValidPriceData : LiveData<Boolean>
         get() = _isValidPriceData
 
+    // season 영역
+    private val _isValidSeasonChart = MutableLiveData<Boolean>(true)
+    val isValidSeasonChart : LiveData<Boolean>
+        get() = _isValidSeasonChart
+
+    // gender 영역
+    private val _isValidGenderChart = MutableLiveData<Boolean>(true)
+    val isValidGenderChart : LiveData<Boolean>
+        get() = _isValidGenderChart
+
     fun getPerfumeInfo(perfumeIdx: Int) {
         compositeDisposable.add(
             detailRepo.getPerfumeDetail(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
@@ -75,6 +85,10 @@ class PerfumeDetailViewModel: ViewModel() {
         _noteDataType.value = data.noteType == 1
 
         if(data.noteType == 0 && data.ingredients.top.isEmpty() && data.ingredients.middle.isEmpty() && data.ingredients.base.isEmpty()) _isValidNoteData.value = false
+
+        if(data.seasonal.spring == 0 && data.seasonal.summer == 0 && data.seasonal.fall == 0 && data.seasonal.winter == 0) _isValidSeasonChart.value = false
+
+        if(data.gender.female == 0 && data.gender.female == 0 && data.gender.female == 0) _isValidGenderChart.value = false
     }
 
     @SuppressLint("LongLogTag")
