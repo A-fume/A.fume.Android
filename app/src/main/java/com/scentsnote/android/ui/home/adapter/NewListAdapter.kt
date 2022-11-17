@@ -14,6 +14,7 @@ import com.scentsnote.android.data.vo.response.HomePerfumeItem
 import com.scentsnote.android.databinding.RvItemHomeNewBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailActivity
 import com.scentsnote.android.util.createDialog
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 
 class NewListAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<NewListAdapter.NewListViewHolder>() {
     var data = mutableListOf<HomePerfumeItem>()
@@ -46,11 +47,11 @@ class NewListAdapter(private val context: Context, private val fragmentManager: 
         fun bind(item: HomePerfumeItem){
             binding.item = item
 
-            binding.root.setOnClickListener {
+            binding.root.setOnSafeClickListener {
                 onClickPerfume(it, item.perfumeIdx)
             }
 
-            binding.btnLike.setOnClickListener {
+            binding.btnLike.setOnSafeClickListener {
                 if (!ScentsNoteApplication.prefManager.haveToken()) context.createDialog(fragmentManager, "login")
                 else {
                     clickBtnLike(item.perfumeIdx)

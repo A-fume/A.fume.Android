@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.response.KeywordInfo
 import com.scentsnote.android.databinding.RvItemFilterFlexboxBinding
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 
 class NoteKeywordAdapter(private val type : Int, internal val select:(KeywordInfo, Boolean)->Unit) :
     ListAdapter<KeywordInfo, NoteKeywordAdapter.NoteFlexboxRecyclerViewHolder>(
@@ -77,7 +78,7 @@ class NoteKeywordAdapter(private val type : Int, internal val select:(KeywordInf
             }
             when(type){
                 DIALOG_TYPE -> {
-                    binding.root.setOnClickListener {
+                    binding.root.setOnSafeClickListener {
                         if (!data.checked) {
                             binding.rvItemTxtFlexbox.apply {
                                 select(data,true)

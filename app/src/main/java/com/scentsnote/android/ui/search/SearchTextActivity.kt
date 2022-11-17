@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySearchTextBinding
 import com.scentsnote.android.ui.MainActivity
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 import com.scentsnote.android.util.view.BaseActivity
 
 class SearchTextActivity : BaseActivity<ActivitySearchTextBinding>(R.layout.activity_search_text)  {
@@ -16,7 +17,7 @@ class SearchTextActivity : BaseActivity<ActivitySearchTextBinding>(R.layout.acti
     }
 
     private fun clickSearch(){
-        binding.btnSearch.setOnClickListener {
+        binding.btnSearch.setOnSafeClickListener {
             val intent= Intent(this, MainActivity::class.java)
             intent.putExtra("flag",3)
             intent.putExtra("searchText",binding.edtSearch.text.toString())
@@ -24,7 +25,7 @@ class SearchTextActivity : BaseActivity<ActivitySearchTextBinding>(R.layout.acti
         }
     }
     private fun clickBack(){
-        binding.btnBack.setOnClickListener {
+        binding.btnBack.setOnSafeClickListener {
             finish()
         }
     }

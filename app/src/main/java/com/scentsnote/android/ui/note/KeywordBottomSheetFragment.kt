@@ -13,6 +13,7 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 
 class KeywordBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentKeywordBottomSheetBinding
@@ -27,7 +28,7 @@ class KeywordBottomSheetFragment : BottomSheetDialogFragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        binding.btnNoteKeywordCancel.setOnClickListener {
+        binding.btnNoteKeywordCancel.setOnSafeClickListener {
             dismiss()
         }
 

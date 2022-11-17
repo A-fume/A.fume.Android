@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.scentsnote.android.util.databinding.BindingAdapter.setNoteBtnText
 import com.scentsnote.android.util.extension.TabSelectedListener
 import com.scentsnote.android.util.extension.changeTabsFont
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 import com.scentsnote.android.util.view.BaseActivity
 
 class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layout.activity_perfume_detail) {
@@ -112,7 +113,7 @@ class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layou
     }
 
     private fun setClick(){
-        binding.actPerfumeDetailClLike.setOnClickListener{
+        binding.actPerfumeDetailClLike.setOnSafeClickListener{
             if(ScentsNoteApplication.prefManager.haveToken()){
                 if(isLiked) {
                     isLiked = false
@@ -126,7 +127,7 @@ class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layou
             }
         }
 
-        binding.actPerfumeDetailIvWrite.setOnClickListener {
+        binding.actPerfumeDetailIvWrite.setOnSafeClickListener {
             if(ScentsNoteApplication.prefManager.haveToken()){
                 val intent = Intent(this@PerfumeDetailActivity, NoteActivity::class.java)
 

@@ -11,6 +11,7 @@ import com.scentsnote.android.data.vo.response.PerfumeDetailWithReviews
 import com.scentsnote.android.databinding.RvItemDetailNoteBinding
 import com.scentsnote.android.databinding.RvItemDetailNoteReportBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 import com.scentsnote.android.util.view.CommonDialog
 import com.scentsnote.android.util.view.ReportDialog
 
@@ -81,14 +82,14 @@ class DetailNoteAdapter(private val context: Context, private val vm: PerfumeDet
         fun bind(item : PerfumeDetailWithReviews){
             binding.item = item
 
-            binding.btnLike.setOnClickListener {
+            binding.btnLike.setOnSafeClickListener {
                 if (!ScentsNoteApplication.prefManager.haveToken()) createLoginDialog()
                 else {
                     clickBtnLike(item.reviewIdx)
                 }
             }
 
-            binding.txtRvDetailNoteReport.setOnClickListener {
+            binding.txtRvDetailNoteReport.setOnSafeClickListener {
                 if (!ScentsNoteApplication.prefManager.haveToken()) createLoginDialog()
                 else {
                     createReportDialog(item.reviewIdx)

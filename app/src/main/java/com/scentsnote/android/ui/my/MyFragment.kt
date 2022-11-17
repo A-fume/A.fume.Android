@@ -21,6 +21,9 @@ import com.scentsnote.android.ui.setting.EditMyInfoActivity
 import com.scentsnote.android.ui.setting.EditPasswordActivity
 import com.scentsnote.android.ui.signin.SignHomeActivity
 import com.scentsnote.android.util.*
+import com.scentsnote.android.util.extension.TabSelectedListener
+import com.scentsnote.android.util.extension.changeTabsFont
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 
 class MyFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
@@ -102,7 +105,7 @@ class MyFragment : Fragment() {
     }
 
     private fun setNavigation() {
-        binding.toolbarMypage.toolbarBtn.setOnClickListener {
+        binding.toolbarMypage.toolbarBtn.setOnSafeClickListener {
             binding.drawerLayout.openDrawer(binding.myNavigationDrawer)
         }
 
@@ -129,7 +132,7 @@ class MyFragment : Fragment() {
 
     private fun clickBtnCancel(){
         binding.myNavigationDrawer.getHeaderView(0).findViewById<ImageView>(R.id.btn_cancle)
-            .setOnClickListener {
+            .setOnSafeClickListener {
                 binding.drawerLayout.closeDrawers()
             }
 

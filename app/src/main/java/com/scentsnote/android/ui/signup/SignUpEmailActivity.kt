@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySignUpEmailBinding
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 import com.scentsnote.android.util.view.BaseActivity
 import com.scentsnote.android.util.setKeyboard
 import com.scentsnote.android.util.startActivity
@@ -27,7 +28,7 @@ class SignUpEmailActivity : BaseActivity<ActivitySignUpEmailBinding>(R.layout.ac
 //        nickAnimation()
         initObserve()
 
-        binding.txtPrivacyPolicy.setOnClickListener {
+        binding.txtPrivacyPolicy.setOnSafeClickListener {
             val intent = Intent(this, PrivacyPolicyActivity::class.java)
             startActivity(intent)
         }

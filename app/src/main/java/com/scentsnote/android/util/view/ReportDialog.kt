@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.DialogReviewReportBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 import com.scentsnote.android.util.setDrawable
 import com.scentsnote.android.util.setHeight
 
@@ -54,12 +55,12 @@ class ReportDialog(val vm : PerfumeDetailViewModel) : DialogFragment(), View.OnC
             }
         }
 
-        binding.btnReportDialogYes.setOnClickListener {
+        binding.btnReportDialogYes.setOnSafeClickListener {
             dismiss()
             listener?.onPositiveClicked()
         }
 
-        binding.btnReportDialogNo.setOnClickListener {
+        binding.btnReportDialogNo.setOnSafeClickListener {
             dismiss()
         }
     }

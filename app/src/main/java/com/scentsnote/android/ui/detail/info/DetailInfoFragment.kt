@@ -25,7 +25,8 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.scentsnote.android.util.BindingAdapter.setDetailInfoText
+import com.scentsnote.android.util.databinding.BindingAdapter.setDetailInfoText
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 
 class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 
@@ -371,7 +372,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         if (lineCount > 3) {
             binding.txtDetailsMore.visibility = View.VISIBLE
 
-            binding.txtDetailsMore.setOnClickListener {
+            binding.txtDetailsMore.setOnSafeClickListener {
                 if (binding.txtDetailsInfoStory.maxLines > 3) {
                     binding.txtDetailsInfoStory.maxLines = 3
                     binding.clDetailsMore.background = ContextCompat.getDrawable(

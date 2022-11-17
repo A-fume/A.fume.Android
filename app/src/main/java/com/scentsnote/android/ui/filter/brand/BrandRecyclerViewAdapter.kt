@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.data.vo.response.BrandInfo
 import com.scentsnote.android.databinding.RvItemFilterBrandBinding
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 
 class BrandRecyclerViewAdapter(
     val setSelectedBrand: (BrandInfo, Boolean) -> Unit,
@@ -50,7 +51,7 @@ class BrandRecyclerViewAdapter(
 
         fun bind(info: BrandInfo) {
             binding.item = info
-            binding.root.setOnClickListener {
+            binding.root.setOnSafeClickListener {
                 if(info.clickable){
                     info.check = !info.check
                     when (info.check) {

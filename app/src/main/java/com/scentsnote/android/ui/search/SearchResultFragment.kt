@@ -16,6 +16,7 @@ import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.FilterActivity
 import com.scentsnote.android.util.BaseWebViewActivity
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 
 
 class SearchResultFragment : Fragment() {
@@ -36,7 +37,7 @@ class SearchResultFragment : Fragment() {
         initRvFilterList()
         initToolbar()
 
-        binding.fabFilter.setOnClickListener { context?.let { it1 -> goToSelectFilters(it1) } }
+        binding.fabFilter.setOnSafeClickListener { context?.let { it1 -> goToSelectFilters(it1) } }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.postSearchResultPerfume()
@@ -65,13 +66,13 @@ class SearchResultFragment : Fragment() {
     }
 
     fun initToolbar() {
-        binding.toolbarBtnSearch.setOnClickListener {
+        binding.toolbarBtnSearch.setOnSafeClickListener {
             val intent = Intent(context, SearchTextActivity::class.java)
             startActivity(intent)
         }
 
         binding.toolbarSearchTxt.text = "검색 결과"
-        binding.toolbarBtnBack.setOnClickListener {
+        binding.toolbarBtnBack.setOnSafeClickListener {
             findNavController().popBackStack()
         }
     }

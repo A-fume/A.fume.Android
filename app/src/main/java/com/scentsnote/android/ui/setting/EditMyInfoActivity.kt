@@ -12,9 +12,9 @@ import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityMyInfoEditBinding
 import com.scentsnote.android.util.BaseWebViewActivity
-import com.scentsnote.android.util.CommonDialog
-import com.scentsnote.android.util.YearPickerDialog
 import com.scentsnote.android.util.toast
+import com.scentsnote.android.util.view.CommonDialog
+import com.scentsnote.android.util.view.YearPickerDialog
 
 class EditMyInfoActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMyInfoEditBinding

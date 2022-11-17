@@ -10,6 +10,7 @@ import com.scentsnote.android.ui.filter.ScentsNoteViewPagerAdapter
 import com.scentsnote.android.util.*
 import com.scentsnote.android.util.extension.TabSelectedListener
 import com.scentsnote.android.util.extension.changeTabsFont
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 import com.scentsnote.android.util.view.BaseActivity
 import java.util.*
 
@@ -25,7 +26,7 @@ class SurveyActivity : BaseActivity<ActivitySurveyBinding>(R.layout.activity_sur
         overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
 
         initTabWithVp()
-        binding.toolbarSurvey.toolbarBtn.setOnClickListener {
+        binding.toolbarSurvey.toolbarBtn.setOnSafeClickListener {
             backClickListener()
         }
         clickBtnComplete()
@@ -51,7 +52,7 @@ class SurveyActivity : BaseActivity<ActivitySurveyBinding>(R.layout.activity_sur
     }
 
     private fun clickBtnComplete(){
-        binding.btnSurveyApply.setOnClickListener {
+        binding.btnSurveyApply.setOnSafeClickListener {
             binding.vpSurvey.apply {
                 when (currentItem) {
                     0 -> currentItem = 1

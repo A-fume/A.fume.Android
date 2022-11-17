@@ -18,6 +18,7 @@ import com.google.android.material.badge.BadgeDrawable
 import com.scentsnote.android.util.view.BaseActivity
 import com.scentsnote.android.util.extension.TabSelectedListener
 import com.scentsnote.android.util.extension.changeTabsFont
+import com.scentsnote.android.util.extension.setOnSafeClickListener
 
 class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter) {
     private lateinit var filterViewPagerAdapter: ScentsNoteViewPagerAdapter
@@ -45,10 +46,10 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
 
         observeViewModel()
 
-        binding.btnFilterApply.setOnClickListener {
+        binding.btnFilterApply.setOnSafeClickListener {
             sendFilter()
         }
-        binding.toolbarFilter.toolbarBtn.setOnClickListener {
+        binding.toolbarFilter.toolbarBtn.setOnSafeClickListener {
             finish()
             overridePendingTransition(R.anim.slide_down, R.anim.slide_down)
         }
