@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.FilterActivity
+import com.scentsnote.android.util.BaseWebViewActivity
 
 
 class SearchResultFragment : Fragment() {
@@ -59,6 +60,7 @@ class SearchResultFragment : Fragment() {
             SingleViewModelFactory.getInstance()
         )[SearchViewModel::class.java]
         binding.viewModel = viewModel
+        binding.fragment = this
         return binding.root
     }
 
@@ -114,6 +116,12 @@ class SearchResultFragment : Fragment() {
                 viewModel.postSearchResultPerfume()
             }
         })
+    }
+
+    fun onClickTipOffBtn(view: View){
+        val intent = Intent(requireContext(), BaseWebViewActivity::class.java)
+        intent.putExtra("url", "tipOff")
+        startActivity(intent)
     }
 
 

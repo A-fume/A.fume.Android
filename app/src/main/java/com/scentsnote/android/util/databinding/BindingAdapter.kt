@@ -217,14 +217,14 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("setDetailStoryText")
-    fun TextView.setDetailStoryText(story: String){
-        if(story.isNotEmpty()){
-            this.text = story
+    @BindingAdapter("setDetailInfoText")
+    fun TextView.setDetailInfoText(info: String){
+        if(info.isNotEmpty()){
+            this.text = info
             setTextColor(ContextCompat.getColor(this.context, R.color.black_2a))
         }else{
-            this.text = "정보 없음"
-            setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+            this.text = "정보를 준비 중입니다."
+            setTextColor(ContextCompat.getColor(this.context, R.color.gray_b9))
         }
     }
 }

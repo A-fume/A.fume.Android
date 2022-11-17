@@ -1,26 +1,30 @@
 package com.scentsnote.android.ui.setting
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityMyInfoEditBinding
-import com.scentsnote.android.util.view.BaseActivity
-import com.scentsnote.android.util.view.CommonDialog
+import com.scentsnote.android.util.BaseWebViewActivity
+import com.scentsnote.android.util.CommonDialog
+import com.scentsnote.android.util.YearPickerDialog
 import com.scentsnote.android.util.toast
-import com.scentsnote.android.util.view.YearPickerDialog
 
-class EditMyInfoActivity : BaseActivity<ActivityMyInfoEditBinding>(R.layout.activity_my_info_edit) {
+class EditMyInfoActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityMyInfoEditBinding
     private val editViewModel : EditMyInfoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.apply {
-            viewModel = editViewModel
-        }
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_info_edit)
+        binding.lifecycleOwner = this
+        binding.viewModel = editViewModel
 
         editViewModel.checkMyInfo()
         setCompleteBtn()
@@ -53,6 +57,12 @@ class EditMyInfoActivity : BaseActivity<ActivityMyInfoEditBinding>(R.layout.acti
         editViewModel.putMyInfo()
 
         finish()
+    }
+
+    fun onClickWithdrawalBtn(view: View){
+        val intent = Intent(this, BaseWebViewActivity::class.java)
+        intent.putExtra("url", "withdrawal")
+        startActivity(intent)
     }
 
     override fun onBackPressed() {

@@ -84,4 +84,12 @@ object Dependencies {
     /* StickyScrollView : https://github.com/amarjain07/StickyScrollView */
     const val stickyScrollView =
         "com.github.amarjain07:StickyScrollView:${Versions.stickyScrollView}"
+
+    /* Firebase SDK */
+    const val gms = "com.google.gms:google-services:${Versions.gms}"
+    const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebase}"
+    const val firebaseKtx = "com.google.firebase:firebase-analytics-ktx"
+
+    /* EncryptedSharedPreferences */
+    const val encryptedSharedPreferences = "androidx.security:security-crypto-ktx:${Versions.encryptedSharedPreferences}"
 }

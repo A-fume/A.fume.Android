@@ -3,15 +3,25 @@ package com.scentsnote.android.data.local.preference
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.annotation.CallSuper
-import androidx.core.content.edit
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import com.scentsnote.android.ScentsNoteApplication
 
-class SharedPreferencesManager (context: Context){
-    private val sharedPreferences : SharedPreferences = context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
+class SharedPreferencesManager(context: Context){
+
+    val masterKey = MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
+
+    var sharedPreferences: SharedPreferences = EncryptedSharedPreferences.create(
+        context,
+        "secret_shared_prefs",
+        masterKey,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
 
     var userIdx : Int
         get() = sharedPreferences.getInt(USER_IDX, 0)
-        set(value) = sharedPreferences.edit { putInt(USER_IDX, value) }
+        set(value) = sharedPreferences.putInt(USER_IDX, value)
 
     var userEmail: String
         get() = sharedPreferences.getString(USER_EMAIL)
@@ -31,7 +41,7 @@ class SharedPreferencesManager (context: Context){
 
     var userAge: Int
         get() = sharedPreferences.getInt(USER_AGE, 0)
-        set(value) = sharedPreferences.edit { putInt(USER_AGE, value) }
+        set(value) = sharedPreferences.putInt(USER_AGE, value)
 
     var accessToken: String
         get() = sharedPreferences.getString(AUTH_TOKEN)
@@ -43,7 +53,7 @@ class SharedPreferencesManager (context: Context){
 
     var userSurvey : Boolean
         get() = sharedPreferences.getBoolean(USER_SURVEY, false)
-        set(value) = sharedPreferences.edit { putBoolean(USER_SURVEY, value) }
+        set(value) = sharedPreferences.putBoolean(USER_SURVEY, value)
 
     @CallSuper
     fun clear() {
@@ -81,5 +91,11 @@ class SharedPreferencesManager (context: Context){
 
         private fun SharedPreferences.putString(key: String, value: String) =
             edit().putString(key, value).apply()
+
+        private fun SharedPreferences.putInt(key: String, value: Int) =
+            edit().putInt(key, value).apply()
+
+        private fun SharedPreferences.putBoolean(key: String, value: Boolean) =
+            edit().putBoolean(key, value).apply()
     }
 }

@@ -20,10 +20,7 @@ import com.scentsnote.android.ui.my.wishlist.WishListFragment
 import com.scentsnote.android.ui.setting.EditMyInfoActivity
 import com.scentsnote.android.ui.setting.EditPasswordActivity
 import com.scentsnote.android.ui.signin.SignHomeActivity
-import com.scentsnote.android.util.extension.TabSelectedListener
-import com.scentsnote.android.util.extension.changeTabsFont
-import com.scentsnote.android.util.refreshFragment
-import com.scentsnote.android.util.toastLong
+import com.scentsnote.android.util.*
 
 class MyFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding
@@ -119,9 +116,9 @@ class MyFragment : Fragment() {
         else {
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_my_info)
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_password)
+            binding.myNavigationDrawer.menu.removeGroup(R.id.group_tip_off)
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_feedback)
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_logout)
-            binding.myNavigationDrawer.menu.removeGroup(R.id.group_withdrawal)
             binding.myNavigationDrawer.menu.removeGroup(R.id.group_divider)
 
             binding.myNavigationDrawer.inflateMenu(R.menu.navigation_drawer_login)
@@ -154,11 +151,11 @@ class MyFragment : Fragment() {
                     binding.drawerLayout.closeDrawers()
                 }
                 else->{
-                    val intent = Intent(requireContext(), MyInquiryActivity::class.java)
+                    val intent = Intent(requireContext(), BaseWebViewActivity::class.java)
                     if(menuItem.itemId == R.id.feedback){
                         intent.putExtra("url", "feedback")
                     }else{
-                        intent.putExtra("url", "withdrawal")
+                        intent.putExtra("url", "tipOff")
                     }
                     startActivity(intent)
                 }

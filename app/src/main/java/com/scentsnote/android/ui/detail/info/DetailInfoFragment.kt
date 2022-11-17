@@ -1,9 +1,15 @@
 package com.scentsnote.android.ui.detail.info
 
 import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
@@ -19,41 +25,39 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.scentsnote.android.util.view.BaseFragment
-import com.scentsnote.android.util.databinding.BindingAdapter.setDetailStoryText
+import com.scentsnote.android.util.BindingAdapter.setDetailInfoText
 
-class DetailInfoFragment(val perfumeIdx: Int) : BaseFragment<FragmentDetailInfoBinding>(R.layout.fragment_detail_info){
+class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 
+    lateinit var binding: FragmentDetailInfoBinding
     lateinit var rvKeywordAdapter: DetailKeywordAdapter
     private val rvPriceAdapter = PriceRvAdapter()
     private lateinit var rvSimilarAdapter: SimilarListAdapter
     lateinit var chartLastingPowerAdapter: HorizontalBarChartAdapter
     private val detailViewModel: PerfumeDetailViewModel by activityViewModels()
 
-    override fun onBindData() {
-        super.onBindData()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_info, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = detailViewModel
 
-        binding.apply {
-            viewModel = detailViewModel
-        }
+        return binding.root
     }
 
-    override fun initView() {
-        super.initView()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         detailViewModel.getPerfumeInfo(perfumeIdx)
         detailViewModel.getSimilarPerfumeList(perfumeIdx)
+        observe()
 
         initRv(context)
-        initLastingPowerBarChart(0,0,0,0,0)
-        initsillageBarChart(0,0,0)
+        initLastingPowerBarChart(0, 0, 0, 0, 0)
+        initsillageBarChart(0, 0, 0)
         initRvSimilar(requireContext())
-    }
-
-    override fun initObserver() {
-        super.initObserver()
-
-        observe()
     }
 
     private fun initRv(ctx: Context?) {
@@ -76,15 +80,30 @@ class DetailInfoFragment(val perfumeIdx: Int) : BaseFragment<FragmentDetailInfoB
     }
 
     private fun initRvSimilar(ctx: Context) {
-        rvSimilarAdapter = SimilarListAdapter(requireContext(),parentFragmentManager){ idx -> detailViewModel.postSimilarPerfumeLike(0,idx)}
+        rvSimilarAdapter = SimilarListAdapter(
+            requireContext(),
+            parentFragmentManager
+        ) { idx -> detailViewModel.postSimilarPerfumeLike(0, idx) }
         binding.rvDetailsInfoSimilar.adapter = rvSimilarAdapter
         rvSimilarAdapter.notifyDataSetChanged()
     }
 
-    private fun initLastingPowerBarChart(veryWeak: Int, weak: Int, medium: Int, strong: Int, veryStrong: Int) {
+    private fun initLastingPowerBarChart(
+        veryWeak: Int,
+        weak: Int,
+        medium: Int,
+        strong: Int,
+        veryStrong: Int
+    ) {
         chartLastingPowerAdapter = HorizontalBarChartAdapter(0, context)
         binding.chartBarDetailsInfoLastingPower.adapter = chartLastingPowerAdapter
-        chartLastingPowerAdapter.chartData = listOf(veryWeak.toFloat(), weak.toFloat(), medium.toFloat(), strong.toFloat(), veryStrong.toFloat())
+        chartLastingPowerAdapter.chartData = listOf(
+            veryWeak.toFloat(),
+            weak.toFloat(),
+            medium.toFloat(),
+            strong.toFloat(),
+            veryStrong.toFloat()
+        )
         chartLastingPowerAdapter.notifyDataSetChanged()
     }
 
@@ -135,8 +154,8 @@ class DetailInfoFragment(val perfumeIdx: Int) : BaseFragment<FragmentDetailInfoB
         )
 
         val iter = pieListData.iterator()
-        while(iter.hasNext()) {
-            if(iter.next().value == 0f){
+        while (iter.hasNext()) {
+            if (iter.next().value == 0f) {
                 iter.remove()
             }
         }
@@ -144,15 +163,35 @@ class DetailInfoFragment(val perfumeIdx: Int) : BaseFragment<FragmentDetailInfoB
         val pieData = listOf(female, male, middle)
         val maxPieData = pieData.maxOrNull()
 
-        setGenderMaxLegend(female,maxPieData,binding.txtDetailGenderFemale,binding.txtDetailGenderFemalePercent)
-        setGenderMaxLegend(male,maxPieData,binding.txtDetailGenderMale,binding.txtDetailGenderMalePercent)
-        setGenderMaxLegend(middle,maxPieData,binding.txtDetailGenderMiddle,binding.txtDetailGenderMiddlePercent)
+        setMaxLegendBold(
+            female,
+            maxPieData,
+            binding.txtDetailGenderFemale,
+            binding.txtDetailGenderFemalePercent
+        )
+        setMaxLegendBold(
+            male,
+            maxPieData,
+            binding.txtDetailGenderMale,
+            binding.txtDetailGenderMalePercent
+        )
+        setMaxLegendBold(
+            middle,
+            maxPieData,
+            binding.txtDetailGenderMiddle,
+            binding.txtDetailGenderMiddlePercent
+        )
 
         return PieDataSet(pieListData, "")
     }
 
-    private fun setGenderMaxLegend(data: Float, maxData: Float?, legend: TextView, percent: TextView){
-        if(data == maxData){
+    private fun setMaxLegendBold(
+        data: Float,
+        maxData: Float?,
+        legend: TextView,
+        percent: TextView
+    ) {
+        if (data == maxData) {
             setBoldLegend(legend)
             setBoldLegend(percent)
         }
@@ -183,7 +222,12 @@ class DetailInfoFragment(val perfumeIdx: Int) : BaseFragment<FragmentDetailInfoB
         setPieLegend(binding.chartPieDetailsInfoSeason.legend)
     }
 
-    private fun setSeasonPieData(spring: Float, summer: Float, fall: Float, winter: Float): PieDataSet {
+    private fun setSeasonPieData(
+        spring: Float,
+        summer: Float,
+        fall: Float,
+        winter: Float
+    ): PieDataSet {
 
         val pieListData = mutableListOf(
             PieEntry(spring, "봄"),
@@ -193,24 +237,44 @@ class DetailInfoFragment(val perfumeIdx: Int) : BaseFragment<FragmentDetailInfoB
         )
 
         val iter = pieListData.iterator()
-        while(iter.hasNext()) {
-            if(iter.next().value == 0f){
+        while (iter.hasNext()) {
+            if (iter.next().value == 0f) {
                 iter.remove()
             }
         }
 
-        val pieData = listOf(spring,summer,fall,winter)
+        val pieData = listOf(spring, summer, fall, winter)
         val maxPieData = pieData.maxOrNull()
 
-        setGenderMaxLegend(spring,maxPieData,binding.txtDetailSeasonSpring,binding.txtDetailSeasonSpringPercent)
-        setGenderMaxLegend(summer,maxPieData,binding.txtDetailSeasonSummer,binding.txtDetailSeasonSummerPercent)
-        setGenderMaxLegend(fall,maxPieData,binding.txtDetailSeasonFall,binding.txtDetailSeasonFallPercent)
-        setGenderMaxLegend(winter,maxPieData,binding.txtDetailSeasonWinter,binding.txtDetailSeasonWinterPercent)
+        setMaxLegendBold(
+            spring,
+            maxPieData,
+            binding.txtDetailSeasonSpring,
+            binding.txtDetailSeasonSpringPercent
+        )
+        setMaxLegendBold(
+            summer,
+            maxPieData,
+            binding.txtDetailSeasonSummer,
+            binding.txtDetailSeasonSummerPercent
+        )
+        setMaxLegendBold(
+            fall,
+            maxPieData,
+            binding.txtDetailSeasonFall,
+            binding.txtDetailSeasonFallPercent
+        )
+        setMaxLegendBold(
+            winter,
+            maxPieData,
+            binding.txtDetailSeasonWinter,
+            binding.txtDetailSeasonWinterPercent
+        )
 
         return PieDataSet(pieListData, "")
     }
 
-    private fun setPieChart(pieChart: PieChart, pieData: PieData){
+    private fun setPieChart(pieChart: PieChart, pieData: PieData) {
         pieChart.apply {
 //            setEntryLabelColor(ContextCompat.getColor(requireContext(),R.color.dark_gray_7d))
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -234,7 +298,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : BaseFragment<FragmentDetailInfoB
         }
     }
 
-    private fun setPieLegend(pieLegend: Legend){
+    private fun setPieLegend(pieLegend: Legend) {
         pieLegend.isEnabled = false
         pieLegend.apply {
 //            yOffset=10f
@@ -253,20 +317,42 @@ class DetailInfoFragment(val perfumeIdx: Int) : BaseFragment<FragmentDetailInfoB
         }
     }
 
-    private fun setBoldLegend(legend: TextView){
+    private fun setBoldLegend(legend: TextView) {
         legend.setTextColor(ResourcesCompat.getColor(this.resources, R.color.primary_black, null))
         legend.typeface = ResourcesCompat.getFont(requireContext(), R.font.notosans_bold)
     }
 
-    private fun observe(){
+    private fun observe() {
         detailViewModel.perfumeDetailData.observe(requireActivity(), Observer {
             binding.run {
                 data = it
-                txtDetailsInfoStory.setDetailStoryText(it.story)
-                initLastingPowerBarChart(it.longevity.veryWeak, it.longevity.weak, it.longevity.medium, it.longevity.strong, it.longevity.veryStrong)
+                txtDetailsInfoStory.setDetailInfoText(it.story)
+                txtCategory.setDetailInfoText(it.abundanceRate)
+                setVisibilityMore()
+
+                initLastingPowerBarChart(
+                    it.longevity.veryWeak,
+                    it.longevity.weak,
+                    it.longevity.medium,
+                    it.longevity.strong,
+                    it.longevity.veryStrong
+                )
                 initsillageBarChart(it.sillage.light, it.sillage.medium, it.sillage.heavy)
-                drawGenderPieChart(setGenderPieData(it.gender.female.toFloat(), it.gender.male.toFloat(), it.gender.neutral.toFloat()))
-                drawSeasonPieChart(setSeasonPieData(it.seasonal.spring.toFloat(), it.seasonal.summer.toFloat(), it.seasonal.fall.toFloat(), it.seasonal.winter.toFloat()))
+                drawGenderPieChart(
+                    setGenderPieData(
+                        it.gender.female.toFloat(),
+                        it.gender.male.toFloat(),
+                        it.gender.neutral.toFloat()
+                    )
+                )
+                drawSeasonPieChart(
+                    setSeasonPieData(
+                        it.seasonal.spring.toFloat(),
+                        it.seasonal.summer.toFloat(),
+                        it.seasonal.fall.toFloat(),
+                        it.seasonal.winter.toFloat()
+                    )
+                )
             }
 
             rvKeywordAdapter.run {
@@ -278,5 +364,43 @@ class DetailInfoFragment(val perfumeIdx: Int) : BaseFragment<FragmentDetailInfoB
                 notifyDataSetChanged()
             }
         })
+    }
+
+    private fun setVisibilityMore() {
+        val lineCount = binding.txtDetailsInfoStory.layout.lineCount
+        if (lineCount > 3) {
+            binding.txtDetailsMore.visibility = View.VISIBLE
+
+            binding.txtDetailsMore.setOnClickListener {
+                if (binding.txtDetailsInfoStory.maxLines > 3) {
+                    binding.txtDetailsInfoStory.maxLines = 3
+                    binding.clDetailsMore.background = ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.background_btn_details_more
+                    )
+                    binding.txtDetailsMore.text = "더보기"
+                    binding.txtDetailsMore.setCompoundDrawablesWithIntrinsicBounds(
+                        null,
+                        null,
+                        ContextCompat.getDrawable(requireContext(), R.drawable.icon_btn_down),
+                        null
+                    )
+                } else {
+                    binding.txtDetailsInfoStory.maxLines = Int.MAX_VALUE
+                    binding.clDetailsMore.background =
+                        ContextCompat.getDrawable(requireContext(), R.color.transparent)
+                    binding.txtDetailsMore.text = "접기"
+                    binding.txtDetailsMore.setCompoundDrawablesWithIntrinsicBounds(
+                        null,
+                        null,
+                        ContextCompat.getDrawable(requireContext(), R.drawable.icon_btn_up),
+                        null
+                    )
+                }
+            }
+        } else {
+            binding.txtDetailsInfoStory.setPadding(0, 0, 0, 0)
+        }
+
     }
 }

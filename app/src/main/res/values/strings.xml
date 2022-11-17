@@ -13,13 +13,21 @@
     <string name="dialog_survey">나에게 꼭 맞는 향수를 추천받고 싶다면\n설문을 완료해주세요.\n그래도 설문을 종료하시겠습니까?</string>
     <string name="dialog_app_update">더욱 좋아진 서비스를 사용하시기 위해서\n새로운 버전으로 업데이트가 필요합니다.</string>
     <string name="do_login">로그인 하기</string>
+    
+    <!--new perfume-->
+    <string name="txt_want_perfume_null">원하는 향수가 없으신가요?</string>
+    <string name="txt_perfume_update_day">매주 수요일 업데이트</string>
+
+    <!--filter - brand-->
+    <string name="txt_find_brand_null">찾는 브랜드가 없으신가요?</string>
 
     <!--my - navigation drawer-->
     <string name="go_to_login">로그인 후 사용해주세요</string>
     <string name="edit_my_info">내 정보 수정</string>
     <string name="edit_password">비밀번호 변경</string>
-    <string name="logout">로그아웃</string>
+    <string name="tip_off">향수 및 브랜드 제보하기</string>
     <string name="feedback">문의하기</string>
+    <string name="logout">로그아웃</string>
     <string name="withdrawal">회원 탈퇴</string>
     <string name="setting">설정</string>
 
@@ -28,6 +36,11 @@
 
     <!--perfume detail -->
     <string name="chartPercentFormat" formatted="false">%d%%</string>
+    <string name="txt_perfume_info_null">정보를 준비 중입니다.</string>
+    <string name="txt_perfume_keyword_null">향수에 딱 맞는 키워드를\n수집하고 있습니다.</string>
+
+    <!--note-->
+    <string name="text_note_hint">향을 맡고 어떤 생각이 떠올랐나요?\n좋은지 나쁜지, 어떤 느낌인지, 떠오른 단어 등\n자유롭게 작성해보세요.</string>
 
     <!--my -->
     <string name="txt_my_perfume_null">아직 시향 노트가 비어 있어요.\n그동안 사용했던 향수\n혹은 시향해봤던 향수를\n기록해보세요.</string>
@@ -36,6 +49,7 @@
     <!--search-->
     <string name="txt_search">무엇을 찾으시나요?</string>
     <string name="txt_search_hint">브랜드 혹은 제품명을 검색해주세요.</string>
+    <string name="txt_search_results_null">검색 결과가 없습니다.\n해당 향수의 정보를 보고 싶다면\n센츠노트에게 제보해주세요.</string>
 
     <!--home-->
     <string name="txt_home_title"> 님을 위한\n향수 추천</string>
