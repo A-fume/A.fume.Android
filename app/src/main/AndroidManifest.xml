@@ -28,7 +28,6 @@
         <activity android:name="com.scentsnote.android.ui.search.SearchTextActivity" />
         <activity android:name="com.scentsnote.android.ui.setting.EditMyInfoActivity" />
         <activity android:name="com.scentsnote.android.ui.setting.EditPasswordActivity" android:windowSoftInputMode="stateAlwaysVisible" />
-        <activity android:name="com.scentsnote.android.ui.ButtonActivity"/>
         <activity android:name="com.scentsnote.android.ui.signin.SignHomeActivity" />
         <activity android:name="com.scentsnote.android.ui.signin.SignInActivity" android:windowSoftInputMode="stateAlwaysVisible" />
         <activity android:name="com.scentsnote.android.ui.signup.SignUpEmailActivity" android:windowSoftInputMode="stateVisible" />

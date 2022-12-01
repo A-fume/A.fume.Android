@@ -11,7 +11,7 @@ import com.scentsnote.android.ui.my.wishlist.WishListAdapter
 object MyBinding {
     @JvmStatic
     @BindingAdapter("setWishList")
-    fun setPerfumeList(recyclerView: RecyclerView, list : MutableList<PerfumeInfo>?){
+    fun setPerfumeList(recyclerView: RecyclerView, list : MutableList<ResponseMyPerfume>?){
         if(recyclerView.adapter!=null) with(recyclerView.adapter as WishListAdapter){
             list?.let { setWishListData(list)
                 Log.e("setWishListData",data.toString())}
