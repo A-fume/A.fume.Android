@@ -5,7 +5,7 @@
     <data>
         <variable
             name="wishlist"
-            type="com.scentsnote.android.data.vo.response.ResponseMyPerfume" />
+            type="com.scentsnote.android.data.vo.response.WishPerfume" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -47,7 +47,7 @@
         android:layout_marginTop="1dp"
         android:fontFamily="@font/notosans_medium"
         android:includeFontPadding="false"
-        android:text="@{wishlist.perfumeName}"
+        android:text="@{wishlist.name}"
         android:maxLines="1"
         android:ellipsize="end"
         android:textColor="@color/black_1d"
