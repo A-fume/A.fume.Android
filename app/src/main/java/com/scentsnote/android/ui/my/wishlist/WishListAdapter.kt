@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.data.vo.ParcelableWishList
 import com.scentsnote.android.data.vo.response.PerfumeInfo
+import com.scentsnote.android.data.vo.response.ResponseMyPerfume
+import com.scentsnote.android.data.vo.response.WishPerfume
 import com.scentsnote.android.databinding.RvItemMyWishlistBinding
 import com.scentsnote.android.ui.note.NoteActivity
 
 
 class WishListAdapter (): RecyclerView.Adapter<WishListRecyclerHolder>(){
-    var data = mutableListOf<PerfumeInfo>()
+    var data = mutableListOf<WishPerfume>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WishListRecyclerHolder {
         val binding=RvItemMyWishlistBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -25,7 +27,7 @@ class WishListAdapter (): RecyclerView.Adapter<WishListRecyclerHolder>(){
         holder.bind(data[position])
     }
 
-    internal fun setWishListData(data: MutableList<PerfumeInfo>?){
+    internal fun setWishListData(data: MutableList<WishPerfume>?){
         if(data!=null) this.data=data
         notifyDataSetChanged()
     }
@@ -33,16 +35,16 @@ class WishListAdapter (): RecyclerView.Adapter<WishListRecyclerHolder>(){
 }
 
 class WishListRecyclerHolder(val binding: RvItemMyWishlistBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(data: PerfumeInfo) {
+    fun bind(data: WishPerfume) {
         binding.wishlist = data
         binding.root.setOnClickListener {
             goToNotePageWithPerfumeInfo(it, data)
         }
     }
 
-    fun goToNotePageWithPerfumeInfo(view: View, perfumeInfo: PerfumeInfo) {
+    fun goToNotePageWithPerfumeInfo(view: View, perfumeInfo: WishPerfume) {
         val intent = Intent(view.context, NoteActivity::class.java)
-        val wishListPerfume = ParcelableWishList(perfumeInfo.perfumeIdx,0,perfumeInfo.name,perfumeInfo.brandName,perfumeInfo.imageUrl)
+        val wishListPerfume = ParcelableWishList(perfumeInfo.perfumeIdx,perfumeInfo.reviewIdx,perfumeInfo.name,perfumeInfo.brandName,perfumeInfo.imageUrl)
         intent.putExtra("wishListPerfume", wishListPerfume)
         view.context.startActivity(intent)
     }

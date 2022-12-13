@@ -7,16 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.data.repository.MyRepository
-import com.scentsnote.android.data.vo.response.PerfumeInfo
 import com.scentsnote.android.data.vo.response.ResponseMyPerfume
+import com.scentsnote.android.data.vo.response.WishPerfume
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class MyViewModel : ViewModel() {
     private val myRepository = MyRepository()
 
-    private val _wishList: MutableLiveData<MutableList<PerfumeInfo>> = MutableLiveData()
-    val wishList: LiveData<MutableList<PerfumeInfo>> get() = _wishList
+    private val _wishList: MutableLiveData<MutableList<WishPerfume>> = MutableLiveData()
+    val wishList: LiveData<MutableList<WishPerfume>> get() = _wishList
 
     private val _isValidWishList = MutableLiveData<Boolean>(false)
     val isValidWishList : LiveData<Boolean>
