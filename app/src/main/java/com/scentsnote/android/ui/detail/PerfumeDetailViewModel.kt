@@ -88,7 +88,7 @@ class PerfumeDetailViewModel: ViewModel() {
 
         if(data.seasonal.spring == 0 && data.seasonal.summer == 0 && data.seasonal.fall == 0 && data.seasonal.winter == 0) _isValidSeasonChart.value = false
 
-        if(data.gender.female == 0 && data.gender.female == 0 && data.gender.female == 0) _isValidGenderChart.value = false
+        if(data.gender.female == 0 && data.gender.neutral == 0 && data.gender.male == 0) _isValidGenderChart.value = false
     }
 
     @SuppressLint("LongLogTag")
