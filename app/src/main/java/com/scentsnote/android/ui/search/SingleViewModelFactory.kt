@@ -12,7 +12,7 @@ class SingleViewModelFactory : ViewModelProvider.NewInstanceFactory() {
         }
     }
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>) =
+    override fun <T : ViewModel> create(modelClass: Class<T>): T =
         with(modelClass) {
             when {
                 isAssignableFrom(SearchViewModel::class.java) -> SearchViewModel.getInstance()
