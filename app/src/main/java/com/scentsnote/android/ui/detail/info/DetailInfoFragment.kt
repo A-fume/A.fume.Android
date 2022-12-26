@@ -1,6 +1,7 @@
 package com.scentsnote.android.ui.detail.info
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.scentsnote.android.util.BaseWebViewActivity
 import com.scentsnote.android.util.BindingAdapter.setDetailInfoText
 
 class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
@@ -43,6 +45,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_info, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = detailViewModel
+        binding.fm = this
 
         return binding.root
     }
@@ -401,6 +404,11 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         } else {
             binding.txtDetailsInfoStory.setPadding(0, 0, 0, 0)
         }
+    }
 
+    fun onClickInfoReportBtn(view: View){
+        val intent = Intent(activity, BaseWebViewActivity::class.java)
+        intent.putExtra("url", "infoReport")
+        startActivity(intent)
     }
 }

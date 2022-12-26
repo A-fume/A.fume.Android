@@ -44,6 +44,8 @@ class BaseWebViewActivity : AppCompatActivity() {
 
             "tipOff" -> "https://docs.google.com/forms/d/e/1FAIpQLSc9vyuQY9OvrcjCjyWqbhbEmkVi3FyEnoYt2uaBdgmOXsRj4g/viewform"
 
+            "infoReport" -> "https://docs.google.com/forms/d/e/1FAIpQLSfMs2BF3y7urW5u4drHde2C1dOOXCY4SMczjSBeQ0zQF_xotw/viewform"
+
             else -> ""
         }
     }
