@@ -93,21 +93,60 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_review_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@{item.content}"
-            android:fontFamily="@font/notosans_regular"
-            android:textSize="14dp"
-            android:includeFontPadding="false"
-            android:textColor="@color/black_2a"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView7"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7">
+
+            <com.scentsnote.android.util.LayoutedTextView
+                android:id="@+id/txt_details_review_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="none"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:maxLines="3"
+                android:text="@{item.content}"
+                android:textColor="@color/black_2a"
+                android:textSize="14dp"
+                setDetailReviewContent="@{item.content}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_review_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_details_review_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/txt_review_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="onClick"
+                    android:paddingTop="40dp"
+                    android:text="더보기"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="15dp"
+                    app:drawableRightCompat="@drawable/icon_btn_down"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RatingBar
             android:id="@+id/rb_detail_note"
@@ -120,7 +159,7 @@
             android:rating="@{item.score}"
             android:stepSize="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8">
+            app:layout_constraintTop_toBottomOf="@+id/cl_review_content">
 
         </RatingBar>
 
@@ -154,8 +193,6 @@
             android:textColor="@color/dark_gray_7d"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/cl_review_content" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
