@@ -122,4 +122,8 @@ class RemoteDataSourceImpl : RemoteDataSource{
     override suspend fun getVersion(apkVersion: String): Boolean {
         return api.getVersion(apkVersion).data
     }
+
+    override suspend fun getNewToken(body: RequestNewToken): String {
+        return api.getNewToken(body).data
+    }
 }

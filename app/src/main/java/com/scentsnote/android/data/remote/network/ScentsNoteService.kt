@@ -193,4 +193,10 @@ interface ScentsNoteService {
     suspend fun getVersion(
         @Query("apkversion") apkVersion : String
     ):ResponseBase<Boolean>
+
+    // auth - new token
+    @POST("auth/reissue")
+    suspend fun getNewToken(
+        @Body body : RequestNewToken
+    ):ResponseOpBase<String>
 }
