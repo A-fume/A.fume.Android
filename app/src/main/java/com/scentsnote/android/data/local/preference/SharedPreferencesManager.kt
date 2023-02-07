@@ -35,7 +35,7 @@ class SharedPreferencesManager(context: Context){
         get() = sharedPreferences.getString(USER_NICKNAME)
         set(value) = sharedPreferences.putString(USER_NICKNAME, value)
 
-    var userGender: String
+    var userGender: String?
         get() = sharedPreferences.getString(USER_GENDER)
         set(value) = sharedPreferences.putString(USER_GENDER, value)
 
@@ -89,7 +89,7 @@ class SharedPreferencesManager(context: Context){
         private fun SharedPreferences.getString(key: String) =
             getString(key, "").orEmpty()
 
-        private fun SharedPreferences.putString(key: String, value: String) =
+        private fun SharedPreferences.putString(key: String, value: String?) =
             edit().putString(key, value).apply()
 
         private fun SharedPreferences.putInt(key: String, value: Int) =
