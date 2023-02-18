@@ -14,8 +14,10 @@ import com.scentsnote.android.databinding.ActivitySplashBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.survey.SurveyActivity
 import com.scentsnote.android.util.AppUpdateDialog
+import com.scentsnote.android.util.createDialog
 import com.scentsnote.android.util.startActivityWithFinish
 import com.scentsnote.android.util.toast
+import kotlinx.coroutines.*
 
 
 class SplashActivity : AppCompatActivity() {
@@ -31,30 +33,16 @@ class SplashActivity : AppCompatActivity() {
         )
         binding.lifecycleOwner=this
 
-        setDelayed()
+        initObserver()
 //        startAnimation(binding)
 //        setLottieListener(binding)
     }
 
-    private fun setDelayed(){
-        val handler = Handler()
-        handler.postDelayed({
-            goToNextActivity()
-//            if (splashViewModel.isValidVersion.value == true) {
-//                goToNextActivity()
-//            } else {
-//                createDialog()
-//            }
-        }, 2000)
-
-//        CoroutineScope(Dispatchers.IO).launch {
-//            delay(time)
-//            if (splashViewModel.isValidVersion.value == true) {
-//                goToNextActivity()
-//            } else {
-//                createDialog()
-//            }
-//        }
+    private fun initObserver(){
+        splashViewModel.isValidVersion.observe(this){
+            if(it) goToNextActivity()
+            else createDialog()
+        }
     }
 
 //    private fun startAnimation(binding: ActivitySplashBinding){
@@ -98,7 +86,8 @@ class SplashActivity : AppCompatActivity() {
         val dialog: DialogFragment = AppUpdateDialog().AppUpdateDialogBuilder()
             .setBtnClickListener(object : AppUpdateDialog.AppUpdateDialogListener {
                 override fun onPositiveClicked() {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.afume.afume_android"))
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.scentsnote.android"))
+                    finish()
                     startActivity(intent)
                 }
 

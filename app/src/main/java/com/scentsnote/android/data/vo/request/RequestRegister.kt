@@ -4,6 +4,6 @@ data class RequestRegister(
     val email : String,
     val nickname : String,
     val password : String,
-    val gender : String,
+    val gender : String?,
     val birth : Int
 )

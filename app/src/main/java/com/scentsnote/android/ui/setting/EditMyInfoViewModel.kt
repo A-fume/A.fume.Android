@@ -22,7 +22,7 @@ class EditMyInfoViewModel : ViewModel() {
 
     // 입력 내용
     val nickTxt = MutableLiveData<String>("")
-    var genderTxt = ""
+    var genderTxt : String? = null
     val ageTxt = MutableLiveData<String>("")
     val passwordTxt = MutableLiveData<String>("")
     val newPasswordTxt = MutableLiveData<String>("")
@@ -41,15 +41,21 @@ class EditMyInfoViewModel : ViewModel() {
         }
     }
 
-    private fun checkGenderInfo(gender : String){
-        if(gender == "MAN"){
-            _isCheckMan.postValue(true)
-            _isCheckWoman.postValue(false)
-            genderTxt = "MAN"
-        }else{
-            _isCheckMan.postValue(false)
-            _isCheckWoman.postValue(true)
-            genderTxt = "WOMAN"
+    private fun checkGenderInfo(gender : String?){
+        genderTxt = when(gender){
+            "MAN" -> {
+                _isCheckMan.postValue(true)
+                _isCheckWoman.postValue(false)
+                "MAN"
+            }
+            "WOMAN" -> {
+                _isCheckMan.postValue(false)
+                _isCheckWoman.postValue(true)
+                "WOMAN"
+            }
+            else -> {
+                ""
+            }
         }
     }
 
@@ -189,7 +195,8 @@ class EditMyInfoViewModel : ViewModel() {
                 val myInfo = RequestEditMyInfo(
                     ScentsNoteApplication.prefManager.userEmail,
                     nickTxt.value.toString(),
-                    genderTxt,
+                    if(genderTxt=="") null
+                    else genderTxt,
                     ageTxt.value!!.toInt()
                 )
                 editRepository.putMyInfo(
