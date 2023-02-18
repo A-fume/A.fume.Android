@@ -33,21 +33,12 @@ class SplashActivity : AppCompatActivity() {
         )
         binding.lifecycleOwner=this
 
-        setDelayed()
+        initObserver()
 //        startAnimation(binding)
 //        setLottieListener(binding)
     }
 
-    private fun setDelayed(){
-//        val handler = Handler()
-//        handler.postDelayed({
-//            goToNextActivity()
-//            if (splashViewModel.isValidVersion.value == true) {
-//                goToNextActivity()
-//            } else {
-//                createDialog()
-//            }
-//        }, 2000)
+    private fun initObserver(){
         splashViewModel.isValidVersion.observe(this){
             if(it) goToNextActivity()
             else createDialog()
@@ -96,6 +87,7 @@ class SplashActivity : AppCompatActivity() {
             .setBtnClickListener(object : AppUpdateDialog.AppUpdateDialogListener {
                 override fun onPositiveClicked() {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.scentsnote.android"))
+                    finish()
                     startActivity(intent)
                 }
 

@@ -3,8 +3,8 @@ object ConfigData {
     const val buildToolsVersion = "30.0.3"
     const val minSdkVersion = 23
     const val targetSdkVersion = 31
-    const val versionCode = 1
-    const val versionName = "1.0"
+    const val versionCode = 7
+    const val versionName = "1.4.0"
 
     // gradle
     const val gradleVersion = "7.3.1"

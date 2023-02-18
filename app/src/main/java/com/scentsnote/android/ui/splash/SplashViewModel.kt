@@ -7,8 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scentsnote.android.BuildConfig
 import com.scentsnote.android.data.repository.SplashRepository
-import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
 class SplashViewModel : ViewModel() {
@@ -26,14 +27,15 @@ class SplashViewModel : ViewModel() {
     }
 
     private suspend fun getVersion(){
-        viewModelScope.async {
-            try{
+        withContext(viewModelScope.coroutineContext) {
+            delay(1000)
+            try {
                 _isValidVersion.value = splashRepository.getVersion(BuildConfig.VERSION_NAME)
                 Log.d("getVersion", _isValidVersion.value.toString())
-            }catch (e : HttpException){
+            } catch (e: HttpException) {
                 Log.d("getVersion error", e.message())
             }
-        }.await()
+        }
 
     }
 }
