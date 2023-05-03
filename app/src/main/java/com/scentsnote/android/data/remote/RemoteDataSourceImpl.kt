@@ -46,8 +46,7 @@ class RemoteDataSourceImpl : RemoteDataSource{
         return  api.postSurvey(token, body).message
     }
 
-    override suspend fun getLikedPerfume(token: String, userIdx: Int): MutableList<PerfumeInfo> {
-        Log.e("wishlist",api.getLikedPerfume(token, userIdx).message)
+    override suspend fun getLikedPerfume(token: String, userIdx: Int): MutableList<WishPerfume> {
         return api.getLikedPerfume(token, userIdx).data.rows
     }
 
@@ -122,5 +121,9 @@ class RemoteDataSourceImpl : RemoteDataSource{
 
     override suspend fun getVersion(apkVersion: String): Boolean {
         return api.getVersion(apkVersion).data
+    }
+
+    override suspend fun getNewToken(body: RequestNewToken): String {
+        return api.getNewToken(body).data
     }
 }

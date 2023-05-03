@@ -227,4 +227,16 @@ object BindingAdapter {
             setTextColor(ContextCompat.getColor(this.context, R.color.gray_b9))
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("setDetailReviewContent")
+    fun TextView.setDetailReviewContent(content: String){
+        if(lineCount > 3){
+            setPadding(0, 0, 0,context.resources.getDimension(R.dimen.details_review_content).toInt())
+        }else{
+            setPadding(0, 0, 0,0)
+        }
+    }
+
+
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
 class FilterViewModelFactory : ViewModelProvider.NewInstanceFactory(){
-    override fun <T : ViewModel?> create(modelClass: Class<T>) =
+    override fun <T : ViewModel> create(modelClass: Class<T>): T =
         with(modelClass) {
             when {
                 isAssignableFrom(FilterViewModel::class.java) -> FilterViewModel.getInstance()

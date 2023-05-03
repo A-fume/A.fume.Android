@@ -57,7 +57,7 @@ interface ScentsNoteService {
     suspend fun getLikedPerfume(
         @Header("x-access-token") token : String,
         @Path("userIdx") userIdx : Int
-    ):ResponseBase<ResponsePerfume>
+    ):ResponseBase<ResponseWishList>
 
     @GET("user/review")
     suspend fun getMyPerfume(
@@ -193,4 +193,10 @@ interface ScentsNoteService {
     suspend fun getVersion(
         @Query("apkversion") apkVersion : String
     ):ResponseBase<Boolean>
+
+    // auth - new token
+    @POST("auth/reissue")
+    suspend fun getNewToken(
+        @Body body : RequestNewToken
+    ):ResponseOpBase<String>
 }

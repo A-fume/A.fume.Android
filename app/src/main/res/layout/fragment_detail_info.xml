@@ -6,6 +6,10 @@
     <data>
         <import type="android.view.View" />
         <variable
+            name="fm"
+            type="com.scentsnote.android.ui.detail.info.DetailInfoFragment" />
+
+        <variable
             name="viewModel"
             type="com.scentsnote.android.ui.detail.PerfumeDetailViewModel" />
 
@@ -19,19 +23,44 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
+        <ImageView
+            android:id="@+id/imageView55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintEnd_toStartOf="@+id/textView70"
+            app:layout_constraintTop_toTopOf="@+id/textView70"
+            app:srcCompat="@drawable/icon_write" />
+
+        <TextView
+            android:id="@+id/textView70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="18dp"
+            android:text="정보 수정 제안"
+            android:textSize="14dp"
+            android:onClick="@{fm::onClickInfoReportBtn}"
+            android:textColor="@color/gray_ab"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/notosans_regular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/textView46"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/nanummyeongjo"
             android:includeFontPadding="true"
             android:text="조향스토리."
             android:textColor="@color/dark_gray_7d"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView70" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_deatils_story"

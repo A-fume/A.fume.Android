@@ -12,6 +12,9 @@ interface RemoteDataSource {
     // sign in
     suspend fun postLoginInfo(body: RequestLogin): ResponseLogin
 
+    // auth - new token
+    suspend fun getNewToken(body: RequestNewToken): String
+
     // survey
     suspend fun getSeries(): MutableList<SeriesInfo>
     suspend fun getSurveyPerfume(token: String): MutableList<PerfumeInfo>
@@ -19,7 +22,7 @@ interface RemoteDataSource {
     suspend fun postSurvey(token: String, body: RequestSurvey): String
 
     // my
-    suspend fun getLikedPerfume(token : String, userIdx : Int): MutableList<PerfumeInfo>
+    suspend fun getLikedPerfume(token : String, userIdx : Int): MutableList<WishPerfume>
     suspend fun getMyPerfume(token : String): MutableList<ResponseMyPerfume>
 
     // setting

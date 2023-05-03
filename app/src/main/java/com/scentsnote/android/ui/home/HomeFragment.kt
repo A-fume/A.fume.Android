@@ -70,15 +70,30 @@ class HomeFragment : Fragment() {
         if(ScentsNoteApplication.prefManager.haveToken()){
             binding.txtHomeNameTitle.text = ScentsNoteApplication.prefManager.userNickname+ getString(R.string.txt_home_title)
             binding.txtHomeAgeTitle.text = getAgeGroupInfo().toString() + "대 " + getGenderInfo()+getString(R.string.txt_home_age)
-            binding.txtHomeNameSubtitle.text = ScentsNoteApplication.prefManager.userNickname+getString(R.string.txt_home_subtitle)
+            binding.txtHomeNameSubtitle.text = setSubTitle()
         }
+    }
+
+    private fun setSubTitle() : String{
+        return if(ScentsNoteApplication.prefManager.userAge == getYear() && ScentsNoteApplication.prefManager.userGender?.isEmpty() == false){
+            getString(R.string.txt_home_subtitle_age_null)
+        }else if(ScentsNoteApplication.prefManager.userAge != getYear() && ScentsNoteApplication.prefManager.userGender?.isEmpty() == true){
+            getString(R.string.txt_home_subtitle_gender_null)
+        }else if(ScentsNoteApplication.prefManager.userAge == getYear() && ScentsNoteApplication.prefManager.userGender?.isEmpty() == true ){
+            getString(R.string.txt_home_subtitle_age_gender_null)
+        }else ScentsNoteApplication.prefManager.userNickname+getString(R.string.txt_home_subtitle)
     }
 
     // 나이 구하기
     private fun getAgeGroupInfo() : Int{
-        val age = getYear() - ScentsNoteApplication.prefManager.userAge + 1
-
-        return (age/10)*10
+        return if(ScentsNoteApplication.prefManager.userAge == getYear()) {
+            20
+        }else{
+            val age = getYear() - ScentsNoteApplication.prefManager.userAge + 1
+            val group= (age/10)*10
+            if(group == 0) 10
+            else group
+        }
     }
 
     // 현재 년도 구하기

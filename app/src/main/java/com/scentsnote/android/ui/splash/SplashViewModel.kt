@@ -7,14 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scentsnote.android.BuildConfig
 import com.scentsnote.android.data.repository.SplashRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
 class SplashViewModel : ViewModel() {
     private val splashRepository = SplashRepository()
 
     // 버전 지원 여부 확인
-    private val _isValidVersion = MutableLiveData<Boolean>(false)
+    private val _isValidVersion = MutableLiveData<Boolean>()
     val isValidVersion : LiveData<Boolean>
         get() = _isValidVersion
 
@@ -25,11 +27,15 @@ class SplashViewModel : ViewModel() {
     }
 
     private suspend fun getVersion(){
-        try{
-            _isValidVersion.value = splashRepository.getVersion(BuildConfig.VERSION_NAME)
-            Log.d("getVersion", _isValidVersion.value.toString())
-        }catch (e : HttpException){
-            Log.d("getVersion error", e.message())
+        withContext(viewModelScope.coroutineContext) {
+            delay(1000)
+            try {
+                _isValidVersion.value = splashRepository.getVersion(BuildConfig.VERSION_NAME)
+                Log.d("getVersion", _isValidVersion.value.toString())
+            } catch (e: HttpException) {
+                Log.d("getVersion error", e.message())
+            }
         }
+
     }
 }
