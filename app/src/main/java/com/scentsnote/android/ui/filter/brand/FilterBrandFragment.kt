@@ -15,8 +15,8 @@ import com.scentsnote.android.databinding.FragmentFilterBrandBinding
 import com.scentsnote.android.ui.filter.FilterViewModel
 import com.scentsnote.android.ui.filter.FilterViewModelFactory
 import com.google.android.material.tabs.TabLayout
-import com.scentsnote.android.util.BaseWebViewActivity
-import com.scentsnote.android.util.extension.changeTabsFont
+import com.scentsnote.android.utils.base.BaseWebViewActivity
+import com.scentsnote.android.utils.extension.changeTabsFont
 
 class FilterBrandFragment : Fragment() {
     private val viewModel: FilterViewModel by activityViewModels() {

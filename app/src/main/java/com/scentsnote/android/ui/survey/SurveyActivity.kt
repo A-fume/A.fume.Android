@@ -7,12 +7,12 @@ import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySurveyBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.ScentsNoteViewPagerAdapter
-import com.scentsnote.android.util.*
-import com.scentsnote.android.util.extension.TabSelectedListener
-import com.scentsnote.android.util.extension.changeTabsFont
-import com.scentsnote.android.util.extension.setOnSafeClickListener
-import com.scentsnote.android.util.view.BaseActivity
-import java.util.*
+import com.scentsnote.android.utils.*
+import com.scentsnote.android.utils.extension.changeTabsFont
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.startActivityWithFinish
+import com.scentsnote.android.utils.listener.TabSelectedListener
 
 class SurveyActivity : BaseActivity<ActivitySurveyBinding>(R.layout.activity_survey)  {
     private val viewModel: SurveyViewModel by viewModels()

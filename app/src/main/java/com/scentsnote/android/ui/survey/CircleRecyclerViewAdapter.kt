@@ -11,7 +11,7 @@ import com.scentsnote.android.data.vo.response.PerfumeInfo
 import com.scentsnote.android.data.vo.response.SeriesInfo
 import com.scentsnote.android.databinding.RvItemSurveyCircleBinding
 import com.scentsnote.android.databinding.RvItemSurveySeriesBinding
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class CircleRecyclerViewAdapter(private val type:Int, val add:(Int)->Unit, val remove:(Int)->Unit):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 

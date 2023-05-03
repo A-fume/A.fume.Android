@@ -13,13 +13,14 @@ import com.scentsnote.android.databinding.ActivityPerfumeDetailBinding
 import com.scentsnote.android.ui.detail.info.DetailInfoFragment
 import com.scentsnote.android.ui.detail.note.DetailNoteFragment
 import com.scentsnote.android.ui.note.NoteActivity
-import com.scentsnote.android.util.*
+import com.scentsnote.android.utils.*
 import com.bumptech.glide.Glide
-import com.scentsnote.android.util.databinding.BindingAdapter.setNoteBtnText
-import com.scentsnote.android.util.extension.TabSelectedListener
-import com.scentsnote.android.util.extension.changeTabsFont
-import com.scentsnote.android.util.extension.setOnSafeClickListener
-import com.scentsnote.android.util.view.BaseActivity
+import com.scentsnote.android.utils.adapter.BindingAdapter.setNoteBtnText
+import com.scentsnote.android.utils.extension.changeTabsFont
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.toast
+import com.scentsnote.android.utils.listener.TabSelectedListener
 
 class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layout.activity_perfume_detail) {
     lateinit var viewPagerAdapter: ViewPagerAdapter

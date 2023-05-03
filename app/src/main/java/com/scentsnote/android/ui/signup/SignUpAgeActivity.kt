@@ -8,9 +8,9 @@ import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySignUpAgeBinding
 import com.scentsnote.android.ui.survey.SurveyActivity
-import com.scentsnote.android.util.view.BaseActivity
-import com.scentsnote.android.util.startActivityWithFinish
-import com.scentsnote.android.util.view.YearPickerDialog
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.startActivityWithFinish
+import com.scentsnote.android.utils.view.YearPickerDialog
 
 class SignUpAgeActivity : BaseActivity<ActivitySignUpAgeBinding>(R.layout.activity_sign_up_age) {
     private val signUpViewModel : SignUpViewModel by viewModels()

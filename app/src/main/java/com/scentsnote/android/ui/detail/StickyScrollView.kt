@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.ScrollView
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class StickyScrollView : ScrollView, ViewTreeObserver.OnGlobalLayoutListener {
     constructor(context: Context) : this(context, null, 0)

@@ -15,8 +15,8 @@ import androidx.navigation.fragment.findNavController
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.FilterActivity
-import com.scentsnote.android.util.BaseWebViewActivity
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.base.BaseWebViewActivity
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 
 class SearchResultFragment : Fragment() {

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.data.vo.response.SeriesIngredients
 import com.scentsnote.android.databinding.RvItemSeriesIngredientsFilterBinding
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class IngredientFlexboxAdapter(
     val ingredientsList: MutableList<SeriesIngredients>,

@@ -1,4 +1,4 @@
-package com.scentsnote.android.util.databinding
+package com.scentsnote.android.utils.adapter
 
 import android.annotation.SuppressLint
 import android.text.Editable

@@ -14,15 +14,16 @@ import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.ParcelableWishList
 import com.scentsnote.android.databinding.ActivityNoteBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailActivity
-import com.scentsnote.android.util.*
+import com.scentsnote.android.utils.*
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.scentsnote.android.util.view.BaseActivity
-import com.scentsnote.android.util.view.CommonDialog
-import com.scentsnote.android.util.view.SeekBarListener
-import com.scentsnote.android.util.view.setSelectedSeekBarTxtBold
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.toast
+import com.scentsnote.android.utils.view.CommonDialog
+import com.scentsnote.android.utils.view.SeekBarListener
+import com.scentsnote.android.utils.view.setSelectedSeekBarTxtBold
 
 class NoteActivity : BaseActivity<ActivityNoteBinding>(R.layout.activity_note) {
     lateinit var noteKeywordAdapter : NoteKeywordAdapter

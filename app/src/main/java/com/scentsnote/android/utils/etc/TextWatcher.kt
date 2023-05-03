@@ -1,4 +1,4 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.utils.etc
 
 import android.text.Editable
 import android.text.TextWatcher

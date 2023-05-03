@@ -13,9 +13,9 @@ import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySplashBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.survey.SurveyActivity
-import com.scentsnote.android.util.view.AppUpdateDialog
-import com.scentsnote.android.util.startActivityWithFinish
-import com.scentsnote.android.util.toast
+import com.scentsnote.android.utils.view.AppUpdateDialog
+import com.scentsnote.android.utils.extension.startActivityWithFinish
+import com.scentsnote.android.utils.extension.toast
 
 
 class SplashActivity : AppCompatActivity() {

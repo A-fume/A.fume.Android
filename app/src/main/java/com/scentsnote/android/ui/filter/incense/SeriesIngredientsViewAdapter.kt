@@ -12,7 +12,7 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class SeriesIngredientsViewAdapter(
     val selectIngredients: (String, MutableList<SeriesIngredients>) -> Unit,

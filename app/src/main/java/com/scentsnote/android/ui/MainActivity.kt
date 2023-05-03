@@ -15,7 +15,7 @@ import com.scentsnote.android.ui.my.MyViewModel
 import com.scentsnote.android.ui.search.SearchViewModel
 import com.scentsnote.android.ui.search.SingleViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.scentsnote.android.util.view.BaseActivity
+import com.scentsnote.android.utils.base.BaseActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)  {
     private lateinit var navController: NavController

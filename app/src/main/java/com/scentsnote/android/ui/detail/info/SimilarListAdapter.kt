@@ -13,8 +13,8 @@ import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.data.vo.response.RecommendPerfumeItem
 import com.scentsnote.android.databinding.RvItemDetailSimilarBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailActivity
-import com.scentsnote.android.util.createDialog
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.createDialog
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class SimilarListAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<SimilarListAdapter.SimilarListViewHolder>() {
     var data = mutableListOf<RecommendPerfumeItem>()

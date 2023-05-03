@@ -8,9 +8,9 @@ import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySignInBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.signup.SignUpEmailActivity
-import com.scentsnote.android.util.view.BaseActivity
-import com.scentsnote.android.util.startActivity
-import com.scentsnote.android.util.startActivityWithFinish
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.startActivity
+import com.scentsnote.android.utils.extension.startActivityWithFinish
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private val signInViewModel : SignInViewModel by viewModels()

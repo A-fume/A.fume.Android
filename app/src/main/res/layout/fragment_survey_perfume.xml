@@ -15,7 +15,7 @@
         tools:context=".ui.survey.SurveyPerfumeFragment">
 
 
-        <com.scentsnote.android.util.view.RecyclerViewEmptySupport
+        <com.scentsnote.android.utils.view.RecyclerViewEmptySupport
             android:id="@+id/rv_item_survey_perfume"
             setPerfumeList="@{vm.perfumeList}"
             android:layout_width="match_parent"

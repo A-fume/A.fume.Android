@@ -11,7 +11,7 @@ import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.response.RecommendPerfumeItem
 import com.scentsnote.android.databinding.RvItemHomeRecommendBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailActivity
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class RecommendListAdapter(private val context: Context) :
     RecyclerView.Adapter<RecommendListViewHolder>() {

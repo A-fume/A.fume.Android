@@ -16,7 +16,7 @@
         tools:context=".ui.survey.SurveyKeywordFragment">
 
 
-        <com.scentsnote.android.util.view.RecyclerViewEmptySupport
+        <com.scentsnote.android.utils.view.RecyclerViewEmptySupport
             android:id="@+id/rv_survey_keyword"
             setKeywordList="@{vm.keywordList}"
             android:layout_width="match_parent"

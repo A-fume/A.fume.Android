@@ -7,10 +7,10 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityPasswordEditBinding
-import com.scentsnote.android.util.view.BaseActivity
-import com.scentsnote.android.util.view.CommonDialog
-import com.scentsnote.android.util.setKeyboard
-import com.scentsnote.android.util.toast
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.view.CommonDialog
+import com.scentsnote.android.utils.extension.setKeyboard
+import com.scentsnote.android.utils.extension.toast
 
 class EditPasswordActivity : BaseActivity<ActivityPasswordEditBinding>(R.layout.activity_password_edit) {
     private val editViewModel : EditMyInfoViewModel by viewModels()

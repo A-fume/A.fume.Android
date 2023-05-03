@@ -9,7 +9,7 @@ import com.scentsnote.android.data.vo.ParcelableWishList
 import com.scentsnote.android.data.vo.response.PerfumeInfo
 import com.scentsnote.android.databinding.RvItemMyWishlistBinding
 import com.scentsnote.android.ui.note.NoteActivity
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 
 class WishListAdapter (): RecyclerView.Adapter<WishListRecyclerHolder>(){

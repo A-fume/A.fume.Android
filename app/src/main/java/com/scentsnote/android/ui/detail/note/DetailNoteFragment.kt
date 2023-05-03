@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentDetailNoteBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
-import com.scentsnote.android.util.view.BaseFragment
+import com.scentsnote.android.utils.base.BaseFragment
 
 class DetailNoteFragment(val perfumeIdx: Int) : BaseFragment<FragmentDetailNoteBinding>(R.layout.fragment_detail_note){
 

@@ -1,4 +1,4 @@
-package com.scentsnote.android.util.etc
+package com.scentsnote.android.utils.etc
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

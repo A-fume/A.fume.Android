@@ -15,10 +15,10 @@ import com.scentsnote.android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.scentsnote.android.ui.filter.keyword.FilterKeywordFragment
 import com.scentsnote.android.ui.search.SearchHomeFragment.Companion.SEARCH_HOME
 import com.google.android.material.badge.BadgeDrawable
-import com.scentsnote.android.util.view.BaseActivity
-import com.scentsnote.android.util.extension.TabSelectedListener
-import com.scentsnote.android.util.extension.changeTabsFont
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.changeTabsFont
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.listener.TabSelectedListener
 
 class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter) {
     private lateinit var filterViewPagerAdapter: ScentsNoteViewPagerAdapter

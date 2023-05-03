@@ -1,4 +1,4 @@
-package com.scentsnote.android.util.listener
+package com.scentsnote.android.utils.listener
 
 import android.os.SystemClock
 import android.view.View

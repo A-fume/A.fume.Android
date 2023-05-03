@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.scentsnote.android.databinding.FragmentKeywordBottomSheetBinding
-import com.scentsnote.android.util.NoteKeywordAdapter
+import com.scentsnote.android.utils.NoteKeywordAdapter
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class KeywordBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentKeywordBottomSheetBinding

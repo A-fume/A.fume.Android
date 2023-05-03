@@ -1,4 +1,4 @@
-package com.scentsnote.android.util.view
+package com.scentsnote.android.utils.view
 
 import android.content.res.Resources
 import android.graphics.Paint
@@ -15,9 +15,9 @@ import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.DialogYearPickerBinding
 import com.google.android.material.button.MaterialButton
-import com.scentsnote.android.util.extension.setOnSafeClickListener
-import com.scentsnote.android.util.setDrawable
-import com.scentsnote.android.util.setHeight
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setDrawable
+import com.scentsnote.android.utils.extension.setHeight
 import java.util.*
 
 class YearPickerDialog(private var ageBtn: MaterialButton) : DialogFragment(), View.OnClickListener {

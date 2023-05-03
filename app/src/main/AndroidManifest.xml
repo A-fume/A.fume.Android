@@ -16,9 +16,10 @@
         android:theme="@style/Theme.ScentsNoteAndroid"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup,android:theme">
-        <activity android:name="com.scentsnote.android.util.BaseWebViewActivity" />
+        <activity android:name="com.scentsnote.android.utils.base.BaseWebViewActivity" />
         <activity
             android:name="com.scentsnote.android.ui.splash.SplashActivity"
+            android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +29,6 @@
         <activity android:name="com.scentsnote.android.ui.search.SearchTextActivity" />
         <activity android:name="com.scentsnote.android.ui.setting.EditMyInfoActivity" />
         <activity android:name="com.scentsnote.android.ui.setting.EditPasswordActivity" android:windowSoftInputMode="stateAlwaysVisible" />
-        <activity android:name="com.scentsnote.android.ui.ButtonActivity"/>
         <activity android:name="com.scentsnote.android.ui.signin.SignHomeActivity" />
         <activity android:name="com.scentsnote.android.ui.signin.SignInActivity" android:windowSoftInputMode="stateAlwaysVisible" />
         <activity android:name="com.scentsnote.android.ui.signup.SignUpEmailActivity" android:windowSoftInputMode="stateVisible" />

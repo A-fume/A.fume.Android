@@ -16,7 +16,7 @@ import com.scentsnote.android.ui.home.adapter.NewListAdapter
 import com.scentsnote.android.ui.home.adapter.PopularListAdapter
 import com.scentsnote.android.ui.home.adapter.RecentListAdapter
 import com.scentsnote.android.ui.home.adapter.RecommendListAdapter
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import java.util.*
 
 

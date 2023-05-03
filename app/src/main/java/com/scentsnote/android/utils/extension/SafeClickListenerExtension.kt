@@ -1,7 +1,7 @@
-package com.scentsnote.android.util.extension
+package com.scentsnote.android.utils.extension
 
 import android.view.View
-import com.scentsnote.android.util.listener.SafeClickListener
+import com.scentsnote.android.utils.listener.SafeClickListener
 
 fun View.setOnSafeClickListener(
     onSafeClick: (View) -> Unit

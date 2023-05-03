@@ -1,10 +1,9 @@
-package com.scentsnote.android.util.extension
+package com.scentsnote.android.utils.extension
 
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.forEachIndexed
 import com.google.android.material.tabs.TabLayout
-import com.scentsnote.android.util.setTextNotoSansBold
 
 fun TabLayout.changeTabsFont(selectPosition:Int){
     val vg = this. getChildAt(0) as ViewGroup
@@ -18,17 +17,4 @@ fun TabLayout.changeTabsFont(selectPosition:Int){
             }
         }
     }
-}
-
-class TabSelectedListener(private val tabView: TabLayout) : TabLayout.OnTabSelectedListener{
-    override fun onTabReselected(tab: TabLayout.Tab?) {}
-
-    override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-    override fun onTabSelected(tab: TabLayout.Tab?) {
-        tab?.position?.let{
-            tabView?.changeTabsFont(it)
-        }
-    }
-
 }

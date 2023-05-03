@@ -5,8 +5,8 @@ import android.os.Bundle
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySearchTextBinding
 import com.scentsnote.android.ui.MainActivity
-import com.scentsnote.android.util.extension.setOnSafeClickListener
-import com.scentsnote.android.util.view.BaseActivity
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.base.BaseActivity
 
 class SearchTextActivity : BaseActivity<ActivitySearchTextBinding>(R.layout.activity_search_text)  {
 

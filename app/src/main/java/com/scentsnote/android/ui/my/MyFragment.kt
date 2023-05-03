@@ -20,10 +20,9 @@ import com.scentsnote.android.ui.my.wishlist.WishListFragment
 import com.scentsnote.android.ui.setting.EditMyInfoActivity
 import com.scentsnote.android.ui.setting.EditPasswordActivity
 import com.scentsnote.android.ui.signin.SignHomeActivity
-import com.scentsnote.android.util.*
-import com.scentsnote.android.util.extension.TabSelectedListener
-import com.scentsnote.android.util.extension.changeTabsFont
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.base.BaseWebViewActivity
+import com.scentsnote.android.utils.extension.*
+import com.scentsnote.android.utils.listener.TabSelectedListener
 
 class MyFragment : Fragment() {
     private lateinit var binding: FragmentMypageBinding

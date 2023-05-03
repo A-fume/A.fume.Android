@@ -4,8 +4,8 @@ import android.view.View
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySignHomeBinding
 import com.scentsnote.android.ui.signup.SignUpEmailActivity
-import com.scentsnote.android.util.view.BaseActivity
-import com.scentsnote.android.util.startActivity
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.startActivity
 
 class SignHomeActivity : BaseActivity<ActivitySignHomeBinding>(R.layout.activity_sign_home) {
 

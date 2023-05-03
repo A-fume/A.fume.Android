@@ -15,7 +15,7 @@ import com.scentsnote.android.databinding.FragmentMyPerfumeBinding
 import com.scentsnote.android.databinding.LayoutPleaseLoginBinding
 import com.scentsnote.android.ui.my.MyViewModel
 import com.scentsnote.android.ui.signin.SignHomeActivity
-import com.scentsnote.android.util.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import kotlinx.coroutines.launch
 
 
