@@ -26,7 +26,7 @@ abstract class BaseFragment<T: ViewDataBinding>(@LayoutRes val layoutRes: Int) :
     ): View? {
         if (layoutRes != 0) {
             _binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
-            binding.lifecycleOwner = this@BaseFragment
+            binding.lifecycleOwner = this@BaseFragment.viewLifecycleOwner
             onBindData()
             return binding.root
         } else {

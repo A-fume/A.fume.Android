@@ -26,8 +26,8 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.scentsnote.android.util.BaseWebViewActivity
-import com.scentsnote.android.util.BindingAdapter.setDetailInfoText
+import com.scentsnote.android.utils.adapter.BindingAdapter.setDetailInfoText
+import com.scentsnote.android.utils.base.BaseWebViewActivity
 
 class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 
