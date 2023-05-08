@@ -20,6 +20,11 @@ import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.listener.TabSelectedListener
 
+/**
+ * 향수 검색 - 필터
+ *
+ * 계열, 브랜드, 키워드 필터 제공
+ */
 class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter) {
     private lateinit var filterViewPagerAdapter: ScentsNoteViewPagerAdapter
     private val filterViewModel: FilterViewModel by viewModels() {
