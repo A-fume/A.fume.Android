@@ -19,7 +19,11 @@ import com.scentsnote.android.ui.home.adapter.RecommendListAdapter
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import java.util.*
 
-
+/**
+ * 홈 화면
+ *
+ * 개인 맞춤 추천, 일반 추천(성별 나이 반영), 최근 조회한 향수, 비슷한 향수 추천, 새로운 향수 제공
+ */
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     lateinit var recommendAdapter : RecommendListAdapter
