@@ -22,6 +22,11 @@ import com.scentsnote.android.utils.base.BaseActivity
 import com.scentsnote.android.utils.extension.toast
 import com.scentsnote.android.utils.listener.TabSelectedListener
 
+/**
+ * 향수 상세 페이지
+ *
+ * 상단(기본 정보)과 하단(상세 정보, 시향 노트)에 걸쳐 향수 정보 제공
+ */
 class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layout.activity_perfume_detail) {
     lateinit var viewPagerAdapter: ViewPagerAdapter
     private val detailViewModel: PerfumeDetailViewModel by viewModels()
