@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.response.BrandInfo
 import com.scentsnote.android.data.vo.response.SeriesInfo
-import com.scentsnote.android.data.vo.response.SeriesIngredients
+import com.scentsnote.android.data.vo.response.SeriesIngredient
 import com.scentsnote.android.ui.filter.brand.BrandRecyclerViewAdapter
 import com.scentsnote.android.ui.filter.incense.IngredientFlexboxAdapter
 import com.scentsnote.android.ui.filter.incense.SeriesIngredientsViewAdapter
@@ -20,7 +20,7 @@ object FilterBinding {
     fun setSeriesIngredientList(recyclerView: RecyclerView, list: MutableList<SeriesInfo>?) {
         if (recyclerView.adapter != null) with(recyclerView.adapter as SeriesIngredientsViewAdapter) {
             list?.let {
-                setSeriesData(list)
+                submitList(list)
                 Log.e("setseriesList", list.toString())
             }
         }
@@ -28,9 +28,9 @@ object FilterBinding {
 
     @JvmStatic
     @BindingAdapter("setIngredientList")
-    fun setIngredientList(recyclerView: RecyclerView, list: MutableList<SeriesIngredients>?) {
+    fun setIngredientList(recyclerView: RecyclerView, list: MutableList<SeriesIngredient>?) {
         if (recyclerView.adapter != null) with(recyclerView.adapter as IngredientFlexboxAdapter) {
-            this.setList(list)
+            submitList(list)
         }
     }
 

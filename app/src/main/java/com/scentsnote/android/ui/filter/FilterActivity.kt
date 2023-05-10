@@ -23,9 +23,7 @@ import com.scentsnote.android.util.changeTabsFont
 class FilterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilterBinding
     private lateinit var filterViewPagerAdapter: ScentsNoteViewPagerAdapter
-    private val filterViewModel: FilterViewModel by viewModels() {
-        FilterViewModelFactory.getInstance()
-    }
+    private val filterViewModel: FilterViewModel by viewModels()
 
     private lateinit var seriesBadge: BadgeDrawable
     private lateinit var brandBadge: BadgeDrawable
