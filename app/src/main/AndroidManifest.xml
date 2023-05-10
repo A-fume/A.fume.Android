@@ -16,7 +16,7 @@
         android:theme="@style/Theme.ScentsNoteAndroid"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup,android:theme">
-        <activity android:name="com.scentsnote.android.util.BaseWebViewActivity" />
+        <activity android:name="com.scentsnote.android.utils.base.BaseWebViewActivity" />
         <activity
             android:name="com.scentsnote.android.ui.splash.SplashActivity"
             android:exported="true"

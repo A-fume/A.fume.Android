@@ -3,25 +3,23 @@ package com.scentsnote.android.ui.signin
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySignInBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.signup.SignUpEmailActivity
-import com.scentsnote.android.util.startActivity
-import com.scentsnote.android.util.startActivityWithFinish
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.startActivity
+import com.scentsnote.android.utils.extension.startActivityWithFinish
 
-class SignInActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySignInBinding
+class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private val signInViewModel : SignInViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_sign_in)
-        binding.lifecycleOwner = this
-        binding.viewModel = signInViewModel
+        binding.apply {
+            viewModel = signInViewModel
+        }
 
         binding.edtSignInEmail.requestFocus()
 

@@ -60,6 +60,11 @@ class PerfumeDetailViewModel: ViewModel() {
     val isValidGenderChart : LiveData<Boolean>
         get() = _isValidGenderChart
 
+    /**
+     * 통신 : 향수 상세 정보 조회
+     *
+     * @param perfumeIdx 조회 요청 향수의 idx
+     */
     fun getPerfumeInfo(perfumeIdx: Int) {
         compositeDisposable.add(
             detailRepo.getPerfumeDetail(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
@@ -68,7 +73,7 @@ class PerfumeDetailViewModel: ViewModel() {
                 .subscribe({
                     _perfumeDetailData.postValue(it.data)
 
-                    setDataVisible(it.data)
+                    setDataVisibility(it.data)
 
                     Log.d("getPerfumeInfo", it.toString())
                 }) {
@@ -77,7 +82,12 @@ class PerfumeDetailViewModel: ViewModel() {
                 })
     }
 
-    private fun setDataVisible(data: PerfumeDetail){
+    /**
+     * empty 뷰 설정
+     *
+     * @param data 향수 상세 정보
+     */
+    private fun setDataVisibility(data: PerfumeDetail){
         _isValidKeywordData.value = data.Keywords.isNotEmpty()
 
         _isValidPriceData.value = data.volumeAndPrice.isNotEmpty()
@@ -91,6 +101,11 @@ class PerfumeDetailViewModel: ViewModel() {
         if(data.gender.female == 0 && data.gender.neutral == 0 && data.gender.male == 0) _isValidGenderChart.value = false
     }
 
+    /**
+     * 통신 : 비슷한 향수 조회
+     *
+     * @param perfumeIdx 조회 요청 향수의 idx
+     */
     @SuppressLint("LongLogTag")
     fun getSimilarPerfumeList(perfumeIdx: Int){
         viewModelScope.launch {
@@ -103,8 +118,13 @@ class PerfumeDetailViewModel: ViewModel() {
         }
     }
 
+    /**
+     * 통신 : 비슷한 향수 리스트에서 좋아요 누름
+     *
+     * @param perfumeIdx 좋아요 누른 향수의 idx
+     */
     @SuppressLint("LongLogTag")
-    fun postSimilarPerfumeLike(type: Int, perfumeIdx: Int) {
+    fun postSimilarPerfumeLike(perfumeIdx: Int) {
         compositeDisposable.add(
             homeRepo.postPerfumeLike(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
                 .subscribeOn(Schedulers.io())
@@ -129,6 +149,11 @@ class PerfumeDetailViewModel: ViewModel() {
     private val _isValidNoteList = MutableLiveData<Boolean>(false)
     val isValidNoteList: LiveData<Boolean> get() = _isValidNoteList
 
+    /**
+     * 통신 : 향수의 시향 노트 리스트 조회
+     *
+     * @param perfumeIdx 조회 요청 향수의 idx
+     */
     @SuppressLint("LongLogTag")
     fun getPerfumeInfoWithReview(perfumeIdx: Int) {
         compositeDisposable.add(
@@ -151,6 +176,11 @@ class PerfumeDetailViewModel: ViewModel() {
     private val _perfumeLike: MutableLiveData<Boolean> = MutableLiveData()
     val perfumeLike: LiveData<Boolean> get() = _perfumeLike
 
+    /**
+     * 통신 : 향수 좋아요 누름
+     *
+     * @param perfumeIdx 좋아요 누른 향수의 idx
+     */
     fun postPerfumeLike(perfumeIdx: Int) {
         compositeDisposable.add(
             detailRepo.postPerfumeLike(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
@@ -167,6 +197,11 @@ class PerfumeDetailViewModel: ViewModel() {
 
     private val _reviewLike: MutableLiveData<Boolean> = MutableLiveData()
 
+    /**
+     * 통신 : 시향 노트 좋아요 누름
+     *
+     * @param reviewIdx 좋아요 누른 시향 노트의 idx
+     */
     fun postReviewLike(reviewIdx: Int){
         viewModelScope.launch {
             try{
@@ -203,7 +238,7 @@ class PerfumeDetailViewModel: ViewModel() {
         _perfumeDetailWithReviewData.value=tempList
     }
 
-    var reportTxt = MutableLiveData<String>("")
+    private var reportTxt = MutableLiveData("")
 
     fun setReportTxt(txt:String){
         reportTxt.value = txt
@@ -212,6 +247,11 @@ class PerfumeDetailViewModel: ViewModel() {
     private val _isValidReport: MutableLiveData<Boolean> = MutableLiveData()
     val isValidReport: LiveData<Boolean> get() = _isValidReport
 
+    /**
+     * 통신 : 시향 노트 신고
+     *
+     * @param reviewIdx 신고 누른 시향 노트의 idx
+     */
     fun reportReview(reviewIdx: Int){
         viewModelScope.launch {
             try{

@@ -5,31 +5,30 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySignUpEmailBinding
-import com.scentsnote.android.util.setKeyboard
-import com.scentsnote.android.util.startActivity
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.setKeyboard
+import com.scentsnote.android.utils.extension.startActivity
 
-class SignUpEmailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySignUpEmailBinding
+class SignUpEmailActivity : BaseActivity<ActivitySignUpEmailBinding>(R.layout.activity_sign_up_email) {
     private val signUpViewModel : SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_sign_up_email)
-        binding.lifecycleOwner = this
-        binding.viewModel = signUpViewModel
+        binding.apply {
+            viewModel = signUpViewModel
+        }
 
         binding.edtSignUpEmail.requestFocus()
 
 //        nickAnimation()
         initObserve()
 
-        binding.txtPrivacyPolicy.setOnClickListener {
+        binding.txtPrivacyPolicy.setOnSafeClickListener {
             val intent = Intent(this, PrivacyPolicyActivity::class.java)
             startActivity(intent)
         }

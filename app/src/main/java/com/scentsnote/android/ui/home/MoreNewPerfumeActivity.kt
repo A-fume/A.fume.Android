@@ -9,8 +9,13 @@ import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityMoreNewPerfumeBinding
 import com.scentsnote.android.ui.home.adapter.MoreNewListAdapter
-import com.scentsnote.android.util.BaseWebViewActivity
+import com.scentsnote.android.utils.base.BaseWebViewActivity
 
+/**
+ * 홈 화면 - 새로운 향수 더보기
+ *
+ * 수요일 마다 업데이트 되는 새로운 향수 리스트 제공
+ */
 class MoreNewPerfumeActivity : AppCompatActivity() {
     lateinit var binding: ActivityMoreNewPerfumeBinding
     lateinit var newAdapter: MoreNewListAdapter
