@@ -12,6 +12,7 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class SeriesIngredientsViewAdapter(
     private val selectIngredients: (String, MutableList<SeriesIngredient>) -> Unit,
@@ -41,7 +42,7 @@ class SeriesIngredientsViewHolder(
     fun bind(item: SeriesInfo) {
         binding.series = item
         drawIngredients(item.ingredients)
-        binding.btnShowIngredients.setOnClickListener {
+        binding.btnShowIngredients.setOnSafeClickListener {
             foldOrUnfold(it)
         }
     }

@@ -13,7 +13,8 @@ import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.data.vo.response.RecommendPerfumeItem
 import com.scentsnote.android.databinding.RvItemDetailSimilarBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailActivity
-import com.scentsnote.android.util.createDialog
+import com.scentsnote.android.utils.createDialog
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class SimilarListAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<SimilarListAdapter.SimilarListViewHolder>() {
     var data = mutableListOf<RecommendPerfumeItem>()
@@ -49,11 +50,11 @@ class SimilarListAdapter(private val context: Context, private val fragmentManag
             binding.item = item
             binding.executePendingBindings()
 
-            binding.root.setOnClickListener {
+            binding.root.setOnSafeClickListener {
                 onClickPerfume(it, item.perfumeIdx)
             }
 
-            binding.btnLike.setOnClickListener {
+            binding.btnLike.setOnSafeClickListener {
                 if (!ScentsNoteApplication.prefManager.haveToken()) context.createDialog(fragmentManager, "login")
                 else {
                     clickBtnLike(item.perfumeIdx)

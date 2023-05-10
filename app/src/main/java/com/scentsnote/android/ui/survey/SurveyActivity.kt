@@ -2,37 +2,34 @@ package com.scentsnote.android.ui.survey
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySurveyBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.ScentsNoteViewPagerAdapter
-import com.scentsnote.android.util.*
-import java.util.*
+import com.scentsnote.android.utils.*
+import com.scentsnote.android.utils.extension.changeTabsFont
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.startActivityWithFinish
+import com.scentsnote.android.utils.listener.TabSelectedListener
 
-class SurveyActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySurveyBinding
+class SurveyActivity : BaseActivity<ActivitySurveyBinding>(R.layout.activity_survey)  {
     private val viewModel: SurveyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initBinding()
+        binding.apply {
+            vm = viewModel
+            toolbarSurvey.toolbar = R.drawable.icon_btn_cancel
+        }
         overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
 
         initTabWithVp()
-        binding.toolbarSurvey.toolbarBtn.setOnClickListener {
+        binding.toolbarSurvey.toolbarBtn.setOnSafeClickListener {
             backClickListener()
         }
         clickBtnComplete()
-    }
-
-    private fun initBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_survey)
-        binding.lifecycleOwner = this
-        binding.vm = viewModel
-        binding.toolbarSurvey.toolbar = R.drawable.icon_btn_cancel
     }
 
     private fun initTabWithVp() {
@@ -55,7 +52,7 @@ class SurveyActivity : AppCompatActivity() {
     }
 
     private fun clickBtnComplete(){
-        binding.btnSurveyApply.setOnClickListener {
+        binding.btnSurveyApply.setOnSafeClickListener {
             binding.vpSurvey.apply {
                 when (currentItem) {
                     0 -> currentItem = 1

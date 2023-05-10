@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.data.vo.response.KeywordInfo
 import com.scentsnote.android.data.vo.response.PerfumeInfo
 import com.scentsnote.android.data.vo.response.SeriesInfo
-import com.scentsnote.android.util.FlexboxRecyclerViewAdapter
+import com.scentsnote.android.utils.adapter.FlexboxRecyclerViewAdapter
 
 object SurveyBinding {
     @JvmStatic

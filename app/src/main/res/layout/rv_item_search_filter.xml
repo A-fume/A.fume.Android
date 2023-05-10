@@ -12,6 +12,7 @@
     <com.google.android.material.chip.Chip
         android:id="@+id/search_result_chip"
         style="@style/SearchFilterChipStyle"
+        android:textAppearance="@style/SearchFilterChipStyle"
         android:text="@{filter.name}"
         tools:text="keyword" />
 </layout>

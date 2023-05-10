@@ -15,9 +15,9 @@ import com.scentsnote.android.data.vo.response.PerfumeDetailWithReviews
 import com.scentsnote.android.databinding.RvItemDetailNoteBinding
 import com.scentsnote.android.databinding.RvItemDetailNoteReportBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
-import com.scentsnote.android.util.CommonDialog
 import com.scentsnote.android.util.LayoutedTextView.OnLayoutListener
-import com.scentsnote.android.util.ReportDialog
+import com.scentsnote.android.utils.view.CommonDialog
+import com.scentsnote.android.utils.view.ReportDialog
 
 
 class DetailNoteAdapter(
@@ -29,9 +29,10 @@ class DetailNoteAdapter(
     var data = mutableListOf<PerfumeDetailWithReviews>()
     var firstType = true
 
-    companion object {
-        const val Default_TYPE = 0
-        const val Report_TYPE = 1
+    /** 시향노트 표시 종류 : 2가지 */
+    companion object{
+        const val Default_TYPE = 0 // 일반 리뷰
+        const val Report_TYPE = 1 // 신고한 리뷰
     }
 
     fun replaceAll(array: ArrayList<PerfumeDetailWithReviews>?) {
@@ -97,6 +98,7 @@ class DetailNoteAdapter(
         fun bind(item: PerfumeDetailWithReviews) {
             binding.item = item
 
+            /** 좋아요 버튼 */
             binding.btnLike.setOnClickListener {
                 if (!ScentsNoteApplication.prefManager.haveToken()) createLoginDialog()
                 else {
@@ -104,6 +106,7 @@ class DetailNoteAdapter(
                 }
             }
 
+            /** 신고 버튼 */
             binding.txtRvDetailNoteReport.setOnClickListener {
                 if (!ScentsNoteApplication.prefManager.haveToken()) createLoginDialog()
                 else {
@@ -111,6 +114,7 @@ class DetailNoteAdapter(
                 }
             }
 
+            /** 더보기 버튼 */
             binding.txtDetailsReviewContent.setOnLayoutListener(object : OnLayoutListener {
                 override fun onLayouted(view: TextView?) {
                     val lineCount = view!!.lineCount
@@ -151,6 +155,7 @@ class DetailNoteAdapter(
 
         }
 
+        /** 로그인 유도 다이얼로그 : 좋아요, 신고 버튼의 경우 비로그인 상태로 클릭 시 로그인 유도 */
         private fun createLoginDialog() {
             val bundle = Bundle()
             bundle.putString("title", "login")
@@ -176,7 +181,8 @@ class DetailNoteAdapter(
             dialog.show(fragmentManager, dialog.tag)
         }
 
-        fun setVisibilityMore(lineCount: Int, context: Context) {
+        /** 더보기 버튼 : 시향 노트 3줄 이상일 경우에는 더보기 버튼 표시 */
+        fun setVisibilityMore(lineCount : Int,context: Context) {
             if (lineCount > 3) {
                 binding.txtReviewMore.visibility = View.VISIBLE
                 if (firstType) {

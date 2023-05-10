@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.scentsnote.android.data.vo.response.SeriesIngredient
 import com.scentsnote.android.databinding.RvItemSeriesIngredientFilterBinding
+import com.scentsnote.android.databinding.RvItemSeriesIngredientsFilterBinding
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class IngredientFlexboxAdapter(
     val ingredientsList: MutableList<SeriesIngredient>,
@@ -50,7 +51,7 @@ class IngredientFlexboxAdapter(
                 }
             }
 
-            binding.root.setOnClickListener { it ->
+            binding.root.setOnSafeClickListener { it ->
                 Log.d(TAG, "onClicked ingredientIdx: ${seriesIngredient.ingredientIdx}")
                 if (!seriesIngredient.clickable) {
                     Toast.makeText(

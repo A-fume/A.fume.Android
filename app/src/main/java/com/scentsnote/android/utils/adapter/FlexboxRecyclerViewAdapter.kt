@@ -1,4 +1,4 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.utils.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.data.vo.response.KeywordInfo
 import com.scentsnote.android.databinding.RvItemFilterFlexboxBinding
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class FlexboxRecyclerViewAdapter(internal val select:(KeywordInfo, Boolean)->Unit, val countBadge:(Int,Boolean)->Unit) :
     ListAdapter<KeywordInfo, FlexboxRecyclerViewAdapter.FlexboxRecyclerViewHolder>(
@@ -53,7 +54,7 @@ class FlexboxRecyclerViewAdapter(internal val select:(KeywordInfo, Boolean)->Uni
         fun bind(data: KeywordInfo) {
             binding.rvData = data
 
-            binding.root.setOnClickListener {
+            binding.root.setOnSafeClickListener {
                 if(data.clickable) {
                     if (!data.checked) {
                         binding.rvItemTxtFlexbox.apply {

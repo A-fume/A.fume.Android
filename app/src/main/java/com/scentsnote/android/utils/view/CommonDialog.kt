@@ -1,4 +1,4 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.utils.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,9 @@ import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.DialogCommonBinding
 import com.scentsnote.android.ui.signin.SignHomeActivity
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setDrawable
+import com.scentsnote.android.utils.extension.setHeight
 
 class CommonDialog : DialogFragment(), View.OnClickListener {
     lateinit var binding : DialogCommonBinding
@@ -45,37 +48,37 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
             "login" -> {
                 setContents(R.string.dialog_login, "취소", "로그인 하기")
 
-                binding.btnCommonDialogYes.setOnClickListener {
+                binding.btnCommonDialogYes.setOnSafeClickListener {
                     val intent = Intent(context,SignHomeActivity::class.java)
                     startActivity(intent)
                     dismiss()
                 }
 
-                binding.btnCommonDialogNo.setOnClickListener {
+                binding.btnCommonDialogNo.setOnSafeClickListener {
                     dismiss()
                 }
             }
             "delete" -> {
                 setContents(R.string.dialog_note_delete, "취소", "완료")
 
-                binding.btnCommonDialogYes.setOnClickListener {
+                binding.btnCommonDialogYes.setOnSafeClickListener {
                     dismiss()
                     listener?.onPositiveClicked()
                 }
 
-                binding.btnCommonDialogNo.setOnClickListener {
+                binding.btnCommonDialogNo.setOnSafeClickListener {
                     dismiss()
                 }
             }
             "save" -> {
                 setContents(R.string.dialog_note_save, "취소", "저장하기")
 
-                binding.btnCommonDialogYes.setOnClickListener {
+                binding.btnCommonDialogYes.setOnSafeClickListener {
                     dismiss()
                     listener?.onPositiveClicked()
                 }
 
-                binding.btnCommonDialogNo.setOnClickListener {
+                binding.btnCommonDialogNo.setOnSafeClickListener {
                     dismiss()
                     listener?.onNegativeClicked()
                 }
@@ -83,12 +86,12 @@ class CommonDialog : DialogFragment(), View.OnClickListener {
             "survey" -> {
                 setContents(R.string.dialog_survey, "계속 진행", "종료")
 
-                binding.btnCommonDialogYes.setOnClickListener {
+                binding.btnCommonDialogYes.setOnSafeClickListener {
                     dismiss()
                     listener?.onPositiveClicked()
                 }
 
-                binding.btnCommonDialogNo.setOnClickListener {
+                binding.btnCommonDialogNo.setOnSafeClickListener {
                     dismiss()
                     listener?.onNegativeClicked()
                 }

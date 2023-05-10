@@ -1,4 +1,4 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.utils.extension
 
 import android.widget.CheckedTextView
 import android.widget.TextView

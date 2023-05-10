@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".util.BaseWebViewActivity">
+        tools:context=".utils.base.BaseWebViewActivity">
 
         <WebView
             android:id="@+id/wv_my_inquiry"

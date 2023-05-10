@@ -12,6 +12,11 @@ import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentDetailNoteBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
 
+/**
+ * 향수 상세 페이지 - 오른쪽 탭(시향 노트)
+ *
+ * 해당 향수의 시향 노트 리스트를 표시
+ */
 class DetailNoteFragment(val perfumeIdx: Int) : Fragment() {
 
     lateinit var binding: FragmentDetailNoteBinding

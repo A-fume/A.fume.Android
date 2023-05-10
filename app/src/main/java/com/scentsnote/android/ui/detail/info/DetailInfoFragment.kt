@@ -26,8 +26,14 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.scentsnote.android.util.BaseWebViewActivity
-import com.scentsnote.android.util.BindingAdapter.setDetailInfoText
+import com.scentsnote.android.utils.adapter.BindingAdapter.setDetailInfoText
+import com.scentsnote.android.utils.base.BaseWebViewActivity
+
+/**
+ * 향수 상세 페이지 - 왼쪽 탭(향수 정보)
+ *
+ * 해당 향수의 상세 정보(조향스토리, 키워드, 노트, 부향률, 가격 및 용량, 계절감, 지속력, 잔향감, 성별감, 비슷한 향수 등)를 표시
+ */
 
 class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
 
@@ -63,6 +69,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         initRvSimilar(requireContext())
     }
 
+    /** 키워드 */
     private fun initRv(ctx: Context?) {
         val flexboxLayoutManager = FlexboxLayoutManager(ctx).apply {
             flexDirection = FlexDirection.ROW
@@ -82,15 +89,17 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         binding.fragDetailRvPrice.run { adapter = rvPriceAdapter }
     }
 
+    /** 비슷한 향수 */
     private fun initRvSimilar(ctx: Context) {
         rvSimilarAdapter = SimilarListAdapter(
             requireContext(),
             parentFragmentManager
-        ) { idx -> detailViewModel.postSimilarPerfumeLike(0, idx) }
+        ) { idx -> detailViewModel.postSimilarPerfumeLike(idx) }
         binding.rvDetailsInfoSimilar.adapter = rvSimilarAdapter
         rvSimilarAdapter.notifyDataSetChanged()
     }
 
+    /** 지속력 - 막대 차트(세로) */
     private fun initLastingPowerBarChart(
         veryWeak: Int,
         weak: Int,
@@ -110,6 +119,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         chartLastingPowerAdapter.notifyDataSetChanged()
     }
 
+    /** 잔향감 - 막대 그래프(가로) */
     private fun initsillageBarChart(light: Int, medium: Int, heavy: Int) {
         val sillageAdapter = HorizontalBarChartAdapter(1, context)
         binding.chartBarDetailsInfoSillage.adapter = sillageAdapter
@@ -117,6 +127,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         sillageAdapter.notifyDataSetChanged()
     }
 
+    /** 성별감 - 원형 그래프 */
     private fun drawGenderPieChart(pieDataSet: PieDataSet) {
         val pieDataColors = listOf<Int>(
             ContextCompat.getColor(requireContext(), R.color.point_beige_accent),
@@ -200,6 +211,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         }
     }
 
+    /** 계절감 - 원형 그래프 */
     private fun drawSeasonPieChart(pieDataSet: PieDataSet) {
         val pieDataColors = listOf<Int>(
             ContextCompat.getColor(requireContext(), R.color.point_beige_accent),
@@ -369,6 +381,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         })
     }
 
+    /** 더보기 버튼 : 조향 스토리 3줄 이상일 경우에는 더보기 버튼 표시 */
     private fun setVisibilityMore() {
         val lineCount = binding.txtDetailsInfoStory.layout.lineCount
         if (lineCount > 3) {
@@ -406,6 +419,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
         }
     }
 
+    /** 정보 수정 제안 버튼 - 현재(2023.05) 구글폼으로 연결 */
     fun onClickInfoReportBtn(view: View){
         val intent = Intent(activity, BaseWebViewActivity::class.java)
         intent.putExtra("url", "infoReport")

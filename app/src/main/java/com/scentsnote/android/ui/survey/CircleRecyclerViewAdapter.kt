@@ -11,6 +11,7 @@ import com.scentsnote.android.data.vo.response.PerfumeInfo
 import com.scentsnote.android.data.vo.response.SeriesInfo
 import com.scentsnote.android.databinding.RvItemSurveyCircleBinding
 import com.scentsnote.android.databinding.RvItemSurveySeriesBinding
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class CircleRecyclerViewAdapter(private val type:Int, val add:(Int)->Unit, val remove:(Int)->Unit):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
@@ -81,7 +82,7 @@ class CirclePerfumeViewHolder(val binding:RvItemSurveyCircleBinding,val add:(Int
 
         binding.perfume=data
         if(data.imageUrl==null) binding.rvItemImgSurveyCircle.setImageDrawable(ContextCompat.getDrawable(binding.root.context,R.drawable.icon_perfume_example))
-        binding.root.setOnClickListener {
+        binding.root.setOnSafeClickListener {
             Log.d("adapter",data.isLiked.toString())
             if(!data.isLiked) {
                 binding.rvItemSurveyClick.visibility=View.VISIBLE
@@ -103,7 +104,7 @@ class CircleSeriesViewHolder(val binding:RvItemSurveySeriesBinding,val add:(Int)
 
         binding.series=data
         if(data.imageUrl==null) binding.rvItemImgSurveyCircle.setImageDrawable(ContextCompat.getDrawable(binding.root.context,R.drawable.dummy_example_3))
-        binding.root.setOnClickListener {
+        binding.root.setOnSafeClickListener {
             Log.d("adapter",data.isLiked.toString())
             if(!data.isLiked) {
                 binding.rvItemSurveyClick.visibility=View.VISIBLE
