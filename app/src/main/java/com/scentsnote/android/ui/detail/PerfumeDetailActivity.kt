@@ -33,7 +33,7 @@ class PerfumeDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        perfumeIdx = intent.getIntExtra("perfumeIdx", 1)
+        perfumeIdx = intent.getIntExtra(INTENT_EXTRA_PERFUME_IDX, 1)
 
         binding = DataBindingUtil.setContentView(this,R.layout.activity_perfume_detail)
         binding.lifecycleOwner=this
@@ -160,5 +160,9 @@ class PerfumeDetailActivity : AppCompatActivity() {
         }
 
         finish()
+    }
+
+    companion object {
+        const val INTENT_EXTRA_PERFUME_IDX = "perfumeIdx"
     }
 }
