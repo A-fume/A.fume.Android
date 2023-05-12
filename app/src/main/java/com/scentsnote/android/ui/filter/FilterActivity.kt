@@ -27,9 +27,7 @@ import com.scentsnote.android.utils.listener.TabSelectedListener
  */
 class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter) {
     private lateinit var filterViewPagerAdapter: ScentsNoteViewPagerAdapter
-    private val filterViewModel: FilterViewModel by viewModels() {
-        FilterViewModelFactory.getInstance()
-    }
+    private val filterViewModel: FilterViewModel by viewModels()
 
     private lateinit var seriesBadge: BadgeDrawable
     private lateinit var brandBadge: BadgeDrawable

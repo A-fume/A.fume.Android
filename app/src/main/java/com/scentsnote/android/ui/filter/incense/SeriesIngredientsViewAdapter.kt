@@ -1,12 +1,12 @@
 package com.scentsnote.android.ui.filter.incense
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.data.vo.response.SeriesInfo
-import com.scentsnote.android.data.vo.response.SeriesIngredients
+import com.scentsnote.android.data.vo.response.SeriesIngredient
 import com.scentsnote.android.databinding.RvItemFilterSeriesBinding
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
@@ -15,11 +15,9 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class SeriesIngredientsViewAdapter(
-    val selectIngredients: (String, MutableList<SeriesIngredients>) -> Unit,
-    val countBadge: (Int, Boolean) -> Unit
-) : RecyclerView.Adapter<SeriesIngredientsViewHolder>() {
-
-    var data = mutableListOf<SeriesInfo>()
+    private val selectIngredients: (String, MutableList<SeriesIngredient>) -> Unit,
+    private val countBadge: (Int, Boolean) -> Unit
+) : ListAdapter<SeriesInfo, SeriesIngredientsViewHolder>(SeriesInfo.diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeriesIngredientsViewHolder {
         val binding =
@@ -27,40 +25,29 @@ class SeriesIngredientsViewAdapter(
         return SeriesIngredientsViewHolder(binding, selectIngredients, countBadge)
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = currentList.size
 
     override fun onBindViewHolder(holder: SeriesIngredientsViewHolder, position: Int) {
-        data[position].let { holder.bind(it) }
+        currentList[position].let { holder.bind(it) }
     }
-
-    internal fun setSeriesData(data: MutableList<SeriesInfo>?) {
-        if (data != null) this.data = data
-        notifyDataSetChanged()
-    }
-
 }
 
 class SeriesIngredientsViewHolder(
     val binding: RvItemFilterSeriesBinding,
-    val selectIngredients: (String, MutableList<SeriesIngredients>) -> Unit,
-    val countBadge: (Int, Boolean) -> Unit
+    private val selectIngredients: (String, MutableList<SeriesIngredient>) -> Unit,
+    private val countBadge: (Int, Boolean) -> Unit
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: SeriesInfo) {
         binding.series = item
-        Log.d("ingredients item", item.ingredients.toString())
         drawIngredients(item.ingredients)
         binding.btnShowIngredients.setOnSafeClickListener {
-            foldORUnfold(it)
+            foldOrUnfold(it)
         }
     }
 
-    fun drawIngredients(ingredients: MutableList<SeriesIngredients>) {
-
-//        val itsIngredient = mutableListOf<Int>()
-//        ingredients.forEach { itsIngredient.add(it.ingredientIdx) }
-
+    private fun drawIngredients(ingredients: MutableList<SeriesIngredient>) {
         val ingredientAdapter =
             IngredientFlexboxAdapter(ingredients, selectIngredients, countBadge)
 
@@ -71,17 +58,14 @@ class SeriesIngredientsViewHolder(
         }
 
         binding.rvSeriesIngredient.apply {
+            itemAnimator = null
             layoutManager = flexboxLayoutManager
             adapter = ingredientAdapter
         }
-
-        //ingredients data 연결넘기기
-//        Log.d("ingredients", ingredients.toString())
         ingredientAdapter.submitList(ingredients)
-
     }
 
-    fun foldORUnfold(view: View) {
+    private fun foldOrUnfold(view: View) {
         if (!view.isSelected) {
             binding.clSeriesIngredient.visibility = View.GONE
             view.isSelected = true
@@ -89,7 +73,5 @@ class SeriesIngredientsViewHolder(
             binding.clSeriesIngredient.visibility = View.VISIBLE
             view.isSelected = false
         }
-
     }
-
 }

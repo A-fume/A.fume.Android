@@ -1,7 +1,7 @@
 package com.scentsnote.android.data.vo.request
 
 import android.os.Parcelable
-import com.scentsnote.android.data.vo.response.SeriesIngredients
+import com.scentsnote.android.data.vo.response.SeriesIngredient
 import kotlinx.parcelize.Parcelize
 
 data class RequestSearch(
@@ -14,7 +14,7 @@ data class RequestSearch(
 @Parcelize
 data class SendFilter(
     var filterInfoPList: MutableList<FilterInfoP>?,
-    var filterSeriesPMap: MutableMap<String,MutableList<SeriesIngredients>>?
+    var filterSeriesPMap: MutableMap<String,MutableList<SeriesIngredient>>?
 ) : Parcelable
 
 //type ingredient = 1 , brand = 2, keyword = 3
