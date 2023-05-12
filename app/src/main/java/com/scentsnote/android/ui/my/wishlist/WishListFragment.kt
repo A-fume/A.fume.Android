@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.scentsnote.android.ScentsNoteApplication
@@ -14,6 +13,7 @@ import com.scentsnote.android.databinding.FragmentWishListBinding
 import com.scentsnote.android.databinding.LayoutPleaseLoginBinding
 import com.scentsnote.android.ui.my.MyViewModel
 import com.scentsnote.android.ui.signin.SignHomeActivity
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import kotlinx.coroutines.launch
 
 
@@ -61,7 +61,7 @@ class WishListFragment : Fragment() {
     }
 
     private fun setPleaseLoginView(binding: LayoutPleaseLoginBinding) {
-        binding.btnGoToLogin.setOnClickListener {
+        binding.btnGoToLogin.setOnSafeClickListener {
             val intent = Intent(requireContext(), SignHomeActivity::class.java)
             startActivity(intent)
         }

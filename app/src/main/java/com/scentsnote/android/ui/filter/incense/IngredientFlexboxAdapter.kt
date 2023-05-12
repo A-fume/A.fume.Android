@@ -4,22 +4,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.scentsnote.android.data.vo.response.SeriesIngredients
+import com.scentsnote.android.databinding.RvItemSeriesIngredientFilterBinding
 import com.scentsnote.android.databinding.RvItemSeriesIngredientsFilterBinding
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class IngredientFlexboxAdapter(
-    val ingredientsList: MutableList<SeriesIngredients>,
-    val setSelectedIngredients: (String, MutableList<SeriesIngredients>) -> Unit,
+    val ingredientsList: MutableList<SeriesIngredient>,
+    val setSelectedIngredients: (String, MutableList<SeriesIngredient>) -> Unit,
     val countBadge: (Int, Boolean) -> Unit
-) : ListAdapter<SeriesIngredients, IngredientFlexboxAdapter.IngredientFlexboxHolder>(
-    seriesIngredientsDiffCallback
+) : ListAdapter<SeriesIngredient, IngredientFlexboxAdapter.IngredientFlexboxHolder>(
+    SeriesIngredient.diffUtil
 ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientFlexboxHolder {
-        val binding = RvItemSeriesIngredientsFilterBinding.inflate(
+        val binding = RvItemSeriesIngredientFilterBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -31,26 +31,18 @@ class IngredientFlexboxAdapter(
         holder.bind(getItem(position))
     }
 
-    internal fun setList(list: MutableList<SeriesIngredients>?) {
-        submitList(list)
-
-//        Log.e("submit list", list.toString())
-    }
-
-
-    inner class IngredientFlexboxHolder(val binding: RvItemSeriesIngredientsFilterBinding) :
+    inner class IngredientFlexboxHolder(val binding: RvItemSeriesIngredientFilterBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private lateinit var changeList: MutableList<SeriesIngredients>
-        var selectedIngredients = mutableListOf<SeriesIngredients>()
+        private lateinit var changeList: MutableList<SeriesIngredient>
+        val selectedIngredients = mutableListOf<SeriesIngredient>()
 
-        fun bind(data: SeriesIngredients) {
-            binding.ingredient = data
+        fun bind(seriesIngredient: SeriesIngredient) {
+            binding.ingredient = seriesIngredient
             initSelectedIngredients()
-            Log.d("ingredients data", data.toString())
+            Log.d(TAG, "ingredients data: $seriesIngredient")
 
             // 그려줄때, 전체가 선택 되어있는 경우 다른 재료들 비활성화
-            if (data.checked && data.ingredientIdx <= -1) { //전체를 선택했을 경우
-//                    setInactiveAll()
+            if (seriesIngredient.checked && seriesIngredient.ingredientIdx <= -1) { //전체를 선택했을 경우
                 changeList = currentList
                 for (i in 1..currentList.lastIndex) {
                     if (changeList[i].checked) {
@@ -59,48 +51,60 @@ class IngredientFlexboxAdapter(
                 }
             }
 
-            binding.root.setOnClickListener { it ->
-                Log.e("ingredientIdx", data.ingredientIdx.toString())
-                if (!data.clickable) Toast.makeText(
-                    it.context,
-                    "5개 이상 선택 할 수 없어요.",
-                    Toast.LENGTH_SHORT
-                ).show()
-                else {
-                    data.checked = !data.checked
-                    if (data.ingredientIdx <= -1) { //전체를 선택했을 경우
-
-                        // 전체선택 활성화, 모든 버튼 비활성화 후 인덱스 리스트에 추가
-                        if (data.checked) {
-                            setInactiveAll()
-                            Log.d("스파이시 전체", ingredientsList.toString())
-                            ingredientsList.forEach { selectedIngredients.add(it) }
-                            countBadge(0, true)
-                        }
-                        // 전체선택 비활성화
-                        else setInactiveEntire()
-                    } else { // 전체가 아닌 하나의 ingredient를 선택했을 때 선택한 인덱스 추가
-                        if (data.checked) {
-                            // 전체 선택이 되어 있는 경우, 전체 선택 비활성화
-                            if (currentList[0].checked) setInactiveEntire()
-
-                            selectedIngredients.add(data)
-                            countBadge(0, true)
-                        } else {
-                            selectedIngredients.remove(data)
-                            countBadge(0, false)
-                        }
-                    }
-
-                    // viewModel로 selectedIngredients 넘기기
-                    setSelectedIngredients(data.seriesName + " 전체", selectedIngredients)
-                    Log.e("selectedIngredients__", selectedIngredients.toString())
+            binding.root.setOnSafeClickListener { it ->
+                Log.d(TAG, "onClicked ingredientIdx: ${seriesIngredient.ingredientIdx}")
+                if (!seriesIngredient.clickable) {
+                    Toast.makeText(
+                        it.context,
+                        "5개 이상 선택 할 수 없어요.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
                 }
-            }
 
+                val newItem = seriesIngredient.copy(checked = !seriesIngredient.checked)
+                val isSelectAllType = newItem.ingredientIdx <= -1
+                if (isSelectAllType) {
+                    // 전체선택 활성화, 모든 버튼 비활성화 후 인덱스 리스트에 추가
+                    if (newItem.checked) {
+                        setInactiveAll()
+                        ingredientsList.forEach { selectedIngredients.add(it) }
+                        countBadge(0, true)
+                    }
+                    // 전체선택 비활성화
+                    else setInactiveEntire()
+                } else { // 전체가 아닌 하나의 ingredient를 선택했을 때 선택한 인덱스 추가
+                    if (newItem.checked) {
+                        // 전체 선택이 되어 있는 경우, 전체 선택 비활성화
+                        if (currentList[0].checked) setInactiveEntire()
+                        selectedIngredients.add(newItem)
+                        countBadge(0, true)
+                    } else {
+                        selectedIngredients.remove(newItem)
+                        countBadge(0, false)
+                    }
+                }
+
+                // viewModel로 selectedIngredients 넘기기
+                setSelectedIngredients(seriesIngredient.seriesName + " 전체", selectedIngredients)
+                Log.d(TAG, "selectedIngredients: $selectedIngredients")
+                replaceList(newItem)
+            }
         }
 
-        fun initSelectedIngredients() {
+        private fun replaceList(newItem: SeriesIngredient) {
+            submitList(
+                currentList.map { oldItem ->
+                    if (oldItem.ingredientIdx == newItem.ingredientIdx) {
+                        newItem
+                    } else {
+                        oldItem
+                    }
+                }
+            )
+        }
+
+        private fun initSelectedIngredients() {
             selectedIngredients.clear()
             changeList = currentList
             changeList.forEach {
@@ -108,16 +112,15 @@ class IngredientFlexboxAdapter(
             }
         }
 
-        fun setInactiveEntire() {
+        private fun setInactiveEntire() {
             //계열 전체 버튼 비활성화
             changeList = currentList
             changeList[0].checked = false
-//            setList(changeList)
             countBadge(0, false)
             selectedIngredients.clear()
         }
 
-        fun setInactiveAll() {
+        private fun setInactiveAll() {
             //각 계열의 모든 버튼 비활성화
             changeList = currentList
             for (i in 1..currentList.lastIndex) {
@@ -126,27 +129,12 @@ class IngredientFlexboxAdapter(
                     countBadge(0, false)
                 }
             }
-//            setList(changeList)
             selectedIngredients.clear()
         }
 
     }
 
-}
-
-val seriesIngredientsDiffCallback = object : DiffUtil.ItemCallback<SeriesIngredients>() {
-    override fun areItemsTheSame(
-        oldItem: SeriesIngredients,
-        newItem: SeriesIngredients
-    ): Boolean {
-        return oldItem.ingredientIdx == newItem.ingredientIdx
+    companion object {
+        private val TAG = "IngredientFlexboxAdapter"
     }
-
-    override fun areContentsTheSame(
-        oldItem: SeriesIngredients,
-        newItem: SeriesIngredients
-    ): Boolean {
-        return oldItem.checked == newItem.checked
-    }
-
 }

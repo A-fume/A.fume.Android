@@ -11,6 +11,7 @@ import com.scentsnote.android.data.vo.response.ResponseMyPerfume
 import com.scentsnote.android.data.vo.response.WishPerfume
 import com.scentsnote.android.databinding.RvItemMyWishlistBinding
 import com.scentsnote.android.ui.note.NoteActivity
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 
 class WishListAdapter (): RecyclerView.Adapter<WishListRecyclerHolder>(){
@@ -37,7 +38,7 @@ class WishListAdapter (): RecyclerView.Adapter<WishListRecyclerHolder>(){
 class WishListRecyclerHolder(val binding: RvItemMyWishlistBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(data: WishPerfume) {
         binding.wishlist = data
-        binding.root.setOnClickListener {
+        binding.root.setOnSafeClickListener {
             goToNotePageWithPerfumeInfo(it, data)
         }
     }

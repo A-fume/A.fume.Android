@@ -14,6 +14,7 @@ import com.scentsnote.android.databinding.RvItemDefaultPerfumeBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailActivity
 import com.scentsnote.android.ui.detail.PerfumeDetailActivity.Companion.INTENT_EXTRA_PERFUME_IDX
 import com.scentsnote.android.util.createDialog
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 
 class DefaultPerfumeRecyclerViewAdapter(
@@ -45,11 +46,12 @@ class DefaultPerfumeRecyclerViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: PerfumeInfo) {
             binding.perfume = data
-            binding.root.setOnClickListener {
+
+            binding.root.setOnSafeClickListener {
                 goToPerfumeDetailsWithPerfumeIdx(it, data.perfumeIdx)
             }
 
-            binding.btnHeart.setOnClickListener {
+            binding.btnHeart.setOnSafeClickListener {
                 // 좋아요 누르면 로그인 하게 유도
                 if (!ScentsNoteApplication.prefManager.haveToken()) {
                     context.createDialog(fragmentManager, "login")

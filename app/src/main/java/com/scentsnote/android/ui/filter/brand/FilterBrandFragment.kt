@@ -15,9 +15,14 @@ import com.scentsnote.android.databinding.FragmentFilterBrandBinding
 import com.scentsnote.android.ui.filter.FilterViewModel
 import com.scentsnote.android.ui.filter.FilterViewModelFactory
 import com.google.android.material.tabs.TabLayout
-import com.scentsnote.android.util.BaseWebViewActivity
-import com.scentsnote.android.util.changeTabsFont
+import com.scentsnote.android.utils.base.BaseWebViewActivity
+import com.scentsnote.android.utils.extension.changeTabsFont
 
+/**
+ * 향수 검색 - 필터 - 브랜드 탭
+ *
+ * ㄱ,ㄴ,ㄷ 초성 리스트와 하위 브랜드 리스트 제공
+ */
 class FilterBrandFragment : Fragment() {
     private val viewModel: FilterViewModel by activityViewModels() {
         FilterViewModelFactory.getInstance()

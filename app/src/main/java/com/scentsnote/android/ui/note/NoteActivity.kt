@@ -7,23 +7,25 @@ import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.ParcelableWishList
 import com.scentsnote.android.databinding.ActivityNoteBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailActivity
-import com.scentsnote.android.util.*
+import com.scentsnote.android.utils.*
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.toast
+import com.scentsnote.android.utils.view.CommonDialog
+import com.scentsnote.android.utils.view.SeekBarListener
+import com.scentsnote.android.utils.view.setSelectedSeekBarTxtBold
 
-class NoteActivity : AppCompatActivity() {
-    lateinit var binding: ActivityNoteBinding
+class NoteActivity : BaseActivity<ActivityNoteBinding>(R.layout.activity_note) {
     lateinit var noteKeywordAdapter : NoteKeywordAdapter
     private val noteViewModel : NoteViewModel by viewModels()
     private val keywordBottomSheetFragment = KeywordBottomSheetFragment()
@@ -38,14 +40,14 @@ class NoteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_note)
-        binding.lifecycleOwner = this
-        binding.viewModel = noteViewModel
+        binding.apply {
+            viewModel = noteViewModel
+        }
 
         initNote()
         setComponentList()
-        initObserver()
-        initListener()
+        initObservers()
+        initListeners()
         initKeywordList()
     }
 
@@ -64,7 +66,7 @@ class NoteActivity : AppCompatActivity() {
         }
     }
 
-    private fun initObserver(){
+    private fun initObservers(){
         noteViewModel.rating.observe(this, Observer {
             noteViewModel.checkShareBtn()
             noteViewModel.checkCompleteBtn()
@@ -141,7 +143,7 @@ class NoteActivity : AppCompatActivity() {
         txtGenderList = listOf(binding.txtNoteGenderMan, binding.txtNoteGenderNeuter, binding.txtNoteGenderWoman)
     }
 
-    private fun initListener(){
+    private fun initListeners(){
         onSeekBarChangeListener(binding.sbNoteLongevity,binding.sbNoteTxtLongevity,txtLongevityList,"longevity")
         onSeekBarChangeListener(binding.sbNoteLongevity,binding.sbNoteTxtLongevity,txtLongevityTimeList,"longevity")
         onSeekBarChangeListener(binding.sbNoteReverb,binding.sbNoteTxtReverb,txtReverbList,"reverb")

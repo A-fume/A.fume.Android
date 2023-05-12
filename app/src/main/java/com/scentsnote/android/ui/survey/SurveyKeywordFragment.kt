@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentSurveyKeywordBinding
-import com.scentsnote.android.util.FlexboxRecyclerViewAdapter
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.scentsnote.android.utils.adapter.FlexboxRecyclerViewAdapter
 
 class SurveyKeywordFragment : Fragment() {
     private lateinit var binding:FragmentSurveyKeywordBinding

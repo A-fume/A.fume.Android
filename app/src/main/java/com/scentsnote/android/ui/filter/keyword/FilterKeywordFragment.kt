@@ -11,12 +11,17 @@ import androidx.lifecycle.Observer
 import com.scentsnote.android.databinding.FragmentFilterKeywordBinding
 import com.scentsnote.android.ui.filter.FilterViewModel
 import com.scentsnote.android.ui.filter.FilterViewModelFactory
-import com.scentsnote.android.util.FlexboxRecyclerViewAdapter
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.scentsnote.android.utils.adapter.FlexboxRecyclerViewAdapter
 
+/**
+ * 향수 검색 - 필터 - 키워드 탭
+ *
+ * 키워드 리스트 제공
+ */
 class FilterKeywordFragment : Fragment() {
     private lateinit var binding: FragmentFilterKeywordBinding
     private val viewModel: FilterViewModel by activityViewModels() {

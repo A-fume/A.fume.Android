@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.scentsnote.android.R
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class PrivacyPolicyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,7 +13,7 @@ class PrivacyPolicyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_privacy_policy)
 
         val imageViewPrivacy = findViewById<TextView>(R.id.btn_back_to_sign_up) as ImageView
-        imageViewPrivacy.setOnClickListener {
+        imageViewPrivacy.setOnSafeClickListener {
             finish()
         }
 

@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.request.SendFilter
@@ -16,16 +14,20 @@ import com.scentsnote.android.ui.filter.brand.FilterBrandFragment
 import com.scentsnote.android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.scentsnote.android.ui.filter.keyword.FilterKeywordFragment
 import com.scentsnote.android.ui.search.SearchHomeFragment.Companion.SEARCH_HOME
-import com.scentsnote.android.util.TabSelectedListener
 import com.google.android.material.badge.BadgeDrawable
-import com.scentsnote.android.util.changeTabsFont
+import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.changeTabsFont
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.listener.TabSelectedListener
 
-class FilterActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityFilterBinding
+/**
+ * 향수 검색 - 필터
+ *
+ * 계열, 브랜드, 키워드 필터 제공
+ */
+class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter) {
     private lateinit var filterViewPagerAdapter: ScentsNoteViewPagerAdapter
-    private val filterViewModel: FilterViewModel by viewModels() {
-        FilterViewModelFactory.getInstance()
-    }
+    private val filterViewModel: FilterViewModel by viewModels()
 
     private lateinit var seriesBadge: BadgeDrawable
     private lateinit var brandBadge: BadgeDrawable
@@ -33,23 +35,24 @@ class FilterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.apply {
+            filterVm = filterViewModel
+        }
 
         setFilterData()
         checkChangeFilter()
         Log.d("filter act filter", filterViewModel.selectedKeywordList.value.toString())
-        initBinding()
 
         initViewPager()
         setUpTabWithViewPager()
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
 
-
         observeViewModel()
 
-        binding.btnFilterApply.setOnClickListener {
+        binding.btnFilterApply.setOnSafeClickListener {
             sendFilter()
         }
-        binding.toolbarFilter.toolbarBtn.setOnClickListener {
+        binding.toolbarFilter.toolbarBtn.setOnSafeClickListener {
             finish()
             overridePendingTransition(R.anim.slide_down, R.anim.slide_down)
         }
@@ -71,13 +74,6 @@ class FilterActivity : AppCompatActivity() {
         if (fromHome == SEARCH_HOME) {
             filterViewModel.initFilterData()
         }
-    }
-
-    private fun initBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_filter)
-        binding.lifecycleOwner = this
-        binding.filterVm = filterViewModel
-
     }
 
     private fun initViewPager() {
