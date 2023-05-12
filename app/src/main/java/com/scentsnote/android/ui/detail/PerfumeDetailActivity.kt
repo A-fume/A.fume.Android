@@ -40,11 +40,12 @@ class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layou
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding.apply {
             viewModel = detailViewModel
         }
 
-        perfumeIdx = intent.getIntExtra("perfumeIdx", 1)
+        perfumeIdx = intent.getIntExtra(INTENT_EXTRA_PERFUME_IDX, 1)
 
         binding.svDetail.run {
             header = binding.tabPerfumeDetail
@@ -167,5 +168,9 @@ class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layou
         }
 
         finish()
+    }
+
+    companion object {
+        const val INTENT_EXTRA_PERFUME_IDX = "perfumeIdx"
     }
 }

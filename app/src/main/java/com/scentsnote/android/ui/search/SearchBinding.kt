@@ -34,7 +34,7 @@ object SearchBinding {
     @BindingAdapter("setResultPerfume")
     fun setResultPerfume(recyclerView: RecyclerView, list: MutableList<PerfumeInfo>?){
         if(recyclerView.adapter != null) with(recyclerView.adapter as DefaultPerfumeRecyclerViewAdapter){
-            list?.let { setData(list) }
+            list?.let { submitList(list) }
         }
     }
 
