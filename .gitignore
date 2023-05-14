@@ -171,32 +171,20 @@ obj/
 /out/
 
 # User-specific configurations
-.idea/caches/
-.idea/libraries/
-.idea/shelf/
-.idea/.name
-.idea/compiler.xml
-.idea/copyright/profiles_settings.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/scopes/scope_settings.xml
-.idea/vcs.xml
-.idea/jsLibraryMappings.xml
-.idea/datasources.xml
-.idea/dataSources.ids
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
-.idea/jarRepositories.xml
+.idea/*
 
-# OS-specific files
+# Copied from https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
 .DS_Store
-.DS_Store?
+.AppleDouble
+.LSOverride
 ._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
+
+# Copied from https://github.com/github/gitignore/blob/master/Global/Windows.gitignore
+# Windows thumbnail cache files
 Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
 
 # Legacy Eclipse project files
 .classpath
