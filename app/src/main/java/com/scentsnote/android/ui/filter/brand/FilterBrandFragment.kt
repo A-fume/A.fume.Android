@@ -12,8 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scentsnote.android.databinding.FragmentFilterBrandBinding
-import com.scentsnote.android.ui.filter.FilterViewModel
-import com.scentsnote.android.ui.filter.FilterViewModelFactory
+import com.scentsnote.android.viewmodel.filter.FilterViewModel
 import com.google.android.material.tabs.TabLayout
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.changeTabsFont
@@ -24,9 +23,7 @@ import com.scentsnote.android.utils.extension.changeTabsFont
  * ㄱ,ㄴ,ㄷ 초성 리스트와 하위 브랜드 리스트 제공
  */
 class FilterBrandFragment : Fragment() {
-    private val viewModel: FilterViewModel by activityViewModels() {
-        FilterViewModelFactory.getInstance()
-    }
+    private val viewModel: FilterViewModel by activityViewModels()
 
     private lateinit var binding: FragmentFilterBrandBinding
     private lateinit var brandAdapter: BrandRecyclerViewAdapter

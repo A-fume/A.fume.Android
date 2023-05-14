@@ -9,7 +9,7 @@
             type="com.scentsnote.android.ui.search.SearchResultFragment" />
         <variable
             name="viewModel"
-            type="com.scentsnote.android.ui.search.SearchViewModel" />
+            type="com.scentsnote.android.viewmodel.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

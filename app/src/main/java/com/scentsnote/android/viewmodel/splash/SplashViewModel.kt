@@ -1,4 +1,4 @@
-package com.scentsnote.android.ui.splash
+package com.scentsnote.android.viewmodel.splash
 
 import android.util.Log
 import androidx.lifecycle.LiveData

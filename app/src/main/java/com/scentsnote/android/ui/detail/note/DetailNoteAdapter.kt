@@ -14,7 +14,7 @@ import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.data.vo.response.PerfumeDetailWithReviews
 import com.scentsnote.android.databinding.RvItemDetailNoteBinding
 import com.scentsnote.android.databinding.RvItemDetailNoteReportBinding
-import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
+import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 import com.scentsnote.android.util.LayoutedTextView.OnLayoutListener
 import com.scentsnote.android.utils.view.CommonDialog
 import com.scentsnote.android.utils.view.ReportDialog
@@ -30,7 +30,7 @@ class DetailNoteAdapter(
     var firstType = true
 
     /** 시향노트 표시 종류 : 2가지 */
-    companion object{
+    companion object {
         const val Default_TYPE = 0 // 일반 리뷰
         const val Report_TYPE = 1 // 신고한 리뷰
     }
@@ -61,6 +61,7 @@ class DetailNoteAdapter(
                     binding
                 )
             }
+
             Report_TYPE -> {
                 val binding = RvItemDetailNoteReportBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -71,6 +72,7 @@ class DetailNoteAdapter(
                     binding
                 )
             }
+
             else -> {
                 throw RuntimeException("알 수 없는 뷰타입 에러")
             }
@@ -85,6 +87,7 @@ class DetailNoteAdapter(
                     holder.bind(it)
                 }
             }
+
             Report_TYPE -> {
                 holder as DetailNoteReportViewHolder
             }
@@ -182,7 +185,7 @@ class DetailNoteAdapter(
         }
 
         /** 더보기 버튼 : 시향 노트 3줄 이상일 경우에는 더보기 버튼 표시 */
-        fun setVisibilityMore(lineCount : Int,context: Context) {
+        fun setVisibilityMore(lineCount: Int, context: Context) {
             if (lineCount > 3) {
                 binding.txtReviewMore.visibility = View.VISIBLE
                 if (firstType) {

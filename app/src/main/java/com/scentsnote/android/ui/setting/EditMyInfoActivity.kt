@@ -11,14 +11,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityMyInfoEditBinding
+import com.scentsnote.android.viewmodel.setting.EditMyInfoViewModel
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.toast
 import com.scentsnote.android.utils.view.CommonDialog
 import com.scentsnote.android.utils.view.YearPickerDialog
 
 class EditMyInfoActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMyInfoEditBinding
-    private val editViewModel : EditMyInfoViewModel by viewModels()
+    private lateinit var binding: ActivityMyInfoEditBinding
+    private val editViewModel: EditMyInfoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,7 @@ class EditMyInfoActivity : AppCompatActivity() {
         setUpdateMyInfoToastObserve("내 정보가 수정되었습니다.", "내 정보 수정 실패")
     }
 
-    private fun setCompleteBtn(){
+    private fun setCompleteBtn() {
         setMyInfoObserve(editViewModel.isValidNickBtn)
         setMyInfoObserve(editViewModel.isValidNick)
         setMyInfoObserve(editViewModel.isCheckMan)
@@ -41,25 +42,25 @@ class EditMyInfoActivity : AppCompatActivity() {
         })
     }
 
-    private fun setMyInfoObserve(editInfo: LiveData<Boolean>){
+    private fun setMyInfoObserve(editInfo: LiveData<Boolean>) {
         editInfo.observe(this, Observer {
             editViewModel.checkChangeInfo()
         })
     }
 
-    fun showYearPicker(view : View){
+    fun showYearPicker(view: View) {
         val dialog: DialogFragment = YearPickerDialog(binding.btnMyInfoEditYearPicker)
         dialog.show(this.supportFragmentManager, dialog.tag)
         editViewModel.checkChangeInfo()
     }
 
-    fun onClickCompleteBtn(view: View){
+    fun onClickCompleteBtn(view: View) {
         editViewModel.putMyInfo()
 
         finish()
     }
 
-    fun onClickWithdrawalBtn(view: View){
+    fun onClickWithdrawalBtn(view: View) {
         val intent = Intent(this, BaseWebViewActivity::class.java)
         intent.putExtra("url", "withdrawal")
         startActivity(intent)
@@ -69,23 +70,24 @@ class EditMyInfoActivity : AppCompatActivity() {
         backBtn()
     }
 
-    fun onClickBackBtn(view : View){
+    fun onClickBackBtn(view: View) {
         backBtn()
     }
 
-    private fun backBtn(){
+    private fun backBtn() {
         editViewModel.checkUpdateInfo()
 
         editViewModel.showUpdateDialog.observe(this, Observer {
-            if(it){
+            if (it) {
                 val bundle = Bundle()
-                bundle.putString("title","save")
+                bundle.putString("title", "save")
                 val dialog: CommonDialog = CommonDialog().CustomDialogBuilder()
                     .setBtnClickListener(object : CommonDialog.CustomDialogListener {
                         override fun onPositiveClicked() {
                             editViewModel.putMyInfo()
                             finish()
                         }
+
                         override fun onNegativeClicked() {
                             finish()
                         }
@@ -93,18 +95,17 @@ class EditMyInfoActivity : AppCompatActivity() {
                     .getInstance()
                 dialog.arguments = bundle
                 dialog.show(this.supportFragmentManager, dialog.tag)
-            }
-            else{
+            } else {
                 finish()
             }
         })
     }
 
-    private fun setUpdateMyInfoToastObserve(success: String, fail: String){
-        editViewModel.showMyInfoUpdateToast.observe(this, Observer{
-            if(editViewModel.isValidMyInfoUpdate.value!!){
+    private fun setUpdateMyInfoToastObserve(success: String, fail: String) {
+        editViewModel.showMyInfoUpdateToast.observe(this, Observer {
+            if (editViewModel.isValidMyInfoUpdate.value!!) {
                 this.toast(success)
-            }else{
+            } else {
                 this.toast(fail)
             }
         })

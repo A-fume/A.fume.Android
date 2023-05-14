@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.databinding.FragmentWishListBinding
 import com.scentsnote.android.databinding.LayoutPleaseLoginBinding
-import com.scentsnote.android.ui.my.MyViewModel
+import com.scentsnote.android.viewmodel.my.MyViewModel
 import com.scentsnote.android.ui.signin.SignHomeActivity
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import kotlinx.coroutines.launch

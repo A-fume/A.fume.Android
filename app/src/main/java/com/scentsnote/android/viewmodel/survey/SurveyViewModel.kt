@@ -1,4 +1,4 @@
-package com.scentsnote.android.ui.survey
+package com.scentsnote.android.viewmodel.survey
 
 import android.util.Log
 import androidx.lifecycle.LiveData

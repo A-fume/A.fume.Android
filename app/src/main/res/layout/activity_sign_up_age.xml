@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.scentsnote.android.ui.signup.SignUpViewModel" />
+            type="com.scentsnote.android.viewmodel.signup.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentDetailNoteBinding
-import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
+import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 
 /**
  * 향수 상세 페이지 - 오른쪽 탭(시향 노트)

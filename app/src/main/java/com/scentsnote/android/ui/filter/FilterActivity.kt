@@ -15,6 +15,7 @@ import com.scentsnote.android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.scentsnote.android.ui.filter.keyword.FilterKeywordFragment
 import com.scentsnote.android.ui.search.SearchHomeFragment.Companion.SEARCH_HOME
 import com.google.android.material.badge.BadgeDrawable
+import com.scentsnote.android.viewmodel.filter.FilterViewModel
 import com.scentsnote.android.utils.base.BaseActivity
 import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.utils.extension.setOnSafeClickListener

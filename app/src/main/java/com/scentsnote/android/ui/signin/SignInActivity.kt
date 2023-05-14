@@ -8,12 +8,13 @@ import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySignInBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.signup.SignUpEmailActivity
+import com.scentsnote.android.viewmodel.signin.SignInViewModel
 import com.scentsnote.android.utils.base.BaseActivity
 import com.scentsnote.android.utils.extension.startActivity
 import com.scentsnote.android.utils.extension.startActivityWithFinish
 
 class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
-    private val signInViewModel : SignInViewModel by viewModels()
+    private val signInViewModel: SignInViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         checkNextBtn()
     }
 
-    private fun checkNextBtn(){
+    private fun checkNextBtn() {
         signInViewModel.isValidEmail.observe(this, Observer {
             signInViewModel.checkLoginNextBtn()
         })
@@ -36,23 +37,23 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
         })
     }
 
-    fun onClickSignInBtn(view: View){
+    fun onClickSignInBtn(view: View) {
         signInViewModel.postLoginInfo()
 
         signInViewModel.isValidLogin.observe(this, Observer { isValidLogin ->
             isValidLogin?.let {
-                if(isValidLogin){
+                if (isValidLogin) {
                     this.startActivityWithFinish(MainActivity::class.java)
                 }
             }
         })
     }
 
-    fun onClickSignUpBtn(view: View){
+    fun onClickSignUpBtn(view: View) {
         this.startActivity(SignUpEmailActivity::class.java)
     }
 
-    fun onClickBackBtn(view: View){
+    fun onClickBackBtn(view: View) {
         finish()
     }
 }

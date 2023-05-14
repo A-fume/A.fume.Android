@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.filter.FilterActivity
+import com.scentsnote.android.viewmodel.search.SearchViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 
@@ -21,7 +22,7 @@ class SearchHomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel

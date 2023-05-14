@@ -7,6 +7,7 @@ import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySurveyBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.ScentsNoteViewPagerAdapter
+import com.scentsnote.android.viewmodel.survey.SurveyViewModel
 import com.scentsnote.android.utils.*
 import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
@@ -14,7 +15,7 @@ import com.scentsnote.android.utils.base.BaseActivity
 import com.scentsnote.android.utils.extension.startActivityWithFinish
 import com.scentsnote.android.utils.listener.TabSelectedListener
 
-class SurveyActivity : BaseActivity<ActivitySurveyBinding>(R.layout.activity_survey)  {
+class SurveyActivity : BaseActivity<ActivitySurveyBinding>(R.layout.activity_survey) {
     private val viewModel: SurveyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +52,7 @@ class SurveyActivity : BaseActivity<ActivitySurveyBinding>(R.layout.activity_sur
         binding.tabSurvey.changeTabsFont(0)
     }
 
-    private fun clickBtnComplete(){
+    private fun clickBtnComplete() {
         binding.btnSurveyApply.setOnSafeClickListener {
             binding.vpSurvey.apply {
                 when (currentItem) {
@@ -68,14 +69,14 @@ class SurveyActivity : BaseActivity<ActivitySurveyBinding>(R.layout.activity_sur
     }
 
     override fun onBackPressed() {
-        if(binding.vpSurvey.currentItem == 0){
+        if (binding.vpSurvey.currentItem == 0) {
             backClickListener()
-        }else{
+        } else {
             binding.vpSurvey.currentItem -= 1
         }
     }
 
-    private fun backClickListener(){
+    private fun backClickListener() {
         this.createListenerDialog(supportFragmentManager, "survey",
             {
                 ScentsNoteApplication.prefManager.userSurvey = false

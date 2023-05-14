@@ -9,8 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.scentsnote.android.databinding.FragmentFilterIncenseSeriesBinding
-import com.scentsnote.android.ui.filter.FilterViewModel
-import com.scentsnote.android.ui.filter.FilterViewModelFactory
+import com.scentsnote.android.viewmodel.filter.FilterViewModel
 
 /**
  * 향수 검색 - 필터 - 계열 탭
@@ -19,16 +18,19 @@ import com.scentsnote.android.ui.filter.FilterViewModelFactory
  */
 class FilterIncenseSeriesFragment : Fragment() {
     private lateinit var binding: FragmentFilterIncenseSeriesBinding
-    private val viewModel: FilterViewModel by activityViewModels(){
-        FilterViewModelFactory.getInstance()
-    }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-       return initBinding(inflater,container)
+    private val viewModel: FilterViewModel by activityViewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return initBinding(inflater, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("incense badge cnt",viewModel.badgeCount.value?.toString()!!)
+        Log.e("incense badge cnt", viewModel.badgeCount.value?.toString()!!)
         initIncenseSeriesRv()
         observeBlockClickMoreThan5()
     }
@@ -38,7 +40,7 @@ class FilterIncenseSeriesFragment : Fragment() {
         observeBlockClickMoreThan5()
     }
 
-    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?):View{
+    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
         binding = FragmentFilterIncenseSeriesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = viewModel
@@ -56,7 +58,7 @@ class FilterIncenseSeriesFragment : Fragment() {
         seriesAdapter.notifyDataSetChanged()
     }
 
-    fun observeBlockClickMoreThan5(){
+    fun observeBlockClickMoreThan5() {
         viewModel.badgeCount.observe(viewLifecycleOwner, Observer {
             viewModel.blockClickSeriesMoreThan5()
             Log.d("series_obverse", viewModel.selectedSeriesMap.value.toString())

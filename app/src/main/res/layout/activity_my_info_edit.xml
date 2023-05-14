@@ -8,7 +8,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.scentsnote.android.ui.setting.EditMyInfoViewModel" />
+            type="com.scentsnote.android.viewmodel.setting.EditMyInfoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

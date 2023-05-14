@@ -15,6 +15,7 @@ import com.scentsnote.android.ui.detail.note.DetailNoteFragment
 import com.scentsnote.android.ui.note.NoteActivity
 import com.scentsnote.android.utils.*
 import com.bumptech.glide.Glide
+import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 import com.scentsnote.android.utils.adapter.BindingAdapter.setNoteBtnText
 import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
@@ -27,16 +28,17 @@ import com.scentsnote.android.utils.listener.TabSelectedListener
  *
  * 상단(기본 정보)과 하단(상세 정보, 시향 노트)에 걸쳐 향수 정보 제공
  */
-class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layout.activity_perfume_detail) {
+class PerfumeDetailActivity :
+    BaseActivity<ActivityPerfumeDetailBinding>(R.layout.activity_perfume_detail) {
     lateinit var viewPagerAdapter: ViewPagerAdapter
     private val detailViewModel: PerfumeDetailViewModel by viewModels()
-    private var isLiked : Boolean = false
-    private var checkLiked : Boolean = false
+    private var isLiked: Boolean = false
+    private var checkLiked: Boolean = false
     var perfumeIdx: Int = 0
     var reviewIdx: Int = 0
     var perfumeName = ""
     var brandName = ""
-    var image : String? = ""
+    var image: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +67,7 @@ class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layou
         detailViewModel.getPerfumeInfoWithReview(perfumeIdx)
     }
 
-    private fun initInfo(){
+    private fun initInfo() {
         detailViewModel.getPerfumeInfo(perfumeIdx)
         detailViewModel.perfumeDetailData.observe(this, Observer {
             binding.item = it
@@ -88,7 +90,7 @@ class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layou
 
     }
 
-    private fun initViewPager(){
+    private fun initViewPager() {
         viewPagerAdapter = ViewPagerAdapter(
             supportFragmentManager
         )
@@ -100,7 +102,7 @@ class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layou
         binding.vpPerfumeDetail.adapter = viewPagerAdapter
     }
 
-    private fun initTab(){
+    private fun initTab() {
         binding.tabPerfumeDetail.setupWithViewPager(binding.vpPerfumeDetail)
         binding.tabPerfumeDetail.apply {
             getTabAt(0)?.text = "향수 정보"
@@ -110,43 +112,44 @@ class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layou
         binding.tabPerfumeDetail.changeTabsFont(0)
     }
 
-    private fun initObserve(){
+    private fun initObserve() {
         detailViewModel.isValidReport.observe(this, Observer {
-            if(it)
+            if (it)
                 this.toast("신고가 접수되었습니다.")
             else
                 this.toast("시향 노트 신고 실패")
         })
     }
 
-    private fun setClick(){
-        binding.actPerfumeDetailClLike.setOnSafeClickListener{
-            if(ScentsNoteApplication.prefManager.haveToken()){
-                if(isLiked) {
+    private fun setClick() {
+        binding.actPerfumeDetailClLike.setOnSafeClickListener {
+            if (ScentsNoteApplication.prefManager.haveToken()) {
+                if (isLiked) {
                     isLiked = false
                     binding.actPerfumeDetailIvLike.setImageResource(R.drawable.favorite_inactive)
-                }else{
+                } else {
                     isLiked = true
                     binding.actPerfumeDetailIvLike.setImageResource(R.drawable.favorite_active)
                 }
-            }else{
-                this.createDialog(supportFragmentManager,"login")
+            } else {
+                this.createDialog(supportFragmentManager, "login")
             }
         }
 
         binding.actPerfumeDetailIvWrite.setOnSafeClickListener {
-            if(ScentsNoteApplication.prefManager.haveToken()){
+            if (ScentsNoteApplication.prefManager.haveToken()) {
                 val intent = Intent(this@PerfumeDetailActivity, NoteActivity::class.java)
 
-                val wishListPerfume = ParcelableWishList(perfumeIdx,reviewIdx,perfumeName,brandName,image)
+                val wishListPerfume =
+                    ParcelableWishList(perfumeIdx, reviewIdx, perfumeName, brandName, image)
                 intent.run {
                     putExtra("wishListPerfume", wishListPerfume)
                     addFlags(FLAG_ACTIVITY_CLEAR_TOP)
                 }
 
                 startActivity(intent)
-            }else{
-                this.createDialog(supportFragmentManager,"login")
+            } else {
+                this.createDialog(supportFragmentManager, "login")
             }
 
         }
@@ -155,15 +158,15 @@ class PerfumeDetailActivity : BaseActivity<ActivityPerfumeDetailBinding>(R.layou
     override fun onBackPressed() {
         super.onBackPressed()
 
-        if(checkLiked != isLiked){
+        if (checkLiked != isLiked) {
             detailViewModel.postPerfumeLike(perfumeIdx)
         }
 
         finish()
     }
 
-    fun onClickBackBtn(view : View){
-        if(checkLiked != isLiked){
+    fun onClickBackBtn(view: View) {
+        if (checkLiked != isLiked) {
             detailViewModel.postPerfumeLike(perfumeIdx)
         }
 

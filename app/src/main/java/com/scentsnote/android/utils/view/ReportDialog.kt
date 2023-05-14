@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.DialogReviewReportBinding
-import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
+import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.extension.setDrawable
 import com.scentsnote.android.utils.extension.setHeight
 
-class ReportDialog(val vm : PerfumeDetailViewModel) : DialogFragment(), View.OnClickListener {
-    lateinit var binding : DialogReviewReportBinding
+class ReportDialog(val vm: PerfumeDetailViewModel) : DialogFragment(), View.OnClickListener {
+    lateinit var binding: DialogReviewReportBinding
     var listener: ReportDialogListener? = null
 
     override fun onCreateView(
@@ -44,7 +44,7 @@ class ReportDialog(val vm : PerfumeDetailViewModel) : DialogFragment(), View.OnC
     private fun processBundle(binding: DialogReviewReportBinding) {
         binding.rgReviewReport.setOnCheckedChangeListener { radioGroup, checkedId ->
             binding.btnReportDialogYes.isEnabled = true
-            when(checkedId){
+            when (checkedId) {
                 R.id.rb_1_ad -> vm.setReportTxt("광고, 홍보")
                 R.id.rb_2_swear_word -> vm.setReportTxt("욕설, 음란어 사용")
                 R.id.rb_3_typo -> vm.setReportTxt("과도한 오타, 반복적 사용")
@@ -83,7 +83,7 @@ class ReportDialog(val vm : PerfumeDetailViewModel) : DialogFragment(), View.OnC
         }
     }
 
-    interface ReportDialogListener{
+    interface ReportDialogListener {
         fun onPositiveClicked()
         fun onNegativeClicked()
     }
