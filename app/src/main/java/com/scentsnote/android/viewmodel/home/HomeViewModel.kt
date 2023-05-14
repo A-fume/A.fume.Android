@@ -1,4 +1,4 @@
-package com.scentsnote.android.ui.home
+package com.scentsnote.android.viewmodel.home
 
 import android.util.Log
 import androidx.lifecycle.LiveData

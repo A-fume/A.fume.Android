@@ -18,6 +18,7 @@ import com.scentsnote.android.ui.note.NoteActivity
 import com.scentsnote.android.util.*
 import com.bumptech.glide.Glide
 import com.scentsnote.android.util.BindingAdapter.setNoteBtnText
+import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 
 class PerfumeDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityPerfumeDetailBinding

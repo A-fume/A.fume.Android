@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.databinding.FragmentWishListBinding
 import com.scentsnote.android.databinding.LayoutPleaseLoginBinding
-import com.scentsnote.android.ui.my.MyViewModel
+import com.scentsnote.android.viewmodel.my.MyViewModel
 import com.scentsnote.android.ui.signin.SignHomeActivity
 import kotlinx.coroutines.launch
 

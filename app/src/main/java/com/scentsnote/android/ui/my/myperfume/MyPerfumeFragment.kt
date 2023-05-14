@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.databinding.FragmentMyPerfumeBinding
 import com.scentsnote.android.databinding.LayoutPleaseLoginBinding
-import com.scentsnote.android.ui.my.MyViewModel
+import com.scentsnote.android.viewmodel.my.MyViewModel
 import com.scentsnote.android.ui.signin.SignHomeActivity
 import kotlinx.coroutines.launch
 

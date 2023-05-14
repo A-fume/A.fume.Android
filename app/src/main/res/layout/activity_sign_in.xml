@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.scentsnote.android.ui.signin.SignInViewModel" />
+            type="com.scentsnote.android.viewmodel.signin.SignInViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

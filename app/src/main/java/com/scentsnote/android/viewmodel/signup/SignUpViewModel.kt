@@ -1,4 +1,4 @@
-package com.scentsnote.android.ui.signup
+package com.scentsnote.android.viewmodel.signup
 
 import android.os.Handler
 import android.util.Log

@@ -5,7 +5,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.scentsnote.android.R
-import com.scentsnote.android.ui.note.NoteViewModel
+import com.scentsnote.android.viewmodel.note.NoteViewModel
 
 fun setSelectedSeekBarTxtBold(list: List<TextView>, select: Int){
     for(i in list.indices){

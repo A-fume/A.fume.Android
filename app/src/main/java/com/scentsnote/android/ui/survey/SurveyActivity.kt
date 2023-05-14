@@ -10,6 +10,7 @@ import com.scentsnote.android.databinding.ActivitySurveyBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.ScentsNoteViewPagerAdapter
 import com.scentsnote.android.util.*
+import com.scentsnote.android.viewmodel.survey.SurveyViewModel
 import java.util.*
 
 class SurveyActivity : AppCompatActivity() {

@@ -10,6 +10,7 @@ import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityMoreNewPerfumeBinding
 import com.scentsnote.android.ui.home.adapter.MoreNewListAdapter
 import com.scentsnote.android.util.BaseWebViewActivity
+import com.scentsnote.android.viewmodel.home.HomeViewModel
 
 class MoreNewPerfumeActivity : AppCompatActivity() {
     lateinit var binding: ActivityMoreNewPerfumeBinding

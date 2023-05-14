@@ -11,6 +11,7 @@ import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySignUpPasswordBinding
 import com.scentsnote.android.util.setKeyboard
 import com.scentsnote.android.util.startActivity
+import com.scentsnote.android.viewmodel.signup.SignUpViewModel
 
 class SignUpPasswordActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpPasswordBinding

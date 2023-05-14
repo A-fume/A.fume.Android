@@ -1,4 +1,4 @@
-package com.scentsnote.android.ui.setting
+package com.scentsnote.android.viewmodel.setting
 
 import android.os.Handler
 import android.util.Log

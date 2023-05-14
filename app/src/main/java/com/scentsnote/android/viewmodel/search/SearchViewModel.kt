@@ -1,4 +1,4 @@
-package com.scentsnote.android.ui.search
+package com.scentsnote.android.viewmodel.search
 
 import android.content.Context
 import android.util.Log

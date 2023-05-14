@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySignUpGenderBinding
 import com.scentsnote.android.util.startActivity
+import com.scentsnote.android.viewmodel.signup.SignUpViewModel
 
 class SignUpGenderActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpGenderBinding

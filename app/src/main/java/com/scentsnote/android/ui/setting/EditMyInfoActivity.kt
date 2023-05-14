@@ -15,6 +15,7 @@ import com.scentsnote.android.util.BaseWebViewActivity
 import com.scentsnote.android.util.CommonDialog
 import com.scentsnote.android.util.YearPickerDialog
 import com.scentsnote.android.util.toast
+import com.scentsnote.android.viewmodel.setting.EditMyInfoViewModel
 
 class EditMyInfoActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMyInfoEditBinding

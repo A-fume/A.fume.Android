@@ -14,7 +14,7 @@ import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.data.vo.response.PerfumeDetailWithReviews
 import com.scentsnote.android.databinding.RvItemDetailNoteBinding
 import com.scentsnote.android.databinding.RvItemDetailNoteReportBinding
-import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
+import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 import com.scentsnote.android.util.CommonDialog
 import com.scentsnote.android.util.LayoutedTextView.OnLayoutListener
 import com.scentsnote.android.util.ReportDialog

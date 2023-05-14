@@ -12,16 +12,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scentsnote.android.databinding.FragmentFilterBrandBinding
-import com.scentsnote.android.ui.filter.FilterViewModel
-import com.scentsnote.android.ui.filter.FilterViewModelFactory
+import com.scentsnote.android.viewmodel.filter.FilterViewModel
 import com.google.android.material.tabs.TabLayout
 import com.scentsnote.android.util.BaseWebViewActivity
 import com.scentsnote.android.util.changeTabsFont
 
 class FilterBrandFragment : Fragment() {
-    private val viewModel: FilterViewModel by activityViewModels() {
-        FilterViewModelFactory.getInstance()
-    }
+    private val viewModel: FilterViewModel by activityViewModels()
 
     private lateinit var binding: FragmentFilterBrandBinding
     private lateinit var brandAdapter: BrandRecyclerViewAdapter

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentSurveyPerfumeBinding
+import com.scentsnote.android.viewmodel.survey.SurveyViewModel
 
 class SurveyPerfumeFragment : Fragment() {
     private lateinit var binding: FragmentSurveyPerfumeBinding

@@ -12,6 +12,7 @@ import com.scentsnote.android.databinding.ActivitySignUpAgeBinding
 import com.scentsnote.android.ui.survey.SurveyActivity
 import com.scentsnote.android.util.YearPickerDialog
 import com.scentsnote.android.util.startActivityWithFinish
+import com.scentsnote.android.viewmodel.signup.SignUpViewModel
 
 class SignUpAgeActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignUpAgeBinding

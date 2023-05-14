@@ -1,4 +1,4 @@
-package com.scentsnote.android.ui.detail
+package com.scentsnote.android.viewmodel.detail
 
 import android.annotation.SuppressLint
 import android.util.Log

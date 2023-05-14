@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.filter.FilterActivity
+import com.scentsnote.android.viewmodel.search.SearchViewModel
 
 
 class SearchHomeFragment : Fragment() {

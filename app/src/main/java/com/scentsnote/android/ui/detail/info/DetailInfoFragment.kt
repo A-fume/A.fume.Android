@@ -15,7 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentDetailInfoBinding
-import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
+import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend

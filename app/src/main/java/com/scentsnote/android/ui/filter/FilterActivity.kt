@@ -19,13 +19,12 @@ import com.scentsnote.android.ui.search.SearchHomeFragment.Companion.SEARCH_HOME
 import com.scentsnote.android.util.TabSelectedListener
 import com.google.android.material.badge.BadgeDrawable
 import com.scentsnote.android.util.changeTabsFont
+import com.scentsnote.android.viewmodel.filter.FilterViewModel
 
 class FilterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilterBinding
     private lateinit var filterViewPagerAdapter: ScentsNoteViewPagerAdapter
-    private val filterViewModel: FilterViewModel by viewModels() {
-        FilterViewModelFactory.getInstance()
-    }
+    private val filterViewModel: FilterViewModel by viewModels()
 
     private lateinit var seriesBadge: BadgeDrawable
     private lateinit var brandBadge: BadgeDrawable

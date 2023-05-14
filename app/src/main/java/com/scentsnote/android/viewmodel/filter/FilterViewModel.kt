@@ -1,4 +1,4 @@
-package com.scentsnote.android.ui.filter
+package com.scentsnote.android.viewmodel.filter
 
 import android.util.Log
 import androidx.lifecycle.LiveData

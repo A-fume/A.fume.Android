@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.scentsnote.android.ui.detail.PerfumeDetailViewModel" />
+            type="com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

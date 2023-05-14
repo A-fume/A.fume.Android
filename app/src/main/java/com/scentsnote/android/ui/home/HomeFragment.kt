@@ -16,6 +16,7 @@ import com.scentsnote.android.ui.home.adapter.NewListAdapter
 import com.scentsnote.android.ui.home.adapter.PopularListAdapter
 import com.scentsnote.android.ui.home.adapter.RecentListAdapter
 import com.scentsnote.android.ui.home.adapter.RecommendListAdapter
+import com.scentsnote.android.viewmodel.home.HomeViewModel
 import java.util.*
 
 

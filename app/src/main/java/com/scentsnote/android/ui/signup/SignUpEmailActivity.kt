@@ -13,6 +13,7 @@ import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivitySignUpEmailBinding
 import com.scentsnote.android.util.setKeyboard
 import com.scentsnote.android.util.startActivity
+import com.scentsnote.android.viewmodel.signup.SignUpViewModel
 
 class SignUpEmailActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpEmailBinding

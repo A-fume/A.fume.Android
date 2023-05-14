@@ -8,19 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.FilterActivity
 import com.scentsnote.android.util.BaseWebViewActivity
+import com.scentsnote.android.viewmodel.search.SearchViewModel
 
 
 class SearchResultFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel: SearchViewModel by activityViewModels()
     private lateinit var rvFilterAdapter: SelectedFilterRecyclerViewAdapter
 
     override fun onCreateView(
@@ -55,10 +56,6 @@ class SearchResultFragment : Fragment() {
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            SingleViewModelFactory.getInstance()
-        )[SearchViewModel::class.java]
         binding.viewModel = viewModel
         binding.fragment = this
         return binding.root
@@ -77,12 +74,13 @@ class SearchResultFragment : Fragment() {
     }
 
     private fun initRvPerfumeList(context: Context?) {
-        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(requireContext(),parentFragmentManager) { idx ->
-            viewModel.postPerfumeLike(
-                idx,
-                context
-            )
-        }
+        val rvPerfumeAdapter =
+            DefaultPerfumeRecyclerViewAdapter(requireContext(), parentFragmentManager) { idx ->
+                viewModel.postPerfumeLike(
+                    idx,
+                    context
+                )
+            }
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
         rvPerfumeAdapter.notifyDataSetChanged()
     }
@@ -109,7 +107,7 @@ class SearchResultFragment : Fragment() {
             Log.d("searchResultFragment", "searchResultFragment observer")
             if (it.filterInfoPList == null || it.filterInfoPList!!.size == 0) {
 
-                var  activity = activity as MainActivity
+                var activity = activity as MainActivity
                 activity.getBackSearchHome()
             }
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
@@ -118,7 +116,7 @@ class SearchResultFragment : Fragment() {
         })
     }
 
-    fun onClickTipOffBtn(view: View){
+    fun onClickTipOffBtn(view: View) {
         val intent = Intent(requireContext(), BaseWebViewActivity::class.java)
         intent.putExtra("url", "tipOff")
         startActivity(intent)

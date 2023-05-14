@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.DialogReviewReportBinding
-import com.scentsnote.android.ui.detail.PerfumeDetailViewModel
+import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 
 class ReportDialog(val vm : PerfumeDetailViewModel) : DialogFragment(), View.OnClickListener {
     lateinit var binding : DialogReviewReportBinding

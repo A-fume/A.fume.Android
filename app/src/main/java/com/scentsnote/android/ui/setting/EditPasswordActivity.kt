@@ -12,6 +12,7 @@ import com.scentsnote.android.databinding.ActivityPasswordEditBinding
 import com.scentsnote.android.util.CommonDialog
 import com.scentsnote.android.util.setKeyboard
 import com.scentsnote.android.util.toast
+import com.scentsnote.android.viewmodel.setting.EditMyInfoViewModel
 
 class EditPasswordActivity : AppCompatActivity() {
     lateinit var binding : ActivityPasswordEditBinding

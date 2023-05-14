@@ -5,37 +5,25 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
-import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.ActivityMainBinding
-import com.scentsnote.android.ui.my.MyViewModel
-import com.scentsnote.android.ui.search.SearchViewModel
-import com.scentsnote.android.ui.search.SingleViewModelFactory
+import com.scentsnote.android.viewmodel.search.SearchViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-    private lateinit var searchViewModel: SearchViewModel
-    private val myViewModel: MyViewModel by viewModels()
+    private val searchViewModel: SearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val flag = intent.getIntExtra("flag", 0)
         initBinding()
-//        getFilter()
         initNavigation()
-        searchViewModel = ViewModelProvider(
-            this,
-            SingleViewModelFactory.getInstance()
-        )[SearchViewModel::class.java]
     }
 
     override fun onResume() {

@@ -3,7 +3,6 @@ package com.scentsnote.android.ui.splash
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -14,10 +13,9 @@ import com.scentsnote.android.databinding.ActivitySplashBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.survey.SurveyActivity
 import com.scentsnote.android.util.AppUpdateDialog
-import com.scentsnote.android.util.createDialog
 import com.scentsnote.android.util.startActivityWithFinish
 import com.scentsnote.android.util.toast
-import kotlinx.coroutines.*
+import com.scentsnote.android.viewmodel.splash.SplashViewModel
 
 
 class SplashActivity : AppCompatActivity() {

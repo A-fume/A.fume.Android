@@ -12,6 +12,7 @@ import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.signup.SignUpEmailActivity
 import com.scentsnote.android.util.startActivity
 import com.scentsnote.android.util.startActivityWithFinish
+import com.scentsnote.android.viewmodel.signin.SignInViewModel
 
 class SignInActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignInBinding
