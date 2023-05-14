@@ -1,4 +1,4 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.utils.extension
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

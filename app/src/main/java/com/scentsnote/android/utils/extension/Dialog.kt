@@ -1,4 +1,4 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.utils.extension
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

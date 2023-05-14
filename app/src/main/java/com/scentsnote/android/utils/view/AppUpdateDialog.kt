@@ -1,4 +1,4 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.utils.view
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.databinding.DialogAppUpdateBinding
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setDrawable
+import com.scentsnote.android.utils.extension.setHeight
 
 class AppUpdateDialog: DialogFragment(), View.OnClickListener {
     lateinit var binding : DialogAppUpdateBinding
@@ -39,7 +42,7 @@ class AppUpdateDialog: DialogFragment(), View.OnClickListener {
 
     private fun processBundle(binding: DialogAppUpdateBinding) {
         val bundle = arguments
-        binding.button7.setOnClickListener {
+        binding.button7.setOnSafeClickListener {
             dismiss()
             listener?.onPositiveClicked()
         }

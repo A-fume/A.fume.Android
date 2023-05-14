@@ -13,6 +13,7 @@ import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.filter.FilterActivity
 import com.scentsnote.android.viewmodel.search.SearchViewModel
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 
 class SearchHomeFragment : Fragment() {
@@ -21,7 +22,7 @@ class SearchHomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -34,7 +35,7 @@ class SearchHomeFragment : Fragment() {
         initRvPerfumeList()
         removeRvFilterList()
 
-        binding.fabFilter.setOnClickListener { context?.let { it1 -> goToSelectFilters(it1) } }
+        binding.fabFilter.setOnSafeClickListener { context?.let { it1 -> goToSelectFilters(it1) } }
 
         initToolbar()
 
@@ -56,7 +57,7 @@ class SearchHomeFragment : Fragment() {
     }
 
     fun initToolbar() {
-        binding.toolbarBtnSearch.setOnClickListener {
+        binding.toolbarBtnSearch.setOnSafeClickListener {
             val intent = Intent(context, SearchTextActivity::class.java)
             startActivity(intent)
         }

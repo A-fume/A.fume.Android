@@ -1,5 +1,7 @@
 package com.scentsnote.android.data.vo.response
 
+import androidx.recyclerview.widget.DiffUtil
+
 data class ResponsePerfume(
     val count: Int,
     val rows: MutableList<PerfumeInfo>
@@ -16,4 +18,15 @@ data class PerfumeInfo(
     var isLiked: Boolean,
     val brandName: String,
     val mainSeriesName: String?=null
-)
+){
+    companion object{
+        val diffUtil = object : DiffUtil.ItemCallback<PerfumeInfo>() {
+            override fun areItemsTheSame(oldItem: PerfumeInfo, newItem: PerfumeInfo): Boolean =
+                oldItem.name == newItem.name
+
+            override fun areContentsTheSame(oldItem: PerfumeInfo, newItem: PerfumeInfo): Boolean =
+                oldItem == newItem
+
+        }
+    }
+}

@@ -11,6 +11,11 @@ import androidx.lifecycle.Observer
 import com.scentsnote.android.databinding.FragmentFilterIncenseSeriesBinding
 import com.scentsnote.android.viewmodel.filter.FilterViewModel
 
+/**
+ * 향수 검색 - 필터 - 계열 탭
+ *
+ * 상위 항목과 하위 계열 리스트 제공
+ */
 class FilterIncenseSeriesFragment : Fragment() {
     private lateinit var binding: FragmentFilterIncenseSeriesBinding
     private val viewModel: FilterViewModel by activityViewModels()

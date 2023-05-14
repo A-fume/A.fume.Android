@@ -13,6 +13,7 @@ import com.scentsnote.android.databinding.FragmentWishListBinding
 import com.scentsnote.android.databinding.LayoutPleaseLoginBinding
 import com.scentsnote.android.viewmodel.my.MyViewModel
 import com.scentsnote.android.ui.signin.SignHomeActivity
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import kotlinx.coroutines.launch
 
 
@@ -60,7 +61,7 @@ class WishListFragment : Fragment() {
     }
 
     private fun setPleaseLoginView(binding: LayoutPleaseLoginBinding) {
-        binding.btnGoToLogin.setOnClickListener {
+        binding.btnGoToLogin.setOnSafeClickListener {
             val intent = Intent(requireContext(), SignHomeActivity::class.java)
             startActivity(intent)
         }

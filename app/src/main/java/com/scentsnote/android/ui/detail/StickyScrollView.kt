@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.ScrollView
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class StickyScrollView : ScrollView, ViewTreeObserver.OnGlobalLayoutListener {
     constructor(context: Context) : this(context, null, 0)
@@ -23,7 +24,7 @@ class StickyScrollView : ScrollView, ViewTreeObserver.OnGlobalLayoutListener {
             field = value
             field?.let {
                 it.translationZ = 1f
-                it.setOnClickListener { _ ->
+                it.setOnSafeClickListener { _ ->
                     this.smoothScrollTo(scrollX, it.top)
                     callStickListener()
                 }

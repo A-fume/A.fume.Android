@@ -9,17 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentSurveyKeywordBinding
-import com.scentsnote.android.util.FlexboxRecyclerViewAdapter
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.scentsnote.android.viewmodel.survey.SurveyViewModel
+import com.scentsnote.android.utils.adapter.FlexboxRecyclerViewAdapter
 
 class SurveyKeywordFragment : Fragment() {
-    private lateinit var binding:FragmentSurveyKeywordBinding
+    private lateinit var binding: FragmentSurveyKeywordBinding
     private val viewModel: SurveyViewModel by activityViewModels()
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return initBinding(container)
     }
 
@@ -36,25 +40,25 @@ class SurveyKeywordFragment : Fragment() {
     private fun initBinding(container: ViewGroup?): View {
         binding = FragmentSurveyKeywordBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = this
-        binding.listEmpty.text = String.format(getString(R.string.txt_list_empty),"키워드")
+        binding.listEmpty.text = String.format(getString(R.string.txt_list_empty), "키워드")
         viewModel.setActiveButton(1)
         binding.vm = viewModel
         return binding.root
     }
 
-    private fun initRvKeyword(ctx:Context?){
-        val flexboxLayoutManager= FlexboxLayoutManager(ctx).apply {
-            flexDirection= FlexDirection.ROW
-            flexWrap= FlexWrap.WRAP
+    private fun initRvKeyword(ctx: Context?) {
+        val flexboxLayoutManager = FlexboxLayoutManager(ctx).apply {
+            flexDirection = FlexDirection.ROW
+            flexWrap = FlexWrap.WRAP
             alignItems = AlignItems.STRETCH
         }
         val keywordAdapter =
             FlexboxRecyclerViewAdapter(
-                { index,b -> viewModel.addKeywordList(index.keywordIdx, b) },
-                { index,b -> {} }
+                { index, b -> viewModel.addKeywordList(index.keywordIdx, b) },
+                { index, b -> {} }
             )
         binding.rvSurveyKeyword.apply {
-            layoutManager=flexboxLayoutManager
+            layoutManager = flexboxLayoutManager
             setEmptyView(binding.listEmpty)
             adapter = keywordAdapter
         }

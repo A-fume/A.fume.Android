@@ -73,7 +73,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_search" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_search"
+            tools:listitem="@layout/rv_item_search_filter"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_perfume"

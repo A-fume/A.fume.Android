@@ -11,7 +11,7 @@ import com.scentsnote.android.data.repository.EditMyInfoRepository
 import com.scentsnote.android.data.repository.SignRepository
 import com.scentsnote.android.data.vo.request.RequestEditMyInfo
 import com.scentsnote.android.data.vo.request.RequestEditPassword
-import com.scentsnote.android.util.SingleLiveEvent
+import com.scentsnote.android.utils.etc.SingleLiveEvent
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.regex.Pattern

@@ -1,4 +1,4 @@
-package com.scentsnote.android.util
+package com.scentsnote.android.utils.view
 
 import android.content.res.Resources
 import android.graphics.Paint
@@ -15,6 +15,9 @@ import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.DialogYearPickerBinding
 import com.google.android.material.button.MaterialButton
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setDrawable
+import com.scentsnote.android.utils.extension.setHeight
 import java.util.*
 
 class YearPickerDialog(private var ageBtn: MaterialButton) : DialogFragment(), View.OnClickListener {
@@ -54,7 +57,7 @@ class YearPickerDialog(private var ageBtn: MaterialButton) : DialogFragment(), V
         npYear.setNumberPickerTextColor(R.color.dark_gray_4a)
         npYear.setNumberPickerDividerColor(R.color.point_beige)
 
-        binding.btnYearPickerConfirm.setOnClickListener {
+        binding.btnYearPickerConfirm.setOnSafeClickListener {
             ageBtn.text = npYear.value.toString()
 
             dismiss()

@@ -11,7 +11,7 @@ import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.data.vo.response.BrandInfo
 import com.scentsnote.android.data.vo.response.KeywordInfo
 import com.scentsnote.android.data.vo.response.SeriesInfo
-import com.scentsnote.android.data.vo.response.SeriesIngredients
+import com.scentsnote.android.data.vo.response.SeriesIngredient
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -35,7 +35,7 @@ class FilterViewModel : ViewModel() {
     val seriesList: LiveData<MutableList<SeriesInfo>> get() = _seriesList
 
     // selected List - series
-    val selectedSeriesMap: MutableLiveData<MutableMap<String, MutableList<SeriesIngredients>>> =
+    val selectedSeriesMap: MutableLiveData<MutableMap<String, MutableList<SeriesIngredient>>> =
         MutableLiveData()
 
     //brand List
@@ -129,8 +129,8 @@ class FilterViewModel : ViewModel() {
         return brandMap.value!![initial] ?: mutableListOf()
     }
 
-    fun addSeriesIngredientIdx(series: String, idxList: MutableList<SeriesIngredients>) {
-        var tempMap = mutableMapOf<String, MutableList<SeriesIngredients>>()
+    fun addSeriesIngredientIdx(series: String, idxList: MutableList<SeriesIngredient>) {
+        var tempMap = mutableMapOf<String, MutableList<SeriesIngredient>>()
 
         if (selectedSeriesMap.value != null) {
             tempMap = selectedSeriesMap.value!!
@@ -241,7 +241,7 @@ class FilterViewModel : ViewModel() {
                         ingredient.clickable = true
                     }
                     val entireIngredients =
-                        SeriesIngredients(
+                        SeriesIngredient(
                             ingredientIdx = -1*it.seriesIdx,
                             name = it.name + " 전체",
                             seriesName = it.name

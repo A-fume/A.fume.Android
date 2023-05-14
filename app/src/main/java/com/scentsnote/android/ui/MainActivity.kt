@@ -14,15 +14,14 @@ import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.ActivityMainBinding
 import com.scentsnote.android.viewmodel.search.SearchViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.scentsnote.android.utils.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)  {
     private lateinit var navController: NavController
     private val searchViewModel: SearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initBinding()
         initNavigation()
     }
 
@@ -30,12 +29,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         getFilter()
-    }
-
-    private fun initBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.lifecycleOwner = this
-
     }
 
     private fun initNavigation() {

@@ -13,7 +13,7 @@ import com.scentsnote.android.data.vo.response.BrandItem
 import com.scentsnote.android.data.vo.response.KeywordInfo
 import com.scentsnote.android.data.vo.response.PerfumeItem
 import com.scentsnote.android.data.vo.response.ResponseReview
-import com.scentsnote.android.util.SingleLiveEvent
+import com.scentsnote.android.utils.etc.SingleLiveEvent
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 

@@ -17,15 +17,20 @@ import com.scentsnote.android.ui.home.adapter.PopularListAdapter
 import com.scentsnote.android.ui.home.adapter.RecentListAdapter
 import com.scentsnote.android.ui.home.adapter.RecommendListAdapter
 import com.scentsnote.android.viewmodel.home.HomeViewModel
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import java.util.*
 
-
+/**
+ * 홈 화면
+ *
+ * 개인 맞춤 추천, 일반 추천(성별 나이 반영), 최근 조회한 향수, 비슷한 향수 추천, 새로운 향수 제공
+ */
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
-    lateinit var recommendAdapter : RecommendListAdapter
-    lateinit var popularAdapter : PopularListAdapter
-    lateinit var recentAdapter : RecentListAdapter
-    lateinit var newAdapter : NewListAdapter
+    lateinit var recommendAdapter: RecommendListAdapter
+    lateinit var popularAdapter: PopularListAdapter
+    lateinit var recentAdapter: RecentListAdapter
+    lateinit var newAdapter: NewListAdapter
     private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
@@ -37,8 +42,8 @@ class HomeFragment : Fragment() {
 
         initInfo()
 
-        binding.btnHomeMore.setOnClickListener {
-            val moreNewPerfumeIntent = Intent(context,MoreNewPerfumeActivity::class.java)
+        binding.btnHomeMore.setOnSafeClickListener {
+            val moreNewPerfumeIntent = Intent(context, MoreNewPerfumeActivity::class.java)
 
             startActivity(moreNewPerfumeIntent)
         }
@@ -66,52 +71,54 @@ class HomeFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun initInfo(){
-        if(ScentsNoteApplication.prefManager.haveToken()){
-            binding.txtHomeNameTitle.text = ScentsNoteApplication.prefManager.userNickname+ getString(R.string.txt_home_title)
-            binding.txtHomeAgeTitle.text = getAgeGroupInfo().toString() + "대 " + getGenderInfo()+getString(R.string.txt_home_age)
+    private fun initInfo() {
+        if (ScentsNoteApplication.prefManager.haveToken()) {
+            binding.txtHomeNameTitle.text =
+                ScentsNoteApplication.prefManager.userNickname + getString(R.string.txt_home_title)
+            binding.txtHomeAgeTitle.text =
+                getAgeGroupInfo().toString() + "대 " + getGenderInfo() + getString(R.string.txt_home_age)
             binding.txtHomeNameSubtitle.text = setSubTitle()
         }
     }
 
-    private fun setSubTitle() : String{
-        return if(ScentsNoteApplication.prefManager.userAge == getYear() && ScentsNoteApplication.prefManager.userGender?.isEmpty() == false){
+    private fun setSubTitle(): String {
+        return if (ScentsNoteApplication.prefManager.userAge == getYear() && ScentsNoteApplication.prefManager.userGender?.isEmpty() == false) {
             getString(R.string.txt_home_subtitle_age_null)
-        }else if(ScentsNoteApplication.prefManager.userAge != getYear() && ScentsNoteApplication.prefManager.userGender?.isEmpty() == true){
+        } else if (ScentsNoteApplication.prefManager.userAge != getYear() && ScentsNoteApplication.prefManager.userGender?.isEmpty() == true) {
             getString(R.string.txt_home_subtitle_gender_null)
-        }else if(ScentsNoteApplication.prefManager.userAge == getYear() && ScentsNoteApplication.prefManager.userGender?.isEmpty() == true ){
+        } else if (ScentsNoteApplication.prefManager.userAge == getYear() && ScentsNoteApplication.prefManager.userGender?.isEmpty() == true) {
             getString(R.string.txt_home_subtitle_age_gender_null)
-        }else ScentsNoteApplication.prefManager.userNickname+getString(R.string.txt_home_subtitle)
+        } else ScentsNoteApplication.prefManager.userNickname + getString(R.string.txt_home_subtitle)
     }
 
     // 나이 구하기
-    private fun getAgeGroupInfo() : Int{
-        return if(ScentsNoteApplication.prefManager.userAge == getYear()) {
+    private fun getAgeGroupInfo(): Int {
+        return if (ScentsNoteApplication.prefManager.userAge == getYear()) {
             20
-        }else{
+        } else {
             val age = getYear() - ScentsNoteApplication.prefManager.userAge + 1
-            val group= (age/10)*10
-            if(group == 0) 10
+            val group = (age / 10) * 10
+            if (group == 0) 10
             else group
         }
     }
 
     // 현재 년도 구하기
-    private fun getYear(): Int{
+    private fun getYear(): Int {
         val instance = Calendar.getInstance()
         return instance.get(Calendar.YEAR)
     }
 
 
-    private fun getGenderInfo(): String{
-        return if(ScentsNoteApplication.prefManager.userGender == "MAN"){
+    private fun getGenderInfo(): String {
+        return if (ScentsNoteApplication.prefManager.userGender == "MAN") {
             "남성"
-        }else{
+        } else {
             "여성"
         }
     }
 
-    private fun initRecommendList(){
+    private fun initRecommendList() {
         recommendAdapter =
             RecommendListAdapter(
                 requireContext()
@@ -120,7 +127,7 @@ class HomeFragment : Fragment() {
         binding.vpHomeRecommend.adapter = recommendAdapter
     }
 
-    private fun observe(){
+    private fun observe() {
         homeViewModel.recommendPerfumeList.observe(requireActivity(), androidx.lifecycle.Observer {
 
             recommendAdapter.run {
@@ -132,27 +139,36 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun initPopularList(){
+    private fun initPopularList() {
         popularAdapter =
-            PopularListAdapter(requireContext(),parentFragmentManager) { idx -> homeViewModel.postPerfumeLike(0, idx)}
+            PopularListAdapter(
+                requireContext(),
+                parentFragmentManager
+            ) { idx -> homeViewModel.postPerfumeLike(0, idx) }
         binding.rvHomePopular.adapter = popularAdapter
 
         popularAdapter.notifyDataSetChanged()
 
     }
 
-    private fun initRecentList(){
+    private fun initRecentList() {
         recentAdapter =
-            RecentListAdapter(requireContext(), parentFragmentManager) { idx -> homeViewModel.postPerfumeLike(1, idx)}
+            RecentListAdapter(
+                requireContext(),
+                parentFragmentManager
+            ) { idx -> homeViewModel.postPerfumeLike(1, idx) }
         binding.rvHomeRecent.adapter = recentAdapter
 
         recentAdapter.notifyDataSetChanged()
 
     }
 
-    private fun initNewList(){
+    private fun initNewList() {
         newAdapter =
-            NewListAdapter(requireContext(), parentFragmentManager) { idx -> homeViewModel.postPerfumeLike(2, idx)}
+            NewListAdapter(
+                requireContext(),
+                parentFragmentManager
+            ) { idx -> homeViewModel.postPerfumeLike(2, idx) }
         binding.rvHomeNew.adapter = newAdapter
 
         newAdapter.notifyDataSetChanged()
