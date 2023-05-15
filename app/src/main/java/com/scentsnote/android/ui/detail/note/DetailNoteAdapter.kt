@@ -180,7 +180,7 @@ class DetailNoteAdapter(
                         context,
                         R.drawable.background_btn_details_more
                     )
-                }else{
+                } else {
                     binding.clReviewMore.background =
                         ContextCompat.getDrawable(context, R.color.transparent)
                 }
@@ -192,6 +192,5 @@ class DetailNoteAdapter(
 
     inner class DetailNoteReportViewHolder(val binding: RvItemDetailNoteReportBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
     }
 }
