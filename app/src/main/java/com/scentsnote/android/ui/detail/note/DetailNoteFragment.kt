@@ -43,8 +43,7 @@ class DetailNoteFragment(val perfumeIdx: Int) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getPerfumeInfoWithReview(perfumeIdx)
         viewModel.perfumeDetailWithReviewData.observe(requireActivity(), Observer {
-            noteAdapter.replaceAll(ArrayList(it))
-            noteAdapter.notifyDataSetChanged()
+            noteAdapter.submitList(ArrayList(it))
         })
 
         viewModel.isValidNoteList.observe(requireActivity(), Observer {
@@ -61,8 +60,5 @@ class DetailNoteFragment(val perfumeIdx: Int) : Fragment() {
     private fun initNoteList(){
         noteAdapter = DetailNoteAdapter(viewModel,parentFragmentManager,perfumeIdx){idx -> viewModel.postReviewLike(idx)}
         binding.rvDetailNote.adapter = noteAdapter
-
-        noteAdapter.notifyDataSetChanged()
-
     }
 }

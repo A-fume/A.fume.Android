@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication
@@ -23,11 +24,11 @@ import com.scentsnote.android.utils.view.ReportDialog
 class DetailNoteAdapter(
     private val vm: PerfumeDetailViewModel,
     private val fragmentManager: FragmentManager,
-    val perfumeIdx: Int,
-    val clickBtnLike: (Int) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var data = mutableListOf<PerfumeDetailWithReviews>()
-    var isblurtype = true
+    private val perfumeIdx: Int,
+    private val clickBtnLike: (Int) -> Unit
+) : ListAdapter<PerfumeDetailWithReviews, RecyclerView.ViewHolder>(PerfumeDetailWithReviews.diffUtil) {
+
+    private var isblurtype = true
 
     /** 시향노트 표시 종류 : 2가지 */
     companion object {
@@ -35,21 +36,12 @@ class DetailNoteAdapter(
         const val Report_TYPE = 1 // 신고한 리뷰
     }
 
-    fun replaceAll(array: ArrayList<PerfumeDetailWithReviews>?) {
-        array?.let {
-            data.run {
-                clear()
-                addAll(it)
-            }
-        }
-    }
-
     override fun getItemViewType(position: Int): Int {
-        return if (data[position].isReported) 1 else 0
+        return if (currentList[position].isReported) 1 else 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
+        when (viewType) {
             Default_TYPE -> {
                 val binding = RvItemDetailNoteBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -83,7 +75,7 @@ class DetailNoteAdapter(
         when (getItemViewType(position)) {
             Default_TYPE -> {
                 holder as DetailNoteViewHolder
-                data[position].let {
+                currentList[position].let {
                     holder.bind(it)
                 }
             }
@@ -94,7 +86,7 @@ class DetailNoteAdapter(
         }
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = currentList.size
 
     inner class DetailNoteViewHolder(val context: Context, val binding: RvItemDetailNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
