@@ -27,7 +27,7 @@ class DetailNoteAdapter(
     val clickBtnLike: (Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var data = mutableListOf<PerfumeDetailWithReviews>()
-    var firstType = true
+    var isblurtype = true
 
     /** 시향노트 표시 종류 : 2가지 */
     companion object {
@@ -128,13 +128,9 @@ class DetailNoteAdapter(
             })
 
             binding.txtReviewMore.setOnClickListener {
-                firstType = false
                 if (binding.txtDetailsReviewContent.maxLines > 3) {
+                    isblurtype = true
                     binding.txtDetailsReviewContent.maxLines = 3
-                    binding.clReviewMore.background = ContextCompat.getDrawable(
-                        context,
-                        R.drawable.background_btn_details_more
-                    )
                     binding.txtReviewMore.text = "더보기"
                     binding.txtReviewMore.setCompoundDrawablesWithIntrinsicBounds(
                         null,
@@ -143,9 +139,8 @@ class DetailNoteAdapter(
                         null
                     )
                 } else {
+                    isblurtype = false
                     binding.txtDetailsReviewContent.maxLines = Int.MAX_VALUE
-                    binding.clReviewMore.background =
-                        ContextCompat.getDrawable(context, R.color.transparent)
                     binding.txtReviewMore.text = "접기"
                     binding.txtReviewMore.setCompoundDrawablesWithIntrinsicBounds(
                         null,
@@ -188,11 +183,14 @@ class DetailNoteAdapter(
         fun setVisibilityMore(lineCount: Int, context: Context) {
             if (lineCount > 3) {
                 binding.txtReviewMore.visibility = View.VISIBLE
-                if (firstType) {
+                if (isblurtype) {
                     binding.clReviewMore.background = ContextCompat.getDrawable(
                         context,
                         R.drawable.background_btn_details_more
                     )
+                }else{
+                    binding.clReviewMore.background =
+                        ContextCompat.getDrawable(context, R.color.transparent)
                 }
             } else {
                 binding.txtReviewMore.visibility = View.GONE
