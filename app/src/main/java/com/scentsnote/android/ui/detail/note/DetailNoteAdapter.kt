@@ -20,7 +20,6 @@ import com.scentsnote.android.util.LayoutedTextView.OnLayoutListener
 import com.scentsnote.android.utils.view.CommonDialog
 import com.scentsnote.android.utils.view.ReportDialog
 
-
 class DetailNoteAdapter(
     private val vm: PerfumeDetailViewModel,
     private val fragmentManager: FragmentManager,
@@ -174,18 +173,23 @@ class DetailNoteAdapter(
         /** 더보기 버튼 : 시향 노트 3줄 이상일 경우에는 더보기 버튼 표시 */
         fun setVisibilityMore(lineCount: Int, context: Context) {
             if (lineCount > 3) {
-                binding.txtReviewMore.visibility = View.VISIBLE
-                if (isblurtype) {
-                    binding.clReviewMore.background = ContextCompat.getDrawable(
-                        context,
-                        R.drawable.background_btn_details_more
-                    )
-                } else {
-                    binding.clReviewMore.background =
+                binding.run {
+                    txtReviewMore.visibility = View.VISIBLE
+                    clReviewMore.background = if (isblurtype) {
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.background_btn_details_more
+                        )
+                    } else {
                         ContextCompat.getDrawable(context, R.color.transparent)
+                    }
                 }
             } else {
-                binding.txtReviewMore.visibility = View.GONE
+                binding.run {
+                    txtReviewMore.visibility = View.GONE
+                    clReviewMore.background =
+                        ContextCompat.getDrawable(context, R.color.transparent)
+                }
             }
         }
     }

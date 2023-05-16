@@ -42,9 +42,9 @@ class DetailNoteFragment(val perfumeIdx: Int) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getPerfumeInfoWithReview(perfumeIdx)
-        viewModel.perfumeDetailWithReviewData.observe(requireActivity(), Observer {
-            noteAdapter.submitList(ArrayList(it))
-        })
+        viewModel.perfumeDetailWithReviewData.observe(viewLifecycleOwner){ reviews ->
+            noteAdapter.submitList(reviews.map { it.copy() })
+        }
 
         viewModel.isValidNoteList.observe(requireActivity(), Observer {
             if(it){

@@ -32,7 +32,7 @@ data class PerfumeDetailWithReviews(
                 oldItem: PerfumeDetailWithReviews,
                 newItem: PerfumeDetailWithReviews
             ): Boolean =
-                oldItem == newItem
+                oldItem.isLiked == newItem.isLiked
         }
     }
 }
