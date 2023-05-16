@@ -17,6 +17,7 @@ import com.scentsnote.android.databinding.RvItemDetailNoteBinding
 import com.scentsnote.android.databinding.RvItemDetailNoteReportBinding
 import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 import com.scentsnote.android.util.LayoutedTextView.OnLayoutListener
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.view.CommonDialog
 import com.scentsnote.android.utils.view.ReportDialog
 
@@ -43,21 +44,16 @@ class DetailNoteAdapter(
         when (viewType) {
             Default_TYPE -> {
                 val binding = RvItemDetailNoteBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+                    LayoutInflater.from(parent.context), parent, false
                 )
                 return DetailNoteViewHolder(
-                    parent.context,
-                    binding
+                    parent.context, binding
                 )
             }
 
             Report_TYPE -> {
                 val binding = RvItemDetailNoteReportBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+                    LayoutInflater.from(parent.context), parent, false
                 )
                 return DetailNoteReportViewHolder(
                     binding
@@ -93,7 +89,7 @@ class DetailNoteAdapter(
             binding.item = item
 
             /** 좋아요 버튼 */
-            binding.btnLike.setOnClickListener {
+            binding.btnLike.setOnSafeClickListener {
                 if (!ScentsNoteApplication.prefManager.haveToken()) createLoginDialog()
                 else {
                     clickBtnLike(item.reviewIdx)
@@ -101,7 +97,7 @@ class DetailNoteAdapter(
             }
 
             /** 신고 버튼 */
-            binding.txtRvDetailNoteReport.setOnClickListener {
+            binding.txtRvDetailNoteReport.setOnSafeClickListener {
                 if (!ScentsNoteApplication.prefManager.haveToken()) createLoginDialog()
                 else {
                     createReportDialog(item.reviewIdx)
@@ -118,7 +114,7 @@ class DetailNoteAdapter(
                 }
             })
 
-            binding.txtReviewMore.setOnClickListener {
+            binding.txtReviewMore.setOnSafeClickListener {
                 if (binding.txtDetailsReviewContent.maxLines > 3) {
                     isblurtype = true
                     binding.txtDetailsReviewContent.maxLines = 3
@@ -134,10 +130,7 @@ class DetailNoteAdapter(
                     binding.txtDetailsReviewContent.maxLines = Int.MAX_VALUE
                     binding.txtReviewMore.text = "접기"
                     binding.txtReviewMore.setCompoundDrawablesWithIntrinsicBounds(
-                        null,
-                        null,
-                        ContextCompat.getDrawable(context, R.drawable.icon_btn_up),
-                        null
+                        null, null, ContextCompat.getDrawable(context, R.drawable.icon_btn_up), null
                     )
                 }
             }
@@ -164,8 +157,7 @@ class DetailNoteAdapter(
 
                     override fun onNegativeClicked() {
                     }
-                })
-                .getInstance()
+                }).getInstance()
             dialog.arguments = bundle
             dialog.show(fragmentManager, dialog.tag)
         }
@@ -177,8 +169,7 @@ class DetailNoteAdapter(
                     txtReviewMore.visibility = View.VISIBLE
                     clReviewMore.background = if (isblurtype) {
                         ContextCompat.getDrawable(
-                            context,
-                            R.drawable.background_btn_details_more
+                            context, R.drawable.background_btn_details_more
                         )
                     } else {
                         ContextCompat.getDrawable(context, R.color.transparent)
@@ -195,6 +186,5 @@ class DetailNoteAdapter(
     }
 
     inner class DetailNoteReportViewHolder(val binding: RvItemDetailNoteReportBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-    }
+        RecyclerView.ViewHolder(binding.root) {}
 }
