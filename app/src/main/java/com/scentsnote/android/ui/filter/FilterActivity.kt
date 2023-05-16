@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.request.SendFilter
@@ -29,10 +28,7 @@ import com.scentsnote.android.utils.listener.TabSelectedListener
 class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter) {
     private lateinit var filterViewPagerAdapter: ScentsNoteViewPagerAdapter
     private val filterViewModel: FilterViewModel by viewModels()
-
-    private lateinit var seriesBadge: BadgeDrawable
-    private lateinit var brandBadge: BadgeDrawable
-    private lateinit var keywordBadge: BadgeDrawable
+    private val filterCategoryList = FilterCategory.values()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,48 +84,37 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
     }
 
     private fun setUpTabWithViewPager() {
-        binding.tabFilter.setupWithViewPager(binding.vpFilter)
         binding.tabFilter.apply {
-            val tab1 = getTabAt(0)
-            tab1?.text = "계열"
-
-            //observe 가 관찰해야함
-            seriesBadge = tab1!!.orCreateBadge
-            seriesBadge.backgroundColor = ContextCompat.getColor(this.context, R.color.black)
-//            badge1?.number=0
-//            if(badge1?.number==0) badge1.isVisible=false
-
-            getTabAt(1)?.text = "브랜드"
-            brandBadge = getTabAt(1)!!.orCreateBadge
-            brandBadge.backgroundColor = ContextCompat.getColor(this.context, R.color.black)
-
-            getTabAt(2)?.text = "키워드"
-            keywordBadge = getTabAt(2)!!.orCreateBadge
-            keywordBadge.backgroundColor = ContextCompat.getColor(this.context, R.color.black)
+            setupWithViewPager(binding.vpFilter)
+            filterCategoryList.forEachIndexed { index, filterCategory ->
+                val tab = getTabAt(index)
+                tab?.text = filterCategory.nameText
+                tab?.orCreateBadge?.backgroundColor = context.getColor(R.color.black)
+            }
+            addOnTabSelectedListener(TabSelectedListener(binding.tabFilter))
+            changeTabsFont(0)
         }
-        binding.tabFilter.addOnTabSelectedListener(TabSelectedListener(binding.tabFilter))
-        binding.tabFilter.changeTabsFont(0)
     }
 
     private fun observeViewModel() {
-        filterViewModel.badgeCount.observe(this, Observer<MutableList<Int>>() {
+        filterViewModel.badgeCount.observe(this) { count ->
+            filterCategoryList.indices.forEach { idx ->
+                val tab = binding.tabFilter.getTabAt(idx)
+                tab?.orCreateBadge?.let {
+                    updateCategoryBadge(it, count[idx])
+                }
+            }
+        }
 
-            it[0].apply { isVisibleBadge(seriesBadge, this) }
-            it[1].apply { isVisibleBadge(brandBadge, this) }
-            it[2].apply { isVisibleBadge(keywordBadge, this) }
-
-            Log.e("옵저버 뱃지", it.toString())
-        })
-
-        filterViewModel.applyBtn.observe(this, Observer {
-            binding.btnFilterApply.apply {
-                text = if (it == 0) {
+        filterViewModel.applyBtn.observe(this) {
+            binding.btnFilterApply.text =
+                if (it == 0) {
                     "적용"
                 } else {
                     "적용($it)"
                 }
-            }
-        })
+
+        }
     }
 
     private fun sendFilter() {
@@ -147,14 +132,8 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
         }
     }
 
-
-}
-
-fun isVisibleBadge(badge: BadgeDrawable, count: Int) {
-    if (count == 0) {
-        badge.isVisible = false
-    } else {
+    private fun updateCategoryBadge(badge: BadgeDrawable, count: Int) {
+        badge.isVisible = count > 0
         badge.number = count
-        badge.isVisible = true
     }
 }
