@@ -42,7 +42,7 @@ object FilterBinding {
     ) {
         if (recyclerView.adapter != null) with(recyclerView.adapter as BrandRecyclerViewAdapter) {
             Log.e("set brand map", map.toString())
-            this.setData(map)
+            submitList(map[initial] ?: mutableListOf())
         }
     }
 

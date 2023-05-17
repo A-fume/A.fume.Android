@@ -30,7 +30,6 @@ class FilterIncenseSeriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("incense badge cnt", viewModel.badgeCount.value?.toString()!!)
         initIncenseSeriesRv()
         observeBlockClickMoreThan5()
     }
@@ -59,10 +58,7 @@ class FilterIncenseSeriesFragment : Fragment() {
     }
 
     fun observeBlockClickMoreThan5() {
-        viewModel.badgeCount.observe(viewLifecycleOwner, Observer {
-            viewModel.blockClickSeriesMoreThan5()
-            Log.d("series_obverse", viewModel.selectedSeriesMap.value.toString())
-        })
+        // TODO remove
     }
 
 }

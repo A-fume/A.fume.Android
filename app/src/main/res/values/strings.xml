@@ -33,6 +33,7 @@
 
     <!--filter - series-->
     <string name="ingredientFormat" formatted="false">#%s</string>
+    <string name="filter_select_over_limit">"5개 이상 선택 할 수 없어요."</string>
 
     <!--perfume detail -->
     <string name="chartPercentFormat" formatted="false">%d%%</string>

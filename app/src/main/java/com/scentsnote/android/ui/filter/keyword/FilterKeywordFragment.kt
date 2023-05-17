@@ -71,9 +71,7 @@ class FilterKeywordFragment : Fragment() {
     }
 
     fun observeBlockClickMoreThan5() {
-        viewModel.badgeCount.observe(viewLifecycleOwner, Observer {
-            viewModel.blockClickKeywordMoreThan5()
-        })
+        // TODO remove
     }
 
 }

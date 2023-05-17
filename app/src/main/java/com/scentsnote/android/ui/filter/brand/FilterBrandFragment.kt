@@ -9,13 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scentsnote.android.databinding.FragmentFilterBrandBinding
-import com.scentsnote.android.viewmodel.filter.FilterViewModel
 import com.google.android.material.tabs.TabLayout
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.changeTabsFont
+import com.scentsnote.android.viewmodel.filter.BrandViewModel
 
 /**
  * 향수 검색 - 필터 - 브랜드 탭
@@ -23,7 +22,7 @@ import com.scentsnote.android.utils.extension.changeTabsFont
  * ㄱ,ㄴ,ㄷ 초성 리스트와 하위 브랜드 리스트 제공
  */
 class FilterBrandFragment : Fragment() {
-    private val viewModel: FilterViewModel by activityViewModels()
+    private val viewModel: BrandViewModel by activityViewModels()
 
     private lateinit var binding: FragmentFilterBrandBinding
     private lateinit var brandAdapter: BrandRecyclerViewAdapter
@@ -31,24 +30,15 @@ class FilterBrandFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return initBinding(inflater, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        initBrandTab()
         observeTab()
         setTabClickEvent()
         initBrandRvItem(context)
-        observeBlockClickMoreThan5()
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        initBrandTab()
-//        observeTab()
-        observeBlockClickMoreThan5()
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
@@ -60,76 +50,56 @@ class FilterBrandFragment : Fragment() {
         return binding.root
     }
 
+    private fun observeTab() {
+        viewModel.brandTabOrders.observe(viewLifecycleOwner) {
+            initBrandTab()
+        }
+    }
+
     private fun initBrandTab() {
-        Log.d("viewModel tab 개수", viewModel.brandTabOrders.value?.size.toString())
         binding.tabBrand.removeAllTabs()
         viewModel.brandTabOrders.value?.forEach { b ->
-            Log.d("frag brand", b)
-
             binding.tabBrand.addTab(binding.tabBrand.newTab().setText(b))
         }
-        Log.d("frag getBrand", viewModel.brandMap.value.toString())
-        Log.d("frag getBrand", viewModel.brandTabOrders.value.toString())
         binding.tabBrand.changeTabsFont(0)
     }
 
     private fun initBrandRvItem(ctx: Context?) {
-
-        brandAdapter = BrandRecyclerViewAdapter(
-            { brandIdx, b -> viewModel.setSelectedBrandListIdx(brandIdx, b) },
-            { idx, b -> viewModel.countBadges(idx, b) })
-
+        brandAdapter = BrandRecyclerViewAdapter(viewModel)
         binding.rvBrand.apply {
             adapter = brandAdapter
             layoutManager = LinearLayoutManager(ctx)
         }
-
-//        binding.tabBrand.getTabAt(0)?.select()
     }
 
     private fun setTabClickEvent() {
         val tabBrand = binding.tabBrand
         tabBrand.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                selectInitial(tab)
-            }
+            override fun onTabReselected(tab: TabLayout.Tab?) = Unit
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                selectInitial(tab)
-                tab?.position?.let{
+                updateContents(tab)
+                tab?.position?.let {
                     tabBrand.changeTabsFont(it)
                 }
             }
         })
     }
 
-    fun selectInitial(tab: TabLayout.Tab?) {
-        val initial = tab?.position?.let { viewModel.brandTabOrders.value?.get(it) }
-        if (initial != null) bindInitialBrand(initial)
+    fun updateContents(tab: TabLayout.Tab?) {
+        val tabIndex = tab?.position ?: return
+        val brandInitial = viewModel.brandTabOrders.value?.get(tabIndex)
+        if (brandInitial != null) bindBrandInitial(brandInitial)
     }
 
-    fun bindInitialBrand(initial: String) {
+    private fun bindBrandInitial(initial: String) {
         brandAdapter.initial = initial
-        brandAdapter.data = viewModel.bindBrandTab(initial)
-        brandAdapter.notifyDataSetChanged()
+        brandAdapter.submitList(viewModel.bindBrandTab(initial))
     }
 
-    fun observeBlockClickMoreThan5() {
-        viewModel.badgeCount.observe(viewLifecycleOwner, Observer {
-            viewModel.blockClickBrandMoreThan5()
-        })
-    }
-
-    fun observeTab() {
-        viewModel.brandTabOrders.observe(viewLifecycleOwner, Observer {
-            initBrandTab()
-        })
-    }
-
-    fun onClickWithdrawalBtn(view: View){
+    fun onClickWithdrawalBtn(view: View) {
         val intent = Intent(requireContext(), BaseWebViewActivity::class.java)
         intent.putExtra("url", "tipOff")
         startActivity(intent)
