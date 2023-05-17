@@ -31,9 +31,8 @@ object SurveyBinding {
     fun setKeywordList(recyclerView: RecyclerView, list : MutableList<KeywordInfo>?){
         if(recyclerView.adapter!=null) with(recyclerView.adapter as FlexboxRecyclerViewAdapter){
             list?.let {
-                setData(it)
-//                submitList(list)
-                Log.e("setkeywordList",data.toString())}
+                submitList(list)
+                Log.d("setkeywordList",list.toString())}
         }
     }
 

@@ -19,6 +19,7 @@ import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.listener.TabSelectedListener
 import com.scentsnote.android.viewmodel.filter.BrandViewModel
+import com.scentsnote.android.viewmodel.filter.KeywordViewModel
 
 /**
  * 향수 검색 - 필터
@@ -29,6 +30,7 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
     private lateinit var filterViewPagerAdapter: ScentsNoteViewPagerAdapter
     private val filterViewModel: FilterViewModel by viewModels()
     private val brandViewModel: BrandViewModel by viewModels()
+    private val keywordViewModel: KeywordViewModel by viewModels()
     private val filterCategoryList = FilterCategory.values()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +41,6 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
 
         setFilterData()
         checkChangeFilter()
-        Log.d("filter act filter", filterViewModel.selectedKeywordList.toString())
 
         initViewPager()
         setUpTabWithViewPager()
@@ -104,6 +105,14 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
 
         brandViewModel.selectedCount.observe(this) { count ->
             val tab = binding.tabFilter.getTabAt(FilterCategory.Brand.index)
+            tab?.orCreateBadge?.let {
+                updateCategoryBadge(it, count)
+            }
+        }
+
+
+        keywordViewModel.selectedCount.observe(this) { count ->
+            val tab = binding.tabFilter.getTabAt(FilterCategory.Keyword.index)
             tab?.orCreateBadge?.let {
                 updateCategoryBadge(it, count)
             }

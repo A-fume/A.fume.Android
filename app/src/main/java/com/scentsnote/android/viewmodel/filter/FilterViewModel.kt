@@ -28,16 +28,9 @@ class FilterViewModel : ViewModel() {
     val keywordCount: Int
         get() = _selectedKeywordCount.value ?: 0
 
-    // selected List - keyword
-    val selectedKeywordList = mutableListOf<KeywordInfo>()
-
-    //    private var tempSelectedKeywordList = mutableListOf<KeywordInfo>()
     val selectedKeywordCount: LiveData<Int>
         get() = _selectedKeywordCount
     private val _selectedKeywordCount = MutableLiveData<Int>(0)
-
-    private val _keywordList: MutableLiveData<MutableList<KeywordInfo>> = MutableLiveData()
-    val keywordList: LiveData<MutableList<KeywordInfo>> get() = _keywordList
 
     //series List
     var _seriesList: MutableLiveData<MutableList<SeriesInfo>> = MutableLiveData()
@@ -68,9 +61,8 @@ class FilterViewModel : ViewModel() {
     fun initFilterData() {
         //여기 통신 말고 local에서 data click 해제 해야함.
         getSeries()
-        getKeyword()
+//        getKeyword()
 
-        selectedKeywordList.clear()
         selectedSeriesMap.clear()
     }
 
@@ -95,24 +87,6 @@ class FilterViewModel : ViewModel() {
     }
 
 
-    fun blockClickKeywordMoreThan5() {
-        val tempList = keywordList.value
-        if (keywordCount >= 5) {
-            tempList?.forEach {
-                val keyword = it
-                keyword.clickable = false
-                selectedKeywordList.forEach { keywordInfo ->
-                    if (keyword.keywordIdx == keywordInfo.keywordIdx) keyword.clickable = true
-                }
-            }
-        } else {
-            tempList?.forEach {
-                it.clickable = true
-            }
-        }
-        _keywordList.value = tempList
-    }
-
     fun addSeriesIngredientIdx(series: String, idxList: MutableList<SeriesIngredient>) {
         selectedSeriesMap[series] = idxList
     }
@@ -123,33 +97,6 @@ class FilterViewModel : ViewModel() {
 
     private fun getTotalBadgeCount() {
         applyBtn.value = seriesCount + brandCount + keywordCount
-    }
-
-    fun addKeywordList(keyword: KeywordInfo, boolean: Boolean) {
-        if (boolean) {
-            if (!selectedKeywordList.contains(keyword)) selectedKeywordList.add(keyword)
-
-            Log.d("index", keyword.toString())
-            Log.d("add keyword", selectedKeywordList.toString())
-            _selectedKeywordCount.value = (_selectedKeywordCount.value ?: 0) + 1
-        } else {
-            selectedKeywordList.remove(keyword)
-
-            Log.d("index", keyword.toString())
-            Log.d("remove keyword", selectedKeywordList.toString())
-            _selectedKeywordCount.value = (_selectedKeywordCount.value ?: 0) - 1
-        }
-        clickFilterKeywordList(_keywordList, keyword.keywordIdx, boolean)
-    }
-
-    private fun clickFilterKeywordList(
-        keywordList: MutableLiveData<MutableList<KeywordInfo>>,
-        keywordIdx: Int,
-        isSelected: Boolean
-    ) {
-        val tempList = keywordList.value
-        tempList?.forEach { if (it.keywordIdx == keywordIdx) it.checked = isSelected }
-        keywordList.value = tempList
     }
 
     fun getSeries() {
@@ -178,16 +125,6 @@ class FilterViewModel : ViewModel() {
         }
     }
 
-    fun getKeyword() {
-        viewModelScope.launch {
-            try {
-                _keywordList.value = filterRepository.getKeyword()
-            } catch (e: HttpException) {
-
-            }
-        }
-    }
-
     fun sendSelectFilter(): SendFilter {
 
         val filterInfoPList = mutableListOf<FilterInfoP>()
@@ -201,11 +138,6 @@ class FilterViewModel : ViewModel() {
                     filterInfoPList.add(ingredientInfoP)
                 }
             }
-        }
-
-        selectedKeywordList.forEach {
-            val keywordInfoP = FilterInfoP(it.keywordIdx, it.name, 3)
-            filterInfoPList.add(keywordInfoP)
         }
 
         return SendFilter(filterInfoPList, selectedSeriesMap)
@@ -230,8 +162,8 @@ class FilterViewModel : ViewModel() {
         selectedSeriesMap.putAll(changeFilter?.filterSeriesPMap as Map<out String, MutableList<SeriesIngredient>>)
 //        badgeCount.value?.set(0, seriesCount)
 //        badgeCount.value?.set(1, brand.size)
-        selectedKeywordList.clear()
-        selectedKeywordList.addAll(keyword)
+//        selectedKeywordList.clear()
+//        selectedKeywordList.addAll(keyword)
 //        badgeCount.value?.set(2, keyword.size)
 
         Log.d("change filter", selectedSeriesMap.toString())
@@ -241,12 +173,12 @@ class FilterViewModel : ViewModel() {
 
         // view에 표시하기 위한 리스트
         // 키워드
-        _keywordList.value?.forEach { k ->
-            k.checked = false
-            keyword.forEach {
-                if (it.keywordIdx == k.keywordIdx) k.checked = true
-            }
-        }
+//        _keywordList.value?.forEach { k ->
+//            k.checked = false
+//            keyword.forEach {
+//                if (it.keywordIdx == k.keywordIdx) k.checked = true
+//            }
+//        }
 
         // 계열
         _seriesList.value?.forEach { series ->
