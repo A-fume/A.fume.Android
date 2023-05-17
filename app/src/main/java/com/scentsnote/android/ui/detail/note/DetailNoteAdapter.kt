@@ -28,12 +28,12 @@ class DetailNoteAdapter(
     private val clickBtnLike: (Int) -> Unit
 ) : ListAdapter<PerfumeDetailWithReviews, RecyclerView.ViewHolder>(PerfumeDetailWithReviews.diffUtil) {
 
-    private var isblurtype = true
+    private var isBlurType = true
 
     /** 시향노트 표시 종류 : 2가지 */
     companion object {
-        const val Default_TYPE = 0 // 일반 리뷰
-        const val Report_TYPE = 1 // 신고한 리뷰
+        const val DEFAULT_TYPE = 0 // 일반 리뷰
+        const val REPORT_TYPE = 1 // 신고한 리뷰
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -42,7 +42,7 @@ class DetailNoteAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
-            Default_TYPE -> {
+            DEFAULT_TYPE -> {
                 val binding = RvItemDetailNoteBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -51,7 +51,7 @@ class DetailNoteAdapter(
                 )
             }
 
-            Report_TYPE -> {
+            REPORT_TYPE -> {
                 val binding = RvItemDetailNoteReportBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -68,14 +68,14 @@ class DetailNoteAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            Default_TYPE -> {
+            DEFAULT_TYPE -> {
                 holder as DetailNoteViewHolder
                 currentList[position].let {
                     holder.bind(it)
                 }
             }
 
-            Report_TYPE -> {
+            REPORT_TYPE -> {
                 holder as DetailNoteReportViewHolder
             }
         }
@@ -116,7 +116,7 @@ class DetailNoteAdapter(
 
             binding.txtReviewMore.setOnSafeClickListener {
                 if (binding.txtDetailsReviewContent.maxLines > 3) {
-                    isblurtype = true
+                    isBlurType = true
                     binding.txtDetailsReviewContent.maxLines = 3
                     binding.txtReviewMore.text = "더보기"
                     binding.txtReviewMore.setCompoundDrawablesWithIntrinsicBounds(
@@ -126,7 +126,7 @@ class DetailNoteAdapter(
                         null
                     )
                 } else {
-                    isblurtype = false
+                    isBlurType = false
                     binding.txtDetailsReviewContent.maxLines = Int.MAX_VALUE
                     binding.txtReviewMore.text = "접기"
                     binding.txtReviewMore.setCompoundDrawablesWithIntrinsicBounds(
@@ -167,7 +167,7 @@ class DetailNoteAdapter(
             if (lineCount > 3) {
                 binding.run {
                     txtReviewMore.visibility = View.VISIBLE
-                    clReviewMore.background = if (isblurtype) {
+                    clReviewMore.background = if (isBlurType) {
                         ContextCompat.getDrawable(
                             context, R.drawable.background_btn_details_more
                         )
