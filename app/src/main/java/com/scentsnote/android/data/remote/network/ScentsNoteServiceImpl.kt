@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 object ScentsNoteServiceImpl {
     private const val TIMEOUT_LIMIT: Long = 10
-    private const val BASE_URL = "http://13.124.104.53:8082/A.fume/api/0.0.1/"
+    private const val BASE_URL = "https://api-prd2.scentsnote.co.kr/"
 
     private var client: OkHttpClient = OkHttpClient().newBuilder().apply {
         authenticator(
