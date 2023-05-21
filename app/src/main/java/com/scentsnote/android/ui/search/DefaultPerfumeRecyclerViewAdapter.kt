@@ -13,7 +13,7 @@ import com.scentsnote.android.data.vo.response.PerfumeInfo
 import com.scentsnote.android.databinding.RvItemDefaultPerfumeBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailActivity
 import com.scentsnote.android.ui.detail.PerfumeDetailActivity.Companion.INTENT_EXTRA_PERFUME_IDX
-import com.scentsnote.android.util.createDialog
+import com.scentsnote.android.utils.createDialog
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 

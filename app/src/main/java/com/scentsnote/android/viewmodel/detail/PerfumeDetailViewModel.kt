@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class PerfumeDetailViewModel: ViewModel() {
+class PerfumeDetailViewModel : ViewModel() {
     private val homeRepo = HomeRepository()
     private val detailRepo = PerfumeDetailRepository()
     private val compositeDisposable = CompositeDisposable()
@@ -27,37 +27,38 @@ class PerfumeDetailViewModel: ViewModel() {
     private val _perfumeDetailData: MutableLiveData<PerfumeDetail> = MutableLiveData()
     val perfumeDetailData: LiveData<PerfumeDetail> get() = _perfumeDetailData
 
-    private val _similarPerfumeList : MutableLiveData<MutableList<RecommendPerfumeItem>> = MutableLiveData()
-    val similarPerfumeList : LiveData<MutableList<RecommendPerfumeItem>>
+    private val _similarPerfumeList: MutableLiveData<MutableList<RecommendPerfumeItem>> =
+        MutableLiveData()
+    val similarPerfumeList: LiveData<MutableList<RecommendPerfumeItem>>
         get() = _similarPerfumeList
 
     // keyword 영역
     private val _isValidKeywordData = MutableLiveData<Boolean>(false)
-    val isValidKeywordData : LiveData<Boolean>
+    val isValidKeywordData: LiveData<Boolean>
         get() = _isValidKeywordData
 
     // note 영역
     private val _isValidNoteData = MutableLiveData<Boolean>(true)
-    val isValidNoteData : LiveData<Boolean>
+    val isValidNoteData: LiveData<Boolean>
         get() = _isValidNoteData
 
     private val _noteDataType = MutableLiveData<Boolean>(false)
-    val noteDataType : LiveData<Boolean>
+    val noteDataType: LiveData<Boolean>
         get() = _noteDataType
 
     // price 영역
     private val _isValidPriceData = MutableLiveData<Boolean>(false)
-    val isValidPriceData : LiveData<Boolean>
+    val isValidPriceData: LiveData<Boolean>
         get() = _isValidPriceData
 
     // season 영역
     private val _isValidSeasonChart = MutableLiveData<Boolean>(true)
-    val isValidSeasonChart : LiveData<Boolean>
+    val isValidSeasonChart: LiveData<Boolean>
         get() = _isValidSeasonChart
 
     // gender 영역
     private val _isValidGenderChart = MutableLiveData<Boolean>(true)
-    val isValidGenderChart : LiveData<Boolean>
+    val isValidGenderChart: LiveData<Boolean>
         get() = _isValidGenderChart
 
     /**
@@ -75,9 +76,9 @@ class PerfumeDetailViewModel: ViewModel() {
 
                     setDataVisibility(it.data)
 
-                    Log.d("getPerfumeInfo", it.toString())
+                    Log.d(TAG, "getPerfumeInfo: $it")
                 }) {
-                    Log.d("getPerfumeInfo error", it.toString())
+                    Log.d(TAG, "getPerfumeInfo error: $it")
 //                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 })
     }
@@ -87,18 +88,21 @@ class PerfumeDetailViewModel: ViewModel() {
      *
      * @param data 향수 상세 정보
      */
-    private fun setDataVisibility(data: PerfumeDetail){
+    private fun setDataVisibility(data: PerfumeDetail) {
         _isValidKeywordData.value = data.Keywords.isNotEmpty()
 
         _isValidPriceData.value = data.volumeAndPrice.isNotEmpty()
 
         _noteDataType.value = data.noteType == 1
 
-        if(data.noteType == 0 && data.ingredients.top.isEmpty() && data.ingredients.middle.isEmpty() && data.ingredients.base.isEmpty()) _isValidNoteData.value = false
+        if (data.noteType == 0 && data.ingredients.top.isEmpty() && data.ingredients.middle.isEmpty() && data.ingredients.base.isEmpty()) _isValidNoteData.value =
+            false
 
-        if(data.seasonal.spring == 0 && data.seasonal.summer == 0 && data.seasonal.fall == 0 && data.seasonal.winter == 0) _isValidSeasonChart.value = false
+        if (data.seasonal.spring == 0 && data.seasonal.summer == 0 && data.seasonal.fall == 0 && data.seasonal.winter == 0) _isValidSeasonChart.value =
+            false
 
-        if(data.gender.female == 0 && data.gender.neutral == 0 && data.gender.male == 0) _isValidGenderChart.value = false
+        if (data.gender.female == 0 && data.gender.neutral == 0 && data.gender.male == 0) _isValidGenderChart.value =
+            false
     }
 
     /**
@@ -107,13 +111,13 @@ class PerfumeDetailViewModel: ViewModel() {
      * @param perfumeIdx 조회 요청 향수의 idx
      */
     @SuppressLint("LongLogTag")
-    fun getSimilarPerfumeList(perfumeIdx: Int){
+    fun getSimilarPerfumeList(perfumeIdx: Int) {
         viewModelScope.launch {
-            try{
+            try {
                 _similarPerfumeList.value = detailRepo.getSimilarPerfumeList(perfumeIdx)
-                Log.d("getSimilarPerfumeList", _similarPerfumeList.value.toString())
-            }catch (e : HttpException){
-                Log.d("getSimilarPerfumeList error", _similarPerfumeList.value.toString())
+                Log.d(TAG, "getSimilarPerfumeList: ${_similarPerfumeList.value}")
+            } catch (e: HttpException) {
+                Log.d(TAG, "getSimilarPerfumeList error: ${_similarPerfumeList.value}")
             }
         }
     }
@@ -130,20 +134,26 @@ class PerfumeDetailViewModel: ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    clickHeartPerfumeList(_similarPerfumeList, perfumeIdx,it.data)
+                    clickHeartPerfumeList(_similarPerfumeList, perfumeIdx, it.data)
+                    Log.d(TAG, "postSimilarPerfumeLike: $it")
                 }) {
-                    Log.d("postSimilarPerfumeLike error", it.toString())
+                    Log.d(TAG, "postSimilarPerfumeLike error: $it")
 //                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 })
     }
 
-    private fun clickHeartPerfumeList(perfumeList: MutableLiveData<MutableList<RecommendPerfumeItem>>, perfumeIdx: Int, isSelected:Boolean){
+    private fun clickHeartPerfumeList(
+        perfumeList: MutableLiveData<MutableList<RecommendPerfumeItem>>,
+        perfumeIdx: Int,
+        isSelected: Boolean
+    ) {
         val tempList = perfumeList.value
-        tempList?.forEach { if(it.perfumeIdx==perfumeIdx) it.isLiked= isSelected}
-        perfumeList.value=tempList
+        tempList?.forEach { if (it.perfumeIdx == perfumeIdx) it.isLiked = isSelected }
+        perfumeList.value = tempList
     }
 
-    private val _perfumeDetailWithReviewData: MutableLiveData<List<PerfumeDetailWithReviews>> = MutableLiveData()
+    private val _perfumeDetailWithReviewData: MutableLiveData<List<PerfumeDetailWithReviews>> =
+        MutableLiveData()
     val perfumeDetailWithReviewData: LiveData<List<PerfumeDetailWithReviews>> get() = _perfumeDetailWithReviewData
 
     private val _isValidNoteList = MutableLiveData<Boolean>(false)
@@ -157,7 +167,10 @@ class PerfumeDetailViewModel: ViewModel() {
     @SuppressLint("LongLogTag")
     fun getPerfumeInfoWithReview(perfumeIdx: Int) {
         compositeDisposable.add(
-            detailRepo.getPerfumeDetailWithReviews(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
+            detailRepo.getPerfumeDetailWithReviews(
+                ScentsNoteApplication.prefManager.accessToken,
+                perfumeIdx
+            )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -165,10 +178,10 @@ class PerfumeDetailViewModel: ViewModel() {
 
                     _isValidNoteList.value = it.data.isNotEmpty()
 
-                    Log.d("DETAILDATAWithReviews", it.toString())
+                    Log.d(TAG, "getPerfumeInfoWithReview: $it")
                 }) {
                     _isValidNoteList.postValue(false)
-                    Log.d("DETAILDATAWithReviews error", it.toString())
+                    Log.d(TAG, "getPerfumeInfoWithReview error: $it")
 //                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 })
     }
@@ -187,10 +200,10 @@ class PerfumeDetailViewModel: ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.d("postPerfumeLike", it.toString())
-                    _perfumeLike.postValue(it.data)
+                    Log.d(TAG, "postPerfumeLike: $it")
+                    _perfumeLike.postValue(it.data!!)
                 }) {
-                    Log.d("postPerfumeLike error", it.toString())
+                    Log.d(TAG, "postPerfumeLike error: $it")
 //                    Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 })
     }
@@ -202,45 +215,46 @@ class PerfumeDetailViewModel: ViewModel() {
      *
      * @param reviewIdx 좋아요 누른 시향 노트의 idx
      */
-    fun postReviewLike(reviewIdx: Int){
+    fun postReviewLike(reviewIdx: Int) {
         viewModelScope.launch {
-            try{
-                detailRepo.postReviewLike(ScentsNoteApplication.prefManager.accessToken, reviewIdx).let{
-                    _reviewLike.postValue(it)
-                    clickHeartNoteList(reviewIdx, it)
-                    Log.d("시향 노트 좋아요 상태 : ", it.toString())
-                }
-            }catch (e : HttpException){
-                when(e.response()?.code()){
+            try {
+                detailRepo.postReviewLike(ScentsNoteApplication.prefManager.accessToken, reviewIdx)
+                    .let {
+                        _reviewLike.postValue(it)
+                        clickHeartNoteList(reviewIdx, it)
+                        Log.d(TAG, "postReviewLike: $it")
+                    }
+            } catch (e: HttpException) {
+                when (e.response()?.code()) {
                     401 -> { // 인증되지 않은 사용자
-                        Log.d("시향 노트 좋아요 실패 : ", e.message())
+                        Log.d(TAG, "postReviewLike Fail : $e")
                     }
                     403 -> { // 잘못된 접근
-                        Log.d("시향 노트 좋아요 실패 : ", e.message())
+                        Log.d(TAG, "postReviewLike Fail : $e")
                     }
                 }
             }
         }
     }
 
-    private fun clickHeartNoteList(reviewIdx: Int, isSelected:Boolean){
+    private fun clickHeartNoteList(reviewIdx: Int, isSelected: Boolean) {
         val tempList = _perfumeDetailWithReviewData.value
         tempList?.forEach {
-            if(it.reviewIdx==reviewIdx) {
-                it.isLiked= isSelected
-                if(it.isLiked){
+            if (it.reviewIdx == reviewIdx) {
+                it.isLiked = isSelected
+                if (it.isLiked) {
                     it.likeCount += 1
-                }else{
+                } else {
                     it.likeCount -= 1
                 }
             }
         }
-        _perfumeDetailWithReviewData.value=tempList
+        _perfumeDetailWithReviewData.value = tempList!!
     }
 
     private var reportTxt = MutableLiveData("")
 
-    fun setReportTxt(txt:String){
+    fun setReportTxt(txt: String) {
         reportTxt.value = txt
     }
 
@@ -252,17 +266,25 @@ class PerfumeDetailViewModel: ViewModel() {
      *
      * @param reviewIdx 신고 누른 시향 노트의 idx
      */
-    fun reportReview(reviewIdx: Int){
+    fun reportReview(reviewIdx: Int) {
         viewModelScope.launch {
-            try{
-                detailRepo.reportReview(ScentsNoteApplication.prefManager.accessToken, reviewIdx, RequestReportReview(reportTxt.value!!) ).let {
+            try {
+                detailRepo.reportReview(
+                    ScentsNoteApplication.prefManager.accessToken,
+                    reviewIdx,
+                    RequestReportReview(reportTxt.value!!)
+                ).let {
                     _isValidReport.postValue(true)
-                    Log.d("시향 노트 신고 성공",it)
+                    Log.d(TAG, "reportReview : $it")
                 }
-            }catch (e : HttpException){
+            } catch (e: HttpException) {
                 _isValidReport.postValue(false)
-                Log.d("시향 노트 신고 실패 : ", e.message())
+                Log.d(TAG, "reportReview Fail : $e")
             }
         }
+    }
+
+    companion object {
+        const val TAG = "PerfumeDetailViewModel"
     }
 }
