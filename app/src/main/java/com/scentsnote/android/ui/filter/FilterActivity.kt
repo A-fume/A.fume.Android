@@ -2,7 +2,6 @@ package com.scentsnote.android.ui.filter
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.request.SendFilter
@@ -13,13 +12,13 @@ import com.scentsnote.android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.scentsnote.android.ui.filter.keyword.FilterKeywordFragment
 import com.scentsnote.android.ui.search.SearchHomeFragment.Companion.SEARCH_HOME
 import com.google.android.material.badge.BadgeDrawable
-import com.scentsnote.android.viewmodel.filter.FilterViewModel
 import com.scentsnote.android.utils.base.BaseActivity
 import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.listener.TabSelectedListener
-import com.scentsnote.android.viewmodel.filter.BrandViewModel
-import com.scentsnote.android.viewmodel.filter.KeywordViewModel
+import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
+import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
+import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
 
 /**
  * 향수 검색 - 필터
@@ -28,16 +27,13 @@ import com.scentsnote.android.viewmodel.filter.KeywordViewModel
  */
 class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter) {
     private lateinit var filterViewPagerAdapter: ScentsNoteViewPagerAdapter
-    private val filterViewModel: FilterViewModel by viewModels()
-    private val brandViewModel: BrandViewModel by viewModels()
-    private val keywordViewModel: KeywordViewModel by viewModels()
+    private val seriesViewModel: FilterSeriesViewModel by viewModels()
+    private val brandViewModel: FilterBrandViewModel by viewModels()
+    private val keywordViewModel: FilterKeywordViewModel by viewModels()
     private val filterCategoryList = FilterCategory.values()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.apply {
-            filterVm = filterViewModel
-        }
 
         setFilterData()
         checkChangeFilter()
@@ -64,7 +60,7 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
     private fun setFilterData() {
         val fromHome = intent.getIntExtra("from", 0)
         if (fromHome == SEARCH_HOME) {
-            filterViewModel.initFilterData()
+            // TODO
         }
     }
 
@@ -92,15 +88,12 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
     }
 
     private fun observeViewModel() {
-
-        filterCategoryList.forEachIndexed { index, filterCategory ->
-            val selectedCountLiveData = filterViewModel.getSelectedCountLiveData(filterCategory)
-            selectedCountLiveData.observe(this) { count ->
-                val tab = binding.tabFilter.getTabAt(index)
-                tab?.orCreateBadge?.let {
-                    updateCategoryBadge(it, count)
-                }
+        seriesViewModel.selectedCount.observe(this) { count ->
+            val tab = binding.tabFilter.getTabAt(FilterCategory.Series.index)
+            tab?.orCreateBadge?.let {
+                updateCategoryBadge(it, count)
             }
+            updateApplyBtnText()
         }
 
         brandViewModel.selectedCount.observe(this) { count ->
@@ -108,39 +101,49 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
             tab?.orCreateBadge?.let {
                 updateCategoryBadge(it, count)
             }
+            updateApplyBtnText()
         }
-
 
         keywordViewModel.selectedCount.observe(this) { count ->
             val tab = binding.tabFilter.getTabAt(FilterCategory.Keyword.index)
             tab?.orCreateBadge?.let {
                 updateCategoryBadge(it, count)
             }
-        }
-
-        filterViewModel.applyBtn.observe(this) {
-            binding.btnFilterApply.text =
-                if (it == 0) {
-                    "적용"
-                } else {
-                    "적용($it)"
-                }
-
+            updateApplyBtnText()
         }
     }
 
+    private fun updateApplyBtnText() {
+        val totalCount = seriesViewModel.count + brandViewModel.count + keywordViewModel.count
+        binding.btnFilterApply.text =
+            if (totalCount == 0) {
+                "적용"
+            } else {
+                "적용($totalCount)"
+            }
+    }
+
     private fun sendFilter() {
-        Log.d("sendfilter_series", filterViewModel.selectedSeriesMap.toString())
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("flag", 1)
-        intent.putExtra("filter", filterViewModel.sendSelectFilter())
+        intent.putExtra("filter", getSelectedFilters())
         startActivity(intent)
+    }
+
+    private fun getSelectedFilters(): SendFilter {
+        val filterInfoPList = seriesViewModel.getSelectedSeries() +
+                brandViewModel.getSelectedBrands() +
+                keywordViewModel.getSelectedKeywords()
+        return SendFilter(
+            filterInfoPList.toMutableList(),
+            mutableMapOf() // TODO
+        )
     }
 
     private fun checkChangeFilter() {
         if (intent.getIntExtra("flag", 0) == 5000) {
             val fromSearchResult = intent?.getParcelableExtra<SendFilter>("filter")
-            filterViewModel.checkChangeFilter(fromSearchResult)
+            // TODO restore selected filters
         }
     }
 

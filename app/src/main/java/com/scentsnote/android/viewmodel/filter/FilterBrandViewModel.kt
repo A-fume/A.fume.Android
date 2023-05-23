@@ -11,9 +11,11 @@ import com.scentsnote.android.data.vo.response.BrandInfo
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class BrandViewModel(
+class FilterBrandViewModel(
     private val filterRepository: FilterRepository = FilterRepository()
 ) : ViewModel() {
+    val count :Int
+        get() = selectedCount.value?:0
 
     val brandMap: LiveData<MutableMap<String, MutableList<BrandInfo>>>
         get() = _brandMap
@@ -25,7 +27,7 @@ class BrandViewModel(
     private val _brandMap: MutableLiveData<MutableMap<String, MutableList<BrandInfo>>> =
         MutableLiveData(mutableMapOf())
     private val _brandTabOrders: MutableLiveData<MutableList<String>> = MutableLiveData()
-    private val _selectedCount = MutableLiveData<Int>()
+    private val _selectedCount = MutableLiveData(0)
 
     private val selectedBrandList = mutableListOf<BrandInfo>()
 
@@ -70,9 +72,7 @@ class BrandViewModel(
                 Log.e(TAG, e.stackTraceToString())
             }
         }
-
     }
-
 
     companion object {
         private const val MAX_COUNT = 5

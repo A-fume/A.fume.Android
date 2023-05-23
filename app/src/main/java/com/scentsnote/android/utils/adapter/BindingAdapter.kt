@@ -149,9 +149,9 @@ object BindingAdapter {
     @BindingAdapter("setNoteShareBtnBackground")
     fun CheckedTextView.setNoteShareBtnBackground(status: Boolean) {
         if(status){
-            setBackgroundColor(resources.getColor(R.color.point_beige))
+            setBackgroundColor(context.getColor(R.color.point_beige))
         }else{
-            setBackgroundColor(resources.getColor(R.color.light_gray_f0))
+            setBackgroundColor(context.getColor(R.color.light_gray_f0))
         }
     }
 

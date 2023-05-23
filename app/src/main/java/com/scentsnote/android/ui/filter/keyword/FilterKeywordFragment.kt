@@ -13,7 +13,7 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.scentsnote.android.utils.adapter.FlexboxRecyclerViewAdapter
-import com.scentsnote.android.viewmodel.filter.KeywordViewModel
+import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
 
 /**
  * 향수 검색 - 필터 - 키워드 탭
@@ -22,7 +22,7 @@ import com.scentsnote.android.viewmodel.filter.KeywordViewModel
  */
 class FilterKeywordFragment : Fragment() {
     private lateinit var binding: FragmentFilterKeywordBinding
-    private val viewModel: KeywordViewModel by activityViewModels()
+    private val viewModel: FilterKeywordViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

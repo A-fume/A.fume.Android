@@ -10,9 +10,11 @@ import com.scentsnote.android.data.vo.response.KeywordInfo
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class KeywordViewModel(
+class FilterKeywordViewModel(
     private val filterRepository: FilterRepository = FilterRepository()
 ) : ViewModel() {
+    val count :Int
+        get() = selectedCount.value?:0
 
     val selectedCount: LiveData<Int>
         get() = _selectedCount

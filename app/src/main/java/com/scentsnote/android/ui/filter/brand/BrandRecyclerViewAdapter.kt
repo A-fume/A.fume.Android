@@ -9,10 +9,10 @@ import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.response.BrandInfo
 import com.scentsnote.android.databinding.RvItemFilterBrandBinding
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
-import com.scentsnote.android.viewmodel.filter.BrandViewModel
+import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 
 class BrandRecyclerViewAdapter(
-    private val viewModel: BrandViewModel
+    private val viewModel: FilterBrandViewModel
 ) : ListAdapter<BrandInfo, BrandRecyclerViewAdapter.BrandRecyclerViewHolder>(BrandInfo.diffUtil) {
 
     init {

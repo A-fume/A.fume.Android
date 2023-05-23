@@ -7,28 +7,26 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.response.BrandInfo
-import com.scentsnote.android.data.vo.response.SeriesInfo
-import com.scentsnote.android.data.vo.response.SeriesIngredient
 import com.scentsnote.android.ui.filter.brand.BrandRecyclerViewAdapter
+import com.scentsnote.android.ui.filter.incense.FilterSeriesViewData
 import com.scentsnote.android.ui.filter.incense.IngredientFlexboxAdapter
-import com.scentsnote.android.ui.filter.incense.SeriesIngredientsViewAdapter
+import com.scentsnote.android.ui.filter.incense.SeriesViewAdapter
 
 object FilterBinding {
 
     @JvmStatic
-    @BindingAdapter("setSeriesIngredientList")
-    fun setSeriesIngredientList(recyclerView: RecyclerView, list: MutableList<SeriesInfo>?) {
-        if (recyclerView.adapter != null) with(recyclerView.adapter as SeriesIngredientsViewAdapter) {
+    @BindingAdapter("setSeriesList")
+    fun setSeriesList(recyclerView: RecyclerView, list: MutableList<FilterSeriesViewData.FilterSeriesAllType>?) {
+        if (recyclerView.adapter != null) with(recyclerView.adapter as SeriesViewAdapter) {
             list?.let {
                 submitList(list)
-                Log.e("setseriesList", list.toString())
             }
         }
     }
 
     @JvmStatic
     @BindingAdapter("setIngredientList")
-    fun setIngredientList(recyclerView: RecyclerView, list: MutableList<SeriesIngredient>?) {
+    fun setIngredientList(recyclerView: RecyclerView, list: MutableList<FilterSeriesViewData>) {
         if (recyclerView.adapter != null) with(recyclerView.adapter as IngredientFlexboxAdapter) {
             submitList(list)
         }

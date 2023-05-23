@@ -3,7 +3,6 @@ package com.scentsnote.android.ui.filter.brand
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import com.scentsnote.android.databinding.FragmentFilterBrandBinding
 import com.google.android.material.tabs.TabLayout
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.changeTabsFont
-import com.scentsnote.android.viewmodel.filter.BrandViewModel
+import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 
 /**
  * 향수 검색 - 필터 - 브랜드 탭
@@ -22,7 +21,7 @@ import com.scentsnote.android.viewmodel.filter.BrandViewModel
  * ㄱ,ㄴ,ㄷ 초성 리스트와 하위 브랜드 리스트 제공
  */
 class FilterBrandFragment : Fragment() {
-    private val viewModel: BrandViewModel by activityViewModels()
+    private val viewModel: FilterBrandViewModel by activityViewModels()
 
     private lateinit var binding: FragmentFilterBrandBinding
     private lateinit var brandAdapter: BrandRecyclerViewAdapter
