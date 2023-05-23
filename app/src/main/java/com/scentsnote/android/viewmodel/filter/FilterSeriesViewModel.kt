@@ -123,7 +123,9 @@ class FilterSeriesViewModel(
     fun getFilterSeriesIngredientViewData(seriesIdx: Int): List<FilterSeriesViewData> {
         val series = seriesMap[seriesIdx] ?: return emptyList()
         val ingredients = series.ingredientIndices.mapNotNull { ingredientMap[it] }
-        val dataList = mutableListOf<FilterSeriesViewData>(series)
+        val dataList = mutableListOf<FilterSeriesViewData>(
+            series.copy(name = "${series.name} $SERIES_NAME_SUFFIX")
+        )
         dataList.addAll(ingredients)
         return dataList
     }
@@ -164,5 +166,6 @@ class FilterSeriesViewModel(
     companion object {
         private const val MAX_COUNT = 5
         private const val TAG = "FilterSeriesViewModel"
+        private const val SERIES_NAME_SUFFIX = "전체"
     }
 }
