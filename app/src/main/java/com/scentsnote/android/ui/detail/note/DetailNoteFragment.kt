@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentDetailNoteBinding
 import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
@@ -24,9 +23,8 @@ class DetailNoteFragment(val perfumeIdx: Int) : Fragment() {
     private val viewModel: PerfumeDetailViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_note, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -41,28 +39,35 @@ class DetailNoteFragment(val perfumeIdx: Int) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getPerfumeInfoWithReview(perfumeIdx)
-        viewModel.perfumeDetailWithReviewData.observe(requireActivity(), Observer {
-            noteAdapter.replaceAll(ArrayList(it))
-            noteAdapter.notifyDataSetChanged()
-        })
 
-        viewModel.isValidNoteList.observe(requireActivity(), Observer {
-            if(it){
-                binding.rvDetailNote.visibility = View.VISIBLE
-                binding.txtDetailReviewList.visibility = View.GONE
-            }else{
-                binding.rvDetailNote.visibility = View.GONE
-                binding.txtDetailReviewList.visibility = View.VISIBLE
+        viewModel.getPerfumeInfoWithReview(perfumeIdx)
+
+        viewModel.perfumeDetailWithReviewData.observe(viewLifecycleOwner) { reviews ->
+            noteAdapter.submitList(reviews.map { it.copy() })
+        }
+
+        viewModel.isValidNoteList.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.run {
+                    rvDetailNote.visibility = View.VISIBLE
+                    txtDetailReviewList.visibility = View.GONE
+                }
+            } else {
+                binding.run {
+                    rvDetailNote.visibility = View.GONE
+                    txtDetailReviewList.visibility = View.VISIBLE
+                }
             }
-        })
+        }
     }
 
-    private fun initNoteList(){
-        noteAdapter = DetailNoteAdapter(viewModel,parentFragmentManager,perfumeIdx){idx -> viewModel.postReviewLike(idx)}
-        binding.rvDetailNote.adapter = noteAdapter
-
-        noteAdapter.notifyDataSetChanged()
-
+    private fun initNoteList() {
+        noteAdapter = DetailNoteAdapter(
+            viewModel, parentFragmentManager, perfumeIdx
+        ) { idx -> viewModel.postReviewLike(idx) }
+        binding.rvDetailNote.run {
+            adapter = noteAdapter
+            itemAnimator = null
+        }
     }
 }

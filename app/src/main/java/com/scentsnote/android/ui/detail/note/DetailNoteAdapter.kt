@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication
@@ -16,57 +17,43 @@ import com.scentsnote.android.databinding.RvItemDetailNoteBinding
 import com.scentsnote.android.databinding.RvItemDetailNoteReportBinding
 import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 import com.scentsnote.android.util.LayoutedTextView.OnLayoutListener
+import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.view.CommonDialog
 import com.scentsnote.android.utils.view.ReportDialog
-
 
 class DetailNoteAdapter(
     private val vm: PerfumeDetailViewModel,
     private val fragmentManager: FragmentManager,
-    val perfumeIdx: Int,
-    val clickBtnLike: (Int) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var data = mutableListOf<PerfumeDetailWithReviews>()
-    var firstType = true
+    private val perfumeIdx: Int,
+    private val clickBtnLike: (Int) -> Unit
+) : ListAdapter<PerfumeDetailWithReviews, RecyclerView.ViewHolder>(PerfumeDetailWithReviews.diffUtil) {
+
+    private var isBlurType = true
 
     /** 시향노트 표시 종류 : 2가지 */
     companion object {
-        const val Default_TYPE = 0 // 일반 리뷰
-        const val Report_TYPE = 1 // 신고한 리뷰
-    }
-
-    fun replaceAll(array: ArrayList<PerfumeDetailWithReviews>?) {
-        array?.let {
-            data.run {
-                clear()
-                addAll(it)
-            }
-        }
+        const val DEFAULT_TYPE = 0 // 일반 리뷰
+        const val REPORT_TYPE = 1 // 신고한 리뷰
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (data[position].isReported) 1 else 0
+        return if (currentList[position].isReported) 1 else 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            Default_TYPE -> {
+        when (viewType) {
+            DEFAULT_TYPE -> {
                 val binding = RvItemDetailNoteBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+                    LayoutInflater.from(parent.context), parent, false
                 )
                 return DetailNoteViewHolder(
-                    parent.context,
-                    binding
+                    parent.context, binding
                 )
             }
 
-            Report_TYPE -> {
+            REPORT_TYPE -> {
                 val binding = RvItemDetailNoteReportBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+                    LayoutInflater.from(parent.context), parent, false
                 )
                 return DetailNoteReportViewHolder(
                     binding
@@ -81,20 +68,20 @@ class DetailNoteAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            Default_TYPE -> {
+            DEFAULT_TYPE -> {
                 holder as DetailNoteViewHolder
-                data[position].let {
+                currentList[position].let {
                     holder.bind(it)
                 }
             }
 
-            Report_TYPE -> {
+            REPORT_TYPE -> {
                 holder as DetailNoteReportViewHolder
             }
         }
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = currentList.size
 
     inner class DetailNoteViewHolder(val context: Context, val binding: RvItemDetailNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -102,7 +89,7 @@ class DetailNoteAdapter(
             binding.item = item
 
             /** 좋아요 버튼 */
-            binding.btnLike.setOnClickListener {
+            binding.btnLike.setOnSafeClickListener {
                 if (!ScentsNoteApplication.prefManager.haveToken()) createLoginDialog()
                 else {
                     clickBtnLike(item.reviewIdx)
@@ -110,7 +97,7 @@ class DetailNoteAdapter(
             }
 
             /** 신고 버튼 */
-            binding.txtRvDetailNoteReport.setOnClickListener {
+            binding.txtRvDetailNoteReport.setOnSafeClickListener {
                 if (!ScentsNoteApplication.prefManager.haveToken()) createLoginDialog()
                 else {
                     createReportDialog(item.reviewIdx)
@@ -127,14 +114,10 @@ class DetailNoteAdapter(
                 }
             })
 
-            binding.txtReviewMore.setOnClickListener {
-                firstType = false
+            binding.txtReviewMore.setOnSafeClickListener {
                 if (binding.txtDetailsReviewContent.maxLines > 3) {
+                    isBlurType = true
                     binding.txtDetailsReviewContent.maxLines = 3
-                    binding.clReviewMore.background = ContextCompat.getDrawable(
-                        context,
-                        R.drawable.background_btn_details_more
-                    )
                     binding.txtReviewMore.text = "더보기"
                     binding.txtReviewMore.setCompoundDrawablesWithIntrinsicBounds(
                         null,
@@ -143,15 +126,11 @@ class DetailNoteAdapter(
                         null
                     )
                 } else {
+                    isBlurType = false
                     binding.txtDetailsReviewContent.maxLines = Int.MAX_VALUE
-                    binding.clReviewMore.background =
-                        ContextCompat.getDrawable(context, R.color.transparent)
                     binding.txtReviewMore.text = "접기"
                     binding.txtReviewMore.setCompoundDrawablesWithIntrinsicBounds(
-                        null,
-                        null,
-                        ContextCompat.getDrawable(context, R.drawable.icon_btn_up),
-                        null
+                        null, null, ContextCompat.getDrawable(context, R.drawable.icon_btn_up), null
                     )
                 }
             }
@@ -178,8 +157,7 @@ class DetailNoteAdapter(
 
                     override fun onNegativeClicked() {
                     }
-                })
-                .getInstance()
+                }).getInstance()
             dialog.arguments = bundle
             dialog.show(fragmentManager, dialog.tag)
         }
@@ -187,21 +165,26 @@ class DetailNoteAdapter(
         /** 더보기 버튼 : 시향 노트 3줄 이상일 경우에는 더보기 버튼 표시 */
         fun setVisibilityMore(lineCount: Int, context: Context) {
             if (lineCount > 3) {
-                binding.txtReviewMore.visibility = View.VISIBLE
-                if (firstType) {
-                    binding.clReviewMore.background = ContextCompat.getDrawable(
-                        context,
-                        R.drawable.background_btn_details_more
-                    )
+                binding.run {
+                    txtReviewMore.visibility = View.VISIBLE
+                    clReviewMore.background = if (isBlurType) {
+                        ContextCompat.getDrawable(
+                            context, R.drawable.background_btn_details_more
+                        )
+                    } else {
+                        ContextCompat.getDrawable(context, R.color.transparent)
+                    }
                 }
             } else {
-                binding.txtReviewMore.visibility = View.GONE
+                binding.run {
+                    txtReviewMore.visibility = View.GONE
+                    clReviewMore.background =
+                        ContextCompat.getDrawable(context, R.color.transparent)
+                }
             }
         }
     }
 
     inner class DetailNoteReportViewHolder(val binding: RvItemDetailNoteReportBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-    }
+        RecyclerView.ViewHolder(binding.root) {}
 }
