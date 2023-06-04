@@ -13,16 +13,24 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication
+import com.scentsnote.android.data.vo.request.FilterInfoP
+import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.filter.FilterFragment
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.viewmodel.search.SearchViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
+import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
+import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private val viewModel: SearchViewModel by activityViewModels()
+    private val filterSeriesViewModel: FilterSeriesViewModel by activityViewModels()
+    private val filterBrandViewModel: FilterBrandViewModel by activityViewModels()
+    private val filterKeywordViewModel: FilterKeywordViewModel by activityViewModels()
     private lateinit var rvFilterAdapter: SelectedFilterRecyclerViewAdapter
     private lateinit var onBackPressedCallback: OnBackPressedCallback
 
@@ -131,9 +139,28 @@ class SearchFragment : Fragment() {
     private fun initRvFilterList() {
         rvFilterAdapter = SelectedFilterRecyclerViewAdapter { filterInfoP ->
             viewModel.cancelBtnFilter(filterInfoP)
+            removeFilter(filterInfoP)
         }
 
         binding.rvSearchFilter.adapter = rvFilterAdapter
+    }
+
+    private fun removeFilter(filterInfoP: FilterInfoP) {
+        when (filterInfoP.type) {
+            FilterType.Ingredient -> {
+                filterSeriesViewModel.removeFromSelectedList(filterInfoP)
+            }
+
+            FilterType.Brand -> {
+                filterBrandViewModel.removeFromSelectedList(filterInfoP)
+            }
+
+            FilterType.Keyword -> {
+                filterKeywordViewModel.removeFromSelectedList(filterInfoP)
+            }
+
+            else -> Unit
+        }
     }
 
     private fun clearFilterList() {

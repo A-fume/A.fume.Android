@@ -17,11 +17,14 @@ data class SendFilter(
     var filterSeriesPMap: MutableMap<String,MutableList<SeriesIngredient>>?
 ) : Parcelable
 
-//type ingredient = 1 , brand = 2, keyword = 3
 @Parcelize
 data class FilterInfoP(
     val idx: Int,
     val name: String="",
-    var type: Int
+    var type: FilterType
 ):Parcelable
+
+enum class FilterType{
+    Ingredient, Brand, Keyword, Text
+}
 

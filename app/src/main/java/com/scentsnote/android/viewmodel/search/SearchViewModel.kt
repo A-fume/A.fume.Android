@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.data.repository.SearchRepository
 import com.scentsnote.android.data.vo.request.FilterInfoP
+import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.request.RequestSearch
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.data.vo.response.PerfumeInfo
@@ -62,7 +63,7 @@ class SearchViewModel : ViewModel() {
             val tempFilterList = filter.value?.filterInfoPList
             tempFilterList?.forEach {
                 when (it.type) {
-                    1 -> {
+                    FilterType.Ingredient -> {
                         if (it.idx > -1) requestSearch.ingredientList?.add(it.idx)
                         else {
                             filter.value?.filterSeriesPMap?.get(it.name)?.forEach {
@@ -71,9 +72,9 @@ class SearchViewModel : ViewModel() {
                         }
                     }
 
-                    2 -> requestSearch.brandList?.add(it.idx)
-                    3 -> requestSearch.keywordList?.add(it.idx)
-                    4 -> requestSearch.searchText = it.name
+                    FilterType.Brand -> requestSearch.brandList?.add(it.idx)
+                    FilterType.Keyword -> requestSearch.keywordList?.add(it.idx)
+                    FilterType.Text -> requestSearch.searchText = it.name
                 }
             }
             filter.value?.filterInfoPList = tempFilterList
@@ -101,7 +102,7 @@ class SearchViewModel : ViewModel() {
             if (f.idx <= -1) tmpFilter?.filterSeriesPMap?.remove(f.name)
             else {
 
-                if (f.type == 1) tmpFilter?.filterSeriesPMap?.values?.forEach { list ->
+                if (f.type == FilterType.Ingredient) tmpFilter?.filterSeriesPMap?.values?.forEach { list ->
                     var index = -1
                     list.forEachIndexed { i, v ->
                         if (v.ingredientIdx == f.idx) index = i
@@ -127,11 +128,10 @@ class SearchViewModel : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     Log.d("postPerfumeLike", it.toString())
-                    Log.e("postPerfumeLike", it.toString())
                     perfumeLike.postValue(it.data)
                     clickHeartPerfumeList(perfumeIdx, it.data)
                 }) {
-                    Log.d("postPerfumeLike error", it.toString())
+                    Log.e("postPerfumeLike error", it.toString())
                     Toast.makeText(context, "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 })
     }
@@ -144,7 +144,7 @@ class SearchViewModel : ViewModel() {
     fun sendSearchText(searchText: String) {
             setPageType(SearchFragmentType.RESULT)
             filter.value =
-                SendFilter(mutableListOf(FilterInfoP(idx = 0, name = searchText, type = 4)), null)
+                SendFilter(mutableListOf(FilterInfoP(idx = 0, name = searchText, type = FilterType.Text)), null)
     }
 
     private fun clickHeartPerfumeList(perfumeIdx: Int, isSelected: Boolean) {

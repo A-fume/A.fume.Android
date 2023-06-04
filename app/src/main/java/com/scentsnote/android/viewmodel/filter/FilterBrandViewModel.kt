@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scentsnote.android.data.repository.FilterRepository
 import com.scentsnote.android.data.vo.request.FilterInfoP
+import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.response.BrandInfo
+import com.scentsnote.android.utils.extension.removeBrand
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -52,11 +54,16 @@ class FilterBrandViewModel(
     }
 
     fun getSelectedBrands(): List<FilterInfoP> {
-        return selectedBrandList.map { FilterInfoP(it.brandIdx, it.name, 2) }
+        return selectedBrandList.map { FilterInfoP(it.brandIdx, it.name, FilterType.Brand) }
     }
 
     fun clearSelectedList() {
         selectedBrandList.clear()
+        _selectedCount.value = selectedBrandList.size
+    }
+
+    fun removeFromSelectedList(filterInfoP: FilterInfoP) {
+       selectedBrandList.removeBrand(BrandInfo(filterInfoP.idx, filterInfoP.name))
         _selectedCount.value = selectedBrandList.size
     }
 

@@ -6,15 +6,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scentsnote.android.data.repository.FilterRepository
 import com.scentsnote.android.data.vo.request.FilterInfoP
+import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.response.KeywordInfo
+import com.scentsnote.android.utils.extension.removeKeyword
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class FilterKeywordViewModel(
     private val filterRepository: FilterRepository = FilterRepository()
 ) : ViewModel() {
-    val count :Int
-        get() = selectedCount.value?:0
+    val count: Int
+        get() = selectedCount.value ?: 0
 
     val selectedCount: LiveData<Int>
         get() = _selectedCount
@@ -42,7 +44,7 @@ class FilterKeywordViewModel(
         _selectedCount.value = selectedKeywordList.count()
     }
 
-    fun clearSelectedList(){
+    fun clearSelectedList() {
         selectedKeywordList.clear()
         _selectedCount.value = selectedKeywordList.size
     }
@@ -58,7 +60,12 @@ class FilterKeywordViewModel(
     }
 
     fun getSelectedKeywords(): List<FilterInfoP> {
-        return selectedKeywordList.map { FilterInfoP(it.keywordIdx, it.name, 3) }
+        return selectedKeywordList.map { FilterInfoP(it.keywordIdx, it.name, FilterType.Keyword) }
+    }
+
+    fun removeFromSelectedList(filterInfoP: FilterInfoP) {
+        selectedKeywordList.removeKeyword(KeywordInfo(filterInfoP.name, filterInfoP.idx))
+        _selectedCount.value = selectedKeywordList.size
     }
 
     companion object {
