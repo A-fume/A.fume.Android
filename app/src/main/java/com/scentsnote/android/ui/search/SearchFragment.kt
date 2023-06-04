@@ -19,7 +19,6 @@ import com.scentsnote.android.ui.filter.FilterFragment
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.viewmodel.search.SearchViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
-import com.scentsnote.android.viewmodel.search.SearchFragmentType
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding

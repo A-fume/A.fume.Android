@@ -41,16 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)  
 
     private fun getFilter() {
         val flag = intent.getIntExtra("flag", 0)
-        if (flag == 1) {
-            val filter = intent?.getParcelableExtra<SendFilter>("filter")
-            Log.e("서치 결과 프래그먼트", filter.toString())
-
-            searchViewModel.filter.value = filter
-
-            navController.navigate(R.id.searchHomeFragment)
-            navController.navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
-        }
-        if (flag == 3) {
+        if (flag == 3) { // click search
             searchViewModel.setPageType(SearchFragmentType.RESULT)
             val searchText = intent?.getStringExtra("searchText")
 

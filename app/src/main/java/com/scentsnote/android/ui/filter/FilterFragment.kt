@@ -1,10 +1,12 @@
 package com.scentsnote.android.ui.filter
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -12,18 +14,17 @@ import com.google.android.material.badge.BadgeDrawable
 import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.FragmentFilterBinding
-import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.brand.FilterBrandFragment
 import com.scentsnote.android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.scentsnote.android.ui.filter.keyword.FilterKeywordFragment
 import com.scentsnote.android.utils.extension.changeTabsFont
-import com.scentsnote.android.utils.extension.closeSelf
 import com.scentsnote.android.utils.extension.closeSelfWithAnimation
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.listener.TabSelectedListener
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
 import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
+import com.scentsnote.android.viewmodel.search.SearchViewModel
 
 
 class FilterFragment : Fragment() {
@@ -34,7 +35,9 @@ class FilterFragment : Fragment() {
     private val seriesViewModel: FilterSeriesViewModel by activityViewModels()
     private val brandViewModel: FilterBrandViewModel by activityViewModels()
     private val keywordViewModel: FilterKeywordViewModel by activityViewModels()
+    private val searchViewModel: SearchViewModel by activityViewModels()
     private val filterCategoryList = FilterCategory.values()
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,7 +67,6 @@ class FilterFragment : Fragment() {
     private fun initView() {
         binding.btnFilterApply.setOnSafeClickListener {
             sendFilter()
-            closeSelf()
         }
         binding.toolbarFilter.toolbarBtn.setOnSafeClickListener {
             closeSelfWithAnimation()
@@ -72,6 +74,22 @@ class FilterFragment : Fragment() {
 
         binding.toolbarFilter.toolbar = R.drawable.icon_btn_cancel
         binding.toolbarFilter.toolbartxt = "필터"
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                closeSelfWithAnimation()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onBackPressedCallback.remove()
     }
 
     private fun initViewPager() {
@@ -134,10 +152,8 @@ class FilterFragment : Fragment() {
     }
 
     private fun sendFilter() {
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        intent.putExtra("flag", 1)
-        intent.putExtra("filter", getSelectedFilters())
-        startActivity(intent)
+        searchViewModel.sendFilter(getSelectedFilters())
+        closeSelfWithAnimation()
     }
 
     private fun getSelectedFilters(): SendFilter {
