@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.scentsnote.android.databinding.FragmentFilterIncenseSeriesBinding
-import com.scentsnote.android.viewmodel.filter.FilterViewModel
+import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
 
 /**
  * 향수 검색 - 필터 - 계열 탭
@@ -18,51 +17,34 @@ import com.scentsnote.android.viewmodel.filter.FilterViewModel
  */
 class FilterIncenseSeriesFragment : Fragment() {
     private lateinit var binding: FragmentFilterIncenseSeriesBinding
-    private val viewModel: FilterViewModel by activityViewModels()
+    private val viewModel: FilterSeriesViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return initBinding(inflater, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("incense badge cnt", viewModel.badgeCount.value?.toString()!!)
         initIncenseSeriesRv()
-        observeBlockClickMoreThan5()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        observeBlockClickMoreThan5()
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
         binding = FragmentFilterIncenseSeriesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        binding.vm = viewModel
-
-//        initIncenseSeriesRv()
 
         return binding.root
     }
 
+    private lateinit var seriesAdapter:SeriesViewAdapter
     private fun initIncenseSeriesRv() {
-        val seriesAdapter = SeriesIngredientsViewAdapter(
-            { seriesName, list -> viewModel.addSeriesIngredientIdx(seriesName, list) },
-            { tabNumber, add -> viewModel.countBadges(tabNumber, add) })
+        seriesAdapter = SeriesViewAdapter(viewModel)
         binding.rvIncenseSeries.adapter = seriesAdapter
-        seriesAdapter.notifyDataSetChanged()
+        viewModel.dataFetched.observe(viewLifecycleOwner) {
+            seriesAdapter.submitList(viewModel.getFilterSeriesViewData())
+        }
     }
-
-    fun observeBlockClickMoreThan5() {
-        viewModel.badgeCount.observe(viewLifecycleOwner, Observer {
-            viewModel.blockClickSeriesMoreThan5()
-            Log.d("series_obverse", viewModel.selectedSeriesMap.value.toString())
-        })
-    }
-
 }

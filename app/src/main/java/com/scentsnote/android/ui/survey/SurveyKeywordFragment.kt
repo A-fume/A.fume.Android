@@ -54,8 +54,8 @@ class SurveyKeywordFragment : Fragment() {
         }
         val keywordAdapter =
             FlexboxRecyclerViewAdapter(
-                { index, b -> viewModel.addKeywordList(index.keywordIdx, b) },
-                { index, b -> {} }
+                select = { index, b -> viewModel.addKeywordList(index.keywordIdx, b) },
+                isOverSelectLimit = { false }
             )
         binding.rvSurveyKeyword.apply {
             layoutManager = flexboxLayoutManager

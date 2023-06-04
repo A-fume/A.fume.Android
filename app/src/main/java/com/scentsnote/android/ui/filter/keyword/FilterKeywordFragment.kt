@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.scentsnote.android.databinding.FragmentFilterKeywordBinding
-import com.scentsnote.android.viewmodel.filter.FilterViewModel
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.scentsnote.android.utils.adapter.FlexboxRecyclerViewAdapter
+import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
 
 /**
  * 향수 검색 - 필터 - 키워드 탭
@@ -23,12 +22,12 @@ import com.scentsnote.android.utils.adapter.FlexboxRecyclerViewAdapter
  */
 class FilterKeywordFragment : Fragment() {
     private lateinit var binding: FragmentFilterKeywordBinding
-    private val viewModel: FilterViewModel by activityViewModels()
+    private val viewModel: FilterKeywordViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return initBinding(inflater, container)
     }
 
@@ -43,6 +42,7 @@ class FilterKeywordFragment : Fragment() {
         super.onResume()
         initKeywordRv(context)
         observeBlockClickMoreThan5()
+        observeViewModel()
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {
@@ -60,20 +60,27 @@ class FilterKeywordFragment : Fragment() {
         }
 
         val keywordAdapter = FlexboxRecyclerViewAdapter(
-            { index, add -> viewModel.addKeywordList(index, add) },
-            { index, add -> viewModel.countBadges(index, add) }
+            select = { info, selected -> viewModel.selectKeywordList(info, selected) },
+            isOverSelectLimit = { viewModel.isOverSelectLimit() }
         )
 
         binding.rvKeyword.apply {
             layoutManager = flexboxLayoutManager
             adapter = keywordAdapter
+            itemAnimator = null
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.keywordList.observe(viewLifecycleOwner) {
+            (binding.rvKeyword.adapter as FlexboxRecyclerViewAdapter).apply {
+                submitList(it)
+            }
         }
     }
 
     fun observeBlockClickMoreThan5() {
-        viewModel.badgeCount.observe(viewLifecycleOwner, Observer {
-            viewModel.blockClickKeywordMoreThan5()
-        })
+        // TODO remove
     }
 
 }

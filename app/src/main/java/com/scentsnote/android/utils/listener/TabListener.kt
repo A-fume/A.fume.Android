@@ -10,7 +10,7 @@ class TabSelectedListener(private val tabView: TabLayout) : TabLayout.OnTabSelec
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
         tab?.position?.let{
-            tabView?.changeTabsFont(it)
+            tabView.changeTabsFont(it)
         }
     }
 

@@ -6,16 +6,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.scentsnote.android.data.vo.response.SeriesIngredient
+import com.scentsnote.android.R
 import com.scentsnote.android.databinding.RvItemSeriesIngredientFilterBinding
+import com.scentsnote.android.utils.extension.copy
+import com.scentsnote.android.utils.extension.isAllType
+import com.scentsnote.android.utils.extension.isSameContent
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
 
 class IngredientFlexboxAdapter(
-    val ingredientsList: MutableList<SeriesIngredient>,
-    val setSelectedIngredients: (String, MutableList<SeriesIngredient>) -> Unit,
-    val countBadge: (Int, Boolean) -> Unit
-) : ListAdapter<SeriesIngredient, IngredientFlexboxAdapter.IngredientFlexboxHolder>(
-    SeriesIngredient.diffUtil
+    val viewModel: FilterSeriesViewModel
+) : ListAdapter<FilterSeriesViewData, IngredientFlexboxAdapter.IngredientFlexboxHolder>(
+    FilterSeriesViewData.diffUtil
 ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientFlexboxHolder {
@@ -28,113 +30,76 @@ class IngredientFlexboxAdapter(
     }
 
     override fun onBindViewHolder(holder: IngredientFlexboxHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(currentList[position])
     }
 
     inner class IngredientFlexboxHolder(val binding: RvItemSeriesIngredientFilterBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private lateinit var changeList: MutableList<SeriesIngredient>
-        val selectedIngredients = mutableListOf<SeriesIngredient>()
 
-        fun bind(seriesIngredient: SeriesIngredient) {
-            binding.ingredient = seriesIngredient
-            initSelectedIngredients()
-            Log.d(TAG, "ingredients data: $seriesIngredient")
+        private fun hasSelectedNormalType() =
+            currentList.subList(1, itemCount - 1).count { it.isChecked } > 0
 
-            // 그려줄때, 전체가 선택 되어있는 경우 다른 재료들 비활성화
-            if (seriesIngredient.checked && seriesIngredient.ingredientIdx <= -1) { //전체를 선택했을 경우
-                changeList = currentList
-                for (i in 1..currentList.lastIndex) {
-                    if (changeList[i].checked) {
-                        changeList[i].checked = false
-                    }
-                }
-            }
+        private fun checkCanSelect(ingredient: FilterSeriesViewData): Boolean {
+            val isOverSelectLimit = viewModel.isOverSelectLimit()
+            val isDeselect = ingredient.isChecked
+            val canSelectAllType = ingredient.isAllType && hasSelectedNormalType()
+            val canSelectNormalType = !ingredient.isAllType && currentList[0].isChecked
+            return !isOverSelectLimit || isDeselect || canSelectAllType || canSelectNormalType
+        }
 
-            binding.root.setOnSafeClickListener setOnClickListener@{ it ->
-                Log.d(TAG, "onClicked ingredientIdx: ${seriesIngredient.ingredientIdx}")
-                if (!seriesIngredient.clickable) {
+        fun bind(data: FilterSeriesViewData) {
+            initCheckedState(data)
+            binding.ingredient = data
+
+            binding.root.setOnSafeClickListener {
+                Log.d(TAG, "onClicked ingredientIdx: ${data.index}")
+
+                if (!checkCanSelect(data)) {
                     Toast.makeText(
                         it.context,
-                        "5개 이상 선택 할 수 없어요.",
+                        R.string.filter_select_over_limit,
                         Toast.LENGTH_SHORT
                     ).show()
-                    return@setOnClickListener
+                    return@setOnSafeClickListener
                 }
 
-                val newItem = seriesIngredient.copy(checked = !seriesIngredient.checked)
-                val isSelectAllType = newItem.ingredientIdx <= -1
-                if (isSelectAllType) {
-                    // 전체선택 활성화, 모든 버튼 비활성화 후 인덱스 리스트에 추가
-                    if (newItem.checked) {
-                        setInactiveAll()
-                        ingredientsList.forEach { selectedIngredients.add(it) }
-                        countBadge(0, true)
+                val newItems = mutableListOf<FilterSeriesViewData>()
+                when (data) {
+                    is FilterSeriesViewData.FilterSeriesAllType -> {
+                        viewModel.onSelectAllType(data, newItems, currentList)
                     }
-                    // 전체선택 비활성화
-                    else setInactiveEntire()
-                } else { // 전체가 아닌 하나의 ingredient를 선택했을 때 선택한 인덱스 추가
-                    if (newItem.checked) {
-                        // 전체 선택이 되어 있는 경우, 전체 선택 비활성화
-                        if (currentList[0].checked) setInactiveEntire()
-                        selectedIngredients.add(newItem)
-                        countBadge(0, true)
-                    } else {
-                        selectedIngredients.remove(newItem)
-                        countBadge(0, false)
+
+                    is FilterSeriesViewData.FilterSeriesIngredient -> {
+                        viewModel.onSelectIngredientType(data, newItems, currentList[0])
                     }
                 }
-
-                // viewModel로 selectedIngredients 넘기기
-                setSelectedIngredients(seriesIngredient.seriesName + " 전체", selectedIngredients)
-                Log.d(TAG, "selectedIngredients: $selectedIngredients")
-                replaceList(newItem)
+                replaceList(newItems)
             }
         }
 
-        private fun replaceList(newItem: SeriesIngredient) {
-            submitList(
-                currentList.map { oldItem ->
-                    if (oldItem.ingredientIdx == newItem.ingredientIdx) {
-                        newItem
-                    } else {
-                        oldItem
-                    }
-                }
-            )
-        }
-
-        private fun initSelectedIngredients() {
-            selectedIngredients.clear()
-            changeList = currentList
-            changeList.forEach {
-                if (it.checked) selectedIngredients.add(it)
+        private fun initCheckedState(data: FilterSeriesViewData) {
+            if (viewModel.selectedSeriesList.contains(data)) {
+                replaceList(data.copy(isChecked = true))
             }
         }
 
-        private fun setInactiveEntire() {
-            //계열 전체 버튼 비활성화
-            changeList = currentList
-            changeList[0].checked = false
-            countBadge(0, false)
-            selectedIngredients.clear()
-        }
+        private fun replaceList(newItems: List<FilterSeriesViewData>) {
+            if (newItems.isEmpty()) return
 
-        private fun setInactiveAll() {
-            //각 계열의 모든 버튼 비활성화
-            changeList = currentList
-            for (i in 1..currentList.lastIndex) {
-                if (changeList[i].checked) {
-                    changeList[i].checked = false
-                    countBadge(0, false)
-                }
+            val tempList: MutableList<FilterSeriesViewData> = currentList.toMutableList()
+            newItems.forEach { newItem ->
+                val index = tempList.indexOfFirst { it.isSameContent(newItem) }
+                tempList[index] = newItem
             }
-            selectedIngredients.clear()
+            submitList(tempList)
         }
 
+        private fun replaceList(newItem: FilterSeriesViewData) {
+            replaceList(listOf(newItem))
+        }
     }
 
     companion object {
-        private val TAG = "IngredientFlexboxAdapter"
+        private const val TAG = "IngredientFlexboxAdapter"
     }
 }

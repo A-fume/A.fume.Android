@@ -3,21 +3,22 @@ package com.scentsnote.android.ui.filter.brand
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.response.BrandInfo
 import com.scentsnote.android.databinding.RvItemFilterBrandBinding
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 
 class BrandRecyclerViewAdapter(
-    val setSelectedBrand: (BrandInfo, Boolean) -> Unit,
-    val countBadge: (Int, Boolean) -> Unit
-) : RecyclerView.Adapter<BrandRecyclerViewAdapter.BrandRecyclerViewHolder>() {
+    private val viewModel: FilterBrandViewModel
+) : ListAdapter<BrandInfo, BrandRecyclerViewAdapter.BrandRecyclerViewHolder>(BrandInfo.diffUtil) {
 
     init {
         setHasStableIds(true)
     }
 
-    var data = mutableListOf<BrandInfo>()
     var initial: String = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandRecyclerViewHolder {
@@ -26,24 +27,14 @@ class BrandRecyclerViewAdapter(
         return BrandRecyclerViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = currentList.size
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-    internal fun setData(map: MutableMap<String, MutableList<BrandInfo>>) {
-        this.data = map[initial] ?: mutableListOf()
-        notifyDataSetChanged()
-    }
-
     override fun onBindViewHolder(holder: BrandRecyclerViewHolder, position: Int) {
-
-        when (holder) {
-            is BrandRecyclerViewHolder -> holder.bind(data[position])
-            else -> throw Exception("You Should not attach here")
-        }
-
+        holder.bind(currentList[position])
     }
 
     inner class BrandRecyclerViewHolder(val binding: RvItemFilterBrandBinding) :
@@ -52,24 +43,15 @@ class BrandRecyclerViewAdapter(
         fun bind(info: BrandInfo) {
             binding.item = info
             binding.root.setOnSafeClickListener {
-                if(info.clickable){
-                    info.check = !info.check
-                    when (info.check) {
-                        true -> {
-                            // 선택되었다면, 리스트에 추가
-                            countBadge(1, true)
-                            setSelectedBrand(info, true)
-                        }
-                        false -> {
-                            //선택 해제 되었다면, 리스트에서 발견 후 삭제
-                            countBadge(1, false)
-                            setSelectedBrand(info, false)
-
-                        }
-                    }
-                    notifyDataSetChanged()
+                if (!info.check && viewModel.isOverSelectLimit()) {
+                    val message = it.context.getString(R.string.filter_select_over_limit)
+                    Toast.makeText(it.context, message, Toast.LENGTH_SHORT).show()
+                    return@setOnSafeClickListener
                 }
-                else Toast.makeText(it.context, "5개 이상 선택 할 수 없어요.", Toast.LENGTH_SHORT).show()
+
+                viewModel.setSelectedBrandListIdx(info, !info.check)
+                info.check = !info.check
+                notifyItemChanged(adapterPosition)
             }
         }
 

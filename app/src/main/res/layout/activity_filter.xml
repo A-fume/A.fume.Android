@@ -2,11 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="filterVm"
-            type="com.scentsnote.android.viewmodel.filter.FilterViewModel" />
-    </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,23 +29,7 @@
         app:tabIndicatorColor="@color/primary_black"
         app:tabSelectedTextColor="@color/primary_black"
         app:tabTextColor="@color/dark_gray_7d"
-        app:tabTextAppearance="@style/Theme.ScentsNote.Tab">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="계열" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="브랜드" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="키워드" />
-    </com.google.android.material.tabs.TabLayout>
+        app:tabTextAppearance="@style/Theme.ScentsNote.Tab"/>
 
     <com.scentsnote.android.utils.view.NonSwipeViewPager
         android:id="@+id/vp_filter"
