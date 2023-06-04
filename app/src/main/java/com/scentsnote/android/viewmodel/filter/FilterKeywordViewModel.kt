@@ -42,6 +42,11 @@ class FilterKeywordViewModel(
         _selectedCount.value = selectedKeywordList.count()
     }
 
+    fun clearSelectedList(){
+        selectedKeywordList.clear()
+        _selectedCount.value = selectedKeywordList.size
+    }
+
     private fun fetchKeywords() {
         viewModelScope.launch {
             try {

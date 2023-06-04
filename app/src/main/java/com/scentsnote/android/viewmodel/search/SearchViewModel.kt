@@ -96,7 +96,7 @@ class SearchViewModel : ViewModel() {
     }
 
     fun cancelBtnFilter(f: FilterInfoP?) {
-        var tmpFilter = filter.value
+        val tmpFilter = filter.value
         if (f != null) {
             if (f.idx <= -1) tmpFilter?.filterSeriesPMap?.remove(f.name)
             else {
@@ -111,7 +111,9 @@ class SearchViewModel : ViewModel() {
 
             }
             tmpFilter?.filterInfoPList?.remove(f)
-            filter.value = tmpFilter
+            tmpFilter?.let {
+                filter.value = it
+            }
         }
     }
 
@@ -140,11 +142,9 @@ class SearchViewModel : ViewModel() {
     }
 
     fun sendSearchText(searchText: String) {
-        setPageType(SearchFragmentType.RESULT)
-        if (searchText.isNotBlank()) {
+            setPageType(SearchFragmentType.RESULT)
             filter.value =
                 SendFilter(mutableListOf(FilterInfoP(idx = 0, name = searchText, type = 4)), null)
-        }
     }
 
     private fun clickHeartPerfumeList(perfumeIdx: Int, isSelected: Boolean) {

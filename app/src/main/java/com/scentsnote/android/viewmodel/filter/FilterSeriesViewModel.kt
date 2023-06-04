@@ -21,7 +21,7 @@ class FilterSeriesViewModel(
 
     private val seriesMap = mutableMapOf<Int, FilterSeriesViewData.FilterSeriesAllType>()
     private val ingredientMap = mutableMapOf<Int, FilterSeriesViewData.FilterSeriesIngredient>()
-    val selectedSeriesList = mutableListOf<FilterSeriesViewData>()
+    private val selectedSeriesList = mutableListOf<FilterSeriesViewData>()
 
     val dataFetched: LiveData<Unit>
         get() = _dataFetched
@@ -32,6 +32,13 @@ class FilterSeriesViewModel(
 
     init {
         fetchSeries()
+    }
+
+    fun isSelectedSeries(data: FilterSeriesViewData) = selectedSeriesList.contains(data)
+
+    fun clearSelectedList() {
+        selectedSeriesList.clear()
+        _selectedCount.value = selectedSeriesList.size
     }
 
     private fun getParentSeries(ingredient: FilterSeriesViewData.FilterSeriesIngredient): FilterSeriesViewData.FilterSeriesAllType? {

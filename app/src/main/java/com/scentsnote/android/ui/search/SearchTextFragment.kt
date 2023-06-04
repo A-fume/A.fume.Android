@@ -11,6 +11,9 @@ import androidx.fragment.app.activityViewModels
 import com.scentsnote.android.databinding.FragmentSearchTextBinding
 import com.scentsnote.android.utils.extension.closeSelfWithAnimation
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
+import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
+import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
 import com.scentsnote.android.viewmodel.search.SearchViewModel
 
 class SearchTextFragment : Fragment() {
@@ -18,6 +21,9 @@ class SearchTextFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val searchViewModel: SearchViewModel by activityViewModels()
+    private val filterSeriesViewModel: FilterSeriesViewModel by activityViewModels()
+    private val filterBrandViewModel: FilterBrandViewModel by activityViewModels()
+    private val filterKeywordViewModel: FilterKeywordViewModel by activityViewModels()
     private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     override fun onCreateView(
@@ -55,7 +61,12 @@ class SearchTextFragment : Fragment() {
     private fun setOnClickListener() {
         binding.btnSearch.setOnSafeClickListener {
             val searchText = binding.edtSearch.text.toString()
-            searchViewModel.sendSearchText(searchText)
+            if (searchText.isNotBlank()) {
+                searchViewModel.sendSearchText(searchText)
+                filterSeriesViewModel.clearSelectedList()
+                filterBrandViewModel.clearSelectedList()
+                filterKeywordViewModel.clearSelectedList()
+            }
             closeSelfWithAnimation()
         }
 

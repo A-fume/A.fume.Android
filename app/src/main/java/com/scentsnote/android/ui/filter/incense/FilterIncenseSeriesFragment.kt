@@ -39,9 +39,8 @@ class FilterIncenseSeriesFragment : Fragment() {
         return binding.root
     }
 
-    private lateinit var seriesAdapter:SeriesViewAdapter
     private fun initIncenseSeriesRv() {
-        seriesAdapter = SeriesViewAdapter(viewModel)
+        val seriesAdapter = SeriesViewAdapter(viewModel)
         binding.rvIncenseSeries.adapter = seriesAdapter
         viewModel.dataFetched.observe(viewLifecycleOwner) {
             seriesAdapter.submitList(viewModel.getFilterSeriesViewData())

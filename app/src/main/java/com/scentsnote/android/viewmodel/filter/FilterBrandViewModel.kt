@@ -14,8 +14,8 @@ import retrofit2.HttpException
 class FilterBrandViewModel(
     private val filterRepository: FilterRepository = FilterRepository()
 ) : ViewModel() {
-    val count :Int
-        get() = selectedCount.value?:0
+    val count: Int
+        get() = selectedCount.value ?: 0
 
     val brandMap: LiveData<MutableMap<String, MutableList<BrandInfo>>>
         get() = _brandMap
@@ -47,13 +47,17 @@ class FilterBrandViewModel(
         _selectedCount.value = selectedBrandList.count()
     }
 
-
     fun bindBrandTab(initial: String): MutableList<BrandInfo> {
         return brandMap.value?.get(initial) ?: mutableListOf()
     }
 
     fun getSelectedBrands(): List<FilterInfoP> {
         return selectedBrandList.map { FilterInfoP(it.brandIdx, it.name, 2) }
+    }
+
+    fun clearSelectedList() {
+        selectedBrandList.clear()
+        _selectedCount.value = selectedBrandList.size
     }
 
     private fun fetchBrands() {
