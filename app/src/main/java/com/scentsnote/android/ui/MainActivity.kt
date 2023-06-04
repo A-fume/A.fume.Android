@@ -14,6 +14,7 @@ import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.ActivityMainBinding
 import com.scentsnote.android.viewmodel.search.SearchViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.scentsnote.android.ui.search.SearchFragmentType
 import com.scentsnote.android.utils.base.BaseActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)  {
@@ -50,6 +51,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)  
             navController.navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
         }
         if (flag == 3) {
+            searchViewModel.setPageType(SearchFragmentType.RESULT)
             val searchText = intent?.getStringExtra("searchText")
 
             if (searchText != "" && searchText != null) {
@@ -59,16 +61,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)  
                 searchViewModel.filter.value?.apply {
                     filterInfoPList?.clear()
                     filterSeriesPMap?.clear()
-                    filterInfoPList?.add(0, FilterInfoP(idx = 0, name = searchText!!, type = 4))
+                    filterInfoPList?.add(0, FilterInfoP(idx = 0, name = searchText, type = 4))
                 }
             }
-            navController.navigate(R.id.searchHomeFragment)
-            navController.navigate(R.id.action_searchHomeFragment_to_searchResultFragment)
+            navController.navigate(R.id.searchFragment)
         }
         intent.removeExtra("flag")
     }
 
-    fun getBackSearchHome() {
-        navController.navigate(R.id.action_searchResultFragment_to_searchHomeFragment)
-    }
 }

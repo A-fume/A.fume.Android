@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scentsnote.android.ScentsNoteApplication
@@ -13,6 +14,7 @@ import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.RequestSearch
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.data.vo.response.PerfumeInfo
+import com.scentsnote.android.ui.search.SearchFragmentType
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -20,21 +22,37 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class SearchViewModel : ViewModel() {
+    val isValidResultData: LiveData<Boolean>
+        get() = _isValidResultData
+    val fragmentType: LiveData<SearchFragmentType>
+        get() = _fragmentType
+
     private val searchRepository = SearchRepository()
     private val compositeDisposable = CompositeDisposable()
 
     var filter = MutableLiveData<SendFilter>()
     val perfumeList = MutableLiveData(mutableListOf<PerfumeInfo>())
-    val perfumeLike: MutableLiveData<Boolean> = MutableLiveData()
+    private val perfumeLike: MutableLiveData<Boolean> = MutableLiveData()
+    private val _fragmentType: MutableLiveData<SearchFragmentType> =
+        MutableLiveData(SearchFragmentType.HOME)
 
     private val _isValidResultData = MutableLiveData<Boolean>(false)
-    val isValidResultData : LiveData<Boolean>
-        get() = _isValidResultData
+
+    val backButtonVisibility: LiveData<Boolean> = Transformations.map(_fragmentType) {
+        it != SearchFragmentType.HOME
+    }
+    val filterKeywordListVisibility: LiveData<Boolean> = Transformations.map(_fragmentType) {
+        it != SearchFragmentType.HOME
+    }
 
     init {
         viewModelScope.launch {
             postSearchResultPerfume()
         }
+    }
+
+    fun setPageType(type: SearchFragmentType) {
+        _fragmentType.value = type
     }
 
     suspend fun postSearchResultPerfume() {
@@ -52,6 +70,7 @@ class SearchViewModel : ViewModel() {
                             }
                         }
                     }
+
                     2 -> requestSearch.brandList?.add(it.idx)
                     3 -> requestSearch.keywordList?.add(it.idx)
                     4 -> requestSearch.searchText = it.name
@@ -72,12 +91,12 @@ class SearchViewModel : ViewModel() {
         }
     }
 
-    private fun setDataVisible(){
-        _isValidResultData.value = perfumeList.value?.isNotEmpty()==true
+    private fun setDataVisible() {
+        _isValidResultData.value = perfumeList.value?.isNotEmpty() == true
     }
 
     fun cancelBtnFilter(f: FilterInfoP?) {
-        var tmpFilter =filter.value
+        var tmpFilter = filter.value
         if (f != null) {
             if (f.idx <= -1) tmpFilter?.filterSeriesPMap?.remove(f.name)
             else {
@@ -92,13 +111,16 @@ class SearchViewModel : ViewModel() {
 
             }
             tmpFilter?.filterInfoPList?.remove(f)
-            filter.value=tmpFilter
+            filter.value = tmpFilter
         }
     }
 
     fun postPerfumeLike(perfumeIdx: Int, context: Context?) {
         compositeDisposable.add(
-            searchRepository.postPerfumeLike(ScentsNoteApplication.prefManager.accessToken, perfumeIdx)
+            searchRepository.postPerfumeLike(
+                ScentsNoteApplication.prefManager.accessToken,
+                perfumeIdx
+            )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -112,10 +134,9 @@ class SearchViewModel : ViewModel() {
                 })
     }
 
-    fun sendFilter(): SendFilter {
-        val presentFilter =
-            SendFilter(filter.value?.filterInfoPList, filter.value?.filterSeriesPMap)
-        return presentFilter
+    fun sendFilter(sendFilter: SendFilter) {
+        setPageType(SearchFragmentType.RESULT)
+        filter.value = sendFilter
     }
 
     private fun clickHeartPerfumeList(perfumeIdx: Int, isSelected: Boolean) {
@@ -136,5 +157,4 @@ class SearchViewModel : ViewModel() {
             instance ?: SearchViewModel().also { instance = it }
         }
     }
-
 }
