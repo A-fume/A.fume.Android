@@ -139,6 +139,14 @@ class SearchViewModel : ViewModel() {
         filter.value = sendFilter
     }
 
+    fun sendSearchText(searchText: String) {
+        setPageType(SearchFragmentType.RESULT)
+        if (searchText.isNotBlank()) {
+            filter.value =
+                SendFilter(mutableListOf(FilterInfoP(idx = 0, name = searchText, type = 4)), null)
+        }
+    }
+
     private fun clickHeartPerfumeList(perfumeIdx: Int, isSelected: Boolean) {
         val tempList = perfumeList.value
         tempList?.forEach { if (it.perfumeIdx == perfumeIdx) it.isLiked = isSelected }

@@ -92,8 +92,7 @@ class SearchFragment : Fragment() {
 
     private fun initToolbar() {
         binding.toolbarBtnSearch.setOnSafeClickListener {
-            val intent = Intent(context, SearchTextActivity::class.java)
-            startActivity(intent)
+            openSearchTextFragment()
         }
 
         binding.toolbarBtnBack.setOnSafeClickListener {
@@ -150,6 +149,18 @@ class SearchFragment : Fragment() {
                 R.anim.slide_down
             )
             .add(R.id.fragment_container, FilterFragment.newInstance())
+            .commitAllowingStateLoss()
+    }
+
+    private fun openSearchTextFragment() {
+        childFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_up,
+                R.anim.slide_down,
+                R.anim.slide_up,
+                R.anim.slide_down
+            )
+            .add(R.id.fragment_container, SearchTextFragment.newInstance())
             .commitAllowingStateLoss()
     }
 
