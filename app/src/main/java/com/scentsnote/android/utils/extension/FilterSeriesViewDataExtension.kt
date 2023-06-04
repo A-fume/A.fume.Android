@@ -5,9 +5,16 @@ import com.scentsnote.android.ui.filter.incense.FilterSeriesViewData
 internal val FilterSeriesViewData.isAllType: Boolean
     get() = this is FilterSeriesViewData.FilterSeriesAllType
 
-internal fun MutableList<FilterSeriesViewData>.removeSeries(seriesViewData: FilterSeriesViewData) {
+internal fun MutableList<FilterSeriesViewData>.removeSeriesAllType(seriesViewData: FilterSeriesViewData) {
     val series = this.find {
         it.isAllType == seriesViewData.isAllType && it.index == seriesViewData.index
+    }
+    this.remove(series)
+}
+
+internal fun MutableList<FilterSeriesViewData>.removeSeries(seriesViewData: FilterSeriesViewData) {
+    val series = this.find {
+        it.index == seriesViewData.index && it.name == seriesViewData.name
     }
     this.remove(series)
 }

@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scentsnote.android.data.repository.FilterRepository
 import com.scentsnote.android.data.vo.request.FilterInfoP
+import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.ui.filter.incense.FilterSeriesViewData
 import com.scentsnote.android.utils.extension.copy
 import com.scentsnote.android.utils.extension.removeSeries
+import com.scentsnote.android.utils.extension.removeSeriesAllType
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -21,7 +23,7 @@ class FilterSeriesViewModel(
 
     private val seriesMap = mutableMapOf<Int, FilterSeriesViewData.FilterSeriesAllType>()
     private val ingredientMap = mutableMapOf<Int, FilterSeriesViewData.FilterSeriesIngredient>()
-    val selectedSeriesList = mutableListOf<FilterSeriesViewData>()
+    private val selectedSeriesList = mutableListOf<FilterSeriesViewData>()
 
     val dataFetched: LiveData<Unit>
         get() = _dataFetched
@@ -32,6 +34,13 @@ class FilterSeriesViewModel(
 
     init {
         fetchSeries()
+    }
+
+    fun isSelectedSeries(data: FilterSeriesViewData) = selectedSeriesList.contains(data)
+
+    fun clearSelectedList() {
+        selectedSeriesList.clear()
+        _selectedCount.value = selectedSeriesList.size
     }
 
     private fun getParentSeries(ingredient: FilterSeriesViewData.FilterSeriesIngredient): FilterSeriesViewData.FilterSeriesAllType? {
@@ -69,7 +78,7 @@ class FilterSeriesViewModel(
             selectedSeriesList.add(series)
             seriesMap[series.index]?.ingredientIndices?.forEach { ingredientIdx ->
                 ingredientMap[ingredientIdx]?.let { ingredient ->
-                    selectedSeriesList.removeSeries(ingredient)
+                    selectedSeriesList.removeSeriesAllType(ingredient)
                 }
             }
         } else {
@@ -90,7 +99,7 @@ class FilterSeriesViewModel(
             newItems.add(data.copy(isChecked = true))
             selectedSeriesList.add(data)
             getParentSeries(data)?.let { series ->
-                selectedSeriesList.removeSeries(series)
+                selectedSeriesList.removeSeriesAllType(series)
             }
 
         } else {
@@ -104,7 +113,7 @@ class FilterSeriesViewModel(
         newItems: MutableList<FilterSeriesViewData>,
     ) {
         newItems.add(data.copy(isChecked = false))
-        selectedSeriesList.removeSeries(data)
+        selectedSeriesList.removeSeriesAllType(data)
     }
 
     private fun updateSelectCount() {
@@ -117,7 +126,19 @@ class FilterSeriesViewModel(
 
     fun getSelectedSeries(): List<FilterInfoP> {
         // todo: all type은 전체 담도록
-        return selectedSeriesList.map { FilterInfoP(it.index, it.name, 1) }
+        return selectedSeriesList.map { FilterInfoP(it.index, it.name, FilterType.Ingredient) }
+    }
+
+    fun removeFromSelectedList(filterInfoP: FilterInfoP) {
+        selectedSeriesList.removeSeries(
+            FilterSeriesViewData.FilterSeriesIngredient(
+                filterInfoP.idx,
+                filterInfoP.name,
+                false,
+                -1
+            )
+        )
+        _selectedCount.value = selectedSeriesList.size
     }
 
     fun getFilterSeriesIngredientViewData(seriesIdx: Int): List<FilterSeriesViewData> {

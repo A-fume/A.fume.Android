@@ -11,26 +11,10 @@
         android:label="home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/searchHomeFragment"
-        android:name="com.scentsnote.android.ui.search.SearchHomeFragment"
-        android:label="searchHomeFragment"
-        tools:layout="@layout/fragment_search">
-
-        <action
-            android:id="@+id/action_searchHomeFragment_to_searchResultFragment"
-            app:destination="@id/searchResultFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/searchResultFragment"
-        android:name="com.scentsnote.android.ui.search.SearchResultFragment"
-        android:label="searchResultFragment"
-        tools:layout="@layout/fragment_search">
-        <action
-            android:id="@+id/action_searchResultFragment_to_searchHomeFragment"
-            app:destination="@id/searchHomeFragment" />
-    </fragment>
-
+        android:id="@+id/searchFragment"
+        android:name="com.scentsnote.android.ui.search.SearchFragment"
+        android:label="searchFragment"
+        tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/myPageFragment"
         android:name="com.scentsnote.android.ui.my.MyFragment"

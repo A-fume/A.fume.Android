@@ -10,6 +10,7 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.scentsnote.android.utils.extension.copy
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
 
@@ -62,7 +63,14 @@ class SeriesViewHolder(
             adapter = ingredientAdapter
         }
 
-        ingredientAdapter.submitList(ingredients)
+        val dataset = ingredients.map {
+            if (viewModel.isSelectedSeries(it)) {
+                it.copy(isChecked = true)
+            } else {
+                it
+            }
+        }
+        ingredientAdapter.submitList(dataset)
     }
 
     private fun foldOrUnfold(view: View) {

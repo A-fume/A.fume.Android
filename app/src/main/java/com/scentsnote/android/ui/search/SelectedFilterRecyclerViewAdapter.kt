@@ -8,7 +8,7 @@ import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.RvItemSearchFilterBinding
 
-class SelectedFilterRecyclerViewAdapter(val btnCancel:(FilterInfoP?)->Unit) :
+class SelectedFilterRecyclerViewAdapter(val btnCancel:(FilterInfoP)->Unit) :
     RecyclerView.Adapter<SelectedFilterRecyclerViewAdapter.SelectedFilterRecyclerViewHolder>() {
 
     var sendFilter = SendFilter(mutableListOf<FilterInfoP>(), mutableMapOf())
@@ -23,7 +23,9 @@ class SelectedFilterRecyclerViewAdapter(val btnCancel:(FilterInfoP?)->Unit) :
     }
 
     override fun onBindViewHolder(holder: SelectedFilterRecyclerViewHolder, position: Int) {
-        holder.bind(sendFilter.filterInfoPList?.get(position))
+        sendFilter.filterInfoPList?.let {
+            holder.bind(it[position])
+        }
     }
 
     internal fun setData(filter:SendFilter){
@@ -34,7 +36,7 @@ class SelectedFilterRecyclerViewAdapter(val btnCancel:(FilterInfoP?)->Unit) :
 
     inner class SelectedFilterRecyclerViewHolder(val binding: RvItemSearchFilterBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: FilterInfoP?) {
+        fun bind(data: FilterInfoP) {
             binding.filter = data
             binding.searchResultChip.setOnCloseIconClickListener {
                 btnCancel(data)

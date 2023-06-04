@@ -78,7 +78,7 @@ class IngredientFlexboxAdapter(
         }
 
         private fun initCheckedState(data: FilterSeriesViewData) {
-            if (viewModel.selectedSeriesList.contains(data)) {
+            if (viewModel.isSelectedSeries(data)) {
                 replaceList(data.copy(isChecked = true))
             }
         }

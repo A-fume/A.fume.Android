@@ -25,7 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.scentsnote.android.ui.search.SearchTextActivity" />
         <activity android:name="com.scentsnote.android.ui.setting.EditMyInfoActivity" />
         <activity android:name="com.scentsnote.android.ui.setting.EditPasswordActivity" android:windowSoftInputMode="stateAlwaysVisible" />
         <activity android:name="com.scentsnote.android.ui.signin.SignHomeActivity" />
@@ -36,7 +35,6 @@
         <activity android:name="com.scentsnote.android.ui.signup.SignUpAgeActivity" />
         <activity android:name="com.scentsnote.android.ui.survey.SurveyActivity" />
         <activity android:name="com.scentsnote.android.ui.note.NoteActivity" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name="com.scentsnote.android.ui.filter.FilterActivity" />
         <activity android:name="com.scentsnote.android.ui.detail.PerfumeDetailActivity" />
         <activity android:name="com.scentsnote.android.ui.signup.PrivacyPolicyActivity" />
         <activity android:name="com.scentsnote.android.ui.home.MoreNewPerfumeActivity" />
