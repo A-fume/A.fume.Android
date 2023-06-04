@@ -12,13 +12,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.MainActivity
-import com.scentsnote.android.ui.filter.FilterActivity
+import com.scentsnote.android.ui.filter.FilterFragment
 import com.scentsnote.android.viewmodel.search.SearchViewModel
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
-
 
 class SearchResultFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
@@ -27,7 +27,7 @@ class SearchResultFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return initBinding(inflater, container)
     }
 
@@ -38,7 +38,7 @@ class SearchResultFragment : Fragment() {
         initRvFilterList()
         initToolbar()
 
-        binding.fabFilter.setOnSafeClickListener { context?.let { it1 -> goToSelectFilters(it1) } }
+        binding.fabFilter.setOnSafeClickListener { goToSelectFilters() }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.postSearchResultPerfume()
@@ -95,12 +95,16 @@ class SearchResultFragment : Fragment() {
         rvFilterAdapter.notifyDataSetChanged()
     }
 
-    private fun goToSelectFilters(ctx: Context) {
-        val intent = Intent(ctx, FilterActivity::class.java)
-        intent.putExtra("flag", 5000)
-        intent.putExtra("filter", viewModel.sendFilter())
-
-        startActivity(intent)
+    private fun goToSelectFilters() {
+        childFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_up,
+                R.anim.slide_down,
+                R.anim.slide_up,
+                R.anim.slide_down
+            )
+            .replace(R.id.fragment_container, FilterFragment.newInstance())
+            .commitAllowingStateLoss()
     }
 
     private fun observeFilter() {

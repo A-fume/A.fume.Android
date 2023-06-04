@@ -1,6 +1,5 @@
 package com.scentsnote.android.ui.search
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.databinding.FragmentSearchBinding
-import com.scentsnote.android.ui.filter.FilterActivity
+import com.scentsnote.android.ui.filter.FilterFragment
 import com.scentsnote.android.viewmodel.search.SearchViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
-
 
 class SearchHomeFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
@@ -35,7 +34,7 @@ class SearchHomeFragment : Fragment() {
         initRvPerfumeList()
         removeRvFilterList()
 
-        binding.fabFilter.setOnSafeClickListener { context?.let { it1 -> goToSelectFilters(it1) } }
+        binding.fabFilter.setOnSafeClickListener { goToSelectFilters() }
 
         initToolbar()
 
@@ -46,7 +45,6 @@ class SearchHomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         if (ScentsNoteApplication.prefManager.haveToken()) {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.postSearchResultPerfume()
@@ -66,9 +64,10 @@ class SearchHomeFragment : Fragment() {
     }
 
     private fun initRvPerfumeList() {
-        val rvPerfumeAdapter = DefaultPerfumeRecyclerViewAdapter(requireContext(),parentFragmentManager) { idx ->
-            viewModel.postPerfumeLike(idx, context)
-        }
+        val rvPerfumeAdapter =
+            DefaultPerfumeRecyclerViewAdapter(requireContext(), parentFragmentManager) { idx ->
+                viewModel.postPerfumeLike(idx, context)
+            }
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
         rvPerfumeAdapter.notifyDataSetChanged()
     }
@@ -77,13 +76,20 @@ class SearchHomeFragment : Fragment() {
         binding.rvSearchFilter.visibility = View.GONE
     }
 
-    private fun goToSelectFilters(ctx: Context) {
-        val intent = Intent(ctx, FilterActivity::class.java)
-        intent.putExtra("from",SEARCH_HOME)
-        startActivity(intent)
+    private fun goToSelectFilters() {
+        childFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_up,
+                R.anim.slide_down,
+                R.anim.slide_up,
+                R.anim.slide_down
+            )
+            .replace(R.id.fragment_container, FilterFragment.newInstance())
+            .commitAllowingStateLoss()
     }
-    companion object{
-        const val SEARCH_HOME=100
+
+    companion object {
+        const val SEARCH_HOME = 100
     }
 
 }
