@@ -2,11 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="fragment"
             type="com.scentsnote.android.ui.search.SearchResultFragment" />
+
         <variable
             name="viewModel"
             type="com.scentsnote.android.viewmodel.search.SearchViewModel" />
@@ -74,7 +78,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_search"
-            tools:listitem="@layout/rv_item_search_filter"/>
+            tools:listitem="@layout/rv_item_search_filter" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_perfume"
@@ -101,9 +105,9 @@
             android:clickable="true"
             android:fontFamily="@font/notosans_bold"
             android:gravity="center"
+            android:includeFontPadding="false"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
-            android:includeFontPadding="false"
             android:text="필터"
             android:textColor="@color/white"
             android:textSize="15dp"
@@ -118,13 +122,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="151dp"
-            android:visibility="@{viewModel.isValidResultData? View.GONE : View.VISIBLE}"
-            android:text="@string/txt_search_results_null"
-            android:gravity="center_horizontal"
             android:fontFamily="@font/notosans_regular"
-            android:textSize="15dp"
-            android:textColor="@color/gray_b9"
+            android:gravity="center_horizontal"
             android:includeFontPadding="false"
+            android:text="@string/txt_search_results_null"
+            android:textColor="@color/gray_b9"
+            android:textSize="15dp"
+            android:visibility="@{viewModel.isValidResultData? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_search_filter" />
@@ -136,22 +140,28 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="23dp"
             android:layout_marginEnd="18dp"
-            android:visibility="@{viewModel.isValidResultData? View.GONE : View.VISIBLE}"
-            android:text="제보하기"
-            android:onClick="@{fragment::onClickTipOffBtn}"
-            android:fontFamily="@font/notosans_bold"
-            android:textSize="15dp"
-            android:textColor="@color/black_text"
-            android:includeFontPadding="false"
             android:backgroundTint="@color/white"
-            app:strokeColor="@color/black_text"
-            app:strokeWidth="1dp"
-            app:cornerRadius="2dp"
+            android:fontFamily="@font/notosans_bold"
+            android:includeFontPadding="false"
             android:insetTop="0dp"
             android:insetBottom="0dp"
+            android:onClick="@{fragment::onClickTipOffBtn}"
+            android:text="제보하기"
+            android:textColor="@color/black_text"
+            android:textSize="15dp"
+            android:visibility="@{viewModel.isValidResultData? View.GONE : View.VISIBLE}"
+            app:cornerRadius="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView65" />
+            app:layout_constraintTop_toBottomOf="@+id/textView65"
+            app:strokeColor="@color/black_text"
+            app:strokeWidth="1dp" />
 
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="10dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
