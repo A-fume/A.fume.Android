@@ -165,6 +165,9 @@ class SearchFragment : Fragment() {
 
     private fun clearFilterList() {
         viewModel.filter.value = SendFilter(null, null)
+        filterSeriesViewModel.clearSelectedList()
+        filterBrandViewModel.clearSelectedList()
+        filterKeywordViewModel.clearSelectedList()
     }
 
     private fun openSelectFilters() {
