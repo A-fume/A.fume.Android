@@ -2,15 +2,18 @@ package com.scentsnote.android.ui.search
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.scentsnote.android.databinding.FragmentSearchTextBinding
 import com.scentsnote.android.utils.extension.closeSelfWithAnimation
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.toast
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
 import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
@@ -60,19 +63,32 @@ class SearchTextFragment : Fragment() {
 
     private fun setOnClickListener() {
         binding.btnSearch.setOnSafeClickListener {
-            val searchText = binding.edtSearch.text.toString()
-            if (searchText.isNotBlank()) {
-                searchViewModel.sendSearchText(searchText)
-                filterSeriesViewModel.clearSelectedList()
-                filterBrandViewModel.clearSelectedList()
-                filterKeywordViewModel.clearSelectedList()
-            }
-            closeSelfWithAnimation()
+            searchPerfumeWithText()
         }
 
         binding.btnBack.setOnSafeClickListener {
             closeSelfWithAnimation()
         }
+
+        binding.edtSearch.setOnEditorActionListener { _, actionId, _ ->
+            var handled = false
+            if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                searchPerfumeWithText()
+                handled = true
+            }
+            handled
+        }
+    }
+
+    private fun searchPerfumeWithText(){
+        val searchText = binding.edtSearch.text.toString()
+        if (searchText.isNotBlank()) {
+            searchViewModel.sendSearchText(searchText)
+            filterSeriesViewModel.clearSelectedList()
+            filterBrandViewModel.clearSelectedList()
+            filterKeywordViewModel.clearSelectedList()
+        }
+        closeSelfWithAnimation()
     }
 
     companion object {
