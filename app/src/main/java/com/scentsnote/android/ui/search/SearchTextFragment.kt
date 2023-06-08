@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.scentsnote.android.R
 import com.scentsnote.android.databinding.FragmentSearchTextBinding
 import com.scentsnote.android.utils.extension.closeSelfWithAnimation
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
@@ -87,8 +88,10 @@ class SearchTextFragment : Fragment() {
             filterSeriesViewModel.clearSelectedList()
             filterBrandViewModel.clearSelectedList()
             filterKeywordViewModel.clearSelectedList()
+            closeSelfWithAnimation()
+        }else{
+            requireContext().toast(getString(R.string.txt_search_text_null))
         }
-        closeSelfWithAnimation()
     }
 
     companion object {

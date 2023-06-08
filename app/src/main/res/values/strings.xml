@@ -50,6 +50,7 @@
     <!--search-->
     <string name="txt_search">무엇을 찾으시나요?</string>
     <string name="txt_search_hint">브랜드 혹은 제품명을 검색해주세요.</string>
+    <string name="txt_search_text_null">검색어를 입력해주세요.</string>
     <string name="txt_search_results_null">검색 결과가 없습니다.\n해당 향수의 정보를 보고 싶다면\n센츠노트에게 제보해주세요.</string>
 
     <!--home-->
