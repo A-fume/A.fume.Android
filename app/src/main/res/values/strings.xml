@@ -1,12 +1,7 @@
 <resources>
     <string name="app_name">Scents Note</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="filter_max_5">카테고리 당 최대 5개까지 중복 선택 가능 합니다.</string>
-    <string name="survey_question">회원가입을 축하합니다!\n어떤 향을 좋아하세요?</string>
-    <string name="survey_desc">취향을 선택하고 나에게 맞는 향수를\n추천 받아보세요!</string>
-    <string name="percentage">%s</string>
-
+    <!--dialog-->
     <string name="dialog_login">로그인 후 사용 가능합니다.\n로그인을 해주세요.</string>
     <string name="dialog_note_delete">정말로 삭제하실건가요?</string>
     <string name="dialog_note_save">수정된 내용이 있습니다.\n저장하시겠습니까?</string>
@@ -14,9 +9,22 @@
     <string name="dialog_app_update">더욱 좋아진 서비스를 사용하시기 위해서\n새로운 버전으로 업데이트가 필요합니다.</string>
     <string name="do_login">로그인 하기</string>
     
+    <!--survey-->
+    <string name="survey_question">회원가입을 축하합니다!\n어떤 향을 좋아하세요?</string>
+    <string name="survey_desc">취향을 선택하고 나에게 맞는 향수를\n추천 받아보세요!</string>
+    <string name="txt_list_empty"> %1$s 리스트를 불러오지 못했어요.\n 잠시 후 다시 시도해주세요.</string>
+    <string name="percentage">%s</string>
+    
     <!--new perfume-->
     <string name="txt_want_perfume_null">원하는 향수가 없으신가요?</string>
     <string name="txt_perfume_update_day">매주 수요일 업데이트</string>
+
+    <!--filter-->
+    <string name="filter_max_5">카테고리 당 최대 5개까지 중복 선택 가능 합니다.</string>
+
+    <!--filter - series-->
+    <string name="ingredientFormat" formatted="false">#%s</string>
+    <string name="filter_select_over_limit">"5개 이상 선택 할 수 없어요."</string>
 
     <!--filter - brand-->
     <string name="txt_find_brand_null">찾는 브랜드가 없으신가요?</string>
@@ -31,14 +39,11 @@
     <string name="withdrawal">회원 탈퇴</string>
     <string name="setting">설정</string>
 
-    <!--filter - series-->
-    <string name="ingredientFormat" formatted="false">#%s</string>
-    <string name="filter_select_over_limit">"5개 이상 선택 할 수 없어요."</string>
-
     <!--perfume detail -->
     <string name="chartPercentFormat" formatted="false">%d%%</string>
     <string name="txt_perfume_info_null">정보를 준비 중입니다.</string>
     <string name="txt_perfume_keyword_null">향수에 딱 맞는 키워드를\n수집하고 있습니다.</string>
+    <string name="txt_detail_note_list_empty">아직 등록된 시향노트가 없어요 :)\n이 향수의 첫번째 시향 노트를 작성해보세요!</string>
 
     <!--note-->
     <string name="text_note_hint">향을 맡고 어떤 생각이 떠올랐나요?\n좋은지 나쁜지, 어떤 느낌인지, 떠오른 단어 등\n자유롭게 작성해보세요.</string>
@@ -64,9 +69,11 @@
     <string name="txt_home_subtitle_age_null">설정에서 연령을 선택하면 더 잘 맞는 향수를 보여드려요</string>
     <string name="txt_home_subtitle_gender_null">설정에서 성별을 선택하면 더 잘 맞는 향수를 보여드려요</string>
     <string name="txt_home_subtitle_age_gender_null">설정에서 연령과 성별을 선택하면 더 잘 맞는 향수를 보여드려요</string>
+    
+    <!--etc-->
+    <string name="txt_app_end_message">뒤로가기 버튼을 한 번 더 누르면 앱이 종료됩니다.</string>
 
-    <string name="txt_detail_note_list_empty">아직 등록된 시향노트가 없어요 :)\n이 향수의 첫번째 시향 노트를 작성해보세요!</string>
-    <string name="txt_list_empty"> %1$s 리스트를 불러오지 못했어요.\n 잠시 후 다시 시도해주세요.</string>
+    <!--개인정보처리방침-->
     <string name="txt_privacy"><u>개인정보수집 및 이용동의 (필수)</u></string>
     <string name="privacy_policy">
         &lt;센츠노트&gt; \'http://www.scentsnote.co.kr\' 이하 \'센츠노트\'는 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.
