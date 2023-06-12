@@ -57,37 +57,57 @@
 
         <EditText
             android:id="@+id/edt_sign_up_email"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
+            android:layout_marginEnd="16dp"
             android:background="@null"
             android:ems="10"
-            android:text="@={viewModel.emailTxt}"
-            android:onTextChanged="@{viewModel::inputEmail}"
             android:fontFamily="@font/nanummyeongjo_extrabold"
             android:hint="scents@email.com"
             android:includeFontPadding="false"
             android:inputType="textWebEmailAddress|textEmailAddress"
+            android:nextFocusDown="@id/edt_sign_up_nick"
+            android:onTextChanged="@{viewModel::inputEmail}"
             android:paddingLeft="0dp"
             android:paddingTop="0dp"
+            android:singleLine="true"
+            android:text="@={viewModel.emailTxt}"
             android:textColor="@color/dark"
             android:textColorHint="@color/gray_cd"
             android:textCursorDrawable="@drawable/cursor_sign_up"
             android:textSize="18dp"
-            android:singleLine="true"
-            android:nextFocusDown="@id/edt_sign_up_nick"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="@+id/textView17"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/CommonButton.Validate"
-            android:id="@+id/button3"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
             android:layout_marginBottom="6dp"
-            android:text="중복 확인"
-            android:visibility="@{viewModel.isValidEmailBtn? View.VISIBLE : View.INVISIBLE}"
-            android:onClick="@{() -> viewModel.getValidateEmail()}"
             app:layout_constraintBottom_toTopOf="@+id/imageView16"
-            app:layout_constraintEnd_toEndOf="@+id/imageView16" />
+            app:layout_constraintEnd_toEndOf="@+id/imageView16">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button3"
+                style="@style/CommonButton.Validate"
+                android:onClick="@{() -> viewModel.getValidateEmail()}"
+                android:text="중복 확인"
+                android:visibility="@{viewModel.isValidEmailBtn? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_sign_up_check_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.isValidEmail? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_check" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/imageView16"
@@ -116,16 +136,6 @@
             app:layout_constraintStart_toStartOf="@+id/imageView16"
             app:layout_constraintTop_toBottomOf="@+id/imageView16" />
 
-        <ImageView
-            android:id="@+id/img_sign_up_check_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:visibility="@{viewModel.isValidEmail? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView16"
-            app:layout_constraintEnd_toEndOf="@+id/imageView16"
-            app:srcCompat="@drawable/ic_check" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_sign_up_nick"
             android:layout_width="match_parent"
@@ -152,9 +162,10 @@
 
             <EditText
                 android:id="@+id/edt_sign_up_nick"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
+                android:layout_marginEnd="16dp"
                 android:background="@null"
                 android:ems="10"
                 android:fontFamily="@font/nanummyeongjo_extrabold"
@@ -171,6 +182,7 @@
                 android:textColorHint="@color/gray_cd"
                 android:textCursorDrawable="@drawable/cursor_sign_up"
                 android:textSize="18dp"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
                 app:layout_constraintStart_toStartOf="@+id/textView19"
                 app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
@@ -187,25 +199,33 @@
                 app:layout_constraintTop_toBottomOf="@+id/edt_sign_up_nick"
                 app:srcCompat="@color/primary_black" />
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/CommonButton.Validate"
-                android:id="@+id/button4"
-                android:layout_marginBottom="6dp"
-                android:onClick="@{() -> viewModel.getValidateNickname()}"
-                android:text="중복 확인"
-                android:visibility="@{viewModel.isValidNickBtn? View.VISIBLE : View.INVISIBLE}"
-                app:layout_constraintBottom_toTopOf="@+id/imageView18"
-                app:layout_constraintEnd_toEndOf="@+id/imageView18" />
-
-            <ImageView
-                android:id="@+id/img_sign_up_check_nick"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:visibility="@{viewModel.isValidNick? View.VISIBLE : View.INVISIBLE}"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView18"
-                app:layout_constraintEnd_toEndOf="@+id/imageView18"
-                app:srcCompat="@drawable/ic_check" />
+                android:layout_height="32dp"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintBottom_toTopOf="@+id/imageView18"
+                app:layout_constraintEnd_toEndOf="@+id/imageView18">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button4"
+                    style="@style/CommonButton.Validate"
+                    android:onClick="@{() -> viewModel.getValidateNickname()}"
+                    android:text="중복 확인"
+                    android:visibility="@{viewModel.isValidNickBtn? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <ImageView
+                    android:id="@+id/img_sign_up_check_nick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.isValidNick? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_check" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/textView47"
