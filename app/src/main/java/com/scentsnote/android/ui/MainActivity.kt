@@ -18,6 +18,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        toast = Toast.makeText(this, getString(R.string.txt_app_end_message), Toast.LENGTH_SHORT)
+
         initNavigation()
     }
 
@@ -34,17 +36,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun onBackPressed() {
-        if (System.currentTimeMillis() - backPressedTime < 2000) {
-            finish()
-        }else{
-            showExitToast()
+        if (navController.currentDestination?.id == R.id.homeFragment) {
+            if (System.currentTimeMillis() - backPressedTime < 2000) {
+                finish()
+            } else {
+                showExitToast()
+            }
+            backPressedTime = System.currentTimeMillis()
+        } else {
+            super.onBackPressed()
         }
-
-        backPressedTime = System.currentTimeMillis()
     }
 
-    private fun showExitToast(){
-        toast = Toast.makeText(this, getString(R.string.txt_app_end_message), Toast.LENGTH_SHORT)
+    private fun showExitToast() {
         toast.cancel()
         toast.show()
     }
