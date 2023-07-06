@@ -9,8 +9,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.FragmentHomeBinding
 import com.scentsnote.android.ui.home.adapter.NewListAdapter
 import com.scentsnote.android.ui.home.adapter.PopularListAdapter
@@ -67,6 +72,11 @@ class HomeFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             homeViewModel.getHomePerfumeList()
+        }
+
+        firebaseAnalytics.logEvent("page_view"){
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "HomePage")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "HomeFragment")
         }
     }
 

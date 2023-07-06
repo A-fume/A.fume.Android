@@ -65,6 +65,7 @@ class SearchFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
         if (ScentsNoteApplication.prefManager.haveToken()) {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.postSearchResultPerfume()

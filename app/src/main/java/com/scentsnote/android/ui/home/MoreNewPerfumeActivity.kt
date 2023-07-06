@@ -6,7 +6,10 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.ActivityMoreNewPerfumeBinding
 import com.scentsnote.android.ui.home.adapter.MoreNewListAdapter
 import com.scentsnote.android.viewmodel.home.HomeViewModel
@@ -29,6 +32,15 @@ class MoreNewPerfumeActivity : AppCompatActivity() {
         binding.viewModel = homeViewModel
 
         initNewList()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        firebaseAnalytics.logEvent("page_view") {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "NewRegister")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "MoreNewPerfumeActivity")
+        }
     }
 
     private fun initNewList() {

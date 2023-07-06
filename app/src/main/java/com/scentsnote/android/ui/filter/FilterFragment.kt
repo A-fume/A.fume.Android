@@ -9,7 +9,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.badge.BadgeDrawable
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.FragmentFilterBinding
 import com.scentsnote.android.ui.filter.brand.FilterBrandFragment
@@ -83,6 +86,15 @@ class FilterFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        ScentsNoteApplication.firebaseAnalytics.logEvent("page_view"){
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Filter")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "FilterFragment")
+        }
     }
 
     override fun onDetach() {

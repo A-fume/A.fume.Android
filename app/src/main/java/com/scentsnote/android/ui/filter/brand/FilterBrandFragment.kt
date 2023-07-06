@@ -11,6 +11,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scentsnote.android.databinding.FragmentFilterBrandBinding
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
@@ -38,6 +41,15 @@ class FilterBrandFragment : Fragment() {
         observeTab()
         setTabClickEvent()
         initBrandRvItem(context)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        ScentsNoteApplication.firebaseAnalytics.logEvent("page_view"){
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "FilterBrand")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "FilterBrandFragment")
+        }
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {

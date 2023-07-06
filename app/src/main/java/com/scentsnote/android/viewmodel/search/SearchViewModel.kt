@@ -15,6 +15,7 @@ import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.request.RequestSearch
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.data.vo.response.PerfumeInfo
+import com.scentsnote.android.data.vo.response.RecommendPerfumeItem
 import com.scentsnote.android.ui.search.SearchFragmentType
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -33,7 +34,7 @@ class SearchViewModel : ViewModel() {
 
     var filter = MutableLiveData<SendFilter>()
     val perfumeList = MutableLiveData(mutableListOf<PerfumeInfo>())
-    private val perfumeLike: MutableLiveData<Boolean> = MutableLiveData()
+    private val perfumeLike: MutableLiveData<Boolean?> = MutableLiveData()
     private val _fragmentType: MutableLiveData<SearchFragmentType> =
         MutableLiveData(SearchFragmentType.HOME)
 
