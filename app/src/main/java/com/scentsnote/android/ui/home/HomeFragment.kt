@@ -48,6 +48,11 @@ class HomeFragment : Fragment() {
         initInfo()
 
         binding.btnHomeMore.setOnSafeClickListener {
+            firebaseAnalytics.logEvent("click_event") {
+                param("button_name", "NewRegisterButton")
+            }
+
+
             val moreNewPerfumeIntent = Intent(context, MoreNewPerfumeActivity::class.java)
 
             startActivity(moreNewPerfumeIntent)
@@ -153,8 +158,9 @@ class HomeFragment : Fragment() {
         popularAdapter =
             PopularListAdapter(
                 requireContext(),
-                parentFragmentManager
-            ) { idx -> homeViewModel.postPerfumeLike(0, idx) }
+                parentFragmentManager,
+             { idx -> homeViewModel.postPerfumeLike(0, idx)},
+                setFirebaseClickEvent())
         binding.rvHomePopular.adapter = popularAdapter
 
         popularAdapter.notifyDataSetChanged()
@@ -184,4 +190,9 @@ class HomeFragment : Fragment() {
         newAdapter.notifyDataSetChanged()
     }
 
+    private fun setFirebaseClickEvent(){
+        firebaseAnalytics.logEvent("click_event") {
+            param("button_name", "HeartButton")
+        }
+    }
 }

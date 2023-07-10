@@ -16,7 +16,8 @@ import com.scentsnote.android.ui.detail.PerfumeDetailActivity
 import com.scentsnote.android.utils.createDialog
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
-class PopularListAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<PopularListAdapter.PopularListViewHolder>() {
+class PopularListAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit,
+val firebaseClickEvent:Unit) : RecyclerView.Adapter<PopularListAdapter.PopularListViewHolder>() {
     var data = mutableListOf<HomePerfumeItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularListViewHolder {

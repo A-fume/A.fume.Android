@@ -3,6 +3,7 @@ package com.scentsnote.android.ui.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.data.vo.request.FilterInfoP
@@ -65,6 +68,24 @@ class SearchFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
+        Log.d("명", viewModel.fragmentType.value.toString())
+
+        when(viewModel.fragmentType.value){
+            SearchFragmentType.HOME -> {
+                ScentsNoteApplication.firebaseAnalytics.logEvent("page_view"){
+                    param(FirebaseAnalytics.Param.SCREEN_NAME, "Search")
+                    param(FirebaseAnalytics.Param.SCREEN_CLASS, "SearchFragment")
+                }
+            }
+            SearchFragmentType.RESULT -> {
+                ScentsNoteApplication.firebaseAnalytics.logEvent("page_view"){
+                    param(FirebaseAnalytics.Param.SCREEN_NAME, "SearchResult")
+                    param(FirebaseAnalytics.Param.SCREEN_CLASS, "SearchFragment")
+                }
+            }
+            else -> {}
+        }
 
         if (ScentsNoteApplication.prefManager.haveToken()) {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
