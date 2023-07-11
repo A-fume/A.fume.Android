@@ -9,10 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.ktx.Firebase
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
@@ -21,8 +17,10 @@ import com.scentsnote.android.ui.home.adapter.NewListAdapter
 import com.scentsnote.android.ui.home.adapter.PopularListAdapter
 import com.scentsnote.android.ui.home.adapter.RecentListAdapter
 import com.scentsnote.android.ui.home.adapter.RecommendListAdapter
+import com.scentsnote.android.utils.extension.setClickEvent
 import com.scentsnote.android.viewmodel.home.HomeViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import java.util.*
 
 /**
@@ -48,10 +46,7 @@ class HomeFragment : Fragment() {
         initInfo()
 
         binding.btnHomeMore.setOnSafeClickListener {
-            firebaseAnalytics.logEvent("click_event") {
-                param("button_name", "NewRegisterButton")
-            }
-
+            firebaseAnalytics.setClickEvent("NewRegisterButton")
 
             val moreNewPerfumeIntent = Intent(context, MoreNewPerfumeActivity::class.java)
 
@@ -79,10 +74,7 @@ class HomeFragment : Fragment() {
             homeViewModel.getHomePerfumeList()
         }
 
-        firebaseAnalytics.logEvent("page_view"){
-            param(FirebaseAnalytics.Param.SCREEN_NAME, "HomePage")
-            param(FirebaseAnalytics.Param.SCREEN_CLASS, "HomeFragment")
-        }
+        firebaseAnalytics.setPageViewEvent("HomePage","HomeFragment")
     }
 
     @SuppressLint("SetTextI18n")
@@ -163,7 +155,7 @@ class HomeFragment : Fragment() {
 
         popularAdapter.setOnItemClickListener(object  : PopularListAdapter.OnItemClickListener{
             override fun firebaseClickEvent() {
-                setFirebaseClickEvent()
+                firebaseAnalytics.setClickEvent("HeartButton")
             }
         })
 
@@ -181,7 +173,7 @@ class HomeFragment : Fragment() {
 
         recentAdapter.setOnItemClickListener(object  : RecentListAdapter.OnItemClickListener{
             override fun firebaseClickEvent() {
-                setFirebaseClickEvent()
+                firebaseAnalytics.setClickEvent("HeartButton")
             }
         })
 
@@ -199,18 +191,12 @@ class HomeFragment : Fragment() {
 
         newAdapter.setOnItemClickListener(object  : NewListAdapter.OnItemClickListener{
             override fun firebaseClickEvent() {
-                setFirebaseClickEvent()
+                firebaseAnalytics.setClickEvent("HeartButton")
             }
         })
 
         binding.rvHomeNew.adapter = newAdapter
 
         newAdapter.notifyDataSetChanged()
-    }
-
-    fun setFirebaseClickEvent(){
-        firebaseAnalytics.logEvent("click_event") {
-            param("button_name", "HeartButton")
-        }
     }
 }

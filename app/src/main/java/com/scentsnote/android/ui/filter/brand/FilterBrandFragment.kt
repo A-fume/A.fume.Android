@@ -11,12 +11,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scentsnote.android.databinding.FragmentFilterBrandBinding
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.logEvent
-import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
+import com.scentsnote.android.utils.extension.setPageViewEvent
 
 /**
  * 향수 검색 - 필터 - 브랜드 탭
@@ -46,10 +45,7 @@ class FilterBrandFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        ScentsNoteApplication.firebaseAnalytics.logEvent("page_view"){
-            param(FirebaseAnalytics.Param.SCREEN_NAME, "FilterBrand")
-            param(FirebaseAnalytics.Param.SCREEN_CLASS, "FilterBrandFragment")
-        }
+        firebaseAnalytics.setPageViewEvent("FilterBrand", "FilterBrandFragment")
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {

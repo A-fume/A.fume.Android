@@ -13,17 +13,19 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.filter.FilterFragment
 import com.scentsnote.android.utils.base.BaseWebViewActivity
+import com.scentsnote.android.utils.extension.setClickEvent
 import com.scentsnote.android.viewmodel.search.SearchViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
 import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
@@ -73,16 +75,10 @@ class SearchFragment : Fragment() {
 
         when(viewModel.fragmentType.value){
             SearchFragmentType.HOME -> {
-                ScentsNoteApplication.firebaseAnalytics.logEvent("page_view"){
-                    param(FirebaseAnalytics.Param.SCREEN_NAME, "Search")
-                    param(FirebaseAnalytics.Param.SCREEN_CLASS, "SearchFragment")
-                }
+                firebaseAnalytics.setPageViewEvent("Search","SearchFragment")
             }
             SearchFragmentType.RESULT -> {
-                ScentsNoteApplication.firebaseAnalytics.logEvent("page_view"){
-                    param(FirebaseAnalytics.Param.SCREEN_NAME, "SearchResult")
-                    param(FirebaseAnalytics.Param.SCREEN_CLASS, "SearchFragment")
-                }
+                firebaseAnalytics.setPageViewEvent("SearchResult","SearchFragment")
             }
             else -> {}
         }
@@ -123,6 +119,8 @@ class SearchFragment : Fragment() {
     private fun initToolbar() {
         binding.toolbarBtnSearch.setOnSafeClickListener {
             openSearchTextFragment()
+
+            firebaseAnalytics.setClickEvent("LoupeButton")
         }
 
         binding.toolbarBtnBack.setOnSafeClickListener {

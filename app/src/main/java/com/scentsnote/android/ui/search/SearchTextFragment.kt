@@ -2,7 +2,6 @@ package com.scentsnote.android.ui.search
 
 import android.content.Context
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +9,12 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.R
-import com.scentsnote.android.ScentsNoteApplication
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.FragmentSearchTextBinding
 import com.scentsnote.android.utils.extension.closeSelfWithAnimation
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.utils.extension.toast
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
@@ -63,10 +61,7 @@ class SearchTextFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        ScentsNoteApplication.firebaseAnalytics.logEvent("page_view"){
-            param(FirebaseAnalytics.Param.SCREEN_NAME, "SearchWindow")
-            param(FirebaseAnalytics.Param.SCREEN_CLASS, "SearchTextFragment")
-        }
+        firebaseAnalytics.setPageViewEvent("SearchWindow", "SearchTextFragment")
     }
 
     override fun onDetach() {

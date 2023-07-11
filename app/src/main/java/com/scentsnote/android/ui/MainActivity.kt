@@ -8,12 +8,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.ui.home.HomeFragment
 import com.scentsnote.android.ui.my.MyFragment
 import com.scentsnote.android.ui.search.SearchFragment
 import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.setClickEvent
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private lateinit var navController: NavController
@@ -62,9 +62,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
             }
 
-            firebaseAnalytics.logEvent("click_event") {
-                param("button_name", buttonName)
-            }
+            firebaseAnalytics.setClickEvent(buttonName)
 
             changeFragment(fragmentName)
 

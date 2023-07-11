@@ -9,10 +9,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.badge.BadgeDrawable
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.R
-import com.scentsnote.android.ScentsNoteApplication
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.FragmentFilterBinding
 import com.scentsnote.android.ui.filter.brand.FilterBrandFragment
@@ -21,6 +19,7 @@ import com.scentsnote.android.ui.filter.keyword.FilterKeywordFragment
 import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.utils.extension.closeSelfWithAnimation
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.utils.listener.TabSelectedListener
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
@@ -91,10 +90,7 @@ class FilterFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        ScentsNoteApplication.firebaseAnalytics.logEvent("page_view"){
-            param(FirebaseAnalytics.Param.SCREEN_NAME, "Filter")
-            param(FirebaseAnalytics.Param.SCREEN_CLASS, "FilterFragment")
-        }
+        firebaseAnalytics.setPageViewEvent("Filter", "FilterFragment")
     }
 
     override fun onDetach() {

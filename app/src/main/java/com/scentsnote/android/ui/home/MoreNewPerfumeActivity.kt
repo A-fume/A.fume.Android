@@ -6,14 +6,13 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.ActivityMoreNewPerfumeBinding
 import com.scentsnote.android.ui.home.adapter.MoreNewListAdapter
 import com.scentsnote.android.viewmodel.home.HomeViewModel
 import com.scentsnote.android.utils.base.BaseWebViewActivity
+import com.scentsnote.android.utils.extension.setPageViewEvent
 
 /**
  * 홈 화면 - 새로운 향수 더보기
@@ -37,10 +36,7 @@ class MoreNewPerfumeActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        firebaseAnalytics.logEvent("page_view") {
-            param(FirebaseAnalytics.Param.SCREEN_NAME, "NewRegister")
-            param(FirebaseAnalytics.Param.SCREEN_CLASS, "MoreNewPerfumeActivity")
-        }
+        firebaseAnalytics.setPageViewEvent("NewRegister", "MoreNewPerfumeActivity")
     }
 
     private fun initNewList() {
