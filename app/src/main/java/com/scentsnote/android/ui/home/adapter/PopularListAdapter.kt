@@ -16,9 +16,16 @@ import com.scentsnote.android.ui.detail.PerfumeDetailActivity
 import com.scentsnote.android.utils.createDialog
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
-class PopularListAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit,
-val firebaseClickEvent:Unit) : RecyclerView.Adapter<PopularListAdapter.PopularListViewHolder>() {
+class PopularListAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<PopularListAdapter.PopularListViewHolder>() {
     var data = mutableListOf<HomePerfumeItem>()
+
+    interface OnItemClickListener{
+        fun firebaseClickEvent()
+    }
+    private var listener : OnItemClickListener? = null
+    fun setOnItemClickListener(listener : OnItemClickListener) {
+        this.listener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularListViewHolder {
         val binding: RvItemHomePopularBinding = DataBindingUtil.inflate(
@@ -29,7 +36,8 @@ val firebaseClickEvent:Unit) : RecyclerView.Adapter<PopularListAdapter.PopularLi
         )
 
         return PopularListViewHolder(
-            binding
+            binding,
+            parent.context
         )
     }
 
@@ -46,7 +54,7 @@ val firebaseClickEvent:Unit) : RecyclerView.Adapter<PopularListAdapter.PopularLi
         notifyDataSetChanged()
     }
 
-    inner class PopularListViewHolder(val binding : RvItemHomePopularBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class PopularListViewHolder(val binding : RvItemHomePopularBinding, val context: Context) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: HomePerfumeItem){
             binding.item = item
             binding.executePendingBindings()
@@ -59,6 +67,7 @@ val firebaseClickEvent:Unit) : RecyclerView.Adapter<PopularListAdapter.PopularLi
                 if (!ScentsNoteApplication.prefManager.haveToken()) context.createDialog(fragmentManager, "login")
                 else {
                     clickBtnLike(item.perfumeIdx)
+                    listener?.firebaseClickEvent()
                 }
             }
         }

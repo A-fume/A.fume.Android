@@ -158,13 +158,18 @@ class HomeFragment : Fragment() {
         popularAdapter =
             PopularListAdapter(
                 requireContext(),
-                parentFragmentManager,
-             { idx -> homeViewModel.postPerfumeLike(0, idx)},
-                setFirebaseClickEvent())
+                parentFragmentManager
+            ){ idx -> homeViewModel.postPerfumeLike(0, idx)}
+
+        popularAdapter.setOnItemClickListener(object  : PopularListAdapter.OnItemClickListener{
+            override fun firebaseClickEvent() {
+                setFirebaseClickEvent()
+            }
+        })
+
         binding.rvHomePopular.adapter = popularAdapter
 
         popularAdapter.notifyDataSetChanged()
-
     }
 
     private fun initRecentList() {
@@ -173,10 +178,16 @@ class HomeFragment : Fragment() {
                 requireContext(),
                 parentFragmentManager
             ) { idx -> homeViewModel.postPerfumeLike(1, idx) }
+
+        recentAdapter.setOnItemClickListener(object  : RecentListAdapter.OnItemClickListener{
+            override fun firebaseClickEvent() {
+                setFirebaseClickEvent()
+            }
+        })
+
         binding.rvHomeRecent.adapter = recentAdapter
 
         recentAdapter.notifyDataSetChanged()
-
     }
 
     private fun initNewList() {
@@ -185,12 +196,19 @@ class HomeFragment : Fragment() {
                 requireContext(),
                 parentFragmentManager
             ) { idx -> homeViewModel.postPerfumeLike(2, idx) }
+
+        newAdapter.setOnItemClickListener(object  : NewListAdapter.OnItemClickListener{
+            override fun firebaseClickEvent() {
+                setFirebaseClickEvent()
+            }
+        })
+
         binding.rvHomeNew.adapter = newAdapter
 
         newAdapter.notifyDataSetChanged()
     }
 
-    private fun setFirebaseClickEvent(){
+    fun setFirebaseClickEvent(){
         firebaseAnalytics.logEvent("click_event") {
             param("button_name", "HeartButton")
         }
