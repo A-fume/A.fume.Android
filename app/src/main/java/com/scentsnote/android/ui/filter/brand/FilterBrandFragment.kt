@@ -45,7 +45,7 @@ class FilterBrandFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        firebaseAnalytics.setPageViewEvent("FilterBrand", "FilterBrandFragment")
+        firebaseAnalytics.setPageViewEvent("FilterBrand", this::class.java.name)
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {

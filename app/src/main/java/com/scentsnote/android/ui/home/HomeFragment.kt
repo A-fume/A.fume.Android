@@ -74,7 +74,7 @@ class HomeFragment : Fragment() {
             homeViewModel.getHomePerfumeList()
         }
 
-        firebaseAnalytics.setPageViewEvent("HomePage","HomeFragment")
+        firebaseAnalytics.setPageViewEvent("HomePage",this::class.java.name)
     }
 
     @SuppressLint("SetTextI18n")

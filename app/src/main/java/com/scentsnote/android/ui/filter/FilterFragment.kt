@@ -94,7 +94,7 @@ class FilterFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        firebaseAnalytics.setPageViewEvent("Filter", "FilterFragment")
+        firebaseAnalytics.setPageViewEvent("Filter", this::class.java.name)
     }
 
     override fun onDetach() {

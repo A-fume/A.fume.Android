@@ -43,7 +43,7 @@ class FilterKeywordFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        firebaseAnalytics.setPageViewEvent("FilterKeyword", "FilterKeywordFragment")
+        firebaseAnalytics.setPageViewEvent("FilterKeyword", this::class.java.name)
 
         initKeywordRv(context)
         observeBlockClickMoreThan5()

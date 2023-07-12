@@ -36,7 +36,7 @@ class FilterIncenseSeriesFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        firebaseAnalytics.setPageViewEvent("FilterProductLine", "FilterIncenseSeriesFragment")
+        firebaseAnalytics.setPageViewEvent("FilterProductLine", this::class.java.name)
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {

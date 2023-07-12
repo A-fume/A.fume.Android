@@ -62,7 +62,7 @@ class SearchTextFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        firebaseAnalytics.setPageViewEvent("SearchWindow", "SearchTextFragment")
+        firebaseAnalytics.setPageViewEvent("SearchWindow", this::class.java.name)
     }
 
     override fun onDetach() {

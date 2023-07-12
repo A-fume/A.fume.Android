@@ -36,7 +36,7 @@ class MoreNewPerfumeActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        firebaseAnalytics.setPageViewEvent("NewRegister", "MoreNewPerfumeActivity")
+        firebaseAnalytics.setPageViewEvent("NewRegister", this::class.java.name)
     }
 
     private fun initNewList() {

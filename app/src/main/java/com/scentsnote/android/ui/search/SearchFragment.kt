@@ -77,15 +77,18 @@ class SearchFragment : Fragment() {
 
         Log.d("명", viewModel.fragmentType.value.toString())
 
-        when(viewModel.fragmentType.value){
+        var screenName = ""
+            when (viewModel.fragmentType.value) {
             SearchFragmentType.HOME -> {
-                firebaseAnalytics.setPageViewEvent("Search","SearchFragment")
+                screenName = "Search"
             }
             SearchFragmentType.RESULT -> {
-                firebaseAnalytics.setPageViewEvent("SearchResult","SearchFragment")
+                screenName = "SearchResult"
             }
             else -> {}
         }
+
+        firebaseAnalytics.setPageViewEvent(screenName, this::class.java.name)
 
         if (ScentsNoteApplication.prefManager.haveToken()) {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
