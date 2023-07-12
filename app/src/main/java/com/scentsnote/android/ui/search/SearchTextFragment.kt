@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.FragmentSearchTextBinding
+import com.scentsnote.android.utils.extension.*
 import com.scentsnote.android.utils.extension.closeSelfWithAnimation
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.extension.setPageViewEvent
@@ -76,6 +77,8 @@ class SearchTextFragment : Fragment() {
 
         binding.btnBack.setOnSafeClickListener {
             closeSelfWithAnimation()
+
+            firebaseAnalytics.setClickEvent("SearchBack")
         }
 
         binding.edtSearch.setOnEditorActionListener { _, actionId, _ ->
@@ -96,6 +99,7 @@ class SearchTextFragment : Fragment() {
             filterBrandViewModel.clearSelectedList()
             filterKeywordViewModel.clearSelectedList()
             closeSelfWithAnimation()
+            firebaseAnalytics.setClickEvent("SearchLoupeButton")
         }else{
             requireContext().toast(getString(R.string.txt_search_text_null))
         }

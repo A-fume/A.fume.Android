@@ -60,7 +60,11 @@ class SearchFragment : Fragment() {
         initRvFilterList()
         initToolbar()
 
-        binding.fabFilter.setOnSafeClickListener { openSelectFilters() }
+        binding.fabFilter.setOnSafeClickListener {
+            openSelectFilters()
+
+            firebaseAnalytics.setClickEvent("SearchFilterButton")
+        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.postSearchResultPerfume()
@@ -125,6 +129,8 @@ class SearchFragment : Fragment() {
 
         binding.toolbarBtnBack.setOnSafeClickListener {
             onBackPressed()
+
+            firebaseAnalytics.setClickEvent("SearchResultBack")
         }
     }
 

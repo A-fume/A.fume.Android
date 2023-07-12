@@ -16,7 +16,7 @@ import com.scentsnote.android.databinding.FragmentFilterBinding
 import com.scentsnote.android.ui.filter.brand.FilterBrandFragment
 import com.scentsnote.android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.scentsnote.android.ui.filter.keyword.FilterKeywordFragment
-import com.scentsnote.android.utils.extension.changeTabsFont
+import com.scentsnote.android.utils.extension.*
 import com.scentsnote.android.utils.extension.closeSelfWithAnimation
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.extension.setPageViewEvent
@@ -67,9 +67,13 @@ class FilterFragment : Fragment() {
     private fun initView() {
         binding.btnFilterApply.setOnSafeClickListener {
             sendFilter()
+
+            firebaseAnalytics.setClickEvent("FilterActionButton")
         }
         binding.toolbarFilter.toolbarBtn.setOnSafeClickListener {
             closeSelfWithAnimation()
+
+            firebaseAnalytics.setClickEvent("FilterPauseButton")
         }
 
         binding.toolbarFilter.toolbar = R.drawable.icon_btn_cancel
