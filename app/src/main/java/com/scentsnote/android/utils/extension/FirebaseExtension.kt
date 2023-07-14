@@ -1,5 +1,6 @@
 package com.scentsnote.android.utils.extension
 
+import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
@@ -23,11 +24,12 @@ fun FirebaseAnalytics.setTwoParamClickEvent(key1: String, value1: String, key2: 
     }
 }
 
-fun FirebaseAnalytics.setHeartBtnClickEvent(buttonArea: String, like : Boolean){
+fun FirebaseAnalytics.setHeartBtnClickEvent(buttonName: String, buttonArea: String, like : Boolean){
     val buttonAction = if(like) "off" else "on"
+    Log.d("명", buttonArea+" / "+buttonAction)
 
     firebaseAnalytics.logEvent("click_event") {
-        param("button_name", "HeartButton")
+        param("button_name", buttonName)
         param("heart_name", buttonArea)
         param("heart_ox", buttonAction)
     }

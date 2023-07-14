@@ -1,5 +1,6 @@
 package com.scentsnote.android.ui.search
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -21,8 +22,10 @@ import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.filter.FilterFragment
+import com.scentsnote.android.ui.home.adapter.NewListAdapter
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.setClickEvent
+import com.scentsnote.android.utils.extension.setHeartBtnClickEvent
 import com.scentsnote.android.viewmodel.search.SearchViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.extension.setPageViewEvent
@@ -78,7 +81,8 @@ class SearchFragment : Fragment() {
         Log.d("명", viewModel.fragmentType.value.toString())
 
         var screenName = ""
-            when (viewModel.fragmentType.value) {
+
+        when (viewModel.fragmentType.value) {
             SearchFragmentType.HOME -> {
                 screenName = "Search"
             }
@@ -142,6 +146,14 @@ class SearchFragment : Fragment() {
             DefaultPerfumeRecyclerViewAdapter(requireContext(), parentFragmentManager) { idx ->
                 viewModel.postPerfumeLike(idx, context)
             }
+
+        rvPerfumeAdapter.setOnItemClickListener(object :
+            DefaultPerfumeRecyclerViewAdapter.OnItemClickListener {
+            override fun firebaseClickEvent(like: Boolean) {
+                firebaseAnalytics.setHeartBtnClickEvent("SearchHeartButton", "search_heart", like)
+            }
+        })
+
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
     }
 
