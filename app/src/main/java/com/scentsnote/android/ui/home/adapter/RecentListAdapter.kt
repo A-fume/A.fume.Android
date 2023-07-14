@@ -20,7 +20,7 @@ class RecentListAdapter(private val context: Context, private val fragmentManage
     var data = mutableListOf<HomePerfumeItem>()
 
     interface OnItemClickListener{
-        fun firebaseClickEvent()
+        fun firebaseClickEvent(like: Boolean)
     }
     private var listener : OnItemClickListener? = null
     fun setOnItemClickListener(listener : OnItemClickListener) {
@@ -66,7 +66,7 @@ class RecentListAdapter(private val context: Context, private val fragmentManage
                 if (!ScentsNoteApplication.prefManager.haveToken()) context.createDialog(fragmentManager, "login")
                 else {
                     clickBtnLike(item.perfumeIdx)
-                    listener?.firebaseClickEvent()
+                    listener?.firebaseClickEvent(item.isLiked)
                 }
             }
         }

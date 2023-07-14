@@ -18,6 +18,7 @@ import com.scentsnote.android.ui.home.adapter.PopularListAdapter
 import com.scentsnote.android.ui.home.adapter.RecentListAdapter
 import com.scentsnote.android.ui.home.adapter.RecommendListAdapter
 import com.scentsnote.android.utils.extension.setClickEvent
+import com.scentsnote.android.utils.extension.setHeartBtnClickEvent
 import com.scentsnote.android.viewmodel.home.HomeViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.extension.setPageViewEvent
@@ -154,8 +155,8 @@ class HomeFragment : Fragment() {
             ){ idx -> homeViewModel.postPerfumeLike(0, idx)}
 
         popularAdapter.setOnItemClickListener(object  : PopularListAdapter.OnItemClickListener{
-            override fun firebaseClickEvent() {
-                firebaseAnalytics.setClickEvent("HeartButton")
+            override fun firebaseClickEvent(like: Boolean) {
+                firebaseAnalytics.setHeartBtnClickEvent("recommend_heart", like)
             }
         })
 
@@ -172,8 +173,8 @@ class HomeFragment : Fragment() {
             ) { idx -> homeViewModel.postPerfumeLike(1, idx) }
 
         recentAdapter.setOnItemClickListener(object  : RecentListAdapter.OnItemClickListener{
-            override fun firebaseClickEvent() {
-                firebaseAnalytics.setClickEvent("HeartButton")
+            override fun firebaseClickEvent(like: Boolean) {
+                firebaseAnalytics.setHeartBtnClickEvent("recently_heart", like)
             }
         })
 
@@ -190,8 +191,8 @@ class HomeFragment : Fragment() {
             ) { idx -> homeViewModel.postPerfumeLike(2, idx) }
 
         newAdapter.setOnItemClickListener(object  : NewListAdapter.OnItemClickListener{
-            override fun firebaseClickEvent() {
-                firebaseAnalytics.setClickEvent("HeartButton")
+            override fun firebaseClickEvent(like: Boolean) {
+                firebaseAnalytics.setHeartBtnClickEvent("new_heart", like)
             }
         })
 

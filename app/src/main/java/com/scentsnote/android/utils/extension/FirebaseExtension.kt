@@ -10,6 +10,16 @@ fun FirebaseAnalytics.setClickEvent(buttonName: String){
     }
 }
 
+fun FirebaseAnalytics.setHeartBtnClickEvent(buttonArea: String, like : Boolean){
+    val buttonAction = if(like) "off" else "on"
+
+    firebaseAnalytics.logEvent("click_event") {
+        param("button_name", "HeartButton")
+        param("heart_name", buttonArea)
+        param("heart_ox", buttonAction)
+    }
+}
+
 fun FirebaseAnalytics.setPageViewEvent(screenName: String, className: String){
     firebaseAnalytics.logEvent("page_view"){
         param(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
