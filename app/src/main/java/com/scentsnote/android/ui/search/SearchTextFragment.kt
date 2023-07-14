@@ -99,7 +99,7 @@ class SearchTextFragment : Fragment() {
             filterBrandViewModel.clearSelectedList()
             filterKeywordViewModel.clearSelectedList()
             closeSelfWithAnimation()
-            firebaseAnalytics.setClickEvent("SearchLoupeButton")
+            firebaseAnalytics.setTwoParamClickEvent("button_name","SearchLoupeButton", "search_word", searchText)
         }else{
             requireContext().toast(getString(R.string.txt_search_text_null))
         }

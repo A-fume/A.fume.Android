@@ -10,6 +10,19 @@ fun FirebaseAnalytics.setClickEvent(buttonName: String){
     }
 }
 
+fun FirebaseAnalytics.setOneParamClickEvent(key1: String, value1: String){
+    firebaseAnalytics.logEvent("click_event") {
+        param(key1, value1)
+    }
+}
+
+fun FirebaseAnalytics.setTwoParamClickEvent(key1: String, value1: String, key2: String, value2: String){
+    firebaseAnalytics.logEvent("click_event") {
+        param(key1, value1)
+        param(key2,value2)
+    }
+}
+
 fun FirebaseAnalytics.setHeartBtnClickEvent(buttonArea: String, like : Boolean){
     val buttonAction = if(like) "off" else "on"
 
