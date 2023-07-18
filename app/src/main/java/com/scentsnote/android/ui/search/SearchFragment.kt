@@ -78,22 +78,6 @@ class SearchFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        Log.d("명", viewModel.fragmentType.value.toString())
-
-        var screenName = ""
-
-        when (viewModel.fragmentType.value) {
-            SearchFragmentType.HOME -> {
-                screenName = "Search"
-            }
-            SearchFragmentType.RESULT -> {
-                screenName = "SearchResult"
-            }
-            else -> {}
-        }
-
-        firebaseAnalytics.setPageViewEvent(screenName, this::class.java.name)
-
         if (ScentsNoteApplication.prefManager.haveToken()) {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.postSearchResultPerfume()
@@ -101,6 +85,8 @@ class SearchFragment : Fragment() {
         } else {
             viewModel.resetHeartPerfumeList()
         }
+
+        firebaseAnalytics.setPageViewEvent("Search", this::class.java.name)
     }
 
     override fun onAttach(context: Context) {
@@ -165,6 +151,10 @@ class SearchFragment : Fragment() {
             }
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.postSearchResultPerfume()
+
+                if(viewModel.fragmentType.value == SearchFragmentType.RESULT)  {
+                    firebaseAnalytics.setPageViewEvent("SearchResult", this::class.java.name)
+                }
             }
         }
     }
