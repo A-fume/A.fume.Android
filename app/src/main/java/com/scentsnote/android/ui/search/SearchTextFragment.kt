@@ -54,6 +54,7 @@ class SearchTextFragment : Fragment() {
         onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 closeSelfWithAnimation()
+                firebaseAnalytics.setClickEvent("SearchBack")
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)

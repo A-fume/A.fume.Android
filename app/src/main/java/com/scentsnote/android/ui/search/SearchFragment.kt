@@ -111,6 +111,7 @@ class SearchFragment : Fragment() {
                 when (viewModel.fragmentType.value) {
                     SearchFragmentType.RESULT -> {
                         onBackPressed()
+                        firebaseAnalytics.setClickEvent("SearchResultBack")
                     }
 
                     else -> {
