@@ -137,7 +137,8 @@ class SearchFragment : Fragment() {
         rvPerfumeAdapter.setOnItemClickListener(object :
             DefaultPerfumeRecyclerViewAdapter.OnItemClickListener {
             override fun firebaseClickEvent(like: Boolean) {
-                firebaseAnalytics.setHeartBtnClickEvent("SearchHeartButton", "search_heart", like)
+                val btnArea = if(viewModel.fragmentType.value == SearchFragmentType.HOME) "search" else "search_result"
+                firebaseAnalytics.setHeartBtnClickEvent(btnArea, like)
             }
         })
 

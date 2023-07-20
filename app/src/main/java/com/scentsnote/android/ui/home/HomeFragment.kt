@@ -156,7 +156,7 @@ class HomeFragment : Fragment() {
 
         popularAdapter.setOnItemClickListener(object  : PopularListAdapter.OnItemClickListener{
             override fun firebaseClickEvent(like: Boolean) {
-                firebaseAnalytics.setHeartBtnClickEvent("HeartButton","recommend_heart", like)
+                firebaseAnalytics.setHeartBtnClickEvent("home_recommend", like)
             }
         })
 
@@ -174,7 +174,7 @@ class HomeFragment : Fragment() {
 
         recentAdapter.setOnItemClickListener(object  : RecentListAdapter.OnItemClickListener{
             override fun firebaseClickEvent(like: Boolean) {
-                firebaseAnalytics.setHeartBtnClickEvent("HeartButton", "recently_heart", like)
+                firebaseAnalytics.setHeartBtnClickEvent("home_recently", like)
             }
         })
 
@@ -192,7 +192,7 @@ class HomeFragment : Fragment() {
 
         newAdapter.setOnItemClickListener(object  : NewListAdapter.OnItemClickListener{
             override fun firebaseClickEvent(like: Boolean) {
-                firebaseAnalytics.setHeartBtnClickEvent("HeartButton","new_heart", like)
+                firebaseAnalytics.setHeartBtnClickEvent("home_new", like)
             }
         })
 

@@ -24,13 +24,11 @@ fun FirebaseAnalytics.setTwoParamClickEvent(key1: String, value1: String, key2: 
     }
 }
 
-fun FirebaseAnalytics.setHeartBtnClickEvent(buttonName: String, buttonArea: String, like : Boolean){
+fun FirebaseAnalytics.setHeartBtnClickEvent(buttonArea: String, like : Boolean){
     val buttonAction = if(like) "off" else "on"
-    Log.d("명", buttonArea+" / "+buttonAction)
 
-    firebaseAnalytics.logEvent("click_event") {
-        param("button_name", buttonName)
-        param("heart_name", buttonArea)
+    firebaseAnalytics.logEvent("heart_click") {
+        param("heart_area", buttonArea)
         param("heart_ox", buttonAction)
     }
 }
