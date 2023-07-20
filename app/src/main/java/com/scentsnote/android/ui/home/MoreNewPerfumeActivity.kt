@@ -12,6 +12,7 @@ import com.scentsnote.android.databinding.ActivityMoreNewPerfumeBinding
 import com.scentsnote.android.ui.home.adapter.MoreNewListAdapter
 import com.scentsnote.android.viewmodel.home.HomeViewModel
 import com.scentsnote.android.utils.base.BaseWebViewActivity
+import com.scentsnote.android.utils.extension.setHeartBtnClickEvent
 import com.scentsnote.android.utils.extension.setPageViewEvent
 
 /**
@@ -46,6 +47,13 @@ class MoreNewPerfumeActivity : AppCompatActivity() {
                 idx
             )
         }
+
+        newAdapter.setOnItemClickListener(object  : MoreNewListAdapter.OnItemClickListener{
+            override fun firebaseClickEvent(like: Boolean) {
+                firebaseAnalytics.setHeartBtnClickEvent("home_new_more", like)
+            }
+        })
+
         binding.rvHomeMoreNew.adapter = newAdapter
     }
 
