@@ -18,6 +18,7 @@ import com.scentsnote.android.utils.adapter.FlexboxRecyclerViewAdapter
 
 class SurveyKeywordFragment : Fragment() {
     private lateinit var binding: FragmentSurveyKeywordBinding
+    private lateinit var surveyKeywordAdapter: FlexboxRecyclerViewAdapter
     private val viewModel: SurveyViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +53,7 @@ class SurveyKeywordFragment : Fragment() {
             flexWrap = FlexWrap.WRAP
             alignItems = AlignItems.STRETCH
         }
-        val keywordAdapter =
+        surveyKeywordAdapter =
             FlexboxRecyclerViewAdapter(
                 select = { index, b -> viewModel.addKeywordList(index.keywordIdx, b) },
                 isOverSelectLimit = { false }
@@ -60,7 +61,8 @@ class SurveyKeywordFragment : Fragment() {
         binding.rvSurveyKeyword.apply {
             layoutManager = flexboxLayoutManager
             setEmptyView(binding.listEmpty)
-            adapter = keywordAdapter
+            adapter = surveyKeywordAdapter
+            itemAnimator = null
         }
     }
 
