@@ -1,6 +1,5 @@
 package com.scentsnote.android.utils.extension
 
-import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics

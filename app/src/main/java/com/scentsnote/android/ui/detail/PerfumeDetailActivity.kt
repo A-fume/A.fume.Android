@@ -15,11 +15,13 @@ import com.scentsnote.android.ui.detail.note.DetailNoteFragment
 import com.scentsnote.android.ui.note.NoteActivity
 import com.scentsnote.android.utils.*
 import com.bumptech.glide.Glide
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 import com.scentsnote.android.utils.adapter.BindingAdapter.setNoteBtnText
 import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.utils.extension.toast
 import com.scentsnote.android.utils.listener.TabSelectedListener
 
@@ -65,6 +67,8 @@ class PerfumeDetailActivity :
 
         detailViewModel.getPerfumeInfo(perfumeIdx)
         detailViewModel.getPerfumeInfoWithReview(perfumeIdx)
+
+        firebaseAnalytics.setPageViewEvent("DetailInfo",this::class.java.name)
     }
 
     private fun initInfo() {

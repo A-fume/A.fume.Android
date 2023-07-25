@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.FragmentSurveyPerfumeBinding
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.viewmodel.survey.SurveyViewModel
 
 class SurveyPerfumeFragment : Fragment() {
@@ -29,6 +31,8 @@ class SurveyPerfumeFragment : Fragment() {
         super.onResume()
         viewModel.setActiveButton(0)
         surveyPerfumeAdapter.notifyDataSetChanged()
+
+        firebaseAnalytics.setPageViewEvent("SurveyPerfume",this::class.java.name)
     }
 
     private fun initBinding(container: ViewGroup?): View {

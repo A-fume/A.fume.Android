@@ -9,9 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.ActivitySplashBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.survey.SurveyActivity
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.viewmodel.splash.SplashViewModel
 import com.scentsnote.android.utils.extension.startActivityWithFinish
 import com.scentsnote.android.utils.extension.toast
@@ -31,6 +33,12 @@ class SplashActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         initObserver()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        firebaseAnalytics.setPageViewEvent("Loading",this::class.java.name)
     }
 
     private fun initObserver() {

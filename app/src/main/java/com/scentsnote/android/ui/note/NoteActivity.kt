@@ -19,8 +19,10 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.viewmodel.note.NoteViewModel
 import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.utils.extension.toast
 import com.scentsnote.android.utils.view.CommonDialog
 import com.scentsnote.android.utils.view.SeekBarListener
@@ -53,18 +55,23 @@ class NoteActivity : BaseActivity<ActivityNoteBinding>(R.layout.activity_note) {
     }
 
     private fun initNote() {
+        var screenName = ""
         val wishList = intent?.getParcelableExtra<ParcelableWishList>("wishListPerfume")
         binding.item = wishList
 
         if (wishList?.reviewIdx == 0) { // 추가일 경우
             perfumeIdx = wishList.perfumeIdx
+            screenName = "WriteScentsNote"
         } else { // 조회, 수정, 삭제일 경우
             wishList?.reviewIdx?.let {
                 noteViewModel.getReview(it)
                 perfumeIdx = wishList.perfumeIdx
                 reviewIdx = wishList.reviewIdx
             }
+            screenName = "EditScentsNote"
         }
+
+        firebaseAnalytics.setPageViewEvent(screenName, this::class.java.name)
     }
 
     private fun initObservers() {

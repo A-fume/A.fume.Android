@@ -8,11 +8,13 @@ import androidx.activity.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.ActivitySignUpEmailBinding
 import com.scentsnote.android.viewmodel.signup.SignUpViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.base.BaseActivity
 import com.scentsnote.android.utils.extension.setKeyboard
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.utils.extension.startActivity
 
 class SignUpEmailActivity :
@@ -33,6 +35,12 @@ class SignUpEmailActivity :
             val intent = Intent(this, PrivacyPolicyActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        firebaseAnalytics.setPageViewEvent("CreateAccount", this::class.java.name)
     }
 
     private fun nickAnimation() {

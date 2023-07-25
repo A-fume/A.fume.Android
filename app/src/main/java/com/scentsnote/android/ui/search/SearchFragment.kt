@@ -1,6 +1,5 @@
 package com.scentsnote.android.ui.search
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
@@ -22,7 +20,6 @@ import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.filter.FilterFragment
-import com.scentsnote.android.ui.home.adapter.NewListAdapter
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.setClickEvent
 import com.scentsnote.android.utils.extension.setHeartBtnClickEvent
@@ -153,8 +150,9 @@ class SearchFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.postSearchResultPerfume()
 
-                if(viewModel.fragmentType.value == SearchFragmentType.RESULT)  {
-                    firebaseAnalytics.setPageViewEvent("SearchResult", this::class.java.name)
+                if (viewModel.fragmentType.value == SearchFragmentType.RESULT && viewModel.perfumeList.value != null) {
+                    val screenName = if (viewModel.perfumeList.value!!.size > 0) "SearchResult" else "NoSearchResult"
+                    firebaseAnalytics.setPageViewEvent(screenName, this::class.java.name)
                 }
             }
         }

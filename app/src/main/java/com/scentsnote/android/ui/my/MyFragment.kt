@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.FragmentMypageBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.ScentsNoteViewPagerAdapter
@@ -46,6 +47,8 @@ class MyFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.drawerLayout.closeDrawers()
+
+        firebaseAnalytics.setPageViewEvent("MyPage", this::class.java.name)
     }
 
     override fun onAttach(context: Context) {
@@ -106,6 +109,8 @@ class MyFragment : Fragment() {
     private fun setNavigation() {
         binding.toolbarMypage.toolbarBtn.setOnSafeClickListener {
             binding.drawerLayout.openDrawer(binding.myNavigationDrawer)
+
+            firebaseAnalytics.setPageViewEvent("SideBar", this::class.java.name)
         }
 
         inflateMenu()

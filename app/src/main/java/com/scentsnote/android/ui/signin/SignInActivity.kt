@@ -5,11 +5,13 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.ActivitySignInBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.signup.SignUpEmailActivity
 import com.scentsnote.android.viewmodel.signin.SignInViewModel
 import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.utils.extension.startActivity
 import com.scentsnote.android.utils.extension.startActivityWithFinish
 
@@ -26,6 +28,12 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
         signInViewModel.checkRegisterInfo()
         checkNextBtn()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        firebaseAnalytics.setPageViewEvent("Login", this::class.java.name)
     }
 
     private fun checkNextBtn() {

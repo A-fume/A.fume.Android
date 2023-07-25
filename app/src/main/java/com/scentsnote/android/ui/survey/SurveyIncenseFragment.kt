@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.FragmentSurveyIncenseBinding
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.viewmodel.survey.SurveyViewModel
 
 class SurveyIncenseFragment : Fragment() {
@@ -31,6 +33,8 @@ class SurveyIncenseFragment : Fragment() {
 //        incenseAdapter.setPerfumeData(viewModel.perfumeList.value)
         viewModel.setActiveButton(2)
         incenseAdapter.setSeriesData(viewModel.seriesList.value)
+
+        firebaseAnalytics.setPageViewEvent("SurveyProductLine",this::class.java.name)
     }
 
     private fun initBinding(container: ViewGroup?): View {
