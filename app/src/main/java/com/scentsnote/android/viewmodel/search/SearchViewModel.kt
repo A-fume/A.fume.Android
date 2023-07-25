@@ -15,7 +15,6 @@ import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.request.RequestSearch
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.data.vo.response.PerfumeInfo
-import com.scentsnote.android.data.vo.response.RecommendPerfumeItem
 import com.scentsnote.android.ui.search.SearchFragmentType
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -67,8 +66,8 @@ class SearchViewModel : ViewModel() {
                     FilterType.Ingredient -> {
                         if (it.idx > -1) requestSearch.ingredientList?.add(it.idx)
                         else {
-                            filter.value?.filterSeriesPMap?.get(it.name)?.forEach {
-                                requestSearch.ingredientList?.add(it.ingredientIdx)
+                            filter.value?.filterSeriesPMap?.get(it.name)?.forEach { seriesIngredient ->
+                                requestSearch.ingredientList?.add(seriesIngredient.id)
                             }
                         }
                     }
@@ -106,7 +105,7 @@ class SearchViewModel : ViewModel() {
                 if (f.type == FilterType.Ingredient) tmpFilter?.filterSeriesPMap?.values?.forEach { list ->
                     var index = -1
                     list.forEachIndexed { i, v ->
-                        if (v.ingredientIdx == f.idx) index = i
+                        if (v.id == f.idx) index = i
                     }
                     if (index != -1) list.removeAt(index)
                 }

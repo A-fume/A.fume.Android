@@ -164,13 +164,13 @@ class FilterSeriesViewModel(
                             seriesInfo.seriesIdx,
                             seriesInfo.name,
                             isChecked = false,
-                            seriesInfo.ingredients.map { it.ingredientIdx }
+                            seriesInfo.ingredients.map { it.id }
                         )
 
                     seriesInfo.ingredients.forEach { ingredient ->
-                        ingredientMap[ingredient.ingredientIdx] =
+                        ingredientMap[ingredient.id] =
                             FilterSeriesViewData.FilterSeriesIngredient(
-                                ingredient.ingredientIdx,
+                                ingredient.id,
                                 ingredient.name,
                                 isChecked = false,
                                 seriesInfo.seriesIdx

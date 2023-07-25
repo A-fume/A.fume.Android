@@ -37,7 +37,7 @@ data class SeriesInfo(
 
 @Parcelize
 data class SeriesIngredient(
-    val ingredientIdx: Int = 2,
+    val id: Int = 2,
     val name: String = "베르가못",
     var seriesName: String,
     var checked: Boolean = false,
@@ -49,7 +49,7 @@ data class SeriesIngredient(
                 oldItem: SeriesIngredient,
                 newItem: SeriesIngredient
             ): Boolean {
-                return oldItem.ingredientIdx == newItem.ingredientIdx
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
