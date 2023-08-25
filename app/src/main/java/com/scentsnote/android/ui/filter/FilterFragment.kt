@@ -2,6 +2,7 @@ package com.scentsnote.android.ui.filter
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +10,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.badge.BadgeDrawable
+import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
+import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.FragmentFilterBinding
 import com.scentsnote.android.ui.filter.brand.FilterBrandFragment
@@ -69,6 +72,10 @@ class FilterFragment : Fragment() {
             sendFilter()
 
             firebaseAnalytics.setClickEvent("FilterActionButton")
+
+            Log.d("명_계열",seriesViewModel.getSelectedSeries().map { it.name }.toString())
+            Log.d("명_브랜드",brandViewModel.getSelectedBrands().map { it.name }.toString())
+            Log.d("명_키워드",keywordViewModel.getSelectedKeywords().map { it.name }.toString())
         }
         binding.toolbarFilter.toolbarBtn.setOnSafeClickListener {
             closeSelfWithAnimation()
@@ -78,6 +85,15 @@ class FilterFragment : Fragment() {
 
         binding.toolbarFilter.toolbar = R.drawable.icon_btn_cancel
         binding.toolbarFilter.toolbartxt = "필터"
+    }
+
+    private fun reqFilterGa(list :  List<FilterInfoP>){
+        firebaseAnalytics.setClickEvent("KindOfFilter")
+//
+//            firebaseAnalytics.logEvent("click_event") {
+//                param("button_name", "FilterActionButton")
+//                param("apply_filter","value2")
+//            }
     }
 
     override fun onAttach(context: Context) {
