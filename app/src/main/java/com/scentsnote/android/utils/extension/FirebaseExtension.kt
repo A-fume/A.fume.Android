@@ -10,8 +10,8 @@ fun FirebaseAnalytics.setClickEvent(buttonName: String){
     }
 }
 
-fun FirebaseAnalytics.setOneParamClickEvent(key1: String, value1: String){
-    firebaseAnalytics.logEvent("click_event") {
+fun FirebaseAnalytics.setOneParamClickEvent(eventName: String, key1: String, value1: String){
+    firebaseAnalytics.logEvent(eventName) {
         param(key1, value1)
     }
 }

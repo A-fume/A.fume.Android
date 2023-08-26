@@ -73,6 +73,10 @@ class FilterFragment : Fragment() {
 
             firebaseAnalytics.setClickEvent("FilterActionButton")
 
+            reqFilterGa("apply_filter", seriesViewModel.getSelectedSeries())
+            reqFilterGa("apply_brand", brandViewModel.getSelectedBrands())
+            reqFilterGa("apply_bonding", keywordViewModel.getSelectedKeywords())
+
             Log.d("명_계열",seriesViewModel.getSelectedSeries().map { it.name }.toString())
             Log.d("명_브랜드",brandViewModel.getSelectedBrands().map { it.name }.toString())
             Log.d("명_키워드",keywordViewModel.getSelectedKeywords().map { it.name }.toString())
@@ -87,13 +91,10 @@ class FilterFragment : Fragment() {
         binding.toolbarFilter.toolbartxt = "필터"
     }
 
-    private fun reqFilterGa(list :  List<FilterInfoP>){
-        firebaseAnalytics.setClickEvent("KindOfFilter")
-//
-//            firebaseAnalytics.logEvent("click_event") {
-//                param("button_name", "FilterActionButton")
-//                param("apply_filter","value2")
-//            }
+    private fun reqFilterGa(type: String, list : List<FilterInfoP>){
+        list.forEach {
+            firebaseAnalytics.setOneParamClickEvent("kind_of_filter", type, it.name)
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -186,6 +187,7 @@ class FilterFragment : Fragment() {
         val filterInfoPList = seriesViewModel.getSelectedSeries() +
                 brandViewModel.getSelectedBrands() +
                 keywordViewModel.getSelectedKeywords()
+        firebaseAnalytics.setOneParamClickEvent("kind_of_filter", "kind_of_filter_name", filterInfoPList.toString())
         return SendFilter(
             filterInfoPList.toMutableList(),
             mutableMapOf() // TODO
