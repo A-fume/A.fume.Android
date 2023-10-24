@@ -19,6 +19,14 @@ import com.scentsnote.android.utils.extension.setOnSafeClickListener
 class MoreNewListAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<MoreNewListAdapter.MoreNewListViewHolder>() {
     var data = mutableListOf<HomePerfumeItem>()
 
+    interface OnItemClickListener{
+        fun firebaseClickEvent(like: Boolean)
+    }
+    private var listener : OnItemClickListener? = null
+    fun setOnItemClickListener(listener : OnItemClickListener) {
+        this.listener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoreNewListViewHolder {
         val binding : RvItemHomeMoreNewBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
@@ -56,6 +64,7 @@ class MoreNewListAdapter(private val context: Context, private val fragmentManag
                 if (!ScentsNoteApplication.prefManager.haveToken()) context.createDialog(fragmentManager, "login")
                 else {
                     clickBtnLike(item.perfumeIdx)
+                    listener?.firebaseClickEvent(item.isLiked)
                 }
             }
         }

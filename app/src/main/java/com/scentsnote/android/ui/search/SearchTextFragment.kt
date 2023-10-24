@@ -2,7 +2,6 @@ package com.scentsnote.android.ui.search
 
 import android.content.Context
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.FragmentSearchTextBinding
+import com.scentsnote.android.utils.extension.*
 import com.scentsnote.android.utils.extension.closeSelfWithAnimation
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.utils.extension.toast
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
@@ -52,9 +54,16 @@ class SearchTextFragment : Fragment() {
         onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 closeSelfWithAnimation()
+                firebaseAnalytics.setClickEvent("SearchBack")
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        firebaseAnalytics.setPageViewEvent("SearchWindow", this::class.java.name)
     }
 
     override fun onDetach() {
@@ -69,6 +78,8 @@ class SearchTextFragment : Fragment() {
 
         binding.btnBack.setOnSafeClickListener {
             closeSelfWithAnimation()
+
+            firebaseAnalytics.setClickEvent("SearchBack")
         }
 
         binding.edtSearch.setOnEditorActionListener { _, actionId, _ ->
@@ -89,6 +100,7 @@ class SearchTextFragment : Fragment() {
             filterBrandViewModel.clearSelectedList()
             filterKeywordViewModel.clearSelectedList()
             closeSelfWithAnimation()
+            firebaseAnalytics.setTwoParamClickEvent("button_name","SearchLoupeButton", "search_word", searchText)
         }else{
             requireContext().toast(getString(R.string.txt_search_text_null))
         }

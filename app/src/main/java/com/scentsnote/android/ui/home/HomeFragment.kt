@@ -11,13 +11,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.FragmentHomeBinding
 import com.scentsnote.android.ui.home.adapter.NewListAdapter
 import com.scentsnote.android.ui.home.adapter.PopularListAdapter
 import com.scentsnote.android.ui.home.adapter.RecentListAdapter
 import com.scentsnote.android.ui.home.adapter.RecommendListAdapter
+import com.scentsnote.android.utils.extension.setClickEvent
+import com.scentsnote.android.utils.extension.setHeartBtnClickEvent
 import com.scentsnote.android.viewmodel.home.HomeViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import java.util.*
 
 /**
@@ -43,6 +47,8 @@ class HomeFragment : Fragment() {
         initInfo()
 
         binding.btnHomeMore.setOnSafeClickListener {
+            firebaseAnalytics.setClickEvent("NewRegisterButton")
+
             val moreNewPerfumeIntent = Intent(context, MoreNewPerfumeActivity::class.java)
 
             startActivity(moreNewPerfumeIntent)
@@ -68,6 +74,8 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             homeViewModel.getHomePerfumeList()
         }
+
+        firebaseAnalytics.setPageViewEvent("HomePage",this::class.java.name)
     }
 
     @SuppressLint("SetTextI18n")
@@ -144,11 +152,17 @@ class HomeFragment : Fragment() {
             PopularListAdapter(
                 requireContext(),
                 parentFragmentManager
-            ) { idx -> homeViewModel.postPerfumeLike(0, idx) }
+            ){ idx -> homeViewModel.postPerfumeLike(0, idx)}
+
+        popularAdapter.setOnItemClickListener(object  : PopularListAdapter.OnItemClickListener{
+            override fun firebaseClickEvent(like: Boolean) {
+                firebaseAnalytics.setHeartBtnClickEvent("home_recommend", like)
+            }
+        })
+
         binding.rvHomePopular.adapter = popularAdapter
 
         popularAdapter.notifyDataSetChanged()
-
     }
 
     private fun initRecentList() {
@@ -157,10 +171,16 @@ class HomeFragment : Fragment() {
                 requireContext(),
                 parentFragmentManager
             ) { idx -> homeViewModel.postPerfumeLike(1, idx) }
+
+        recentAdapter.setOnItemClickListener(object  : RecentListAdapter.OnItemClickListener{
+            override fun firebaseClickEvent(like: Boolean) {
+                firebaseAnalytics.setHeartBtnClickEvent("home_recently", like)
+            }
+        })
+
         binding.rvHomeRecent.adapter = recentAdapter
 
         recentAdapter.notifyDataSetChanged()
-
     }
 
     private fun initNewList() {
@@ -169,9 +189,15 @@ class HomeFragment : Fragment() {
                 requireContext(),
                 parentFragmentManager
             ) { idx -> homeViewModel.postPerfumeLike(2, idx) }
+
+        newAdapter.setOnItemClickListener(object  : NewListAdapter.OnItemClickListener{
+            override fun firebaseClickEvent(like: Boolean) {
+                firebaseAnalytics.setHeartBtnClickEvent("home_new", like)
+            }
+        })
+
         binding.rvHomeNew.adapter = newAdapter
 
         newAdapter.notifyDataSetChanged()
     }
-
 }

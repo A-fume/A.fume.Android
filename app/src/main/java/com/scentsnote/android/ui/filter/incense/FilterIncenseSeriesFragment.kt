@@ -1,13 +1,14 @@
 package com.scentsnote.android.ui.filter.incense
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.FragmentFilterIncenseSeriesBinding
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
 
 /**
@@ -30,6 +31,12 @@ class FilterIncenseSeriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initIncenseSeriesRv()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        firebaseAnalytics.setPageViewEvent("FilterProductLine", this::class.java.name)
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {

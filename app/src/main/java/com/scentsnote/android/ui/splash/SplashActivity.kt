@@ -9,9 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.ActivitySplashBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.survey.SurveyActivity
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.viewmodel.splash.SplashViewModel
 import com.scentsnote.android.utils.extension.startActivityWithFinish
 import com.scentsnote.android.utils.extension.toast
@@ -33,10 +35,19 @@ class SplashActivity : AppCompatActivity() {
         initObserver()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        firebaseAnalytics.setPageViewEvent("Loading",this::class.java.name)
+    }
+
     private fun initObserver() {
         splashViewModel.isValidVersion.observe(this) {
-            if (it) goToNextActivity()
-            else createDialog()
+            when(it){
+                "pass" -> goToNextActivity()
+                "update" -> createDialog()
+                "error" -> showNetworkErrorDialog()
+            }
         }
     }
 
@@ -53,6 +64,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun createDialog() {
         val bundle = Bundle()
+        bundle.putString("title", "update")
         val dialog: DialogFragment = AppUpdateDialog().AppUpdateDialogBuilder()
             .setBtnClickListener(object : AppUpdateDialog.AppUpdateDialogListener {
                 override fun onPositiveClicked() {
@@ -62,6 +74,24 @@ class SplashActivity : AppCompatActivity() {
                     )
                     finish()
                     startActivity(intent)
+                }
+
+                override fun onNegativeClicked() {
+                    finish()
+                }
+            })
+            .getInstance()
+        dialog.arguments = bundle
+        dialog.show(supportFragmentManager, dialog.tag)
+    }
+
+    private fun showNetworkErrorDialog() {
+        val bundle = Bundle()
+        bundle.putString("title", "error")
+        val dialog: DialogFragment = AppUpdateDialog().AppUpdateDialogBuilder()
+            .setBtnClickListener(object : AppUpdateDialog.AppUpdateDialogListener {
+                override fun onPositiveClicked() {
+                    finish()
                 }
 
                 override fun onNegativeClicked() {

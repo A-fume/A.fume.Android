@@ -13,11 +13,14 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.viewmodel.survey.SurveyViewModel
 import com.scentsnote.android.utils.adapter.FlexboxRecyclerViewAdapter
+import com.scentsnote.android.utils.extension.setPageViewEvent
 
 class SurveyKeywordFragment : Fragment() {
     private lateinit var binding: FragmentSurveyKeywordBinding
+    private lateinit var surveyKeywordAdapter: FlexboxRecyclerViewAdapter
     private val viewModel: SurveyViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +38,9 @@ class SurveyKeywordFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.setActiveButton(1)
+        surveyKeywordAdapter.notifyDataSetChanged()
+
+        firebaseAnalytics.setPageViewEvent("SurveyKeyword",this::class.java.name)
     }
 
     private fun initBinding(container: ViewGroup?): View {
@@ -52,7 +58,7 @@ class SurveyKeywordFragment : Fragment() {
             flexWrap = FlexWrap.WRAP
             alignItems = AlignItems.STRETCH
         }
-        val keywordAdapter =
+        surveyKeywordAdapter =
             FlexboxRecyclerViewAdapter(
                 select = { index, b -> viewModel.addKeywordList(index.keywordIdx, b) },
                 isOverSelectLimit = { false }
@@ -60,7 +66,8 @@ class SurveyKeywordFragment : Fragment() {
         binding.rvSurveyKeyword.apply {
             layoutManager = flexboxLayoutManager
             setEmptyView(binding.listEmpty)
-            adapter = keywordAdapter
+            adapter = surveyKeywordAdapter
+            itemAnimator = null
         }
     }
 

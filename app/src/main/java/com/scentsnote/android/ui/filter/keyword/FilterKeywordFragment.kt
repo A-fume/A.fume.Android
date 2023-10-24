@@ -12,7 +12,9 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.utils.adapter.FlexboxRecyclerViewAdapter
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
 
 /**
@@ -40,6 +42,9 @@ class FilterKeywordFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
+        firebaseAnalytics.setPageViewEvent("FilterKeyword", this::class.java.name)
+
         initKeywordRv(context)
         observeBlockClickMoreThan5()
         observeViewModel()

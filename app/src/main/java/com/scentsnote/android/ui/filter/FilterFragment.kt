@@ -2,6 +2,7 @@ package com.scentsnote.android.ui.filter
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +10,19 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.badge.BadgeDrawable
+import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
+import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.FragmentFilterBinding
 import com.scentsnote.android.ui.filter.brand.FilterBrandFragment
 import com.scentsnote.android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.scentsnote.android.ui.filter.keyword.FilterKeywordFragment
-import com.scentsnote.android.utils.extension.changeTabsFont
+import com.scentsnote.android.utils.extension.*
 import com.scentsnote.android.utils.extension.closeSelfWithAnimation
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.utils.listener.TabSelectedListener
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
@@ -65,13 +70,31 @@ class FilterFragment : Fragment() {
     private fun initView() {
         binding.btnFilterApply.setOnSafeClickListener {
             sendFilter()
+
+            firebaseAnalytics.setClickEvent("FilterActionButton")
+
+            reqFilterGa("apply_filter", seriesViewModel.getSelectedSeries())
+            reqFilterGa("apply_brand", brandViewModel.getSelectedBrands())
+            reqFilterGa("apply_bonding", keywordViewModel.getSelectedKeywords())
+
+            Log.d("명_계열",seriesViewModel.getSelectedSeries().map { it.name }.toString())
+            Log.d("명_브랜드",brandViewModel.getSelectedBrands().map { it.name }.toString())
+            Log.d("명_키워드",keywordViewModel.getSelectedKeywords().map { it.name }.toString())
         }
         binding.toolbarFilter.toolbarBtn.setOnSafeClickListener {
             closeSelfWithAnimation()
+
+            firebaseAnalytics.setClickEvent("FilterPauseButton")
         }
 
         binding.toolbarFilter.toolbar = R.drawable.icon_btn_cancel
         binding.toolbarFilter.toolbartxt = "필터"
+    }
+
+    private fun reqFilterGa(type: String, list : List<FilterInfoP>){
+        list.forEach {
+            firebaseAnalytics.setOneParamClickEvent("kind_of_filter", type, it.name)
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -83,6 +106,12 @@ class FilterFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        firebaseAnalytics.setPageViewEvent("Filter", this::class.java.name)
     }
 
     override fun onDetach() {
@@ -158,6 +187,7 @@ class FilterFragment : Fragment() {
         val filterInfoPList = seriesViewModel.getSelectedSeries() +
                 brandViewModel.getSelectedBrands() +
                 keywordViewModel.getSelectedKeywords()
+        firebaseAnalytics.setOneParamClickEvent("kind_of_filter", "kind_of_filter_name", filterInfoPList.toString())
         return SendFilter(
             filterInfoPList.toMutableList(),
             mutableMapOf() // TODO

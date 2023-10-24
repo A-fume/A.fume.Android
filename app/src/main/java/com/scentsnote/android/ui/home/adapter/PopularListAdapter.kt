@@ -19,6 +19,14 @@ import com.scentsnote.android.utils.extension.setOnSafeClickListener
 class PopularListAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<PopularListAdapter.PopularListViewHolder>() {
     var data = mutableListOf<HomePerfumeItem>()
 
+    interface OnItemClickListener{
+        fun firebaseClickEvent(like: Boolean)
+    }
+    private var listener : OnItemClickListener? = null
+    fun setOnItemClickListener(listener : OnItemClickListener) {
+        this.listener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularListViewHolder {
         val binding: RvItemHomePopularBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
@@ -28,7 +36,8 @@ class PopularListAdapter(private val context: Context, private val fragmentManag
         )
 
         return PopularListViewHolder(
-            binding
+            binding,
+            parent.context
         )
     }
 
@@ -45,7 +54,7 @@ class PopularListAdapter(private val context: Context, private val fragmentManag
         notifyDataSetChanged()
     }
 
-    inner class PopularListViewHolder(val binding : RvItemHomePopularBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class PopularListViewHolder(val binding : RvItemHomePopularBinding, val context: Context) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: HomePerfumeItem){
             binding.item = item
             binding.executePendingBindings()
@@ -58,6 +67,7 @@ class PopularListAdapter(private val context: Context, private val fragmentManag
                 if (!ScentsNoteApplication.prefManager.haveToken()) context.createDialog(fragmentManager, "login")
                 else {
                     clickBtnLike(item.perfumeIdx)
+                    listener?.firebaseClickEvent(item.isLiked)
                 }
             }
         }

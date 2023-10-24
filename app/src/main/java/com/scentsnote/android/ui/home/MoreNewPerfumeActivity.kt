@@ -7,10 +7,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.scentsnote.android.R
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.ActivityMoreNewPerfumeBinding
 import com.scentsnote.android.ui.home.adapter.MoreNewListAdapter
 import com.scentsnote.android.viewmodel.home.HomeViewModel
 import com.scentsnote.android.utils.base.BaseWebViewActivity
+import com.scentsnote.android.utils.extension.setHeartBtnClickEvent
+import com.scentsnote.android.utils.extension.setPageViewEvent
 
 /**
  * 홈 화면 - 새로운 향수 더보기
@@ -31,6 +34,12 @@ class MoreNewPerfumeActivity : AppCompatActivity() {
         initNewList()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        firebaseAnalytics.setPageViewEvent("NewRegister", this::class.java.name)
+    }
+
     private fun initNewList() {
         newAdapter = MoreNewListAdapter(this, supportFragmentManager) { idx ->
             homeViewModel.postPerfumeLike(
@@ -38,6 +47,13 @@ class MoreNewPerfumeActivity : AppCompatActivity() {
                 idx
             )
         }
+
+        newAdapter.setOnItemClickListener(object  : MoreNewListAdapter.OnItemClickListener{
+            override fun firebaseClickEvent(like: Boolean) {
+                firebaseAnalytics.setHeartBtnClickEvent("home_new_more", like)
+            }
+        })
+
         binding.rvHomeMoreNew.adapter = newAdapter
     }
 

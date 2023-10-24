@@ -25,6 +25,14 @@ class DefaultPerfumeRecyclerViewAdapter(
     PerfumeInfo.diffUtil
 ) {
 
+    interface OnItemClickListener{
+        fun firebaseClickEvent(like: Boolean)
+    }
+    private var listener : OnItemClickListener? = null
+    fun setOnItemClickListener(listener : OnItemClickListener) {
+        this.listener = listener
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -57,6 +65,7 @@ class DefaultPerfumeRecyclerViewAdapter(
                     context.createDialog(fragmentManager, "login")
                 } else {
                     clickBtnHeart(data.perfumeIdx)
+                    listener?.firebaseClickEvent(it.isSelected)
                     it.isSelected = !it.isSelected
                 }
             }

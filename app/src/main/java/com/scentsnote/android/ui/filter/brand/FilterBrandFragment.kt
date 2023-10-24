@@ -14,6 +14,8 @@ import com.google.android.material.tabs.TabLayout
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
+import com.scentsnote.android.utils.extension.setPageViewEvent
 
 /**
  * 향수 검색 - 필터 - 브랜드 탭
@@ -38,6 +40,12 @@ class FilterBrandFragment : Fragment() {
         observeTab()
         setTabClickEvent()
         initBrandRvItem(context)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        firebaseAnalytics.setPageViewEvent("FilterBrand", this::class.java.name)
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?): View {

@@ -3,6 +3,7 @@ package com.scentsnote.android.ui.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +14,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication
+import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.FragmentSearchBinding
 import com.scentsnote.android.ui.filter.FilterFragment
 import com.scentsnote.android.utils.base.BaseWebViewActivity
+import com.scentsnote.android.utils.extension.setClickEvent
+import com.scentsnote.android.utils.extension.setHeartBtnClickEvent
 import com.scentsnote.android.viewmodel.search.SearchViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
 import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
@@ -55,7 +60,11 @@ class SearchFragment : Fragment() {
         initRvFilterList()
         initToolbar()
 
-        binding.fabFilter.setOnSafeClickListener { openSelectFilters() }
+        binding.fabFilter.setOnSafeClickListener {
+            openSelectFilters()
+
+            firebaseAnalytics.setClickEvent("SearchFilterButton")
+        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.postSearchResultPerfume()
@@ -65,6 +74,7 @@ class SearchFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
         if (ScentsNoteApplication.prefManager.haveToken()) {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.postSearchResultPerfume()
@@ -72,6 +82,8 @@ class SearchFragment : Fragment() {
         } else {
             viewModel.resetHeartPerfumeList()
         }
+
+        firebaseAnalytics.setPageViewEvent("Search", this::class.java.name)
     }
 
     override fun onAttach(context: Context) {
@@ -82,6 +94,7 @@ class SearchFragment : Fragment() {
                 when (viewModel.fragmentType.value) {
                     SearchFragmentType.RESULT -> {
                         onBackPressed()
+                        firebaseAnalytics.setClickEvent("SearchResultBack")
                     }
 
                     else -> {
@@ -101,10 +114,14 @@ class SearchFragment : Fragment() {
     private fun initToolbar() {
         binding.toolbarBtnSearch.setOnSafeClickListener {
             openSearchTextFragment()
+
+            firebaseAnalytics.setClickEvent("LoupeButton")
         }
 
         binding.toolbarBtnBack.setOnSafeClickListener {
             onBackPressed()
+
+            firebaseAnalytics.setClickEvent("SearchResultBack")
         }
     }
 
@@ -113,6 +130,15 @@ class SearchFragment : Fragment() {
             DefaultPerfumeRecyclerViewAdapter(requireContext(), parentFragmentManager) { idx ->
                 viewModel.postPerfumeLike(idx, context)
             }
+
+        rvPerfumeAdapter.setOnItemClickListener(object :
+            DefaultPerfumeRecyclerViewAdapter.OnItemClickListener {
+            override fun firebaseClickEvent(like: Boolean) {
+                val btnArea = if(viewModel.fragmentType.value == SearchFragmentType.HOME) "search" else "search_result"
+                firebaseAnalytics.setHeartBtnClickEvent(btnArea, like)
+            }
+        })
+
         binding.rvSearchPerfume.adapter = rvPerfumeAdapter
     }
 
@@ -123,6 +149,11 @@ class SearchFragment : Fragment() {
             }
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.postSearchResultPerfume()
+
+                if (viewModel.fragmentType.value == SearchFragmentType.RESULT && viewModel.perfumeList.value != null) {
+                    val screenName = if (viewModel.perfumeList.value!!.size > 0) "SearchResult" else "NoSearchResult"
+                    firebaseAnalytics.setPageViewEvent(screenName, this::class.java.name)
+                }
             }
         }
     }

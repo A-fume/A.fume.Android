@@ -33,7 +33,7 @@ class SearchViewModel : ViewModel() {
 
     var filter = MutableLiveData<SendFilter>()
     val perfumeList = MutableLiveData(mutableListOf<PerfumeInfo>())
-    private val perfumeLike: MutableLiveData<Boolean> = MutableLiveData()
+    private val perfumeLike: MutableLiveData<Boolean?> = MutableLiveData()
     private val _fragmentType: MutableLiveData<SearchFragmentType> =
         MutableLiveData(SearchFragmentType.HOME)
 
@@ -66,8 +66,8 @@ class SearchViewModel : ViewModel() {
                     FilterType.Ingredient -> {
                         if (it.idx > -1) requestSearch.ingredientList?.add(it.idx)
                         else {
-                            filter.value?.filterSeriesPMap?.get(it.name)?.forEach {
-                                requestSearch.ingredientList?.add(it.ingredientIdx)
+                            filter.value?.filterSeriesPMap?.get(it.name)?.forEach { seriesIngredient ->
+                                requestSearch.ingredientList?.add(seriesIngredient.id)
                             }
                         }
                     }
@@ -105,7 +105,7 @@ class SearchViewModel : ViewModel() {
                 if (f.type == FilterType.Ingredient) tmpFilter?.filterSeriesPMap?.values?.forEach { list ->
                     var index = -1
                     list.forEachIndexed { i, v ->
-                        if (v.ingredientIdx == f.idx) index = i
+                        if (v.id == f.idx) index = i
                     }
                     if (index != -1) list.removeAt(index)
                 }

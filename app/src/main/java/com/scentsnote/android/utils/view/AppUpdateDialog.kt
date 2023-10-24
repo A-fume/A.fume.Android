@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.scentsnote.android.R
 import com.scentsnote.android.databinding.DialogAppUpdateBinding
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.extension.setDrawable
@@ -42,10 +43,23 @@ class AppUpdateDialog: DialogFragment(), View.OnClickListener {
 
     private fun processBundle(binding: DialogAppUpdateBinding) {
         val bundle = arguments
-        binding.button7.setOnSafeClickListener {
+        when (bundle?.getString("title", "")) {
+            "update" -> {
+                setContents(getString(R.string.dialog_app_update), "업데이트")
+            }
+            "error" -> {
+                setContents(getString(R.string.dialog_network_error), "확인")
+            }
+        }
+        binding.btnConfirm.setOnSafeClickListener {
             dismiss()
             listener?.onPositiveClicked()
         }
+    }
+
+    private fun setContents(contents: String, confirm: String){
+        binding.txtContents.text = contents
+        binding.btnConfirm.text = confirm
     }
 
     override fun onClick(p0: View?) {
