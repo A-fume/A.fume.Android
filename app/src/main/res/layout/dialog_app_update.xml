@@ -12,13 +12,15 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/textView39"
+            android:id="@+id/txt_contents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="42dp"
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
+            android:paddingHorizontal="24dp"
             android:text="@string/dialog_app_update"
+            android:textAlignment="center"
             android:textColor="@color/black_1d"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button7"
+            android:id="@+id/btn_confirm"
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_marginTop="42dp"
@@ -42,6 +44,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView39" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_contents" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

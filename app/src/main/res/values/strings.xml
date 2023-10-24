@@ -8,6 +8,7 @@
     <string name="dialog_survey">나에게 꼭 맞는 향수를 추천받고 싶다면\n설문을 완료해주세요.\n그래도 설문을 종료하시겠습니까?</string>
     <string name="dialog_app_update">더욱 좋아진 서비스를 사용하시기 위해서\n새로운 버전으로 업데이트가 필요합니다.</string>
     <string name="do_login">로그인 하기</string>
+    <string name="dialog_network_error">[센츠노트 서비스 점검]\n보다 안정적인 서비스 이용을 위해\n현재 서버 점검 작업 중에 있습니다.\n빠르게 점검 중이니 조금만 기다려주시면\n정상적인 서비스를 이용하실 수 있습니다.\n불편을 드려 죄송합니다. </string>
     
     <!--survey-->
     <string name="survey_question">회원가입을 축하합니다!\n어떤 향을 좋아하세요?</string>
