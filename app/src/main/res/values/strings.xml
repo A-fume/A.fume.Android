@@ -9,13 +9,13 @@
     <string name="dialog_app_update">더욱 좋아진 서비스를 사용하시기 위해서\n새로운 버전으로 업데이트가 필요합니다.</string>
     <string name="do_login">로그인 하기</string>
     <string name="dialog_network_error">[센츠노트 서비스 점검]\n보다 안정적인 서비스 이용을 위해\n현재 서버 점검 작업 중에 있습니다.\n빠르게 점검 중이니 조금만 기다려주시면\n정상적인 서비스를 이용하실 수 있습니다.\n불편을 드려 죄송합니다. </string>
-    
+
     <!--survey-->
     <string name="survey_question">회원가입을 축하합니다!\n어떤 향을 좋아하세요?</string>
     <string name="survey_desc">취향을 선택하고 나에게 맞는 향수를\n추천 받아보세요!</string>
     <string name="txt_list_empty"> %1$s 리스트를 불러오지 못했어요.\n 잠시 후 다시 시도해주세요.</string>
     <string name="percentage">%s</string>
-    
+
     <!--new perfume-->
     <string name="txt_want_perfume_null">원하는 향수가 없으신가요?</string>
     <string name="txt_perfume_update_day">매주 수요일 업데이트</string>
@@ -70,7 +70,7 @@
     <string name="txt_home_subtitle_age_null">설정에서 연령을 선택하면 더 잘 맞는 향수를 보여드려요</string>
     <string name="txt_home_subtitle_gender_null">설정에서 성별을 선택하면 더 잘 맞는 향수를 보여드려요</string>
     <string name="txt_home_subtitle_age_gender_null">설정에서 연령과 성별을 선택하면 더 잘 맞는 향수를 보여드려요</string>
-    
+
     <!--etc-->
     <string name="txt_app_end_message">뒤로가기 버튼을 한 번 더 누르면 앱이 종료됩니다.</string>
 

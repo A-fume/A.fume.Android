@@ -89,6 +89,7 @@ object Dependencies {
     const val gms = "com.google.gms:google-services:${Versions.gms}"
     const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebase}"
     const val firebaseKtx = "com.google.firebase:firebase-analytics-ktx"
+    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx"
 
     /* EncryptedSharedPreferences */
     const val encryptedSharedPreferences = "androidx.security:security-crypto-ktx:${Versions.encryptedSharedPreferences}"
