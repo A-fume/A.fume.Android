@@ -15,6 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ScentsNoteAndroid"
         tools:replace="android:allowBackup,android:theme">
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${crashlyticsCollectionEnabled}" />
+
         <activity android:name="com.scentsnote.android.utils.base.BaseWebViewActivity" />
         <activity
             android:name="com.scentsnote.android.ui.splash.SplashActivity"
