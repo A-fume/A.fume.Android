@@ -60,7 +60,7 @@ class SearchFragment : Fragment() {
         initRvFilterList()
         initToolbar()
 
-        binding.fabFilter.setOnSafeClickListener {
+        binding.btnFilter.setOnSafeClickListener {
             openSelectFilters()
 
             firebaseAnalytics.setClickEvent("SearchFilterButton")
