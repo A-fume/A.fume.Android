@@ -21,6 +21,7 @@
     <string name="txt_perfume_update_day">매주 수요일 업데이트</string>
 
     <!--filter-->
+    <string name="txt_filter_refresh">재설정</string>
     <string name="filter_max_5">카테고리 당 최대 5개까지 중복 선택 가능 합니다.</string>
 
     <!--filter - series-->

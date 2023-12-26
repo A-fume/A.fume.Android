@@ -1,5 +1,6 @@
 package com.scentsnote.android.ui.filter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -87,8 +88,20 @@ class FilterFragment : Fragment() {
             firebaseAnalytics.setClickEvent("FilterPauseButton")
         }
 
-        binding.toolbarFilter.toolbar = R.drawable.icon_btn_cancel
-        binding.toolbarFilter.toolbartxt = "필터"
+        binding.toolbarFilter.apply {
+            toolbar = R.drawable.icon_btn_cancel
+            toolbartxt = "필터"
+        }
+
+        binding.btnFilterRefresh.setOnSafeClickListener {
+            binding.btnFilterApply.apply {
+                text = "적용"
+                isEnabled = false
+            }
+            seriesViewModel.clearSelectedList()
+            brandViewModel.clearSelectedList()
+            keywordViewModel.clearSelectedList()
+        }
     }
 
     private fun reqFilterGa(type: String, list : List<FilterInfoP>){
@@ -168,14 +181,18 @@ class FilterFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateApplyBtnText() {
         val totalCount = seriesViewModel.count + brandViewModel.count + keywordViewModel.count
-        binding.btnFilterApply.text =
+        binding.btnFilterApply.apply {
             if (totalCount == 0) {
-                "적용"
+                text = "적용"
+                isEnabled = false
             } else {
-                "적용($totalCount)"
+                text = "적용($totalCount)"
+                isEnabled = true
             }
+        }
     }
 
     private fun sendFilter() {
