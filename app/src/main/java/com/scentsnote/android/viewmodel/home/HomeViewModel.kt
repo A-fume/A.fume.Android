@@ -96,7 +96,7 @@ class HomeViewModel : ViewModel(){
     }
 
     val perfumeList = MutableLiveData(mutableListOf<PerfumeInfo>())
-    val perfumeLike: MutableLiveData<Boolean> = MutableLiveData()
+    val perfumeLike: MutableLiveData<Boolean?> = MutableLiveData()
 
     fun postPerfumeLike(type: Int, perfumeIdx: Int) {
         compositeDisposable.add(
