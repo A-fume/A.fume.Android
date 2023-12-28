@@ -1,12 +1,12 @@
 package com.scentsnote.android.ui.search
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.databinding.RvItemSearchFilterBinding
+import com.scentsnote.android.utils.etc.Log
 
 class SelectedFilterRecyclerViewAdapter(val btnCancel:(FilterInfoP)->Unit) :
     RecyclerView.Adapter<SelectedFilterRecyclerViewAdapter.SelectedFilterRecyclerViewHolder>() {

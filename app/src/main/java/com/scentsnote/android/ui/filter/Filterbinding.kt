@@ -1,6 +1,5 @@
 package com.scentsnote.android.ui.filter
 
-import android.util.Log
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -11,6 +10,7 @@ import com.scentsnote.android.ui.filter.brand.BrandRecyclerViewAdapter
 import com.scentsnote.android.ui.filter.incense.FilterSeriesViewData
 import com.scentsnote.android.ui.filter.incense.IngredientFlexboxAdapter
 import com.scentsnote.android.ui.filter.incense.SeriesViewAdapter
+import com.scentsnote.android.utils.etc.Log
 
 object FilterBinding {
 

@@ -3,7 +3,6 @@ package com.scentsnote.android.ui.filter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.badge.BadgeDrawable
-import com.google.firebase.analytics.ktx.logEvent
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.data.vo.request.FilterInfoP
@@ -20,6 +18,7 @@ import com.scentsnote.android.databinding.FragmentFilterBinding
 import com.scentsnote.android.ui.filter.brand.FilterBrandFragment
 import com.scentsnote.android.ui.filter.incense.FilterIncenseSeriesFragment
 import com.scentsnote.android.ui.filter.keyword.FilterKeywordFragment
+import com.scentsnote.android.utils.etc.Log
 import com.scentsnote.android.utils.extension.*
 import com.scentsnote.android.utils.extension.closeSelfWithAnimation
 import com.scentsnote.android.utils.extension.setOnSafeClickListener

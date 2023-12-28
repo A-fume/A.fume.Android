@@ -1,9 +1,9 @@
 package com.scentsnote.android.data.remote
 
-import android.util.Log
 import com.scentsnote.android.data.remote.network.ScentsNoteServiceImpl
 import com.scentsnote.android.data.vo.request.*
 import com.scentsnote.android.data.vo.response.*
+import com.scentsnote.android.utils.etc.Log
 
 class RemoteDataSourceImpl : RemoteDataSource{
     val api = ScentsNoteServiceImpl.service

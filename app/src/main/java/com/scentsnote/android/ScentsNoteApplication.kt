@@ -7,6 +7,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.scentsnote.android.data.local.preference.SharedPreferencesManager
+import com.scentsnote.android.utils.etc.Log
 
 class ScentsNoteApplication : Application() {
 
@@ -26,5 +27,7 @@ class ScentsNoteApplication : Application() {
         prefManager = SharedPreferencesManager(applicationContext)
         firebaseAnalytics = Firebase.analytics
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        Log.getInstance()
     }
 }

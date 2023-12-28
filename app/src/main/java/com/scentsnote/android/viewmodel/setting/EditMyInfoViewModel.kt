@@ -1,7 +1,6 @@
 package com.scentsnote.android.viewmodel.setting
 
 import android.os.Handler
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +10,7 @@ import com.scentsnote.android.data.repository.EditMyInfoRepository
 import com.scentsnote.android.data.repository.SignRepository
 import com.scentsnote.android.data.vo.request.RequestEditMyInfo
 import com.scentsnote.android.data.vo.request.RequestEditPassword
+import com.scentsnote.android.utils.etc.Log
 import com.scentsnote.android.utils.etc.SingleLiveEvent
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

@@ -22,6 +22,7 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.viewmodel.note.NoteViewModel
 import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.createListenerDialog
 import com.scentsnote.android.utils.extension.setPageViewEvent
 import com.scentsnote.android.utils.extension.toast
 import com.scentsnote.android.utils.view.CommonDialog

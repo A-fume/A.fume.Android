@@ -74,4 +74,7 @@ object Versions {
 
     // encryptedSharedPreferences
     const val encryptedSharedPreferences = "1.1.0-alpha03"
+
+    // logger
+    const val logger = "2.2.0"
 }

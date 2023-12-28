@@ -1,7 +1,6 @@
 package com.scentsnote.android.viewmodel.detail
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +12,7 @@ import com.scentsnote.android.data.vo.request.RequestReportReview
 import com.scentsnote.android.data.vo.response.PerfumeDetail
 import com.scentsnote.android.data.vo.response.PerfumeDetailWithReviews
 import com.scentsnote.android.data.vo.response.RecommendPerfumeItem
+import com.scentsnote.android.utils.etc.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

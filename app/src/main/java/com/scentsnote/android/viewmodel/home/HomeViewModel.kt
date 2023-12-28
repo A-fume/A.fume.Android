@@ -1,6 +1,5 @@
 package com.scentsnote.android.viewmodel.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +9,7 @@ import com.scentsnote.android.data.repository.HomeRepository
 import com.scentsnote.android.data.vo.response.HomePerfumeItem
 import com.scentsnote.android.data.vo.response.PerfumeInfo
 import com.scentsnote.android.data.vo.response.RecommendPerfumeItem
+import com.scentsnote.android.utils.etc.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

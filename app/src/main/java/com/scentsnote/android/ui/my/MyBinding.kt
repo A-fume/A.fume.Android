@@ -1,13 +1,12 @@
 package com.scentsnote.android.ui.my
 
-import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.scentsnote.android.data.vo.response.PerfumeInfo
 import com.scentsnote.android.data.vo.response.ResponseMyPerfume
 import com.scentsnote.android.data.vo.response.WishPerfume
 import com.scentsnote.android.ui.my.myperfume.MyPerfumeRecyclerViewAdapter
 import com.scentsnote.android.ui.my.wishlist.WishListAdapter
+import com.scentsnote.android.utils.etc.Log
 
 object MyBinding {
     @JvmStatic

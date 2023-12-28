@@ -5,7 +5,6 @@ import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import androidx.fragment.app.DialogFragment
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.DialogYearPickerBinding
 import com.google.android.material.button.MaterialButton
+import com.scentsnote.android.utils.etc.Log
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.extension.setDrawable
 import com.scentsnote.android.utils.extension.setHeight

@@ -1,12 +1,12 @@
 package com.scentsnote.android.viewmodel.splash
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.scentsnote.android.BuildConfig
 import com.scentsnote.android.data.repository.SplashRepository
+import com.scentsnote.android.utils.etc.Log
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

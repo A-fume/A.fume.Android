@@ -1,6 +1,5 @@
 package com.scentsnote.android.ui.filter.incense
-
-import android.util.Log
+import com.scentsnote.android.utils.etc.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -8,10 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.RvItemSeriesIngredientFilterBinding
-import com.scentsnote.android.utils.extension.copy
-import com.scentsnote.android.utils.extension.isAllType
-import com.scentsnote.android.utils.extension.isSameContent
-import com.scentsnote.android.utils.extension.setOnSafeClickListener
+import com.scentsnote.android.utils.extension.*
 import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
 
 class IngredientFlexboxAdapter(

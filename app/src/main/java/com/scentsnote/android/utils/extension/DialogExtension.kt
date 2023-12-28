@@ -1,4 +1,4 @@
-package com.scentsnote.android.utils
+package com.scentsnote.android.utils.extension
 
 import android.content.Context
 import android.os.Bundle

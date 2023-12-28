@@ -13,16 +13,12 @@ import com.scentsnote.android.databinding.ActivityPerfumeDetailBinding
 import com.scentsnote.android.ui.detail.info.DetailInfoFragment
 import com.scentsnote.android.ui.detail.note.DetailNoteFragment
 import com.scentsnote.android.ui.note.NoteActivity
-import com.scentsnote.android.utils.*
 import com.bumptech.glide.Glide
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 import com.scentsnote.android.utils.adapter.BindingAdapter.setNoteBtnText
-import com.scentsnote.android.utils.extension.changeTabsFont
-import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.base.BaseActivity
-import com.scentsnote.android.utils.extension.setPageViewEvent
-import com.scentsnote.android.utils.extension.toast
+import com.scentsnote.android.utils.extension.*
 import com.scentsnote.android.utils.listener.TabSelectedListener
 
 /**

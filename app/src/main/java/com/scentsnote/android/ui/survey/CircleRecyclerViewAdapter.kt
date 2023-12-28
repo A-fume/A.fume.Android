@@ -1,6 +1,5 @@
 package com.scentsnote.android.ui.survey
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import com.scentsnote.android.data.vo.response.PerfumeInfo
 import com.scentsnote.android.data.vo.response.SeriesInfo
 import com.scentsnote.android.databinding.RvItemSurveyCircleBinding
 import com.scentsnote.android.databinding.RvItemSurveySeriesBinding
+import com.scentsnote.android.utils.etc.Log
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class CircleRecyclerViewAdapter(private val type:Int, val add:(Int)->Unit, val remove:(Int)->Unit):RecyclerView.Adapter<RecyclerView.ViewHolder>(){

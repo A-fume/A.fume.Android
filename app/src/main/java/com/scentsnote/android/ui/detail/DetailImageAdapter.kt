@@ -1,7 +1,6 @@
 package com.scentsnote.android.ui.detail
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -9,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scentsnote.android.R
 import com.scentsnote.android.databinding.RvItemDetailImageBinding
 import com.bumptech.glide.Glide
+import com.scentsnote.android.utils.etc.Log
 
 class DetailImageAdapter(val context: Context) : RecyclerView.Adapter<DetailImageViewHolder>() {
     var data = mutableListOf<String>()

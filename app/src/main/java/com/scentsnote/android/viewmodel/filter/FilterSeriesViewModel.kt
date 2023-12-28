@@ -1,6 +1,5 @@
 package com.scentsnote.android.viewmodel.filter
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,7 @@ import com.scentsnote.android.data.repository.FilterRepository
 import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.ui.filter.incense.FilterSeriesViewData
+import com.scentsnote.android.utils.etc.Log
 import com.scentsnote.android.utils.extension.copy
 import com.scentsnote.android.utils.extension.removeSeries
 import com.scentsnote.android.utils.extension.removeSeriesAllType

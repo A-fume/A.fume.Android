@@ -2,7 +2,6 @@ package com.scentsnote.android.ui.my.myperfume
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import com.scentsnote.android.databinding.FragmentMyPerfumeBinding
 import com.scentsnote.android.databinding.LayoutPleaseLoginBinding
 import com.scentsnote.android.viewmodel.my.MyViewModel
 import com.scentsnote.android.ui.signin.SignHomeActivity
+import com.scentsnote.android.utils.etc.Log
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import kotlinx.coroutines.launch
 
