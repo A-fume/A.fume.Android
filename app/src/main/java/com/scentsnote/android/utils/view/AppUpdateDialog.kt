@@ -50,6 +50,9 @@ class AppUpdateDialog: DialogFragment(), View.OnClickListener {
             "error" -> {
                 setContents(getString(R.string.dialog_network_error), "확인")
             }
+            "rooting" -> {
+                setContents(getString(R.string.dialog_rooting), "확인")
+            }
         }
         binding.btnConfirm.setOnSafeClickListener {
             dismiss()
