@@ -113,7 +113,6 @@ class FilterBrandFragment : Fragment() {
     }
 
     fun resetBrandList(){
-//        updateContents(binding.tabBrand.getTabAt(binding.tabBrand.selectedTabPosition))
         brandAdapter.notifyDataSetChanged()
     }
 }

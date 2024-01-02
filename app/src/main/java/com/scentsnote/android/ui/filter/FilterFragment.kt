@@ -62,6 +62,28 @@ class FilterFragment : Fragment() {
         initView()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                closeSelfWithAnimation()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        firebaseAnalytics.setPageViewEvent("Filter", this::class.java.name)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onBackPressedCallback.remove()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -97,11 +119,7 @@ class FilterFragment : Fragment() {
                 text = "적용"
                 isEnabled = false
             }
-            seriesViewModel.clearSelectedList()
-            brandViewModel.resetSelectedBrandList()
-            val fragment = filterViewPagerAdapter.getItem(1) as FilterBrandFragment
-            fragment.resetBrandList()
-            keywordViewModel.clearSelectedList()
+            resetFilter()
         }
     }
 
@@ -111,26 +129,15 @@ class FilterFragment : Fragment() {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    private fun resetFilter(){
+        seriesViewModel.clearSelectedList()
+        brandViewModel.resetSelectedBrandList()
+        keywordViewModel.resetSelectedKeywordList()
 
-        onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                closeSelfWithAnimation()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        firebaseAnalytics.setPageViewEvent("Filter", this::class.java.name)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        onBackPressedCallback.remove()
+        val brandFragment = filterViewPagerAdapter.getItem(1) as FilterBrandFragment
+        brandFragment.resetBrandList()
+        val keywordFragment = filterViewPagerAdapter.getItem(2) as FilterKeywordFragment
+        keywordFragment.resetKeywordList()
     }
 
     private fun initViewPager() {

@@ -9,3 +9,9 @@ internal fun MutableList<KeywordInfo>.removeKeyword(keywordInfo: KeywordInfo) {
     keyword?.checked = false
     this.remove(keyword)
 }
+
+internal fun MutableList<KeywordInfo>.resetKeyword(){
+    this.forEach {
+        it.checked = false
+    }
+}

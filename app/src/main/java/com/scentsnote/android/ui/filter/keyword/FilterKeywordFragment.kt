@@ -23,8 +23,10 @@ import com.scentsnote.android.viewmodel.filter.FilterKeywordViewModel
  * 키워드 리스트 제공
  */
 class FilterKeywordFragment : Fragment() {
-    private lateinit var binding: FragmentFilterKeywordBinding
     private val viewModel: FilterKeywordViewModel by activityViewModels()
+
+    private lateinit var binding: FragmentFilterKeywordBinding
+    private lateinit var keywordAdapter: FlexboxRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,7 +66,7 @@ class FilterKeywordFragment : Fragment() {
             alignItems = AlignItems.STRETCH
         }
 
-        val keywordAdapter = FlexboxRecyclerViewAdapter(
+        keywordAdapter = FlexboxRecyclerViewAdapter(
             select = { info, selected -> viewModel.selectKeywordList(info, selected) },
             isOverSelectLimit = { viewModel.isOverSelectLimit() }
         )
@@ -86,6 +88,10 @@ class FilterKeywordFragment : Fragment() {
 
     fun observeBlockClickMoreThan5() {
         // TODO remove
+    }
+
+    fun resetKeywordList(){
+        keywordAdapter.notifyDataSetChanged()
     }
 
 }

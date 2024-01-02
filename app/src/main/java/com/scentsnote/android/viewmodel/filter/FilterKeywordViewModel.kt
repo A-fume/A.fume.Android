@@ -9,6 +9,8 @@ import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.response.KeywordInfo
 import com.scentsnote.android.utils.extension.removeKeyword
+import com.scentsnote.android.utils.extension.resetBrand
+import com.scentsnote.android.utils.extension.resetKeyword
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -66,6 +68,11 @@ class FilterKeywordViewModel(
     fun removeFromSelectedList(filterInfoP: FilterInfoP) {
         selectedKeywordList.removeKeyword(KeywordInfo(filterInfoP.name, filterInfoP.idx))
         _selectedCount.value = selectedKeywordList.size
+    }
+
+    fun resetSelectedKeywordList(){
+        selectedKeywordList.resetKeyword()
+        clearSelectedList()
     }
 
     companion object {
