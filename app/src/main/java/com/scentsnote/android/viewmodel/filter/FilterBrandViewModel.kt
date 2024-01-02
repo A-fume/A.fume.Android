@@ -10,6 +10,7 @@ import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.response.BrandInfo
 import com.scentsnote.android.utils.etc.Log
 import com.scentsnote.android.utils.extension.removeBrand
+import com.scentsnote.android.utils.extension.resetBrand
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -65,6 +66,11 @@ class FilterBrandViewModel(
     fun removeFromSelectedList(filterInfoP: FilterInfoP) {
        selectedBrandList.removeBrand(BrandInfo(filterInfoP.idx, filterInfoP.name))
         _selectedCount.value = selectedBrandList.size
+    }
+
+    fun resetSelectedBrandList(){
+        selectedBrandList.resetBrand()
+        clearSelectedList()
     }
 
     private fun fetchBrands() {

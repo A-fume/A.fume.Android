@@ -98,7 +98,9 @@ class FilterFragment : Fragment() {
                 isEnabled = false
             }
             seriesViewModel.clearSelectedList()
-            brandViewModel.clearSelectedList()
+            brandViewModel.resetSelectedBrandList()
+            val fragment = filterViewPagerAdapter.getItem(1) as FilterBrandFragment
+            fragment.resetBrandList()
             keywordViewModel.clearSelectedList()
         }
     }

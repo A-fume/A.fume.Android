@@ -111,4 +111,9 @@ class FilterBrandFragment : Fragment() {
         intent.putExtra("url", "tipOff")
         startActivity(intent)
     }
+
+    fun resetBrandList(){
+//        updateContents(binding.tabBrand.getTabAt(binding.tabBrand.selectedTabPosition))
+        brandAdapter.notifyDataSetChanged()
+    }
 }
