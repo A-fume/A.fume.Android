@@ -130,10 +130,8 @@ class FilterFragment : Fragment() {
     }
 
     private fun resetFilter(){
-        seriesViewModel.clearSelectedList()
-        brandViewModel.resetSelectedBrandList()
-        keywordViewModel.resetSelectedKeywordList()
-
+        val seriesFragment = filterViewPagerAdapter.getItem(0) as FilterIncenseSeriesFragment
+        seriesFragment.resetSeriesList()
         val brandFragment = filterViewPagerAdapter.getItem(1) as FilterBrandFragment
         brandFragment.resetBrandList()
         val keywordFragment = filterViewPagerAdapter.getItem(2) as FilterKeywordFragment

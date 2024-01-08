@@ -9,6 +9,7 @@ import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.ui.filter.incense.FilterSeriesViewData
 import com.scentsnote.android.utils.etc.Log
+import com.scentsnote.android.utils.extension.*
 import com.scentsnote.android.utils.extension.copy
 import com.scentsnote.android.utils.extension.removeSeries
 import com.scentsnote.android.utils.extension.removeSeriesAllType
@@ -41,6 +42,11 @@ class FilterSeriesViewModel(
     fun clearSelectedList() {
         selectedSeriesList.clear()
         _selectedCount.value = selectedSeriesList.size
+    }
+
+    fun resetSelectedSeriesList(){
+        selectedSeriesList.resetSeries()
+        clearSelectedList()
     }
 
     private fun getParentSeries(ingredient: FilterSeriesViewData.FilterSeriesIngredient): FilterSeriesViewData.FilterSeriesAllType? {

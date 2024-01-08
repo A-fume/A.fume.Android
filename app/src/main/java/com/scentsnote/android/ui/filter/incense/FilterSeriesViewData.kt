@@ -7,12 +7,12 @@ import com.scentsnote.android.utils.extension.isAllType
 sealed class FilterSeriesViewData(
     open val index: Int,
     open val name: String,
-    open val isChecked: Boolean = false
+    open var isChecked: Boolean = false
 ) {
     data class FilterSeriesAllType(
         override val index: Int,
         override val name: String,
-        override val isChecked: Boolean = false,
+        override var isChecked: Boolean = false,
         val ingredientIndices: List<Int>,
     ) : FilterSeriesViewData(index, name, isChecked) {
         companion object {
@@ -35,7 +35,7 @@ sealed class FilterSeriesViewData(
     data class FilterSeriesIngredient(
         override val index: Int,
         override val name: String,
-        override val isChecked: Boolean = false,
+        override var isChecked: Boolean = false,
         val seriesIndex: Int
     ) : FilterSeriesViewData(index, name, isChecked)
 

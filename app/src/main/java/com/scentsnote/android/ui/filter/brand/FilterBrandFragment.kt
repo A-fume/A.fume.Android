@@ -113,6 +113,7 @@ class FilterBrandFragment : Fragment() {
     }
 
     fun resetBrandList(){
+        viewModel.resetSelectedBrandList()
         brandAdapter.notifyDataSetChanged()
     }
 }

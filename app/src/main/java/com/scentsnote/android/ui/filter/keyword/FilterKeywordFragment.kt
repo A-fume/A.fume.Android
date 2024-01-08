@@ -91,6 +91,7 @@ class FilterKeywordFragment : Fragment() {
     }
 
     fun resetKeywordList(){
+        viewModel.resetSelectedKeywordList()
         keywordAdapter.notifyDataSetChanged()
     }
 

@@ -19,6 +19,7 @@ import com.scentsnote.android.viewmodel.filter.FilterSeriesViewModel
 class FilterIncenseSeriesFragment : Fragment() {
     private lateinit var binding: FragmentFilterIncenseSeriesBinding
     private val viewModel: FilterSeriesViewModel by activityViewModels()
+    private lateinit var seriesAdapter: SeriesViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,10 +48,15 @@ class FilterIncenseSeriesFragment : Fragment() {
     }
 
     private fun initIncenseSeriesRv() {
-        val seriesAdapter = SeriesViewAdapter(viewModel)
+        seriesAdapter = SeriesViewAdapter(viewModel)
         binding.rvIncenseSeries.adapter = seriesAdapter
         viewModel.dataFetched.observe(viewLifecycleOwner) {
             seriesAdapter.submitList(viewModel.getFilterSeriesViewData())
         }
+    }
+
+    fun resetSeriesList(){
+        viewModel.resetSelectedSeriesList()
+        seriesAdapter.notifyDataSetChanged()
     }
 }
