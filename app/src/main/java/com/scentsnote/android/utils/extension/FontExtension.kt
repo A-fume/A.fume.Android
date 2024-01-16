@@ -29,3 +29,13 @@ fun CheckedTextView.setSelectedSeasonBtn(isChecked: Boolean){
         this.setTextColor(ContextCompat.getColor(this.context, R.color.dark_gray_7d))
     }
 }
+
+fun TextView.setSelectedTabTxt(isBold: Boolean){
+    if(isBold){
+        this.typeface = ResourcesCompat.getFont(this.context, R.font.notosans_bold)
+        this.setTextColor(ContextCompat.getColor(this.context, R.color.primary_black))
+    }else{
+        this.typeface = ResourcesCompat.getFont(this.context, R.font.notosans_regular)
+        this.setTextColor(ContextCompat.getColor(this.context, R.color.gray_cd))
+    }
+}

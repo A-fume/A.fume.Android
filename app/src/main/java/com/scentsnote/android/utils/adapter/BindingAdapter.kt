@@ -16,6 +16,7 @@ import androidx.databinding.InverseBindingListener
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
 import com.bumptech.glide.Glide
+import com.scentsnote.android.utils.extension.setSelectedTabTxt
 
 object BindingAdapter {
 
@@ -236,6 +237,12 @@ object BindingAdapter {
         }else{
             setPadding(0, 0, 0,0)
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setDetailReviewContent")
+    fun TextView.setSelectedTab(status: Boolean){
+        setSelectedTabTxt(status)
     }
 
 

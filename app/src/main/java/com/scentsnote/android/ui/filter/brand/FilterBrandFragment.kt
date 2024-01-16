@@ -10,11 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scentsnote.android.databinding.FragmentFilterBrandBinding
-import com.google.android.material.tabs.TabLayout
 import com.scentsnote.android.utils.base.BaseWebViewActivity
-import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
+import com.scentsnote.android.data.vo.response.BrandTab
 import com.scentsnote.android.utils.extension.setPageViewEvent
 
 /**
@@ -27,6 +26,7 @@ class FilterBrandFragment : Fragment() {
 
     private lateinit var binding: FragmentFilterBrandBinding
     private lateinit var brandAdapter: BrandRecyclerViewAdapter
+    private lateinit var brandTabAdapter : BrandTabRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +38,6 @@ class FilterBrandFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeTab()
-        setTabClickEvent()
         initBrandRvItem(context)
     }
 
@@ -58,17 +57,23 @@ class FilterBrandFragment : Fragment() {
     }
 
     private fun observeTab() {
-        viewModel.brandTabOrders.observe(viewLifecycleOwner) {
-            initBrandTab()
+        viewModel.brandTabList.observe(viewLifecycleOwner) {
+            initBrandTab(context, it)
         }
     }
 
-    private fun initBrandTab() {
-        binding.tabBrand.removeAllTabs()
-        viewModel.brandTabOrders.value?.forEach { b ->
-            binding.tabBrand.addTab(binding.tabBrand.newTab().setText(b))
+    private fun initBrandTab(ctx: Context?, brandTab: MutableList<BrandTab>) {
+        brandTabAdapter = BrandTabRecyclerViewAdapter(brandTab)
+        binding.rvFilterBrandTab.apply {
+            adapter = brandTabAdapter
+            layoutManager = LinearLayoutManager(ctx)
         }
-        binding.tabBrand.changeTabsFont(0)
+        updateContents(0)
+        brandTabAdapter.itemClickListener = object : BrandTabRecyclerViewAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                updateContents(position)
+            }
+        }
     }
 
     private fun initBrandRvItem(ctx: Context?) {
@@ -79,24 +84,7 @@ class FilterBrandFragment : Fragment() {
         }
     }
 
-    private fun setTabClickEvent() {
-        val tabBrand = binding.tabBrand
-        tabBrand.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) = Unit
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                updateContents(tab)
-                tab?.position?.let {
-                    tabBrand.changeTabsFont(it)
-                }
-            }
-        })
-    }
-
-    fun updateContents(tab: TabLayout.Tab?) {
-        val tabIndex = tab?.position ?: return
+    fun updateContents(tabIndex: Int) {
         val brandInitial = viewModel.brandTabOrders.value?.get(tabIndex)
         if (brandInitial != null) bindBrandInitial(brandInitial)
     }

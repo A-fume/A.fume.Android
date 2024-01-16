@@ -8,6 +8,7 @@ import com.scentsnote.android.data.repository.FilterRepository
 import com.scentsnote.android.data.vo.request.FilterInfoP
 import com.scentsnote.android.data.vo.request.FilterType
 import com.scentsnote.android.data.vo.response.BrandInfo
+import com.scentsnote.android.data.vo.response.BrandTab
 import com.scentsnote.android.utils.etc.Log
 import com.scentsnote.android.utils.extension.removeBrand
 import com.scentsnote.android.utils.extension.resetBrand
@@ -24,12 +25,15 @@ class FilterBrandViewModel(
         get() = _brandMap
     val brandTabOrders: LiveData<MutableList<String>>
         get() = _brandTabOrders
+    val brandTabList: LiveData<MutableList<BrandTab>>
+        get() = _brandTabList
     val selectedCount: LiveData<Int>
         get() = _selectedCount
 
     private val _brandMap: MutableLiveData<MutableMap<String, MutableList<BrandInfo>>> =
         MutableLiveData(mutableMapOf())
     private val _brandTabOrders: MutableLiveData<MutableList<String>> = MutableLiveData()
+    private val _brandTabList: MutableLiveData<MutableList<BrandTab>> = MutableLiveData()
     private val _selectedCount = MutableLiveData(0)
 
     private val selectedBrandList = mutableListOf<BrandInfo>()
@@ -85,10 +89,19 @@ class FilterBrandViewModel(
                 }
                 _brandMap.value = tempMap
                 _brandTabOrders.value = mapOrders.sorted().toMutableList()
+                setBrandTab()
             } catch (e: HttpException) {
                 Log.e(TAG, e.stackTraceToString())
             }
         }
+    }
+
+    private fun setBrandTab(){
+        val tempTab = mutableListOf<BrandTab>()
+        _brandTabOrders.value?.forEach {
+            tempTab.add(BrandTab(it, false))
+        }
+        _brandTabList.value = tempTab
     }
 
     companion object {
