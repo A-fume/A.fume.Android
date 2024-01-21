@@ -37,5 +37,5 @@ data class BrandInfo(
 
 data class BrandTab(
     val name: String,
-    var selected: Boolean=false
+    var isSelected: Boolean=false
 )

@@ -14,7 +14,7 @@
         android:layout_height="36dp">
 
         <TextView
-            android:id="@+id/textView39"
+            android:id="@+id/tabName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{item.name}"

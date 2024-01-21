@@ -101,6 +101,7 @@ class FilterBrandViewModel(
         _brandTabOrders.value?.forEach {
             tempTab.add(BrandTab(it, false))
         }
+        tempTab[0].isSelected = true
         _brandTabList.value = tempTab
     }
 

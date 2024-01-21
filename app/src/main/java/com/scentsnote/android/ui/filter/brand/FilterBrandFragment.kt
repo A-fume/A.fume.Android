@@ -63,7 +63,7 @@ class FilterBrandFragment : Fragment() {
     }
 
     private fun initBrandTab(ctx: Context?, brandTab: MutableList<BrandTab>) {
-        brandTabAdapter = BrandTabRecyclerViewAdapter(brandTab)
+        brandTabAdapter = BrandTabRecyclerViewAdapter(brandTab, viewModel)
         binding.rvFilterBrandTab.apply {
             adapter = brandTabAdapter
             layoutManager = LinearLayoutManager(ctx)
