@@ -14,6 +14,7 @@ import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.viewmodel.filter.FilterBrandViewModel
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.data.vo.response.BrandTab
+import com.scentsnote.android.utils.etc.Log
 import com.scentsnote.android.utils.extension.setPageViewEvent
 
 /**

@@ -92,6 +92,7 @@ class FilterFragment : Fragment() {
     private fun initView() {
         binding.btnFilterApply.setOnSafeClickListener {
             sendFilter()
+            brandViewModel.setBrandTab()
 
             firebaseAnalytics.setClickEvent("FilterActionButton")
 
@@ -105,6 +106,7 @@ class FilterFragment : Fragment() {
         }
         binding.toolbarFilter.toolbarBtn.setOnSafeClickListener {
             closeSelfWithAnimation()
+            brandViewModel.setBrandTab()
 
             firebaseAnalytics.setClickEvent("FilterPauseButton")
         }

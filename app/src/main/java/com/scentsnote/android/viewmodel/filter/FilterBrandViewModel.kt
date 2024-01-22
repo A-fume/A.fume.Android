@@ -96,7 +96,7 @@ class FilterBrandViewModel(
         }
     }
 
-    private fun setBrandTab(){
+    fun setBrandTab(){
         val tempTab = mutableListOf<BrandTab>()
         _brandTabOrders.value?.forEach {
             tempTab.add(BrandTab(it, false))
