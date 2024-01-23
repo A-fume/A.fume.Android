@@ -9,3 +9,9 @@ internal fun MutableList<BrandInfo>.removeBrand(brandInfo: BrandInfo) {
     brand?.check = false
     this.remove(brand)
 }
+
+internal fun MutableList<BrandInfo>.resetBrand(){
+    this.forEach {
+        it.check = false
+    }
+}

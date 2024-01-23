@@ -19,6 +19,12 @@ internal fun MutableList<FilterSeriesViewData>.removeSeries(seriesViewData: Filt
     this.remove(series)
 }
 
+internal fun MutableList<FilterSeriesViewData>.resetSeries() {
+    this.forEach {
+        it.isChecked = false
+    }
+}
+
 internal fun FilterSeriesViewData.copy(
 ): FilterSeriesViewData {
     return when (this) {

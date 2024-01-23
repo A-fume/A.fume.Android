@@ -93,4 +93,7 @@ object Dependencies {
 
     /* EncryptedSharedPreferences */
     const val encryptedSharedPreferences = "androidx.security:security-crypto-ktx:${Versions.encryptedSharedPreferences}"
+
+    /* Logger */
+    const val logger = "com.orhanobut:logger:${Versions.logger}"
 }

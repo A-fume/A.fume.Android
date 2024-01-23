@@ -1,6 +1,5 @@
 package com.scentsnote.android.viewmodel.note
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +12,7 @@ import com.scentsnote.android.data.vo.response.BrandItem
 import com.scentsnote.android.data.vo.response.KeywordInfo
 import com.scentsnote.android.data.vo.response.PerfumeItem
 import com.scentsnote.android.data.vo.response.ResponseReview
+import com.scentsnote.android.utils.etc.Log
 import com.scentsnote.android.utils.etc.SingleLiveEvent
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

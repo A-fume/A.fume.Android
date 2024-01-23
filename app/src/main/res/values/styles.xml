@@ -113,6 +113,11 @@
         <item name="android:backgroundTint">@color/white</item>
     </style>
 
+    <style name="FilterButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/notosans_regular</item>
+        <item name="android:textSize">11dp</item>
+    </style>
+
     <!-- TODO Button 아토믹화 필요 -->
     <style name="CommonButton.Login" parent="CommonButton.Black">
         <item name="android:layout_height">52dp</item>

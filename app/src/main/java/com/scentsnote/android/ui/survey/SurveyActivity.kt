@@ -8,10 +8,10 @@ import com.scentsnote.android.databinding.ActivitySurveyBinding
 import com.scentsnote.android.ui.MainActivity
 import com.scentsnote.android.ui.filter.ScentsNoteViewPagerAdapter
 import com.scentsnote.android.viewmodel.survey.SurveyViewModel
-import com.scentsnote.android.utils.*
 import com.scentsnote.android.utils.extension.changeTabsFont
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.extension.createListenerDialog
 import com.scentsnote.android.utils.extension.startActivityWithFinish
 import com.scentsnote.android.utils.listener.TabSelectedListener
 

@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">Scents Note</string>
+    <!--Rooting-->
+    <string-array name="rooting_file_list">
+        <item>/sbin/su</item>
+        <item>/system/su</item>
+        <item>/system/sbin/su</item>
+        <item>/system/xbin/su</item>
+        <item>/data/data/com.noshufou.android.su</item>
+        <item>/system/app/SuperUser.apk</item>
+    </string-array>
+    <string name="str_pass">su</string>
+    <string name="dialog_rooting">루팅 모드가 의심되어 앱을 종료합니다.\n변경된 OS(\'탈옥\'등)의 스마트폰은\n서비스를 이용할 수 없습니다.</string>
 
     <!--dialog-->
     <string name="dialog_login">로그인 후 사용 가능합니다.\n로그인을 해주세요.</string>
@@ -21,6 +32,7 @@
     <string name="txt_perfume_update_day">매주 수요일 업데이트</string>
 
     <!--filter-->
+    <string name="txt_filter_refresh">재설정</string>
     <string name="filter_max_5">카테고리 당 최대 5개까지 중복 선택 가능 합니다.</string>
 
     <!--filter - series-->

@@ -1,6 +1,5 @@
 package com.scentsnote.android.viewmodel.my
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,7 @@ import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.data.repository.MyRepository
 import com.scentsnote.android.data.vo.response.ResponseMyPerfume
 import com.scentsnote.android.data.vo.response.WishPerfume
+import com.scentsnote.android.utils.etc.Log
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 

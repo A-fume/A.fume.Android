@@ -1,6 +1,5 @@
 package com.scentsnote.android.viewmodel.survey
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +9,7 @@ import com.scentsnote.android.data.vo.request.RequestSurvey
 import com.scentsnote.android.data.vo.response.KeywordInfo
 import com.scentsnote.android.data.vo.response.PerfumeInfo
 import com.scentsnote.android.data.vo.response.SeriesInfo
+import com.scentsnote.android.utils.etc.Log
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 

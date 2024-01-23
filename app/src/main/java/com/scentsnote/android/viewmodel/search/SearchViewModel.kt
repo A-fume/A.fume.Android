@@ -1,7 +1,6 @@
 package com.scentsnote.android.viewmodel.search
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +15,7 @@ import com.scentsnote.android.data.vo.request.RequestSearch
 import com.scentsnote.android.data.vo.request.SendFilter
 import com.scentsnote.android.data.vo.response.PerfumeInfo
 import com.scentsnote.android.ui.search.SearchFragmentType
+import com.scentsnote.android.utils.etc.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

@@ -13,7 +13,7 @@ import com.scentsnote.android.R
 import com.scentsnote.android.data.vo.response.HomePerfumeItem
 import com.scentsnote.android.databinding.RvItemHomeRecentBinding
 import com.scentsnote.android.ui.detail.PerfumeDetailActivity
-import com.scentsnote.android.utils.createDialog
+import com.scentsnote.android.utils.extension.createDialog
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 
 class RecentListAdapter(private val context: Context, private val fragmentManager: FragmentManager, val clickBtnLike:(Int)->Unit) : RecyclerView.Adapter<RecentListAdapter.RecentListViewHolder>() {

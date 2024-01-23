@@ -1,7 +1,6 @@
 package com.scentsnote.android.viewmodel.signup
 
 import android.os.Handler
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.data.repository.SignRepository
 import com.scentsnote.android.data.vo.request.RequestRegister
+import com.scentsnote.android.utils.etc.Log
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.regex.Pattern
