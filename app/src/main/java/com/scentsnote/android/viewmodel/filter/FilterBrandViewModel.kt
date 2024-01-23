@@ -62,6 +62,10 @@ class FilterBrandViewModel(
         return selectedBrandList.map { FilterInfoP(it.brandIdx, it.name, FilterType.Brand) }
     }
 
+    fun getSelectedBrandsName() : String{
+        return selectedBrandList.map { it.name }.toString()
+    }
+
     fun clearSelectedList() {
         selectedBrandList.clear()
         _selectedCount.value = selectedBrandList.size

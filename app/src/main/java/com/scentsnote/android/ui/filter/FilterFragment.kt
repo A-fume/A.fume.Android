@@ -100,9 +100,9 @@ class FilterFragment : Fragment() {
             reqFilterGa("apply_brand", brandViewModel.getSelectedBrands())
             reqFilterGa("apply_bonding", keywordViewModel.getSelectedKeywords())
 
-            Log.d("명_계열",seriesViewModel.getSelectedSeries().map { it.name }.toString())
-            Log.d("명_브랜드",brandViewModel.getSelectedBrands().map { it.name }.toString())
-            Log.d("명_키워드",keywordViewModel.getSelectedKeywords().map { it.name }.toString())
+            Log.d("GA 필터 - 계열", seriesViewModel.getSelectedSeries().map { it.name }.toString())
+            Log.d("GA 필터 - 브랜드", brandViewModel.getSelectedBrands().map { it.name }.toString())
+            Log.d("GA 필터 - 키워드", keywordViewModel.getSelectedKeywords().map { it.name }.toString())
         }
         binding.toolbarFilter.toolbarBtn.setOnSafeClickListener {
             closeSelfWithAnimation()
@@ -212,7 +212,10 @@ class FilterFragment : Fragment() {
         val filterInfoPList = seriesViewModel.getSelectedSeries() +
                 brandViewModel.getSelectedBrands() +
                 keywordViewModel.getSelectedKeywords()
-        firebaseAnalytics.setOneParamClickEvent("kind_of_filter", "kind_of_filter_name", filterInfoPList.toString())
+        val filterInfoNameList = seriesViewModel.getSelectedSeriesName()+
+                brandViewModel.getSelectedBrandsName() +
+                keywordViewModel.getSelectedKeywordsName()
+        firebaseAnalytics.setOneParamClickEvent("kind_of_filter", "kind_of_filter_name", filterInfoNameList)
         return SendFilter(
             filterInfoPList.toMutableList(),
             mutableMapOf() // TODO
