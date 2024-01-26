@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/scents_note_ui_color_point_beige" />
+    <stroke
+        android:width="@dimen/scents_note_ui_select_box_stroke_width"
+        android:color="@color/scents_note_ui_color_point_beige" />
+</shape>

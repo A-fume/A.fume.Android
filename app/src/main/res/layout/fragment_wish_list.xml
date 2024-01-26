@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.scentsnote.android.viewmodel.my.MyViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.my.wishlist.WishListFragment">
+
+        <ImageView
+            android:id="@+id/img_wishlist_null"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="150dp"
+            android:visibility="@{viewModel.isValidWishList? View.GONE : View.VISIBLE}"
+            android:src="@drawable/icon_heart_favorite_inactive"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_wishlist_null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/notosans_regular"
+            android:gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:visibility="@{viewModel.isValidWishList? View.GONE : View.VISIBLE}"
+            android:text="@string/txt_wish_list_null"
+            android:textColor="@color/gray_cd"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_wishlist_null" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_wishlist"
+            setWishList="@{viewModel.wishList}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            android:overScrollMode="never"
+            android:visibility="@{viewModel.isValidWishList? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/rv_item_my_wishlist" >
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

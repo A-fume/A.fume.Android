@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="chartData"
+            type="Float" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/rv_item_chart_bar_vertical"
+            android:layout_width="25dp"
+            android:layout_height="82dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/point_beige_accent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rv_item_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="매우 약함"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="@+id/rv_item_chart_bar_vertical"
+            app:layout_constraintStart_toStartOf="@+id/rv_item_chart_bar_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/rv_item_chart_bar_vertical" />
+
+        <TextView
+            android:id="@+id/rv_item_txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="1시간 이내"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="11dp"
+            app:layout_constraintEnd_toEndOf="@+id/rv_item_label"
+            app:layout_constraintStart_toStartOf="@+id/rv_item_label"
+            app:layout_constraintTop_toBottomOf="@+id/rv_item_label" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

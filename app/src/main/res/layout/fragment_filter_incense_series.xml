@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_gray_f9">
+
+        <TextView
+            android:id="@+id/txt_filter_desc"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@color/light_gray_f0"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:gravity="center"
+            android:text="@string/filter_max_5"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_incense_series"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_filter_desc"
+            tools:listitem="@layout/rv_item_filter_series" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.scentsnote.android.data.vo.response.PerfumeDetailWithReviews" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_gray_cd_line_square">
+
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_quotes" />
+
+        <ImageView
+            android:id="@+id/btn_like"
+            setLikeList="@{item.isLiked}"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+            app:layout_constraintEnd_toStartOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            app:srcCompat="@drawable/favorite_inactive" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@{Integer.toString(item.likeCount)}"
+            android:textColor="@color/gray_cd"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_like"
+            app:layout_constraintEnd_toEndOf="@+id/imageView15"
+            app:layout_constraintTop_toTopOf="@+id/btn_like" />
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="1dp"
+            android:layout_height="12dp"
+            android:layout_marginEnd="8dp"
+            setNoteReportVisible="@{item.nickname}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintEnd_toStartOf="@+id/txt_rv_detail_note_report"
+            app:layout_constraintTop_toTopOf="@+id/textView6"
+            app:srcCompat="@color/gray_cd" />
+
+        <TextView
+            android:id="@+id/txt_rv_detail_note_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="신고"
+            setNoteReportVisible="@{item.nickname}"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView15" />
+
+        <TextView
+            android:id="@+id/textView7"
+            noteUserAge="@{item.age}"
+            noteUserGender="@{item.userGender}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_review_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7">
+
+            <com.scentsnote.android.util.LayoutedTextView
+                android:id="@+id/txt_details_review_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="none"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:maxLines="3"
+                android:text="@{item.content}"
+                android:textColor="@color/black_2a"
+                android:textSize="14dp"
+                setDetailReviewContent="@{item.content}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_review_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_details_review_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/txt_review_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="onClick"
+                    android:paddingTop="40dp"
+                    android:text="더보기"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="15dp"
+                    app:drawableRightCompat="@drawable/icon_btn_down"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RatingBar
+            android:id="@+id/rb_detail_note"
+            style="@style/Theme.RatingBar.Detail.Note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="14dp"
+            android:isIndicator="true"
+            android:rating="@{item.score}"
+            android:stepSize="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_review_content">
+
+        </RatingBar>
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/nanummyeongjo"
+            android:includeFontPadding="false"
+            android:text="@{Float.toString(item.score)}"
+            android:textColor="@color/primary_black"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/rb_detail_note"
+            app:layout_constraintStart_toEndOf="@+id/rb_detail_note"
+            app:layout_constraintTop_toTopOf="@+id/rb_detail_note" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@{`by. `+item.nickname}"
+            android:fontFamily="@font/nanummyeongjo"
+            android:textSize="12dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/dark_gray_7d"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_review_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

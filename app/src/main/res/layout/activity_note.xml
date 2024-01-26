@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.scentsnote.android.viewmodel.note.NoteViewModel" />
+        <variable
+            name="item"
+            type="com.scentsnote.android.data.vo.ParcelableWishList" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.note.NoteActivity"
+        android:background="@color/light_gray_f9">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/btn_back_to_sign_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:onClick="onClickBackBtn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/btn_back" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/nanummyeongjo_extrabold"
+                    android:includeFontPadding="false"
+                    android:text="시향 노트 쓰기"
+                    android:textColor="@color/primary_black"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toEndOf="@+id/btn_back_to_sign_up"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView16"
+                    android:layout_width="156dp"
+                    android:layout_height="156dp"
+                    android:layout_marginTop="41dp"
+                    android:background="@drawable/border_light_gray_f0_line_square"
+                    setImage="@{item.imageUrl}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="19dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="상품 자세히 보기"
+                    android:onClick="onClickDetailBtn"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView16"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+
+                <ImageView
+                    android:id="@+id/imageView17"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="4dp"
+                    android:onClick="onClickDetailBtn"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView17"
+                    app:layout_constraintStart_toEndOf="@+id/textView17"
+                    app:layout_constraintTop_toTopOf="@+id/textView17"
+                    app:srcCompat="@drawable/btn_more" />
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="42dp"
+                    android:layout_marginEnd="18dp"
+                    android:fontFamily="@font/nanummyeongjo_bold"
+                    android:includeFontPadding="false"
+                    android:text="@{item.brandName}"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/notosans_bold"
+                    android:includeFontPadding="false"
+                    android:text="@{item.perfumeName}"
+                    android:textColor="@color/black_1d"
+                    android:textSize="24dp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView18"
+                    app:layout_constraintStart_toStartOf="@+id/textView18"
+                    app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/nanummyeongjo_bold"
+                    android:includeFontPadding="false"
+                    android:text="향을 오래 기억할 수 있도록 기록해볼까요?"
+                    android:textColor="@color/primary_black"
+                    android:textSize="12dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView19"
+                    app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+                <ImageView
+                    android:id="@+id/imageView18"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView20"
+                    app:srcCompat="@color/primary_black" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:fontFamily="@font/nanummyeongjo_bold"
+                    android:includeFontPadding="false"
+                    android:text="별점."
+                    android:textColor="@color/primary_black"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView18"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView18" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/Theme.RatingBar.Note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:isIndicator="false"
+                    android:rating="@={viewModel.rating}"
+                    android:stepSize="0.5"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView21"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView18"
+                    app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+                <ImageView
+                    android:id="@+id/imageView19"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView18"
+                    app:layout_constraintStart_toStartOf="@+id/imageView18"
+                    app:layout_constraintTop_toBottomOf="@+id/textView21"
+                    app:srcCompat="@color/primary_black" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/nanummyeongjo_bold"
+                    android:includeFontPadding="false"
+                    android:text="향울 자유롭게 표현해보세요."
+                    android:textColor="@color/primary_black"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView19"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/nanummyeongjo"
+                    android:includeFontPadding="false"
+                    android:text="(필수 사항)"
+                    android:textColor="@color/primary_black"
+                    android:textSize="11dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView22"
+                    app:layout_constraintStart_toEndOf="@+id/textView22"
+                    app:layout_constraintTop_toTopOf="@+id/textView22" />
+
+                <EditText
+                    android:id="@+id/imageView20"
+                    setNoteContentsText="@={viewModel.contentsTxt}"
+                    android:text="@={viewModel.contentsTxt}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:gravity="top"
+                    android:hint="@string/text_note_hint"
+                    android:includeFontPadding="false"
+                    android:maxLines="10"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="18dp"
+                    android:textColor="@color/primary_black"
+                    android:textColorHint="@color/gray_cd"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+                <ImageView
+                    android:id="@+id/imageView21"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView20"
+                    app:srcCompat="@color/primary_black" />
+
+                <TextView
+                    android:id="@+id/textView61"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="26dp"
+                    android:fontFamily="@font/nanummyeongjo_bold"
+                    android:includeFontPadding="false"
+                    android:text="향을 맡았을 때 어떤 단어가 떠오르나요?"
+                    android:textColor="@color/primary_black"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView21"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView21" />
+
+                <TextView
+                    android:id="@+id/textView62"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/nanummyeongjo"
+                    android:includeFontPadding="false"
+                    android:text="(필수 사항)"
+                    android:textColor="@color/primary_black"
+                    android:textSize="11dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView21"
+                    app:layout_constraintStart_toEndOf="@+id/textView21"
+                    app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_note_keyword_add"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="18dp"
+                    android:backgroundTint="@color/light_gray_f9"
+                    android:fontFamily="@font/notosans_bold"
+                    android:includeFontPadding="false"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:onClick="onClickKeywordBtn"
+                    android:text="추가"
+                    android:textColor="@color/primary_black"
+                    android:textSize="14dp"
+                    app:cornerRadius="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView61"
+                    app:strokeColor="@color/primary_black"
+                    app:strokeWidth="1dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_note_keyword_list"
+                    setNoteKeywordList="@{viewModel.selectedKeywordList}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:overScrollMode="never"
+                    android:visibility="@{viewModel.rvKeywordList? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_note_keyword_add" />
+
+                <ImageView
+                    android:id="@+id/imageView53"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="18dp"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_note_keyword_add"
+                    app:layout_constraintStart_toStartOf="@+id/btn_note_keyword_add"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_note_keyword_list"
+                    app:srcCompat="@color/primary_black" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/nanummyeongjo_bold"
+                    android:includeFontPadding="false"
+                    android:text="향이 얼마나 지속되나요?"
+                    android:textColor="@color/primary_black"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView53"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView53" />
+
+
+
+                <ImageView
+                    android:id="@+id/imageView22"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layerType="software"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView23"
+                    app:srcCompat="@drawable/border_gray_cd_line_dash" />
+
+                <SeekBar
+                    android:id="@+id/sb_note_longevity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:max="4"
+                    android:progress="@{viewModel.longevityProgress}"
+                    android:progressDrawable="@color/transparent"
+                    android:thumb="@color/transparent"
+                    android:tickMark="@drawable/seekbar_note_tick"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView22"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView22"
+                    app:layout_constraintStart_toStartOf="@+id/imageView22"
+                    app:layout_constraintTop_toTopOf="@+id/imageView22" />
+
+                <SeekBar
+                    android:id="@+id/sb_note_txt_longevity"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:max="4"
+                    android:progress="@{viewModel.longevityProgress}"
+                    android:progressDrawable="@color/transparent"
+                    android:thumb="@color/transparent"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_note_time_very_weak"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_strong"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_weak"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_very_weak" />
+
+                <TextView
+                    android:id="@+id/txt_note_longevity_very_weak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="매우 약함"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_note_longevity_weak"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView22"
+                    app:layout_constraintVertical_chainStyle="spread" />
+
+                <TextView
+                    android:id="@+id/txt_note_longevity_weak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="약함"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_note_longevity_usual"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_longevity_very_weak"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_very_weak" />
+
+                <TextView
+                    android:id="@+id/txt_note_longevity_usual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="14dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="보통"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_note_longevity_strong"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_longevity_weak"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_weak" />
+
+                <TextView
+                    android:id="@+id/txt_note_longevity_strong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="강함"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_note_longevity_very_strong"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_longevity_usual"
+                    app:layout_constraintTop_toTopOf="@+id/sb_note_txt_longevity" />
+
+                <TextView
+                    android:id="@+id/txt_note_longevity_very_strong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="14dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="매우 강함"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_longevity_strong"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_longevity_strong" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_very_weak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="1시간 이내"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_weak"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_weak"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_very_weak" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_weak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="1~3시간"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_weak"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_weak"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_time_very_weak" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_usual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="3~5시간"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_usual"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_usual"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_time_weak" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_strong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="5~7시간"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_strong"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_strong"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_time_usual" />
+
+                <TextView
+                    android:id="@+id/txt_note_time_very_strong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:includeFontPadding="false"
+                    android:text="7시간 이상"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_longevity_very_strong"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_longevity_very_strong"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_time_strong" />
+
+                <TextView
+                    android:id="@+id/textView29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="52dp"
+                    android:fontFamily="@font/nanummyeongjo_bold"
+                    android:includeFontPadding="false"
+                    android:text="잔향의 느낌이 어떤가요?"
+                    android:textColor="@color/primary_black"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView23"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_note_longevity_very_weak" />
+
+                <ImageView
+                    android:id="@+id/imageView27"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layerType="software"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView29"
+                    app:srcCompat="@drawable/border_gray_cd_line_dash" />
+
+                <SeekBar
+                    android:id="@+id/sb_note_reverb"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:max="2"
+                    android:progress="@{viewModel.reverbProgress}"
+                    android:progressDrawable="@color/transparent"
+                    android:thumb="@color/transparent"
+                    android:tickMark="@drawable/seekbar_note_tick"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView27"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView27"
+                    app:layout_constraintStart_toStartOf="@+id/imageView27"
+                    app:layout_constraintTop_toTopOf="@+id/imageView27" />
+
+                <SeekBar
+                    android:id="@+id/sb_note_txt_reverb"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:max="2"
+                    android:progress="@{viewModel.reverbProgress}"
+                    android:progressDrawable="@color/transparent"
+                    android:thumb="@color/transparent"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_note_reverb_light"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_reverb_heavy"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_reverb_light"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_reverb_light" />
+
+                <TextView
+                    android:id="@+id/txt_note_reverb_light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="가벼움"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_note_reverb_usual"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="@+id/sb_note_reverb"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView27" />
+
+                <TextView
+                    android:id="@+id/txt_note_reverb_usual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="보통"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_note_reverb_heavy"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_reverb_light"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView27" />
+
+                <TextView
+                    android:id="@+id/txt_note_reverb_heavy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="무거움"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="@+id/sb_note_reverb"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_reverb_usual"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView27" />
+
+                <ImageView
+                    android:id="@+id/imageView31"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginEnd="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_note_reverb_light"
+                    app:srcCompat="@color/primary_black" />
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:fontFamily="@font/nanummyeongjo_bold"
+                    android:includeFontPadding="false"
+                    android:text="어느 계절에 뿌리고 싶나요?"
+                    android:textColor="@color/primary_black"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView29"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView31" />
+
+                <CheckedTextView
+                    android:id="@+id/btn_note_season_spring"
+                    setNoteSeasonBtnBackground="@{viewModel.springBtn}"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="12dp"
+                    android:checked="@{viewModel.springBtn}"
+                    android:drawableEnd="@drawable/selector_note_season"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="@{() -> viewModel.onClickSpringBtn()}"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="18dp"
+                    android:text="봄"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_note_season_summer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+                <CheckedTextView
+                    android:id="@+id/btn_note_season_summer"
+                    setNoteSeasonBtnBackground="@{viewModel.summerBtn}"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginEnd="18dp"
+                    android:checked="@{viewModel.summerBtn}"
+                    android:drawableEnd="@drawable/selector_note_season"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="@{() -> viewModel.onClickSummerBtn()}"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="18dp"
+                    android:text="여름"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btn_note_season_spring"
+                    app:layout_constraintTop_toTopOf="@+id/btn_note_season_spring" />
+
+                <CheckedTextView
+                    android:id="@+id/btn_note_season_fall"
+                    setNoteSeasonBtnBackground="@{viewModel.fallBtn}"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:checked="@{viewModel.fallBtn}"
+                    android:drawableEnd="@drawable/selector_note_season"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="@{() -> viewModel.onClickFallBtn()}"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="18dp"
+                    android:text="가을"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_note_season_winder"
+                    app:layout_constraintStart_toStartOf="@+id/btn_note_season_spring"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_note_season_spring" />
+
+                <CheckedTextView
+                    android:id="@+id/btn_note_season_winder"
+                    setNoteSeasonBtnBackground="@{viewModel.winterBtn}"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:checked="@{viewModel.winterBtn}"
+                    android:drawableEnd="@drawable/selector_note_season"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="@{() -> viewModel.onClickWinterBtn()}"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="18dp"
+                    android:text="겨울"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_note_season_summer"
+                    app:layout_constraintStart_toEndOf="@+id/btn_note_season_fall"
+                    app:layout_constraintTop_toTopOf="@+id/btn_note_season_fall" />
+
+                <TextView
+                    android:id="@+id/textView40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="37dp"
+                    android:fontFamily="@font/nanummyeongjo_bold"
+                    android:includeFontPadding="false"
+                    android:text="누가 뿌리면 좋을까요?"
+                    android:textColor="@color/primary_black"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView34"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_note_season_fall" />
+
+                <ImageView
+                    android:id="@+id/imageView40"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layerType="software"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView40"
+                    app:srcCompat="@drawable/border_gray_cd_line_dash" />
+
+                <SeekBar
+                    android:id="@+id/sb_note_gender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:max="2"
+                    android:progress="@{viewModel.genderProgress}"
+                    android:progressDrawable="@color/transparent"
+                    android:thumb="@color/transparent"
+                    android:tickMark="@drawable/seekbar_note_tick"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView40"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView40"
+                    app:layout_constraintStart_toStartOf="@+id/imageView40"
+                    app:layout_constraintTop_toTopOf="@+id/imageView40" />
+
+                <SeekBar
+                    android:id="@+id/sb_note_txt_gender"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:max="2"
+                    android:progress="@{viewModel.genderProgress}"
+                    android:progressDrawable="@color/transparent"
+                    android:thumb="@color/transparent"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_note_gender_man"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_note_gender_woman"
+                    app:layout_constraintStart_toStartOf="@+id/txt_note_gender_man"
+                    app:layout_constraintTop_toTopOf="@+id/txt_note_gender_man" />
+
+                <TextView
+                    android:id="@+id/txt_note_gender_man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="남성"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_note_gender_neuter"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="@+id/sb_note_gender"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView40" />
+
+                <TextView
+                    android:id="@+id/txt_note_gender_neuter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="중성"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_note_gender_woman"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_gender_man"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView40" />
+
+                <TextView
+                    android:id="@+id/txt_note_gender_woman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="여성"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="@+id/sb_note_gender"
+                    app:layout_constraintStart_toEndOf="@+id/txt_note_gender_neuter"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView40" />
+
+                <ImageView
+                    android:id="@+id/imageView44"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_note_gender_man"
+                    app:srcCompat="@color/primary_black" />
+
+                <TextView
+                    android:id="@+id/textView45"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="74dp"
+                    android:fontFamily="@font/nanummyeongjo_bold"
+                    android:includeFontPadding="false"
+                    android:text="다른 분들과 향에 대한 기록을 공유해보세요.\n나의 시향 노트를 공개하시겠습니까?"
+                    android:textColor="@color/primary_black"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView44" />
+
+                <CheckedTextView
+                    android:id="@+id/imageView45"
+                    setNoteShareBtnBackground="@{viewModel.shareBtn}"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginEnd="19dp"
+                    android:drawableTop="@drawable/ic_check_white"
+                    android:paddingVertical="5dp"
+                    android:checked="@{viewModel.shareBtn}"
+                    android:onClick="@{() -> viewModel.setShareBtn()}"
+                    android:paddingStart="6dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="6dp"
+                    android:paddingBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView45"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView45" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:background="@drawable/selector_note_complete"
+            android:enabled="@{viewModel.completeBtn}"
+            android:fontFamily="@font/notosans_bold"
+            android:includeFontPadding="false"
+            android:onClick="onClickCompleteBtn"
+            android:text="기록 완료"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:visibility="@{viewModel.isValidUpdateBtn? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.isValidUpdateBtn? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_note_delete"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:backgroundTint="@color/dark_gray_7d"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:cornerRadius="0dp"
+                android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
+                android:onClick="onClickDeleteBtn"
+                android:text="삭제"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_note_update"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_note_update"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:background="@drawable/selector_note_complete"
+                android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
+                android:text="수정 완료"
+                android:enabled="@{viewModel.updateBtn}"
+                android:onClick="onClickUpdateBtn"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@+id/btn_note_delete"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

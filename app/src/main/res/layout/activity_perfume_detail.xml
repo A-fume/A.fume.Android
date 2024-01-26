@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.scentsnote.android.data.vo.response.PerfumeDetail" />
+
+        <variable
+            name="viewModel"
+            type="com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.detail.PerfumeDetailActivity"
+        android:background="@color/light_gray_f9">
+
+        <com.scentsnote.android.ui.detail.StickyScrollView
+            android:id="@+id/sv_detail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/cl_details_bottom_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:onClick="onClickBackBtn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/btn_back" />
+
+                <ImageView
+                    android:id="@+id/img_perfume_detail"
+                    android:layout_width="360dp"
+                    android:layout_height="360dp"
+                    android:layout_marginTop="34dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/indicator_perfume_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="8dp"
+                    app:ci_animator="@anim/scale_indicator"
+                    app:ci_drawable="@drawable/indicator_selected"
+                    app:ci_drawable_unselected="@drawable/indicator_unselected"
+                    android:visibility="invisible"
+                    app:ci_gravity="center_vertical"
+                    app:ci_height="6dp"
+                    app:ci_margin="3dp"
+                    app:ci_width="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_perfume_detail" />
+
+                <ImageView
+                    android:id="@+id/btn_heart"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tab_perfume_detail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/indicator_perfume_detail"
+                    app:srcCompat="@drawable/border_white_fill_20" />
+
+                <TextView
+                    android:id="@+id/act_perfume_detail_tv_brand"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginEnd="18dp"
+                    android:fontFamily="@font/nanummyeongjo_bold"
+                    android:includeFontPadding="false"
+                    android:text="@{item.brandName}"
+                    android:textColor="@color/point_beige"
+                    android:textSize="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/indicator_perfume_detail" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/notosans_bold"
+                    android:includeFontPadding="false"
+                    android:text="@{item.name}"
+                    android:textColor="@color/black_1d"
+                    android:textSize="24dp"
+                    app:layout_constraintEnd_toEndOf="@+id/act_perfume_detail_tv_brand"
+                    app:layout_constraintStart_toStartOf="@+id/act_perfume_detail_tv_brand"
+                    app:layout_constraintTop_toBottomOf="@+id/act_perfume_detail_tv_brand" />
+
+                <RatingBar
+                    android:id="@+id/rb_perfume_detail"
+                    style="@style/Theme.RatingBar.Detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:isIndicator="true"
+                    android:rating="@{item.score}"
+                    android:stepSize="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/nanummyeongjo"
+                    android:includeFontPadding="false"
+                    android:text="@{Float.toString(item.score)}"
+                    android:textColor="@color/primary_black"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/rb_perfume_detail"
+                    app:layout_constraintStart_toEndOf="@+id/rb_perfume_detail"
+                    app:layout_constraintTop_toTopOf="@+id/rb_perfume_detail"
+                    tools:text="2.0" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_perfume_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/tab_back"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rb_perfume_detail"
+                    app:tabIndicatorColor="@color/primary_black"
+                    app:tabIndicatorGravity="bottom"
+                    app:tabIndicatorHeight="4dp"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed"
+                    app:tabMaxWidth="0dp"
+                    app:tabSelectedTextColor="@color/primary_black"
+                    app:tabTextAppearance="@style/Theme.ScentsNote.Tab"
+                    app:tabTextColor="@color/dark_gray_7d">
+                </com.google.android.material.tabs.TabLayout>
+
+                <com.scentsnote.android.ui.detail.MeasuredViewPager
+                    android:id="@+id/vp_perfume_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tab_perfume_detail"></com.scentsnote.android.ui.detail.MeasuredViewPager>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.scentsnote.android.ui.detail.StickyScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_details_bottom_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/act_perfume_detail_iv_bottom"
+                android:layout_width="0dp"
+                android:layout_height="72dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/border_gray_f9_fill_square" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/act_perfume_detail_cl_like"
+                android:layout_width="90dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/act_perfume_detail_iv_bottom"
+                android:background="@drawable/border_white_f6_line_2">
+
+                <ImageView
+                    android:id="@+id/act_perfume_detail_iv_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    setPerfumeLike="@{item.isLiked}"/>
+
+                <TextView
+                    android:id="@+id/act_perfume_detail_tv_like"
+                    android:layout_width="22dp"
+                    android:layout_height="23dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="위시"
+                    android:textColor="@color/primary_black"
+                    android:textSize="11dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/act_perfume_detail_iv_like" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/act_perfume_detail_iv_write"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/act_perfume_detail_cl_like"
+                app:layout_constraintTop_toTopOf="@+id/act_perfume_detail_iv_bottom"
+                app:srcCompat="@drawable/border_black_fill_2" />
+
+            <TextView
+                android:id="@+id/btn_perfume_detail_note_write"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/act_perfume_detail_iv_write"
+                app:layout_constraintEnd_toEndOf="@+id/act_perfume_detail_iv_write"
+                app:layout_constraintStart_toStartOf="@+id/act_perfume_detail_iv_write"
+                app:layout_constraintTop_toTopOf="@+id/act_perfume_detail_iv_write" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.scentsnote.android.viewmodel.home.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/txt_myperfume_null"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/logo_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="18dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="36dp"
+                    android:background="@color/primary_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_myperfume_null" />
+
+                <TextView
+                    android:id="@+id/txt_home_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/nanummyeongjo_extrabold"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="6sp"
+                    android:textColor="@color/primary_black"
+                    android:textSize="18dp"
+                    android:text="@string/txt_home_title_null"
+                    app:layout_constraintStart_toStartOf="@+id/btn_cancel"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_cancel" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="센츠노트를 사용할수록\n더 잘 맞는 향수를 보여드려요"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="12dp"
+                    app:layout_constraintStart_toStartOf="@+id/txt_home_name_title"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_home_name_title" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="86dp"
+                    android:src="@drawable/border_light_gray_f9_fill_5"
+                    app:layout_constraintBottom_toBottomOf="@+id/vp_home_recommend"
+                    app:layout_constraintEnd_toEndOf="@+id/vp_home_recommend"
+                    app:layout_constraintStart_toStartOf="@+id/vp_home_recommend"
+                    app:layout_constraintTop_toTopOf="@+id/vp_home_recommend" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_home_recommend"
+                    android:layout_width="0dp"
+                    android:layout_height="297dp"
+                    android:layout_marginStart="98dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/indicator_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView2"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                    app:ci_width="6dp"
+                    app:ci_height="6dp"
+                    app:ci_margin="3dp"
+                    app:ci_animator="@anim/scale_indicator"
+                    app:ci_drawable_unselected="@drawable/indicator_unselected"
+                    app:ci_drawable="@drawable/indicator_selected"
+                    app:ci_gravity="center_vertical"/>
+
+                <ImageView
+                    android:id="@+id/btn_heart"
+                    android:layout_width="18dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="42dp"
+                    android:background="@color/primary_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vp_home_recommend" />
+
+                <TextView
+                    android:id="@+id/txt_home_age_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/nanummyeongjo_extrabold"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="6sp"
+                    android:textColor="@color/primary_black"
+                    android:textSize="18dp"
+                    android:text="@string/txt_home_age_null"
+                    app:layout_constraintStart_toStartOf="@+id/btn_heart"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_heart" />
+
+                <TextView
+                    android:id="@+id/txt_home_name_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="12dp"
+                    android:text="@string/txt_home_subtitle_null"
+                    app:layout_constraintStart_toStartOf="@+id/txt_home_age_title"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_home_age_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_home_popular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:overScrollMode="never"
+                    setCommonPerfumeList="@{viewModel.commonPerfumeList}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_home_name_subtitle"
+                    tools:listitem="@layout/rv_item_home_popular"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_home_recent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="42dp"
+                    android:visibility="@{viewModel.isValidRecentList? View.VISIBLE : View.GONE}"
+                    android:background="@color/light_gray_f9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_home_popular">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/nanummyeongjo_extrabold"
+                        android:includeFontPadding="false"
+                        android:text="최근 찾아본 향수"
+                        android:textColor="@color/primary_black"
+                        android:textSize="18dp"
+                        app:layout_constraintStart_toStartOf="@+id/cl_home_recent"
+                        app:layout_constraintTop_toTopOf="@+id/cl_home_recent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_home_recent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="18dp"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:overScrollMode="never"
+                        setRecentPerfumeList="@{viewModel.recentPerfumeList}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="@+id/cl_home_recent"
+                        app:layout_constraintStart_toStartOf="@+id/cl_home_recent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView8"
+                        tools:listitem="@layout/rv_item_home_recent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="18dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="42dp"
+                    android:background="@color/primary_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_home_recent" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/nanummyeongjo_extrabold"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="6sp"
+                    android:text="새로\n등록된 향수"
+                    android:textColor="@color/primary_black"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView5"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="기대하세요.  새로운 향수가 업데이트 됩니다."
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="12dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView11"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_home_new"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="12dp"
+                    android:orientation="vertical"
+                    app:spanCount="2"
+                    setNewPerfume="@{viewModel.newPerfumeList}"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView12"
+                    tools:listitem="@layout/rv_item_home_new" >
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <ImageView
+                    android:id="@+id/btn_home_more"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginBottom="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_home_new"
+                    app:srcCompat="@drawable/border_gray_cd_line_square" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="9dp"
+                    android:layout_marginRight="9dp"
+                    android:fontFamily="@font/notosans_medium"
+                    android:includeFontPadding="false"
+                    android:text="더 보기"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_home_more"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_home_more"
+                    app:layout_constraintStart_toStartOf="@+id/btn_home_more"
+                    app:layout_constraintTop_toTopOf="@+id/btn_home_more" />
+
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginLeft="6dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_home_more"
+                    app:layout_constraintStart_toEndOf="@+id/textView15"
+                    app:layout_constraintTop_toTopOf="@+id/btn_home_more"
+                    app:srcCompat="@drawable/btn_more" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

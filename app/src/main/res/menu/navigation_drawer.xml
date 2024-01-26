@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group_my_info"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/edit_my_info"
+            android:title="@string/edit_my_info"
+            android:checked="false"/>
+    </group>
+    <group
+        android:id="@+id/group_password"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/edit_password"
+            android:title="@string/edit_password"
+            android:checked="false"/>
+    </group>
+    <group
+        android:id="@+id/group_tip_off"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/tip_off"
+            android:title="@string/tip_off"
+            android:checked="false"/>
+    </group>
+    <group
+        android:id="@+id/group_feedback"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/feedback"
+            android:title="@string/feedback"
+            android:checked="false"/>
+    </group>
+    <group
+        android:id="@+id/group_logout"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/logout"
+            android:title="@string/logout"
+            android:checked="false"/>
+    </group>
+    <group
+        android:id="@+id/group_divider"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/for_divider"
+            android:title=""
+            android:enabled="false" />
+    </group>
+
+</menu>

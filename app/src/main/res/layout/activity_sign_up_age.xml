@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.scentsnote.android.viewmodel.signup.SignUpViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.signup.SignUpAgeActivity">
+
+        <ImageView
+            android:id="@+id/imageView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:onClick="onClickBackBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_btn_back" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="회원가입"
+            android:fontFamily="@font/nanummyeongjo_extrabold"
+            android:textSize="18dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/primary_black"
+            app:layout_constraintStart_toEndOf="@+id/imageView29"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="91dp"
+            android:text="출생연도를 선택해주세요."
+            android:fontFamily="@font/notosans_regular"
+            android:textSize="14dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/dark_gray_7d"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_sign_up_year_picker"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@={viewModel.ageTxt}"
+            android:onClick="showYearPicker"
+            android:fontFamily="@font/nanummyeongjo_extrabold"
+            android:textSize="20dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/point_beige"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView29"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_sign_up_complete"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:text="가입 완료"
+            android:fontFamily="@font/notosans_bold"
+            android:textSize="15dp"
+            android:onClick="onClickCompleteBtn"
+            android:includeFontPadding="false"
+            android:textColor="@color/white_85"
+            android:backgroundTint="@color/primary_black"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="wishlist"
+            type="com.scentsnote.android.data.vo.response.WishPerfume" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/rv_item_img_wishlist_perfume"
+        bindingDrawable="@{wishlist.imageUrl}"
+        android:layout_width="86dp"
+        android:layout_height="86dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/border_light_gray_f9_fill_square"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img_le_labo_13_sample" />
+
+    <TextView
+        android:id="@+id/rv_item_txt_wishlist_brand_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="18dp"
+        android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
+        android:text="@{wishlist.brandName}"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/gray_cd"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rv_item_img_wishlist_perfume"
+        app:layout_constraintTop_toTopOf="@+id/rv_item_img_wishlist_perfume" />
+
+    <TextView
+        android:id="@+id/rv_item_txt_wishlist_perfume_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/notosans_medium"
+        android:includeFontPadding="false"
+        android:text="@{wishlist.name}"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/black_1d"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item_txt_wishlist_brand_name"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_txt_wishlist_brand_name"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_txt_wishlist_brand_name" />
+
+    <TextView
+        android:id="@+id/rv_jtem_btn_wishlist_write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:fontFamily="@font/notosans_bold"
+        android:text="시향 노트 쓰기"
+        android:includeFontPadding="false"
+        android:textColor="@color/point_beige_accent"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_item_img_wishlist_perfume"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/rv_jtem_img_wishlist_write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_jtem_btn_wishlist_write"
+        app:layout_constraintEnd_toStartOf="@+id/rv_jtem_btn_wishlist_write"
+        app:layout_constraintTop_toTopOf="@+id/rv_jtem_btn_wishlist_write"
+        app:srcCompat="@drawable/icon_write" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/light_gray_f0"
+        app:layout_constraintEnd_toEndOf="@+id/rv_jtem_btn_wishlist_write"
+        app:layout_constraintStart_toStartOf="@+id/rv_item_img_wishlist_perfume"
+        app:layout_constraintTop_toBottomOf="@+id/rv_item_img_wishlist_perfume" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

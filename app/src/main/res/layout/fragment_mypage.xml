@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="end">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                tools:context=".ui.my.MyFragment">
+
+                <include
+                    android:id="@+id/toolbar_mypage"
+                    layout="@layout/toolbar_txt_with_btn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_mypage"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar_mypage"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed"
+                    app:tabMaxWidth="0dp"
+                    android:background="@drawable/tab_back"
+                    app:tabIndicatorHeight="4dp"
+                    app:tabIndicatorGravity="bottom"
+                    app:tabIndicatorColor="@color/primary_black"
+                    app:tabSelectedTextColor="@color/primary_black"
+                    app:tabTextColor="@color/dark_gray_7d"
+                    app:tabTextAppearance="@style/Theme.ScentsNote.Tab">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monday" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tuesday" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+                <com.scentsnote.android.utils.view.NonSwipeViewPager
+                    android:id="@+id/vp_mypage"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tab_mypage">
+                </com.scentsnote.android.utils.view.NonSwipeViewPager>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/my_navigation_drawer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:paddingHorizontal="16dp"
+            app:itemTextColor="@color/black"
+            app:itemHorizontalPadding="0dp"
+            app:itemTextAppearance="@style/Theme.ScentsNoteAndroid.NavigationDrawerText"
+            app:headerLayout="@layout/header_navigation_drawer"/>
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

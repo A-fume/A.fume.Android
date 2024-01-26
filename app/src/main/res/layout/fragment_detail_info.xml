@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="fm"
+            type="com.scentsnote.android.ui.detail.info.DetailInfoFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel" />
+
+        <variable
+            name="data"
+            type="com.scentsnote.android.data.vo.response.PerfumeDetail" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/imageView55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintEnd_toStartOf="@+id/textView70"
+            app:layout_constraintTop_toTopOf="@+id/textView70"
+            app:srcCompat="@drawable/icon_write" />
+
+        <TextView
+            android:id="@+id/textView70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="18dp"
+            android:text="정보 수정 제안"
+            android:textSize="14dp"
+            android:onClick="@{fm::onClickInfoReportBtn}"
+            android:textColor="@color/gray_ab"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/notosans_regular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/nanummyeongjo"
+            android:includeFontPadding="true"
+            android:text="조향스토리."
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView70" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_deatils_story"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView46">
+
+            <TextView
+                android:id="@+id/txt_details_info_story"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="none"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:maxLines="3"
+                android:paddingBottom="35dp"
+                android:textColor="@color/black_2a"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_details_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_btn_details_more"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_details_info_story"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/txt_details_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="onClick"
+                    android:paddingTop="40dp"
+                    android:text="더보기"
+                    android:textColor="@color/dark_gray_7d"
+                    android:textSize="15dp"
+                    android:visibility="gone"
+                    app:drawableRightCompat="@drawable/icon_btn_down"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/img_bar_story"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="18dp"
+            android:background="@color/primary_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_deatils_story" />
+
+        <TextView
+            android:id="@+id/txt_story"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/nanummyeongjo"
+            android:includeFontPadding="true"
+            android:text="키워드."
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_bar_story" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_detail_keyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_story">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_details_info_keyword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:visibility="@{viewModel.isValidKeywordData? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/rv_item_detail_keyword">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView43"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@string/txt_perfume_keyword_null"
+                android:textAlignment="center"
+                android:textColor="@color/gray_b9"
+                android:textSize="14dp"
+                android:visibility="@{viewModel.isValidKeywordData? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/img_bar_keyword"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="18dp"
+            android:background="@color/primary_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/img_bar_story"
+            app:layout_constraintTop_toBottomOf="@+id/cl_detail_keyword" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_detail_info_notes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="18dp"
+            android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_bar_keyword">
+
+            <TextView
+                android:id="@+id/txt_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nanummyeongjo"
+                android:includeFontPadding="true"
+                android:text="노트."
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_notes_single"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="Single"
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                android:visibility="@{viewModel.noteDataType? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_notes" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/notosans_medium"
+                android:gravity="right|end"
+                android:includeFontPadding="false"
+                android:text="@{data.ingredients.single}"
+                android:textColor="@color/primary_black"
+                android:textSize="14dp"
+                android:visibility="@{viewModel.noteDataType? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txt_notes_single"
+                app:layout_constraintTop_toTopOf="@+id/txt_notes_single" />
+
+            <TextView
+                android:id="@+id/txt_notes_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="Top"
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                android:visibility="@{viewModel.noteDataType? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_notes" />
+
+            <TextView
+                android:id="@+id/txt_notes_middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="Middle"
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                android:visibility="@{viewModel.noteDataType? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_details_info_top_notes" />
+
+            <TextView
+                android:id="@+id/txt_notes_base"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="Base"
+                android:textColor="@color/dark_gray_7d"
+                android:textSize="14dp"
+                android:visibility="@{viewModel.noteDataType? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_details_info_middle_notes" />
+
+            <TextView
+                android:id="@+id/txt_details_info_top_notes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/notosans_medium"
+                android:gravity="right|end"
+                android:includeFontPadding="false"
+                android:text="@{data.ingredients.top}"
+                android:textColor="@color/primary_black"
+                android:textSize="14dp"
+                android:visibility="@{viewModel.noteDataType? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txt_notes_top"
+                app:layout_constraintTop_toTopOf="@+id/txt_notes_top" />
+
+            <TextView
+                android:id="@+id/txt_details_info_middle_notes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/notosans_medium"
+                android:gravity="right|end"
+                android:includeFontPadding="false"
+                android:text="@{data.ingredients.middle}"
+                android:textColor="@color/primary_black"
+                android:textSize="14dp"
+                android:visibility="@{viewModel.noteDataType? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txt_notes_middle"
+                app:layout_constraintTop_toTopOf="@+id/txt_notes_middle" />
+
+            <TextView
+                android:id="@+id/txt_details_info_base_notes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/notosans_medium"
+                android:gravity="right|end"
+                android:includeFontPadding="false"
+                android:text="@{data.ingredients.base}"
+                android:textColor="@color/primary_black"
+                android:textSize="14dp"
+                android:visibility="@{viewModel.noteDataType? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txt_notes_base"
+                app:layout_constraintTop_toTopOf="@+id/txt_notes_base" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/img_bar_notes"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="18dp"
+            android:background="@color/primary_black"
+            android:visibility="@{viewModel.isValidNoteData? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/img_bar_story"
+            app:layout_constraintTop_toBottomOf="@+id/cl_detail_info_notes" />
+
+        <TextView
+            android:id="@+id/txt_category_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/nanummyeongjo"
+            android:includeFontPadding="true"
+            android:text="부향률."
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_bar_notes" />
+
+        <TextView
+            android:id="@+id/txt_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:fontFamily="@font/notosans_medium"
+            android:gravity="right|end"
+            android:includeFontPadding="false"
+            android:textColor="@color/primary_black"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_category_title" />
+
+        <ImageView
+            android:id="@+id/img_bar_category"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="18dp"
+            android:background="@color/primary_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/img_bar_story"
+            app:layout_constraintTop_toBottomOf="@+id/txt_category" />
+
+        <TextView
+            android:id="@+id/textView54"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/nanummyeongjo"
+            android:includeFontPadding="true"
+            android:text="가격 및 용량."
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_bar_category" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_detail_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView54">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/frag_detail_rv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.isValidPriceData? View.VISIBLE : View.GONE}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/rv_perfume_detail_price" />
+
+            <TextView
+                android:id="@+id/textView44"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@string/txt_perfume_info_null"
+                android:textColor="@color/gray_b9"
+                android:textSize="14dp"
+                android:visibility="@{viewModel.isValidPriceData? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/img_bar_price"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="18dp"
+            android:background="@color/primary_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/img_bar_story"
+            app:layout_constraintTop_toBottomOf="@+id/cl_detail_price" />
+
+        <TextView
+            android:id="@+id/txt_season"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/nanummyeongjo"
+            android:includeFontPadding="true"
+            android:text="계절감."
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/img_bar_price" />
+
+        <ImageView
+            android:id="@+id/img_bar_season"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="18dp"
+            android:background="@color/primary_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/img_bar_story"
+            app:layout_constraintTop_toBottomOf="@+id/chart_pie_details_info_season" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart_pie_details_info_season"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="62dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView11"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_season" />
+
+        <ImageView
+            android:id="@+id/img_details_season_chart_empty"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="62dp"
+            android:src="@drawable/shape_oval_gray_f0"
+            android:visibility="@{viewModel.isValidSeasonChart? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/imageView11"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_season" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_spring"
+            app:layout_constraintEnd_toEndOf="@id/imageView10"
+            app:layout_constraintStart_toStartOf="@id/imageView10"
+            app:layout_constraintTop_toTopOf="@id/txt_detail_season_spring"
+            app:srcCompat="@color/point_beige_accent" />
+
+        <TextView
+            android:id="@+id/txt_detail_season_spring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="봄"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_spring_percent"
+            app:layout_constraintStart_toStartOf="@id/txt_detail_season_summer" />
+
+        <TextView
+            android:id="@+id/txt_detail_season_spring_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@{@string/chartPercentFormat(data.seasonal.spring)}"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toTopOf="@id/txt_detail_season_summer_percent"
+            app:layout_constraintEnd_toEndOf="@id/txt_detail_season_summer_percent" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_summer"
+            app:layout_constraintEnd_toEndOf="@id/imageView9"
+            app:layout_constraintStart_toStartOf="@id/imageView9"
+            app:layout_constraintTop_toTopOf="@id/txt_detail_season_summer"
+            app:srcCompat="@color/point_beige" />
+
+        <TextView
+            android:id="@+id/txt_detail_season_summer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="여름"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_summer_percent"
+            app:layout_constraintEnd_toEndOf="@id/txt_detail_season_fall"
+            app:layout_constraintStart_toStartOf="@id/txt_detail_season_fall" />
+
+        <TextView
+            android:id="@+id/txt_detail_season_summer_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@{@string/chartPercentFormat(data.seasonal.summer)}"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toTopOf="@id/txt_detail_season_fall_percent"
+            app:layout_constraintEnd_toEndOf="@id/txt_detail_season_fall_percent" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_fall"
+            app:layout_constraintEnd_toEndOf="@id/imageView8"
+            app:layout_constraintStart_toStartOf="@id/imageView8"
+            app:layout_constraintTop_toTopOf="@id/txt_detail_season_fall"
+            app:srcCompat="@color/point_pinkish_grey" />
+
+        <TextView
+            android:id="@+id/txt_detail_season_fall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="가을"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_fall_percent"
+            app:layout_constraintEnd_toEndOf="@id/txt_detail_season_winter"
+            app:layout_constraintStart_toStartOf="@id/txt_detail_season_winter" />
+
+        <TextView
+            android:id="@+id/txt_detail_season_fall_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@{@string/chartPercentFormat(data.seasonal.fall)}"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toTopOf="@id/txt_detail_season_winter_percent"
+            app:layout_constraintEnd_toEndOf="@id/txt_detail_season_winter_percent" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_winter"
+            app:layout_constraintEnd_toStartOf="@id/txt_detail_season_winter"
+            app:layout_constraintTop_toTopOf="@id/txt_detail_season_winter"
+            app:srcCompat="@color/point_dark_beige" />
+
+        <TextView
+            android:id="@+id/txt_detail_season_winter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="겨울"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@id/txt_detail_season_winter_percent"
+            app:layout_constraintEnd_toStartOf="@id/txt_detail_season_winter_percent" />
+
+        <TextView
+            android:id="@+id/txt_detail_season_winter_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="1dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@{@string/chartPercentFormat(data.seasonal.winter)}"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/chart_pie_details_info_season"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_lasting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/nanummyeongjo"
+            android:includeFontPadding="true"
+            android:text="지속력."
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_bar_season" />
+
+        <ImageView
+            android:id="@+id/img_bar_lasting"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="18dp"
+            android:background="@color/primary_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/img_bar_story"
+            app:layout_constraintTop_toBottomOf="@+id/chart_bar_details_info_lasting_power" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chart_bar_details_info_lasting_power"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@+id/img_bar_season"
+            app:layout_constraintStart_toStartOf="@+id/txt_lasting"
+            app:layout_constraintTop_toBottomOf="@+id/txt_lasting"
+            tools:listitem="@layout/rv_item_details_info_horizontal_bar_chart" />
+
+        <TextView
+            android:id="@+id/txt_sillage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/nanummyeongjo"
+            android:includeFontPadding="true"
+            android:text="잔향감."
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_bar_lasting" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chart_bar_details_info_sillage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@+id/img_bar_lasting"
+            app:layout_constraintStart_toStartOf="@+id/txt_sillage"
+            app:layout_constraintTop_toBottomOf="@+id/txt_sillage"
+            tools:listitem="@layout/rv_item_details_info_horizontal_bar_chart" />
+
+        <ImageView
+            android:id="@+id/img_bar_sillage"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="18dp"
+            android:background="@color/primary_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/img_bar_story"
+            app:layout_constraintTop_toBottomOf="@+id/chart_bar_details_info_sillage" />
+
+        <TextView
+            android:id="@+id/txt_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/nanummyeongjo"
+            android:includeFontPadding="true"
+            android:text="성별감."
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_bar_sillage" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart_pie_details_info_gender"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="62dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_gender" />
+
+        <ImageView
+            android:id="@+id/img_bar_gender"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="18dp"
+            android:background="@color/primary_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/img_bar_story"
+            app:layout_constraintTop_toBottomOf="@+id/chart_pie_details_info_gender" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_detail_gender_female"
+            app:layout_constraintEnd_toEndOf="@+id/imageView4"
+            app:layout_constraintStart_toStartOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/txt_detail_gender_female"
+            app:srcCompat="@color/point_beige_accent" />
+
+        <TextView
+            android:id="@+id/txt_detail_gender_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="여성"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_detail_gender_female_percent"
+            app:layout_constraintEnd_toEndOf="@+id/txt_detail_gender_male"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintStart_toStartOf="@+id/txt_detail_gender_male" />
+
+        <TextView
+            android:id="@+id/txt_detail_gender_female_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@{@string/chartPercentFormat(data.gender.female)}"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toTopOf="@+id/txt_detail_gender_male_percent"
+            app:layout_constraintEnd_toEndOf="@+id/txt_detail_gender_male_percent" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_detail_gender_male"
+            app:layout_constraintEnd_toEndOf="@+id/imageView7"
+            app:layout_constraintStart_toStartOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/txt_detail_gender_male"
+            app:srcCompat="@color/point_beige" />
+
+        <TextView
+            android:id="@+id/txt_detail_gender_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="남성"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_detail_gender_male_percent"
+            app:layout_constraintEnd_toEndOf="@+id/txt_detail_gender_middle"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintStart_toStartOf="@+id/txt_detail_gender_middle" />
+
+        <TextView
+            android:id="@+id/txt_detail_gender_male_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@{@string/chartPercentFormat(data.gender.male)}"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toTopOf="@+id/txt_detail_gender_middle_percent"
+            app:layout_constraintEnd_toEndOf="@+id/txt_detail_gender_middle_percent" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_detail_gender_middle"
+            app:layout_constraintEnd_toStartOf="@+id/txt_detail_gender_middle"
+            app:layout_constraintTop_toTopOf="@+id/txt_detail_gender_middle"
+            app:srcCompat="@color/point_dark_beige" />
+
+        <TextView
+            android:id="@+id/txt_detail_gender_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="중성"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_detail_gender_middle_percent"
+            app:layout_constraintEnd_toStartOf="@+id/txt_detail_gender_middle_percent" />
+
+        <TextView
+            android:id="@+id/txt_detail_gender_middle_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@{@string/chartPercentFormat(data.gender.neutral)}"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/chart_pie_details_info_gender"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_details_gender_chart_empty"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="62dp"
+            android:src="@drawable/shape_oval_gray_f0"
+            android:visibility="@{viewModel.isValidGenderChart? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/imageView3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_gender" />
+
+        <TextView
+            android:id="@+id/txt_similar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/nanummyeongjo"
+            android:includeFontPadding="true"
+            android:text="지금 보는 향수와 비슷해요. "
+            android:textColor="@color/primary_black"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_bar_gender" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_details_info_similar"
+            setSimilarPerfumeList="@{viewModel.similarPerfumeList}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_similar"
+            tools:listitem="@layout/rv_item_home_popular" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

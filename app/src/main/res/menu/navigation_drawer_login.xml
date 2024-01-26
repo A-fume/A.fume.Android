@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/go_to_login"
+            android:checked="false"
+            android:title="@null"/>
+    </group>
+
+    <group
+        android:id="@+id/group_divider"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/for_divider"
+            android:title=""
+            android:enabled="false" />
+    </group>
+
+</menu>

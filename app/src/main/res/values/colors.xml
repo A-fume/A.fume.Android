@@ -7,4 +7,41 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="white_85">#d9ffffff</color>
+    <color name="white_f6">#f6f6f6</color>
+
+    <color name="light_gray_border">#f3f2ee</color>
+    <color name="light_gray_f0">#f0f0f0</color>
+    <color name="light_gray_f9">#f9f9f9</color>
+    <color name="light_gray_db">#dbdbdb</color>
+
+    <color name="gray_cd">#cdcdcd</color>
+    <color name="gray_b6">#b6b6b6</color>
+    <color name="gray_b9">#b9b9b9</color>
+    <color name="gray_ab">#ababab</color>
+
+    <color name="dark_gray_7d">#7d7d7d</color>
+    <color name="dark_gray_4a">#4a4a4a</color>
+    <color name="dark">#1f1e24</color>
+
+    <color name="primary_black">#282725</color>
+    <color name="black_1d">#1d1d1d</color>
+    <color name="black_2a">#2a2a2a</color>
+    <color name="black_text">#282725</color>
+
+    <color name="light_beige">#efebe9</color>
+    <color name="point_beige_90">#e6c8bbb6</color>
+    <color name="point_beige">#c8bbb6</color>
+    <color name="point_beige_accent">#a1887f</color>
+    <color name="point_dark_beige">#75635d</color>
+    <color name="point_pinkish_grey">#d7ccc8</color>
+
+
+    <color name="brick">#c62828</color>
+
+
+
+
 </resources>

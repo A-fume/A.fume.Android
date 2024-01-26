@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.scentsnote.android.viewmodel.survey.SurveyViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.survey.SurveyActivity">
+
+        <include
+            android:id="@+id/toolbar_survey"
+            layout="@layout/toolbar_txt_with_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/txt_survey_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/nanummyeongjo_extrabold"
+            android:gravity="clip_vertical|start"
+            android:includeFontPadding="true"
+            android:lines="2"
+            android:text="@string/survey_question"
+            android:textColor="@color/primary_black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_survey" />
+
+        <TextView
+            android:id="@+id/txt_survey_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@string/survey_desc"
+            android:textColor="@color/dark_gray_7d"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="@+id/txt_survey_question"
+            app:layout_constraintTop_toBottomOf="@+id/txt_survey_question" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_survey"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bottom_line_gray_cd"
+            android:paddingBottom="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_survey_desc"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabMaxWidth="0dp"
+            app:tabIndicatorColor="@color/primary_black"
+            app:tabIndicatorGravity="bottom"
+            app:tabIndicatorHeight="3dp"
+            app:tabSelectedTextColor="@color/primary_black"
+            app:tabTextAppearance="@style/Theme.ScentsNoteAndroid.Tabtext"
+            app:tabTextColor="@color/dark_gray_7d">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wednesday" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_survey"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/light_gray_f9"
+            android:elevation="1dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_survey_apply"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_survey" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_survey_apply"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/primary_black"
+            android:fontFamily="@font/notosans_bold"
+            android:includeFontPadding="false"
+            android:gravity="center"
+            android:text="@{vm.txtButton}"
+            android:textColor="@color/white_85"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
