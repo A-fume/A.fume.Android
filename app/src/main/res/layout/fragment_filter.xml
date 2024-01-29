@@ -56,7 +56,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@color/gray_cd" />
+            app:srcCompat="@color/light_gray_ec" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_filter_refresh"
