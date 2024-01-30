@@ -62,6 +62,10 @@ class FilterBrandViewModel(
         return selectedBrandList.map { FilterInfoP(it.brandIdx, it.name, FilterType.Brand) }
     }
 
+    fun getSelectedBrandsName() : String{
+        return selectedBrandList.map { it.name }.toString()
+    }
+
     fun clearSelectedList() {
         selectedBrandList.clear()
         _selectedCount.value = selectedBrandList.size
@@ -96,7 +100,7 @@ class FilterBrandViewModel(
         }
     }
 
-    private fun setBrandTab(){
+    fun setBrandTab(){
         val tempTab = mutableListOf<BrandTab>()
         _brandTabOrders.value?.forEach {
             tempTab.add(BrandTab(it, false))

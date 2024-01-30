@@ -134,6 +134,10 @@ class FilterSeriesViewModel(
         // todo: all type은 전체 담도록
         return selectedSeriesList.map { FilterInfoP(it.index, it.name, FilterType.Ingredient) }
     }
+    
+    fun getSelectedSeriesName(): String{
+        return selectedSeriesList.map { it.name }.toString()
+    }
 
     fun removeFromSelectedList(filterInfoP: FilterInfoP) {
         selectedSeriesList.removeSeries(
