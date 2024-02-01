@@ -97,13 +97,7 @@ class FilterFragment : Fragment() {
 
             firebaseAnalytics.setClickEvent("FilterActionButton")
 
-            reqFilterGa("apply_filter", seriesViewModel.getSelectedSeries())
-            reqFilterGa("apply_brand", brandViewModel.getSelectedBrands())
-            reqFilterGa("apply_bonding", keywordViewModel.getSelectedKeywords())
-
-            Log.d("GA 필터 - 계열", seriesViewModel.getSelectedSeries().map { it.name }.toString())
-            Log.d("GA 필터 - 브랜드", brandViewModel.getSelectedBrands().map { it.name }.toString())
-            Log.d("GA 필터 - 키워드", keywordViewModel.getSelectedKeywords().map { it.name }.toString())
+            setFilterGa()
         }
         binding.toolbarFilter.toolbarBtn.setOnSafeClickListener {
             closeSelfWithAnimation()
@@ -123,6 +117,23 @@ class FilterFragment : Fragment() {
                 isEnabled = false
             }
             resetFilter()
+        }
+    }
+
+    private fun setFilterGa(){
+        if(seriesViewModel.getSelectedSeries().isNotEmpty()){
+            reqFilterGa("apply_filter", seriesViewModel.getSelectedSeries())
+            Log.d("GA 필터 - 계열", seriesViewModel.getSelectedSeries().map { it.name }.toString())
+        }
+
+        if(brandViewModel.getSelectedBrands().isNotEmpty()){
+            reqFilterGa("apply_brand", brandViewModel.getSelectedBrands())
+            Log.d("GA 필터 - 브랜드", brandViewModel.getSelectedBrands().map { it.name }.toString())
+        }
+
+        if(keywordViewModel.getSelectedKeywords().isNotEmpty()){
+            reqFilterGa("apply_bonding", keywordViewModel.getSelectedKeywords())
+            Log.d("GA 필터 - 키워드", keywordViewModel.getSelectedKeywords().map { it.name }.toString())
         }
     }
 
