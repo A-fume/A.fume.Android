@@ -76,6 +76,7 @@ class FilterFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        binding.tabFilter.changeTabsFont(0)
         firebaseAnalytics.setPageViewEvent("Filter", this::class.java.name)
     }
 
@@ -156,7 +157,6 @@ class FilterFragment : Fragment() {
             filterCategoryList.forEachIndexed { index, filterCategory ->
                 val tab = getTabAt(index)
                 tab?.text = filterCategory.nameText
-                tab?.orCreateBadge?.backgroundColor = context.getColor(R.color.black)
             }
             addOnTabSelectedListener(TabSelectedListener(binding.tabFilter))
             changeTabsFont(0)
@@ -166,26 +166,35 @@ class FilterFragment : Fragment() {
     private fun observeViewModel() {
         seriesViewModel.selectedCount.observe(viewLifecycleOwner) { count ->
             val tab = binding.tabFilter.getTabAt(FilterCategory.Series.index)
-            tab?.orCreateBadge?.let {
-                updateCategoryBadge(it, count)
+            if(count != 0){
+                tab?.text = FilterCategory.Series.nameText+"($count)"
+            }else{
+                tab?.text = FilterCategory.Series.nameText
             }
             updateApplyBtnText()
+            binding.tabFilter.changeTabsFont(FilterCategory.Series.index)
         }
 
         brandViewModel.selectedCount.observe(viewLifecycleOwner) { count ->
             val tab = binding.tabFilter.getTabAt(FilterCategory.Brand.index)
-            tab?.orCreateBadge?.let {
-                updateCategoryBadge(it, count)
+            if(count != 0){
+                tab?.text = FilterCategory.Brand.nameText+"($count)"
+            }else{
+                tab?.text = FilterCategory.Brand.nameText
             }
             updateApplyBtnText()
+            binding.tabFilter.changeTabsFont(FilterCategory.Brand.index)
         }
 
         keywordViewModel.selectedCount.observe(viewLifecycleOwner) { count ->
             val tab = binding.tabFilter.getTabAt(FilterCategory.Keyword.index)
-            tab?.orCreateBadge?.let {
-                updateCategoryBadge(it, count)
+            if(count != 0){
+               tab?.text = FilterCategory.Keyword.nameText+"($count)"
+            }else{
+                tab?.text = FilterCategory.Keyword.nameText
             }
             updateApplyBtnText()
+            binding.tabFilter.changeTabsFont(FilterCategory.Keyword.index)
         }
     }
 
