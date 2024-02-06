@@ -14,20 +14,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/act_perfume_detail_iv_write"
             android:layout_width="108dp"
             android:layout_height="108dp"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            setImage="@{item.imageUrl}"
-            android:src="@drawable/dummy_perfume_image"
-            app:civ_circle_background_color="@color/white"
+            android:background="@drawable/background_white_circle_fill"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView57"
+            setImage="@{item.imageUrl}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/act_perfume_detail_iv_write"
+            app:layout_constraintEnd_toEndOf="@+id/act_perfume_detail_iv_write"
+            app:layout_constraintStart_toStartOf="@+id/act_perfume_detail_iv_write"
+            app:layout_constraintTop_toTopOf="@+id/act_perfume_detail_iv_write"
+            bind:srcCompat="@drawable/dummy_perfume_image" />
 
         <ImageView
             android:id="@+id/btn_like"
