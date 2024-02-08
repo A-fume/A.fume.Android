@@ -36,17 +36,10 @@ class HomeViewModel : ViewModel(){
     val newPerfumeList : LiveData<MutableList<HomePerfumeItem>>
         get() = _newPerfumeList
 
-    init {
-        viewModelScope.launch {
-            getHomePerfumeList()
-        }
-    }
-
     suspend fun getHomePerfumeList(){
         getRecommendPerfumeList()
         getCommonPerfumeList()
         getRecentPerfumeList()
-        getNewPerfumeList()
     }
 
     private suspend fun getRecommendPerfumeList(){
@@ -77,9 +70,9 @@ class HomeViewModel : ViewModel(){
         }
     }
 
-    private suspend fun getNewPerfumeList(){
+    suspend fun getNewPerfumeList(requestSize: Int?){
         try{
-            _newPerfumeList.value = homeRepository.getNewPerfumeList()
+            _newPerfumeList.value = homeRepository.getNewPerfumeList(requestSize)
             Log.d("getNewPerfumeList", _newPerfumeList.value.toString())
         }catch (e : HttpException){
             Log.d("getNewPerfumeList error", e.message())
