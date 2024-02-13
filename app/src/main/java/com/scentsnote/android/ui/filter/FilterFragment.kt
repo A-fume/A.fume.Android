@@ -76,6 +76,7 @@ class FilterFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        binding.tabFilter.changeTabsFont(0)
         firebaseAnalytics.setPageViewEvent("Filter", this::class.java.name)
     }
 
@@ -96,13 +97,7 @@ class FilterFragment : Fragment() {
 
             firebaseAnalytics.setClickEvent("FilterActionButton")
 
-            reqFilterGa("apply_filter", seriesViewModel.getSelectedSeries())
-            reqFilterGa("apply_brand", brandViewModel.getSelectedBrands())
-            reqFilterGa("apply_bonding", keywordViewModel.getSelectedKeywords())
-
-            Log.d("GA 필터 - 계열", seriesViewModel.getSelectedSeries().map { it.name }.toString())
-            Log.d("GA 필터 - 브랜드", brandViewModel.getSelectedBrands().map { it.name }.toString())
-            Log.d("GA 필터 - 키워드", keywordViewModel.getSelectedKeywords().map { it.name }.toString())
+            setFilterGa()
         }
         binding.toolbarFilter.toolbarBtn.setOnSafeClickListener {
             closeSelfWithAnimation()
@@ -122,6 +117,23 @@ class FilterFragment : Fragment() {
                 isEnabled = false
             }
             resetFilter()
+        }
+    }
+
+    private fun setFilterGa(){
+        if(seriesViewModel.getSelectedSeries().isNotEmpty()){
+            reqFilterGa("apply_filter", seriesViewModel.getSelectedSeries())
+            Log.d("GA 필터 - 계열", seriesViewModel.getSelectedSeries().map { it.name }.toString())
+        }
+
+        if(brandViewModel.getSelectedBrands().isNotEmpty()){
+            reqFilterGa("apply_brand", brandViewModel.getSelectedBrands())
+            Log.d("GA 필터 - 브랜드", brandViewModel.getSelectedBrands().map { it.name }.toString())
+        }
+
+        if(keywordViewModel.getSelectedKeywords().isNotEmpty()){
+            reqFilterGa("apply_bonding", keywordViewModel.getSelectedKeywords())
+            Log.d("GA 필터 - 키워드", keywordViewModel.getSelectedKeywords().map { it.name }.toString())
         }
     }
 
@@ -156,7 +168,6 @@ class FilterFragment : Fragment() {
             filterCategoryList.forEachIndexed { index, filterCategory ->
                 val tab = getTabAt(index)
                 tab?.text = filterCategory.nameText
-                tab?.orCreateBadge?.backgroundColor = context.getColor(R.color.black)
             }
             addOnTabSelectedListener(TabSelectedListener(binding.tabFilter))
             changeTabsFont(0)
@@ -166,26 +177,35 @@ class FilterFragment : Fragment() {
     private fun observeViewModel() {
         seriesViewModel.selectedCount.observe(viewLifecycleOwner) { count ->
             val tab = binding.tabFilter.getTabAt(FilterCategory.Series.index)
-            tab?.orCreateBadge?.let {
-                updateCategoryBadge(it, count)
+            if(count != 0){
+                tab?.text = FilterCategory.Series.nameText+"($count)"
+            }else{
+                tab?.text = FilterCategory.Series.nameText
             }
             updateApplyBtnText()
+            binding.tabFilter.changeTabsFont(FilterCategory.Series.index)
         }
 
         brandViewModel.selectedCount.observe(viewLifecycleOwner) { count ->
             val tab = binding.tabFilter.getTabAt(FilterCategory.Brand.index)
-            tab?.orCreateBadge?.let {
-                updateCategoryBadge(it, count)
+            if(count != 0){
+                tab?.text = FilterCategory.Brand.nameText+"($count)"
+            }else{
+                tab?.text = FilterCategory.Brand.nameText
             }
             updateApplyBtnText()
+            binding.tabFilter.changeTabsFont(FilterCategory.Brand.index)
         }
 
         keywordViewModel.selectedCount.observe(viewLifecycleOwner) { count ->
             val tab = binding.tabFilter.getTabAt(FilterCategory.Keyword.index)
-            tab?.orCreateBadge?.let {
-                updateCategoryBadge(it, count)
+            if(count != 0){
+               tab?.text = FilterCategory.Keyword.nameText+"($count)"
+            }else{
+                tab?.text = FilterCategory.Keyword.nameText
             }
             updateApplyBtnText()
+            binding.tabFilter.changeTabsFont(FilterCategory.Keyword.index)
         }
     }
 
