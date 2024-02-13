@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.scentsnote.android.ScentsNoteApplication
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
@@ -22,6 +24,7 @@ import com.scentsnote.android.utils.extension.setHeartBtnClickEvent
 import com.scentsnote.android.viewmodel.home.HomeViewModel
 import com.scentsnote.android.utils.extension.setOnSafeClickListener
 import com.scentsnote.android.utils.extension.setPageViewEvent
+import kotlinx.coroutines.launch
 import java.util.*
 
 /**
@@ -60,7 +63,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        observe()
+        initObserve()
 
         initRecommendList()
         initPopularList()
@@ -71,8 +74,11 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            homeViewModel.getHomePerfumeList()
+        viewLifecycleOwner.lifecycleScope.launch {
+            homeViewModel.run {
+                getHomePerfumeList()
+                getNewPerfumeList(10)
+            }
         }
 
         firebaseAnalytics.setPageViewEvent("HomePage",this::class.java.name)
@@ -135,8 +141,8 @@ class HomeFragment : Fragment() {
         binding.vpHomeRecommend.adapter = recommendAdapter
     }
 
-    private fun observe() {
-        homeViewModel.recommendPerfumeList.observe(requireActivity(), androidx.lifecycle.Observer {
+    private fun initObserve() {
+        homeViewModel.recommendPerfumeList.observe(requireActivity()){
 
             recommendAdapter.run {
                 replaceAll(ArrayList(it))
@@ -144,7 +150,13 @@ class HomeFragment : Fragment() {
             }
 
             binding.indicatorHome.setViewPager(binding.vpHomeRecommend)
-        })
+        }
+
+        homeViewModel.recentPerfumeList.observe(requireActivity()) {
+            binding.clHomeRecent.visibility =
+                if(it.isNotEmpty()) View.VISIBLE
+                else View.GONE
+        }
     }
 
     private fun initPopularList() {

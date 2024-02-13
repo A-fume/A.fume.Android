@@ -12,7 +12,7 @@ class HomeRepository {
     suspend fun getRecommendPerfumeList(token : String) = remoteDataSource.getRecommendPerfumeList(token)
     suspend fun getCommonPerfumeList(token : String) = remoteDataSource.getCommonPerfumeList(token)
     suspend fun getRecentPerfumeList(token : String) = remoteDataSource.getRecentPerfumeList(token)
-    suspend fun getNewPerfumeList() = remoteDataSource.getNewPerfumeList()
+    suspend fun getNewPerfumeList(requestSize: Int?) = remoteDataSource.getNewPerfumeList(requestSize)
     fun postPerfumeLike(token: String, perfumeIdx: Int): Single<ResponseBase<Boolean>> =
         ScentsNoteServiceImpl.service.postPerfumeLike(token, perfumeIdx).map { it }
 }

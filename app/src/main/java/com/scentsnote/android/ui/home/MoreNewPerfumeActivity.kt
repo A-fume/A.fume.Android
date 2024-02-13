@@ -6,6 +6,9 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.scentsnote.android.R
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.databinding.ActivityMoreNewPerfumeBinding
@@ -14,6 +17,7 @@ import com.scentsnote.android.viewmodel.home.HomeViewModel
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.setHeartBtnClickEvent
 import com.scentsnote.android.utils.extension.setPageViewEvent
+import kotlinx.coroutines.launch
 
 /**
  * 홈 화면 - 새로운 향수 더보기
@@ -30,6 +34,10 @@ class MoreNewPerfumeActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_more_new_perfume)
         binding.lifecycleOwner = this
         binding.viewModel = homeViewModel
+
+        lifecycleScope.launch {
+            homeViewModel.getNewPerfumeList(null)
+        }
 
         initNewList()
     }
