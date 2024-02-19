@@ -80,7 +80,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/indicator_perfume_detail"
-                    app:srcCompat="@drawable/border_white_fill_20" />
+                    android:background="@color/white" />
 
                 <TextView
                     android:id="@+id/act_perfume_detail_tv_brand"
@@ -92,7 +92,7 @@
                     android:fontFamily="@font/nanummyeongjo_bold"
                     android:includeFontPadding="false"
                     android:text="@{item.brandName}"
-                    android:textColor="@color/point_beige"
+                    android:textColor="@color/dark_gray_7d"
                     android:textSize="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -133,7 +133,7 @@
                     android:fontFamily="@font/nanummyeongjo"
                     android:includeFontPadding="false"
                     android:text="@{Float.toString(item.score)}"
-                    android:textColor="@color/primary_black"
+                    android:textColor="@color/black_text"
                     android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="@+id/rb_perfume_detail"
                     app:layout_constraintStart_toEndOf="@+id/rb_perfume_detail"
