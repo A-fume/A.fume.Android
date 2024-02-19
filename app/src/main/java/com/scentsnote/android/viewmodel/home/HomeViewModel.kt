@@ -32,25 +32,14 @@ class HomeViewModel : ViewModel(){
     val recentPerfumeList : LiveData<MutableList<HomePerfumeItem>>
         get() = _recentPerfumeList
 
-    private val _isValidRecentList = MutableLiveData<Boolean>(true)
-    val isValidRecentList : LiveData<Boolean>
-        get() = _isValidRecentList
-
     private val _newPerfumeList : MutableLiveData<MutableList<HomePerfumeItem>> = MutableLiveData()
     val newPerfumeList : LiveData<MutableList<HomePerfumeItem>>
         get() = _newPerfumeList
-
-    init {
-        viewModelScope.launch {
-            getHomePerfumeList()
-        }
-    }
 
     suspend fun getHomePerfumeList(){
         getRecommendPerfumeList()
         getCommonPerfumeList()
         getRecentPerfumeList()
-        getNewPerfumeList()
     }
 
     private suspend fun getRecommendPerfumeList(){
@@ -73,22 +62,17 @@ class HomeViewModel : ViewModel(){
 
     private suspend fun getRecentPerfumeList(){
         try{
-            _isValidRecentList.postValue(true)
             _recentPerfumeList.value = homeRepository.getRecentPerfumeList(ScentsNoteApplication.prefManager.accessToken)
             Log.d("getRecentPerfumeList", _recentPerfumeList.value.toString())
-
-            if(_recentPerfumeList.value!!.isEmpty()){
-                _isValidRecentList.postValue(false)
-            }
         }catch (e : HttpException){
-            _isValidRecentList.postValue(false)
+            _recentPerfumeList.value = mutableListOf()
             Log.d("getRecentPerfumeList error", e.message())
         }
     }
 
-    private suspend fun getNewPerfumeList(){
+    suspend fun getNewPerfumeList(requestSize: Int?){
         try{
-            _newPerfumeList.value = homeRepository.getNewPerfumeList()
+            _newPerfumeList.value = homeRepository.getNewPerfumeList(requestSize)
             Log.d("getNewPerfumeList", _newPerfumeList.value.toString())
         }catch (e : HttpException){
             Log.d("getNewPerfumeList error", e.message())

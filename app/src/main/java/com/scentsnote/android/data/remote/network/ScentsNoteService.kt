@@ -117,7 +117,7 @@ interface ScentsNoteService {
     // Home - New Perfume List
     @GET("perfume/new")
     suspend fun getNewPerfumeList(
-
+        @Query("requestSize") requestSize : Int?
     ):ResponseBase<ResponseHomePerfumeList>
 
     @GET("perfume/{perfumeIdx}")
