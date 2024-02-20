@@ -153,6 +153,18 @@ class PerfumeDetailActivity :
             }
 
         }
+
+        binding.btnLowestPrice.setOnSafeClickListener {
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_up,
+                    R.anim.slide_down,
+                    R.anim.slide_up,
+                    R.anim.slide_down
+                )
+                .add(R.id.fc_detail, LowestPriceFragment.newInstance())
+                .commitAllowingStateLoss()
+        }
     }
 
     override fun onBackPressed() {
