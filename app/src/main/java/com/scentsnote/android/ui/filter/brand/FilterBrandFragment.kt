@@ -97,7 +97,7 @@ class FilterBrandFragment : Fragment() {
 
     fun onClickWithdrawalBtn(view: View) {
         val intent = Intent(requireContext(), BaseWebViewActivity::class.java)
-        intent.putExtra("url", "tipOff")
+        intent.putExtra("type", "tipOff")
         startActivity(intent)
     }
 

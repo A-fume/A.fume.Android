@@ -160,9 +160,9 @@ class MyFragment : Fragment() {
                 else->{
                     val intent = Intent(requireContext(), BaseWebViewActivity::class.java)
                     if(menuItem.itemId == R.id.feedback){
-                        intent.putExtra("url", "feedback")
+                        intent.putExtra("type", "feedback")
                     }else{
-                        intent.putExtra("url", "tipOff")
+                        intent.putExtra("type", "tipOff")
                     }
                     startActivity(intent)
                 }

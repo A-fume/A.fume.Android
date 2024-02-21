@@ -71,7 +71,7 @@ class MoreNewPerfumeActivity : AppCompatActivity() {
 
     fun onClickWithdrawalBtn(view: View) {
         val intent = Intent(this, BaseWebViewActivity::class.java)
-        intent.putExtra("url", "tipOff")
+        intent.putExtra("type", "tipOff")
         startActivity(intent)
     }
 }

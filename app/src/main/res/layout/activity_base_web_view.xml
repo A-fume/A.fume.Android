@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.detail.LowestPriceFragment">
+        tools:context=".utils.base.BaseWebViewActivity">
 
         <include
-            android:id="@+id/toolbar_lowest_price"
+            android:id="@+id/tb_web_view"
             layout="@layout/toolbar_txt_with_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone" />
 
         <WebView
-            android:id="@+id/wv_lowest_price"
+            android:id="@+id/wv_my_inquiry"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_lowest_price" />
-
+            app:layout_constraintTop_toBottomOf="@+id/tb_web_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

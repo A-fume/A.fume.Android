@@ -62,7 +62,7 @@ class EditMyInfoActivity : AppCompatActivity() {
 
     fun onClickWithdrawalBtn(view: View) {
         val intent = Intent(this, BaseWebViewActivity::class.java)
-        intent.putExtra("url", "withdrawal")
+        intent.putExtra("type", "withdrawal")
         startActivity(intent)
     }
 

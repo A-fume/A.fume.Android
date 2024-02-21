@@ -422,7 +422,7 @@ class DetailInfoFragment(val perfumeIdx: Int) : Fragment() {
     /** 정보 수정 제안 버튼 - 현재(2023.05) 구글폼으로 연결 */
     fun onClickInfoReportBtn(view: View){
         val intent = Intent(activity, BaseWebViewActivity::class.java)
-        intent.putExtra("url", "infoReport")
+        intent.putExtra("type", "infoReport")
         startActivity(intent)
     }
 }

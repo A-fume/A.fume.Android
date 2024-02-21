@@ -18,6 +18,7 @@ import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 import com.scentsnote.android.utils.adapter.BindingAdapter.setNoteBtnText
 import com.scentsnote.android.utils.base.BaseActivity
+import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.*
 import com.scentsnote.android.utils.listener.TabSelectedListener
 
@@ -155,15 +156,12 @@ class PerfumeDetailActivity :
         }
 
         binding.btnLowestPrice.setOnSafeClickListener {
-            supportFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_up,
-                    R.anim.slide_down,
-                    R.anim.slide_up,
-                    R.anim.slide_down
-                )
-                .add(R.id.fc_detail, LowestPriceFragment.newInstance())
-                .commitAllowingStateLoss()
+            val intent = Intent(this, BaseWebViewActivity::class.java)
+            intent.apply {
+                putExtra("type", "lowestPrice")
+                putExtra("url","https://www.naver.com")
+            }
+            startActivity(intent)
         }
     }
 
