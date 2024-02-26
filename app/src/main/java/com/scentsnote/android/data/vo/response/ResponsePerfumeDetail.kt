@@ -22,7 +22,8 @@ data class PerfumeDetail(
     val englishName: String,
     val longevity:Longevity,
     val gender: Gender,
-    var reviewIdx: Int
+    var reviewIdx: Int,
+    val priceComparisonUrl: String?
 )
 data class Season(
     val spring: Int,

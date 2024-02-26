@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.scentsnote.android.ScentsNoteApplication.Companion.firebaseAnalytics
 import com.scentsnote.android.viewmodel.detail.PerfumeDetailViewModel
 import com.scentsnote.android.utils.adapter.BindingAdapter.setNoteBtnText
+import com.scentsnote.android.utils.adapter.BindingAdapter.setPriceBtnVisible
 import com.scentsnote.android.utils.base.BaseActivity
 import com.scentsnote.android.utils.base.BaseWebViewActivity
 import com.scentsnote.android.utils.extension.*
@@ -38,6 +39,7 @@ class PerfumeDetailActivity :
     var perfumeName = ""
     var brandName = ""
     var image: String? = ""
+    var priceUrl: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +81,9 @@ class PerfumeDetailActivity :
             perfumeName = it.name
             brandName = it.brandName
             image = it.imageUrls[0]
+
+            priceUrl = it.priceComparisonUrl ?: "https://www.naver.com"
+            binding.clLowestPrice.setPriceBtnVisible(it.priceComparisonUrl)
 
             Glide.with(this)
                 .load(it.imageUrls[0])
@@ -155,11 +160,11 @@ class PerfumeDetailActivity :
 
         }
 
-        binding.btnLowestPrice.setOnSafeClickListener {
+        binding.clLowestPrice.setOnSafeClickListener {
             val intent = Intent(this, BaseWebViewActivity::class.java)
             intent.apply {
                 putExtra("type", "lowestPrice")
-                putExtra("url","https://www.naver.com")
+                putExtra("url",priceUrl)
             }
             startActivity(intent)
         }

@@ -31,6 +31,7 @@ class BaseWebViewActivity : AppCompatActivity() {
         binding.wvMyInquiry.apply {
             webViewClient = WebViewClient()
             settings.javaScriptEnabled = true
+            settings.domStorageEnabled = true
             loadUrl(url)
         }
 

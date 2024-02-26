@@ -8,6 +8,7 @@ import android.widget.CheckedTextView
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
@@ -245,5 +246,13 @@ object BindingAdapter {
         setSelectedTabTxt(status)
     }
 
-
+    @JvmStatic
+    @BindingAdapter("setPriceBtnVisible")
+    fun ConstraintLayout.setPriceBtnVisible(url: String?){
+        if(url.isNullOrEmpty()){
+            this.visibility = View.GONE
+        }else{
+            this.visibility = View.VISIBLE
+        }
+    }
 }
